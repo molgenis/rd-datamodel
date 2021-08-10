@@ -1,0 +1,15 @@
+{
+  "folders": [
+    {
+      "path" : "."
+    }
+  ],
+  "settings" : {
+  },
+  "extensions": {
+    "recommendations": [
+      "redhat.vscode-yaml",
+      "ms-python.python"
+    ]
+  }
+}

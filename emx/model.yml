@@ -1,0 +1,333 @@
+name: rdModel
+label: Rare Diseases Model
+description: Rare Disease Shared Data Model
+version: 0.0001
+date: 2021-09-10
+defaults:
+  idAttribute: false
+  dataType: string
+  nillable: true
+  lookupAttribute: false
+entities:
+  - name: patients
+    attributes:
+      - name: personalID
+        name-rd3: subjectID
+        name-cosas: umcg_numr
+        dataType: string
+        idAttribute: true
+        nillable: false
+      - name: familyID
+        name-rd3: fid
+        name-cosas: family_numr
+      - name: maternalID
+        name-rd3: mid
+        name-cosas: maternal_id
+      - name: paternalID
+        name-cosas: paternal_id
+        name-rd3: pid
+      - name: linkedFamilyIDs
+        name-cosas: linked_family_ids
+        name-rd3: none
+      - name: dateOfBirth
+        name-cosas: dob
+        name-rd3: dateOfBirth # year
+        dataType: date
+      - name: yearOfBirth
+        name-cosas: none
+        name-rd3: dateOfBirth # year
+      - name: inclusionStatus
+        dataType: categorical
+        refEntity: ...
+      - name: dateOfDeath
+        name-cosas: date_deceased
+        name-rd3: none
+        dataType: date
+      - name: ageAtDeath # years
+        name-cosas: age_at_death
+        name-rd3: ageOfDeath
+        dataType: integer
+      - name: claimedSex
+        name-cosas: biological_sex
+        name-rd3: sex1
+        dataType: categorical
+        refEntity: ...
+      - name: geneticSex
+        name-cosas: biological_sex
+        name-rd3: sex2
+        dataType: categorical
+        refEntity: ...
+      - name: countryOfBirth
+        name-cosas: none
+        name-rd3: Country_of_origin
+      - name: countryOfResidence
+        name-cosas: none
+        name-rd3: none
+      - name: ancestry
+        name-cosas: none
+        name-rd3: none
+      - name: primaryAffiliation
+        name-cosas: none
+        name-rd3: organisation
+      - name: affiliatedNetworks
+        name-cosas: none
+        name-rd3: ERN
+      - name: consanguinity
+        name-cosas: consanguinity
+        name-rd3: consanguinity_suspected
+        dataType: bool
+      - name: fetalStatus
+        name-cosas: is_fetus
+        name-rd3: none
+        dataType: bool
+      - name: twinStatus
+        name-cosas: is_twin
+        name-rd3: none
+        dataType: bool
+      - name: altPersonalIDs
+        name-cosas: linked_patient_id
+        name-rd3: none
+      - name: firstContact
+        name-cosas: date_first_consult
+        name-rd3: none
+        dataType: date
+      - name: consentStatus
+        name-cosas: none
+        name-rd3: retracted, matchmaker permission, incidental findings
+        dataType: categoricalmref
+        refEntity: ...
+      - name: dateLastUpdated
+        name-cosas: date_last_updated
+        name-rd3: none
+        dataType: dateTime
+  - name: clinical
+    attributes:
+      - name: personalID
+        name-rd3: subjectID
+        name-cosas: umcg_numr
+        dataType: xref
+        refEntity: patients
+      - name: clinicalID
+        name-cosas: id
+        name-rd3: phenopacketsID
+      - name: dateOfDiagnosis
+        name-cosas: date
+        name-rd3: none
+        dataType: date
+      - name: ageAtDiagnosis
+        name-cosas: none
+        name-rd3: ageOfDiagnosis
+      - name: ageOfOnset
+        name-cosas: none
+        name-rd3: ageOfOnset
+      - name: clinicalDiagnosis
+        name-cosas: primary_dx
+        name-rd3: disease
+      - name: clinicalDiagnosisCertainty
+        name-cosas: primary_dx_certainty
+        name-rd3: none
+      - name: secondaryDiagnosis
+        name-cosas: extra_dx
+        name-rd3: none
+      - name: secondaryDiagnosisCertainty
+        name-cosas: extra_dx_certainty
+        name-rd3: none
+      - name: observedPhenotype
+        name-cosas: hpo
+        name-rd3: phenotype
+      - name: unobservedPhenotype
+        name-cosas: none
+        name-rd3: hasNotPhenotype
+      - name: molecularDiagnosis
+        name-cosas: none # for now
+        name-rd3: variant
+        label: Causal Variant
+      - name: solvedStatus
+        name-cosas: none
+        name-rd3: solved
+        dataType: bool
+      - name: dateSolved
+        name-cosas: none
+        name-rd3: date_solved
+      - name: dateLastUpdated
+        name-cosas: date_last_updated
+        name-rd3: none
+        dataType: dateTime
+  - name: samples
+    label: Samples
+    label-nl: Samples
+    description: Sample metadata including tests performed and results
+    description-nl: Metagegevens over het monster, inclusief uitgevoerde tests en resultaten
+    attributes:
+      - name: personalID
+        name-rd3: subjectID
+        name-cosas: umcg_numr
+        dataType: xref
+        refEntity: \*_patients
+        idAttribute: true
+        nillable: false
+      - name: sampleID
+        name-cosas: sample_id
+        name-rd3: sampleID
+      - name: alternateID
+        name-cosas: request_id or test_id?
+        name-rd3: alternativeIdentifier
+      - name: materialID
+        name-cosas: dna_numr
+        name-rd3: none
+      - name: samplingDate
+        name-cosas: test_date
+        name-rd3: none
+        dataType: date
+      - name: materialType
+        name-cosas: material_type
+        name-rd3: materialType
+        dataType: xref
+        refEntity: \*_materialTypes
+      - name: tissueType
+        name-cosas: none
+        name-rd3: tissueType
+        dataType: xref
+        refEntity: \*_tissueTypes
+      - name: labIndication
+        name-cosas: lab_indication
+        dataType: xref
+        refEntity: ...
+      - name: sampleStatus
+        name-cosas: none
+        name-rd3: retracted
+        dataType: xref
+        refEntity: ...
+      - name: dateLastUpdated
+        name-cosas: date_last_updated
+        name-rd3: none
+        dataType: dateTime
+
+      # - name: test_id
+      #   label: Test ID
+      #   label-nl: Test-ID
+      # - name: test_code
+      #   label: Test code
+      #   label-nl: Test code
+      # - name: test_date
+      #   label: Test date
+      #   label-nl: Testdatum
+      #   dataType: date
+      # - name: test_result
+      #   label: Test result
+      #   label-nl: Testresultaat
+      #   dataType: text
+      # - name: test_result_status
+      #   label: Test result status
+      #   label-nl: Status testresultaat
+      # - name: disorder_code
+      #   label: Disorder code
+      #   label-nl: Aandoening code
+      #   dataType: xref
+      #   refEntity: cosasrefs_condition_codes
+      #   nillable: true
+
+  - name: experiments
+    attributes:
+      - name: personalID
+        name-rd3: subjectID
+        name-cosas: umcg_numr
+        dataType: xref
+        refEntity: \*_patients
+        # idAttribute: true
+        # nillable: false
+      - name: sampleID
+        name-cosas: sample_id
+        name-rd3: sampleID
+      - name: materialID
+        name-cosas: dna_numr
+        name-rd3: none
+      - name: experimentID
+        name-cosas: test_code  # more likely to be available than test_id
+        name-rd3: experimentID
+      - name: experimentDate
+        name-cosas: test_date
+        name-rd3: none
+      - name: sequencingCenter
+        name-cosas: none
+        name-rd3: sequencingCenter
+      - name: sequencingPlatform
+        name-cosas: none
+        name-rd3: sequencer
+      - name: sequencingModel
+        name-cosas: none
+        name-rd3: sequencer
+      - name: sequencingType # or sequencingMethod?
+        name-cosas: none
+        name-rd3: seqType
+      - name: prepKit
+        name-cosas: none
+        name-rd3: none
+      - name: enrichmentKit
+        name-cosas: none
+        name-rd3: capture
+      - name: barcode
+        name-cosas: barcode  # tbd
+        name-rd3: barcode
+      - name: avgReadDepth
+        name-cosas: none
+        name-rd3: mean_cov
+      - name: percentTR20
+        name-cosas: none
+        name-rd3: c20
+      - name: experimentStatus
+        name-cosas: none
+        name-rd3: retracted
+        dataType: xref
+        refEntity: ...
+      - name: batch
+        name-cosas: batch
+        name-rd3: none
+      - name: genomeBuild
+        name-cosas: genome_build
+        name-rd3: none
+      - name: dateLastUpdated
+        name-cosas: date_last_updated
+        name-rd3: none
+        dataType: dateTime
+  - name: files
+    attributes:
+      - name: personalID
+        name-rd3: subjectID
+        name-cosas: umcg_numr
+        dataType: xref
+        refEntity: \*_patients
+        # idAttribute: true
+        # nillable: false
+      # use one or more of the following three ID variables
+      # it depends on what is available/more useful
+      - name: sampleID
+        name-cosas: sample_id
+        name-rd3: sampleID
+      - name: materialID
+        name-cosas: dna_numr
+        name-rd3: none
+      - name: experimentID
+        name-cosas: test_code  # more likely to be available than test_id
+        name-rd3: experimentID
+      - name: fileID
+        name-cosas: none
+        name-rd3: EGA
+      - name: filePath
+        name-cosas: filepath
+        name-rd3: name
+      - name: fileType
+        name-cosas: filetype
+        name-rd3: typeFile
+        dataType: xref
+        refEntity: \*_filetypes
+      - name: dateCreated
+        name-cosas: created
+        name-rd3: dateCreated
+      - name: md5
+        label: Checksum
+        label-nl: Checksum
+      - name: dateLastUpdated
+        name-cosas: date_last_updated
+        name-rd3: none
+        dataType: dateTime
