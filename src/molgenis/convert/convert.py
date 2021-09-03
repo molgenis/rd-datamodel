@@ -1,6 +1,5 @@
 
 
-from _typeshed import Self
 import yaml
 from datetime import datetime
 from os import path
@@ -97,12 +96,21 @@ class Convert:
                 for aKey in attrKeys:
                     if aKey in emxAttributes['attributes'] or aKey.startswith(langAttrs):
                         d[aKey] = attr[aKey]
+
+                # apply default settings if specified
+                if data['defaults']:
+                    defaultKeys = list(data['defaults'].keys())
+                    for dKey in defaultKeys:
+                        if dKey not in attrKeys:
+                            d[dKey] = data['defaults'][dKey]
+
                 emx['attributes'].append(d)
             
             # check for datasets and extract
             if 'data' in entity:
                 name = self.package + '_' + entity['name']
                 emx['data'][name] = entity['data']
+
         return emx
     #
     # @name convert
@@ -124,7 +132,7 @@ class Convert:
         self.emx = {
             'packages': self.__emx__extract__package__(yaml, include_pkg_meta),
             **self.__emx__extract__entities__(yaml)
-        }
+        }   
 
 # tests
 c = Convert(file = 'dev/birddata.yml')
