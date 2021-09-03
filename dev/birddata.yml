@@ -26,6 +26,7 @@ entities:
         description: Commonly used name for a species
       - name: scientificName
         label: Scientific Name
+        label-nl: Wetenschappelijke naam
         description: Scientific name for a species
       - name: count
         label: Count
@@ -121,6 +122,7 @@ entities:
         dataType: string
       - name: category
       - name: name
+        label-nl: naam
     data:          
       - code: AU-ACT
         category: territory

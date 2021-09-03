@@ -1,6 +1,7 @@
 
 
 import yaml
+import xlsxwriter
 from datetime import datetime
 from os import path
 from src.molgenis.convert.utils import emxAttributes
@@ -113,6 +114,58 @@ class Convert:
 
         return emx
     #
+    # @name __xlsx__write__headers__
+    # @description write headers to xlsx file
+    # @param sheet xlsxwriter object sheet
+    # @param headers list of headers to write
+    #   
+    def __xlsx__write__headers(self, sheet, headers):
+        for h in headers:
+            sheet.write(0, headers.index(h), h)
+    #
+    # @name __xlsx__write__data
+    def __xlsx__write__data__(self, sheet, headers, data):
+        row = 1 # zero index offset (adjust for header row)
+        for d in data:
+            for key, value in d.items():
+                sheet.write(row, headers.index(key), value)
+            row += 1
+            
+    def __get__headers__(self, data):
+        return list(set().union(*(d.keys() for d in data)))
+    #
+    # @name __write__xlsx__
+    # @description write emx to xlsx
+    # @param path output path
+    #
+    def __write__xlsx__(self, path, includeData):
+        wb = xlsxwriter.Workbook(path)
+        sheet_pkg = wb.add_worksheet('packages')
+        sheet_enty = wb.add_worksheet('entities')
+        sheet_attr = wb.add_worksheet('attributes')
+        
+        # pull headers from each primary emx component and write to file
+        pkg_headers = list(self.emx['packages'].keys())
+        enty_headers = self.__get__headers__(self.emx['entities'])
+        attr_headers = self.__get__headers__(self.emx['attributes'])
+        
+        self.__xlsx__write__headers(sheet_pkg, pkg_headers)
+        self.__xlsx__write__headers(sheet_enty, enty_headers)
+        self.__xlsx__write__headers(sheet_attr, attr_headers)
+        
+        self.__xlsx__write__data__(sheet_pkg, pkg_headers, [self.emx['packages']])
+        self.__xlsx__write__data__(sheet_enty, enty_headers, self.emx['entities'])
+        self.__xlsx__write__data__(sheet_attr, attr_headers, self.emx['attributes'])
+        
+        # process each dataset individually
+        if 'data' in self.emx and includeData:
+            for dataset in self.emx['data']:
+                sheet_data = wb.add_worksheet(str(dataset))
+                columns = self.__get__headers__(self.emx['data'][dataset])
+                self.__xlsx__write__headers(sheet_data, columns)
+                self.__xlsx__write__data__(sheet_data, columns, self.emx['data'][dataset])
+        wb.close()
+    #
     # @name convert
     # @description convert yaml file into EMX structure
     # @param include_pkg_meta if TRUE, version and date will be added to description
@@ -133,8 +186,28 @@ class Convert:
             'packages': self.__emx__extract__package__(yaml, include_pkg_meta),
             **self.__emx__extract__entities__(yaml)
         }   
+    #
+    # @name write
+    # @description write EMX files
+    # @param format write as csv or xlsx (default)
+    # @param outDir output directory (defaults to ".")
+    # @param includeData If True (default), any datasets defined in the yaml
+    #       will be written to file
+    # @return None
+    def write(self, format = 'xlsx', outDir = '.', includeData = True):
+        if format not in ['csv', 'xlsx']:
+            raise ValueError('Error in write: unexpected format ', str(format))
+        
+        filepath = outDir + '/' + self.package + '.' + str(format)
+        if format == 'xlsx':
+            self.__write__xlsx__(filepath, includeData)
+        
+        # if format == 'csv':
+        #     self.__write__csv__(filepath)
+
 
 # tests
 c = Convert(file = 'dev/birddata.yml')
 c.convert()
+c.write()
 c.emx
