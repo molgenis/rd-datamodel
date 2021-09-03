@@ -9,7 +9,6 @@
 emxAttributes = {
     'packages': ['name', 'label', 'description', 'parent', 'tags'],
     'entities': [
-        # 'entity',  # required
         'name',  # required
         'label',
         'extends',
