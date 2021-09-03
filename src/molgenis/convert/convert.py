@@ -1,5 +1,6 @@
 
 
+from _typeshed import Self
 import yaml
 from datetime import datetime
 from os import path
@@ -16,10 +17,10 @@ from src.molgenis.convert.utils import emxAttributes
 class Convert:
     def __init__(self, file):
         self.file = path.abspath(file)
+        self.emx = False,
     #
     # @name __yaml__read__
     # @description read yaml file
-    # @param self required parameter
     # @param file path to file (from self.file)
     # @return dictionary
     #
@@ -33,7 +34,6 @@ class Convert:
     #
     # @name __emx__extract__package__
     # @description extract known EMX package attributes
-    # @param self required parameter
     # @param data parsed yaml object
     # @param include_pkg_meta if TRUE, version and date will be added to description
     # @return ...
@@ -65,32 +65,48 @@ class Convert:
     #
     # @name __emx__extract__entities
     # @description extract known EMX entity attributes
-    # @param self required parameter
     # @param data parsed yaml object
     # @return list of dictionaries
     #
-    def __exm__extract__entities__(self, data):
-        emx = []
+    def __emx__extract__entities__(self, data):
+        emx = {'entities': [], 'attributes': [], 'data': {}}
+        langAttrs = ('label-', 'description-')
         for entity in data['entities']:
-            keys = list(entity.keys())
+            entityKeys = list(entity.keys())
 
-            if 'name' not in keys:
+            # validate required emx properties
+            if 'name' not in entityKeys:
                 raise ValueError('Error in entity: missing required attribute "name"')
             
-            e = {}
-            for k in keys:
-                if k in emxAttributes['entities'] or k.startswith(('label-', 'description-')):
-                    e[k] = entity[k]
+            if 'attributes' not in entityKeys:
+                raise ValueError('Error in entity: missing required attribute "attributes"')
             
-            if 'package' not in keys:
-                e['package'] = data['name']
 
-            emx.append(e)
+            # extract entity attributes and append package name automatically
+            e = {'package': self.package}
+            for ekey in entityKeys:
+                if ekey in emxAttributes['entities'] or ekey.startswith(langAttrs):
+                    e[ekey] = entity[ekey]
+            emx['entities'].append(e)
+            
+            # check for attributes and extract
+            attributes = entity['attributes']
+            for attr in attributes:
+                attrKeys = list(attr.keys())
+                d = {'entity': entity['name']}
+                for aKey in attrKeys:
+                    if aKey in emxAttributes['attributes'] or aKey.startswith(langAttrs):
+                        d[aKey] = attr[aKey]
+                emx['attributes'].append(d)
+            
+            # check for datasets and extract
+            if 'data' in entity:
+                name = self.package + '_' + entity['name']
+                emx['data'][name] = entity['data']
         return emx
     #
     # @name convert
-    # @description
-    # @param self required parameter
+    # @description convert yaml file into EMX structure
     # @param include_pkg_meta if TRUE, version and date will be added to description
     # @return ...
     #
@@ -103,22 +119,14 @@ class Convert:
         
         if 'entities' not in keys:
             raise ValueError('Error in convert: missing "entities"')
-        
-        emx = {
+
+        self.package = yaml['name']
+        self.emx = {
             'packages': self.__emx__extract__package__(yaml, include_pkg_meta),
-            'entities': self.__exm__extract__entities__(yaml),
-            'attributes': [],
-            'name': yaml['name']
+            **self.__emx__extract__entities__(yaml)
         }
-
-        return emx
-
 
 # tests
 c = Convert(file = 'dev/birddata.yml')
 c.convert()
-
-
-x = c.__yaml__read__('dev/birddata.yml')
-c.__emx__extract__package__(x, True)
-c.__exm__extract__entities__(x)
+c.emx
