@@ -79,7 +79,7 @@ class Convert:
     # @param include_pkg_meta if TRUE, version and date will be added to description
     # @return ...
     #
-    def __emx__extract__package__(self, data, include_pkg_meta):
+    def __emx__extract__package__(self, data, include_pkg_meta: bool = True):
         pkg = {}
         keys = list(data.keys())
         for k in keys:
@@ -150,6 +150,11 @@ class Convert:
 
         return emx
     #
+    # @name __xlsx__headers
+    # @description write unformatted headers to xlsx file
+    # @param wb xslxwriter object
+    # @param columns list of columns names to write to file
+    # @param name sheet name
     #
     def ___xlsx__headers__(self, wb, columns, name):
         sheet = wb.sheets[name]
@@ -161,44 +166,65 @@ class Convert:
     # @description write emx to xlsx
     # @param path output path
     #
-    def __write__xlsx__(self, path, includeData):
+    def __write__xlsx__(self, path, includeData: bool = True):
         wb = pd.ExcelWriter(path, engine = 'xlsxwriter')
 
+        # as.data.frame
         pkgs = pd.DataFrame(self.emx['packages'], index=[0])
-        enty = pd.DataFrame(
-            self.emx['entities'],
-            index = list(range(0, len(self.emx['entities'])))
-        )
-        attr = pd.DataFrame(
-            self.emx['attributes'],
-            index = list(range(0, len(self.emx['attributes'])))
-        )
+        enty = pd.DataFrame(self.emx['entities'], index = range(0, len(self.emx['entities'])))
+        attr = pd.DataFrame(self.emx['attributes'], index = range(0, len(self.emx['attributes'])))
         
-        
+        # write data
         pkgs.to_excel(wb, sheet_name = 'packages', startrow = 1, header = False, index = False)
         enty.to_excel(wb, sheet_name = 'entities', startrow = 1, header = False, index = False)
         attr.to_excel(wb, sheet_name = 'attributes', startrow = 1, header = False, index = False)
         
+        # write headers
         self.___xlsx__headers__(wb, pkgs.columns.values, 'packages')
         self.___xlsx__headers__(wb, enty.columns.values, 'entities')
         self.___xlsx__headers__(wb, attr.columns.values, 'attributes')
         
-        # process each dataset individually
+        # write each dataset individually
         if 'data' in self.emx and includeData:
             for dataset in self.emx['data']:
-                i = list(range(0, len(self.emx['data'][dataset])))
-                df = pd.DataFrame(self.emx['data'][dataset], index = i,)
+                i = range(0, len(self.emx['data'][dataset]))
+                df = pd.DataFrame(self.emx['data'][dataset], index = i)
                 df.to_excel(wb, sheet_name = dataset, startrow = 1, header = False, index = False)
                 self.___xlsx__headers__(wb, df.columns.values, dataset)
 
         wb.save()
+    #
+    # @name __write__csv__
+    # @description write emx object to mutiple csv files
+    # @param dir output directory (default is the current directory)
+    # @param includeData If True (default), all datasets will be written to file
+    #
+    def __write__csv__(self, dir, includeData: bool = True):
+
+        # as.data.frame
+        pkgs = pd.DataFrame(self.emx['packages'], index=[0])
+        enty = pd.DataFrame(self.emx['entities'], index = range(0, len(self.emx['entities'])))
+        attr = pd.DataFrame(self.emx['attributes'], index = range(0, len(self.emx['attributes'])))
+        
+        # to_csv
+        pkgs.to_csv(dir + '/packages.csv', index = False)
+        enty.to_csv(dir + '/entities.csv', index = False)
+        attr.to_csv(dir + '/attributes.csv', index = False)
+        
+        # write each dataset individually
+        if 'data' in self.emx and includeData:
+            for dataset in self.emx['data']:
+                i = range(0, len(self.emx['data'][dataset]))
+                df = pd.DataFrame(self.emx['data'][dataset], index = i)
+                df.to_csv(dir + '/' + dataset + '.csv', index = False)
+        
     #
     # @name convert
     # @description convert yaml file into EMX structure
     # @param include_pkg_meta if TRUE, version and date will be added to description
     # @return ...
     #
-    def convert(self, include_pkg_meta = True):
+    def convert(self, include_pkg_meta: bool = True):
         yaml = self.__yaml__read__(self.file)
         
         keys = list(yaml.keys())
@@ -221,7 +247,7 @@ class Convert:
     # @param includeData If True (default), any datasets defined in the yaml
     #       will be written to file
     # @return None
-    def write(self, format = 'xlsx', outDir = '.', includeData = True):
+    def write(self, format: str = 'xlsx', outDir: str = '.', includeData: bool = True):
         if format not in ['csv', 'xlsx']:
             raise ValueError('Error in write: unexpected format ', str(format))
         
@@ -232,12 +258,16 @@ class Convert:
                 os.remove(file)
             self.__write__xlsx__(file, includeData)
         
-        # if format == 'csv':
-        #     self.__write__csv__(file)
+        if format == 'csv':
+            dir = os.getcwd() if outDir == '.' else os.path.abspath(outDir)
+            if not os.path.exists(dir):
+                raise ValueError('Path ' + dir + 'does not exist')
+
+            self.__write__csv__(dir)
 
 
 # tests
 c = Convert(file = 'dev/birddata.yml')
 c.convert()
-c.write(outDir = 'dev')
+c.write(format = 'csv', outDir = 'dev/birddata')
 c.emx
