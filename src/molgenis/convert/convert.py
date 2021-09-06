@@ -11,6 +11,7 @@
 
 import os
 import yaml
+from tomark import Tomark
 import pandas as pd
 from datetime import datetime
 from src.molgenis.convert.utils import emxAttributes
@@ -217,7 +218,26 @@ class Convert:
                 i = range(0, len(self.emx['data'][dataset]))
                 df = pd.DataFrame(self.emx['data'][dataset], index = i)
                 df.to_csv(dir + '/' + dataset + '.csv', index = False)
-        
+    #
+    # @name __write__md__   
+    # @description Write metadata scheme to markdown file
+    # @param path path to file
+    def __write__md__(self, path):
+        with open(path, 'w', encoding = 'utf-8') as md:
+            md.write('# {}\n\n'.format(self.package))
+            
+            # write description as introduction
+            if 'description' in self.emx['packages']:
+                md.write('{}\n\n'.format(self.emx['packages']['description']))
+            
+            # write 
+            md.write('## Schema Overview\n\n')
+            tbl = Tomark.table(self.emx['entities'])
+            md.write(tbl)
+            md.write('\n')
+
+            md.close()
+    #
     #
     # @name convert
     # @description convert yaml file into EMX structure
@@ -245,14 +265,23 @@ class Convert:
     # @param format write as csv or xlsx (default)
     # @param outDir output directory (defaults to ".")
     # @param includeData If True (default), any datasets defined in the yaml
-    #       will be written to file
+    #   will be written to file
+    # @param includeMd if True (default), the metadata scheme will be written
+    #   into a markdown file
     # @return None
-    def write(self, format: str = 'xlsx', outDir: str = '.', includeData: bool = True):
+    def write(
+        self,
+        format: str = 'xlsx',
+        outDir: str = '.',
+        includeData: bool = True,
+        includeMd: bool = True
+    ):
         if format not in ['csv', 'xlsx']:
             raise ValueError('Error in write: unexpected format ', str(format))
         
         if format == 'xlsx':
             file = outDir + '/' + self.package + '.' + str(format)
+            mdPath = outDir + '/' + self.package + '_metadata_schema'
             if os.path.exists(file):
                 print('file exists deleting...')
                 os.remove(file)
@@ -262,12 +291,15 @@ class Convert:
             dir = os.getcwd() if outDir == '.' else os.path.abspath(outDir)
             if not os.path.exists(dir):
                 raise ValueError('Path ' + dir + 'does not exist')
-
+            
+            mdPath = dir + '/' + self.package + '_metadata_schema'
             self.__write__csv__(dir)
 
 
 # tests
 c = Convert(file = 'dev/birddata.yml')
 c.convert()
-c.write(format = 'csv', outDir = 'dev/birddata')
-c.emx
+# c.write(format = 'csv', outDir = 'dev/birddata')
+# c.emx
+
+c.__write__md__('dev/birddata_schema.md')
