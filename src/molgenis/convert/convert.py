@@ -1,14 +1,55 @@
+#'////////////////////////////////////////////////////////////////////////////
+#' FILE: convert.py
+#' AUTHOR: d.c.ruvolo
+#' CREATED: 2021-09-01
+#' MODIFIED: 2021-09-06
+#' PURPOSE: convert yaml to emx format
+#' STATUS: working; ongoing
+#' PACKAGES: see below
+#' COMMENTS: see below
+#'////////////////////////////////////////////////////////////////////////////
 
-
+import os
 import yaml
-import xlsxwriter
+import pandas as pd
 from datetime import datetime
-from os import path
 from src.molgenis.convert.utils import emxAttributes
 
+# Convert
+# @description Convert YAML-EMX markup into EMX- CSV or XLSX file format
 #
-# @name Convert
-# @description Convert YAML-EMX markup into EMX- CSV/XLSX files
+# @section Instructions
+#
+# The purpose of the the class `Convert` is to give users the option to write
+# Molgenis EMX markup in YAML, and then convert (or compile) into the desired
+# file format (csv, excel).
+#
+# The structure of the yaml file (i.e., property names, syntax, etc.), is very
+# similar to the Excel method. There are a few additional features that make
+# the process a bit simpler.
+#
+# You can...
+#
+# 1.) define default attribute options and apply them globally,
+# 2.) define datasets within the YAML (might be useful for smaller entities), and
+# 3.) compile file into many formats (csv, xlsx)
+#
+# @section The YAML Format
+#
+# You can write your data model using Molgenis EMX attribute names. Each yaml file
+# should be considered a package with one or more entities. The name of the YAML
+# file should be the name of the Molgenis package and all entities should be
+# written using the <package>_<entity> format. Define the package at the top of
+# the file. In addition to the normal EMX package attributes, you can also use
+# `version` and `date`
+#
+# ```yaml
+# name: mypackage
+# label: My Package
+# description: some description about this package
+# version: 0.0.9000
+# date: 2021-09-01
+# ```
 #
 # @examples
 # c = Convert(file = "path/to/my/file.yml")
@@ -16,8 +57,8 @@ from src.molgenis.convert.utils import emxAttributes
 #
 class Convert:
     def __init__(self, file):
-        self.file = path.abspath(file)
-        self.emx = False,
+        self.file = file
+        self.emx = False
     #
     # @name __yaml__read__
     # @description read yaml file
@@ -25,7 +66,7 @@ class Convert:
     # @return dictionary
     #
     def __yaml__read__(self, file):
-        with open(path.abspath(file), 'r') as stream:
+        with open(file, 'r') as stream:
             try:
                 return yaml.safe_load(stream)
             except yaml.YAMLError as err:
@@ -46,21 +87,16 @@ class Convert:
                 pkg[k] = data[k]
         
         if include_pkg_meta:
-            pkgMeta = False
+            pkgMeta = {}
             if 'version' in keys:
-                pkgMeta = "v" + str(data['version'])
+                pkgMeta['version'] = "v" + str(data['version'])
             if 'date' in keys:
-                date = str(datetime.strptime(str(data['date']), "%Y-%m-%d").date())
-                if pkgMeta:
-                    pkgMeta = pkgMeta + ', ' + date
+                pkgMeta['date'] = str(datetime.strptime(str(data['date']), "%Y-%m-%d").date())
+            if pkgMeta:
+                if 'description' in keys:
+                    pkg['description'] = pkg['description'] + ' (' + ', '.join(pkgMeta.values()) + ')'
                 else:
-                    pkgMeta = date
-            if 'description' in keys:
-                if pkgMeta:
-                    pkg['description'] = pkg['description'] + ' (' + pkgMeta + ')'
-            else:
-                if pkgMeta:
-                    pkg['description'] = pkgMeta
+                    pkg['description'] = ', '.join(pkgMeta.values())
         return pkg
     #
     # @name __emx__extract__entities
@@ -114,57 +150,48 @@ class Convert:
 
         return emx
     #
-    # @name __xlsx__write__headers__
-    # @description write headers to xlsx file
-    # @param sheet xlsxwriter object sheet
-    # @param headers list of headers to write
-    #   
-    def __xlsx__write__headers(self, sheet, headers):
-        for h in headers:
-            sheet.write(0, headers.index(h), h)
     #
-    # @name __xlsx__write__data
-    def __xlsx__write__data__(self, sheet, headers, data):
-        row = 1 # zero index offset (adjust for header row)
-        for d in data:
-            for key, value in d.items():
-                sheet.write(row, headers.index(key), value)
-            row += 1
-            
-    def __get__headers__(self, data):
-        return list(set().union(*(d.keys() for d in data)))
+    def ___xlsx__headers__(self, wb, columns, name):
+        sheet = wb.sheets[name]
+        format = wb.book.add_format({'bold': False, 'border': False})
+        for col, value in enumerate(columns):
+            sheet.write(0, col, value, format)
     #
     # @name __write__xlsx__
     # @description write emx to xlsx
     # @param path output path
     #
     def __write__xlsx__(self, path, includeData):
-        wb = xlsxwriter.Workbook(path)
-        sheet_pkg = wb.add_worksheet('packages')
-        sheet_enty = wb.add_worksheet('entities')
-        sheet_attr = wb.add_worksheet('attributes')
+        wb = pd.ExcelWriter(path, engine = 'xlsxwriter')
+
+        pkgs = pd.DataFrame(self.emx['packages'], index=[0])
+        enty = pd.DataFrame(
+            self.emx['entities'],
+            index = list(range(0, len(self.emx['entities'])))
+        )
+        attr = pd.DataFrame(
+            self.emx['attributes'],
+            index = list(range(0, len(self.emx['attributes'])))
+        )
         
-        # pull headers from each primary emx component and write to file
-        pkg_headers = list(self.emx['packages'].keys())
-        enty_headers = self.__get__headers__(self.emx['entities'])
-        attr_headers = self.__get__headers__(self.emx['attributes'])
         
-        self.__xlsx__write__headers(sheet_pkg, pkg_headers)
-        self.__xlsx__write__headers(sheet_enty, enty_headers)
-        self.__xlsx__write__headers(sheet_attr, attr_headers)
+        pkgs.to_excel(wb, sheet_name = 'packages', startrow = 1, header = False, index = False)
+        enty.to_excel(wb, sheet_name = 'entities', startrow = 1, header = False, index = False)
+        attr.to_excel(wb, sheet_name = 'attributes', startrow = 1, header = False, index = False)
         
-        self.__xlsx__write__data__(sheet_pkg, pkg_headers, [self.emx['packages']])
-        self.__xlsx__write__data__(sheet_enty, enty_headers, self.emx['entities'])
-        self.__xlsx__write__data__(sheet_attr, attr_headers, self.emx['attributes'])
+        self.___xlsx__headers__(wb, pkgs.columns.values, 'packages')
+        self.___xlsx__headers__(wb, enty.columns.values, 'entities')
+        self.___xlsx__headers__(wb, attr.columns.values, 'attributes')
         
         # process each dataset individually
         if 'data' in self.emx and includeData:
             for dataset in self.emx['data']:
-                sheet_data = wb.add_worksheet(str(dataset))
-                columns = self.__get__headers__(self.emx['data'][dataset])
-                self.__xlsx__write__headers(sheet_data, columns)
-                self.__xlsx__write__data__(sheet_data, columns, self.emx['data'][dataset])
-        wb.close()
+                i = list(range(0, len(self.emx['data'][dataset])))
+                df = pd.DataFrame(self.emx['data'][dataset], index = i,)
+                df.to_excel(wb, sheet_name = dataset, startrow = 1, header = False, index = False)
+                self.___xlsx__headers__(wb, df.columns.values, dataset)
+
+        wb.save()
     #
     # @name convert
     # @description convert yaml file into EMX structure
@@ -198,16 +225,19 @@ class Convert:
         if format not in ['csv', 'xlsx']:
             raise ValueError('Error in write: unexpected format ', str(format))
         
-        filepath = outDir + '/' + self.package + '.' + str(format)
         if format == 'xlsx':
-            self.__write__xlsx__(filepath, includeData)
+            file = outDir + '/' + self.package + '.' + str(format)
+            if os.path.exists(file):
+                print('file exists deleting...')
+                os.remove(file)
+            self.__write__xlsx__(file, includeData)
         
         # if format == 'csv':
-        #     self.__write__csv__(filepath)
+        #     self.__write__csv__(file)
 
 
 # tests
 c = Convert(file = 'dev/birddata.yml')
 c.convert()
-c.write()
+c.write(outDir = 'dev')
 c.emx
