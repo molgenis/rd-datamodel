@@ -2,7 +2,7 @@
 #' FILE: convert.py
 #' AUTHOR: d.c.ruvolo
 #' CREATED: 2021-09-01
-#' MODIFIED: 2021-09-06
+#' MODIFIED: 2021-09-07
 #' PURPOSE: convert yaml to emx format
 #' STATUS: working; ongoing
 #' PACKAGES: see below
@@ -14,7 +14,7 @@ import yaml
 from tomark import Tomark
 import pandas as pd
 from datetime import datetime
-from src.molgenis.convert.utils import emxAttributes
+from src.convert.utils import emxAttributes
 
 # Convert
 # @description Convert YAML-EMX markup into EMX- CSV or XLSX file format
@@ -35,6 +35,8 @@ from src.molgenis.convert.utils import emxAttributes
 # 2.) define datasets within the YAML (might be useful for smaller entities), and
 # 3.) compile file into many formats (csv, xlsx)
 #
+# At the moment, `Convert` only allows one EMX package per YAML file.
+#
 # @section The YAML Format
 #
 # You can write your data model using Molgenis EMX attribute names. Each yaml file
@@ -42,7 +44,8 @@ from src.molgenis.convert.utils import emxAttributes
 # file should be the name of the Molgenis package and all entities should be
 # written using the <package>_<entity> format. Define the package at the top of
 # the file. In addition to the normal EMX package attributes, you can also use
-# `version` and `date`
+# `version` and `date`. If defined, these attributes will be rendered into
+# the description during the conversion (only if indicated to do so).
 #
 # ```yaml
 # name: mypackage
@@ -52,9 +55,82 @@ from src.molgenis.convert.utils import emxAttributes
 # date: 2021-09-01
 # ```
 #
-# @examples
+# After the package information, used the `defaults` attribute to specify the default
+# values for the entities attributes in your model. Use the name `defaults` and list
+# all of the EMX attributes and values.
+#
+# ```yaml
+# defaults:
+#   dataType: string
+#   nillable: true
+#   auto: false
+#   ...
+# ```
+#
+# Define all entities under the `entities` property. Each entity can be defined using
+# `name` property (make sure it is also prefixed with a `-`). Attributes should be
+# defined under the respective entity. The property `name` is used to define a new
+# 'row' in the attributes sheet. Define all attributes that are needed. The rest
+# will be defined using the defaults.
+#
+# ```yaml
+# entities:
+#   - name: myEntity
+#     label: My Entity
+#     description: ...
+#     attributes:
+#       - name: id
+#         label: ID
+#         description: Entity identifier
+#         idAttribute: true
+#         nillable: false
+#         ...
+#       - name: value
+#         dataType: int
+#    data:
+#       - id: B12345
+#         value: 44
+#       - id: B54321
+#         value: 61
+# ```
+#
+# @section Examples:
+#
+# Define your data model in yaml file as outlined in the previous section and
+# import into your script. Specify the path to the yaml file when creating a
+# new instance.
+#
+# ```python
+# import molgenis.convert
+#
 # c = Convert(file = "path/to/my/file.yml")
-# c.convert()
+# ```
+#
+# Use the method `convert` to compile the yaml into EMX format. By default,
+# if `version` and `date` are defined at the package level, this information
+# will be appended to the package description or set as the description (if
+# it wasn't provided). Use the argument `includePkgMeta` to disable this
+# behavior.
+#
+# ```python
+# c.convert()  # default
+# c.convert(includePkgMeta = False)  # to ignore version and date
+# ```
+#
+# Use the method `write` to save the model as xlsx or csv format. There are
+# a few options to control this process. These are defined in the list below.
+#
+# - format: enter 'csv' or 'xlsx'
+# - outDir: the output directory (default is '.' or the current directory)
+# - includeData: if True (default), all datasets defined in the YAML will be
+#       written to file.
+#
+# ```python
+# c.write('xlsx', outDir = 'model/')
+# c.write('csv', outDir = 'model/')
+# ```
+#
+# Lastly, you can write the schema to markdown using `write_md`.
 #
 class Convert:
     def __init__(self, file):
@@ -77,17 +153,17 @@ class Convert:
     # @name __emx__extract__package__
     # @description extract known EMX package attributes
     # @param data parsed yaml object
-    # @param include_pkg_meta if TRUE, version and date will be added to description
+    # @param includePkgMeta if TRUE, version and date will be added to description
     # @return ...
     #
-    def __emx__extract__package__(self, data, include_pkg_meta: bool = True):
+    def __emx__extract__package__(self, data, includePkgMeta: bool = True):
         pkg = {}
         keys = list(data.keys())
         for k in keys:
             if k in emxAttributes['packages'] or k.startswith(('label-', 'description-')):
                 pkg[k] = data[k]
         
-        if include_pkg_meta:
+        if includePkgMeta:
             pkgMeta = {}
             if 'version' in keys:
                 pkgMeta['version'] = "v" + str(data['version'])
@@ -219,32 +295,12 @@ class Convert:
                 df = pd.DataFrame(self.emx['data'][dataset], index = i)
                 df.to_csv(dir + '/' + dataset + '.csv', index = False)
     #
-    # @name __write__md__   
-    # @description Write metadata scheme to markdown file
-    # @param path path to file
-    def __write__md__(self, path):
-        with open(path, 'w', encoding = 'utf-8') as md:
-            md.write('# {}\n\n'.format(self.package))
-            
-            # write description as introduction
-            if 'description' in self.emx['packages']:
-                md.write('{}\n\n'.format(self.emx['packages']['description']))
-            
-            # write 
-            md.write('## Schema Overview\n\n')
-            tbl = Tomark.table(self.emx['entities'])
-            md.write(tbl)
-            md.write('\n')
-
-            md.close()
-    #
-    #
     # @name convert
     # @description convert yaml file into EMX structure
-    # @param include_pkg_meta if TRUE, version and date will be added to description
+    # @param includePkgMeta if TRUE, version and date will be added to description
     # @return ...
     #
-    def convert(self, include_pkg_meta: bool = True):
+    def convert(self, includePkgMeta: bool = True):
         yaml = self.__yaml__read__(self.file)
         
         keys = list(yaml.keys())
@@ -256,7 +312,7 @@ class Convert:
 
         self.package = yaml['name']
         self.emx = {
-            'packages': self.__emx__extract__package__(yaml, include_pkg_meta),
+            'packages': self.__emx__extract__package__(yaml, includePkgMeta),
             **self.__emx__extract__entities__(yaml)
         }   
     #
@@ -266,22 +322,18 @@ class Convert:
     # @param outDir output directory (defaults to ".")
     # @param includeData If True (default), any datasets defined in the yaml
     #   will be written to file
-    # @param includeMd if True (default), the metadata scheme will be written
-    #   into a markdown file
     # @return None
     def write(
         self,
         format: str = 'xlsx',
         outDir: str = '.',
-        includeData: bool = True,
-        includeMd: bool = True
+        includeData: bool = True
     ):
         if format not in ['csv', 'xlsx']:
             raise ValueError('Error in write: unexpected format ', str(format))
         
         if format == 'xlsx':
             file = outDir + '/' + self.package + '.' + str(format)
-            mdPath = outDir + '/' + self.package + '_metadata_schema'
             if os.path.exists(file):
                 print('file exists deleting...')
                 os.remove(file)
@@ -291,15 +343,47 @@ class Convert:
             dir = os.getcwd() if outDir == '.' else os.path.abspath(outDir)
             if not os.path.exists(dir):
                 raise ValueError('Path ' + dir + 'does not exist')
-            
-            mdPath = dir + '/' + self.package + '_metadata_schema'
+
             self.__write__csv__(dir)
+    #
+    # @name write_schema
+    # @description Write metadata scheme to markdown file
+    # @param path path to file
+    def write_schema(self, path: str = None):
+        with open(path, 'w', encoding = 'utf-8') as md:
+            md.write('# {}\n\n'.format(self.package))
+            
+            # write description as introduction
+            if 'description' in self.emx['packages']:
+                md.write('{}\n\n'.format(self.emx['packages']['description']))
+            
+            # write entity overview
+            md.write('## Model Overview\n\n')
+            entities = self.emx['entities']
+            for e in entities:
+                e['Name'] = e.pop('name')
+                e['Description'] = e.pop('description')
+            entityTable = Tomark.table(entities)
+            md.write(entityTable)
 
-
-# tests
-c = Convert(file = 'dev/birddata.yml')
-c.convert()
-# c.write(format = 'csv', outDir = 'dev/birddata')
-# c.emx
-
-c.__write__md__('dev/birddata_schema.md')
+            # write data to file
+            keys = ['name', 'label', 'description', 'dataType']
+            for entity in entities:
+                md.write('\n## Entity: {}\n\n'.format(entity['Name']))
+                md.write('{}\n\n'.format(entity['Description']))
+                entityData = list(
+                    filter(lambda d: d['entity'] in entity['Name'], self.emx['attributes'])
+                )
+                entityAttribs = []
+                for d in entityData:
+                    entityAttribs.append({
+                        'Name': d.get('name', '---'),
+                        'Label': d.get('label', '---'),
+                        'Description': d.get('description', '---'),
+                        'Data Type': d.get('dataType', '---'),
+                        'ID Attribute': d.get('idAttribute', '---')
+                    })
+                entityTable = Tomark.table(entityAttribs)
+                md.write(entityTable)
+            md.close()
+    #
