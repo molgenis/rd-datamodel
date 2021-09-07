@@ -1,36 +1,38 @@
 name: rdModel
 label: Rare Diseases Model
 description: Rare Disease Shared Data Model
-version: 0.0001
-date: 2021-09-10
+version: 0.0002
+date: 2021-09-07
+
 defaults:
   idAttribute: false
   dataType: string
   nillable: true
   lookupAttribute: false
+
 entities:
   - name: patients
     attributes:
       - name: personalID
         name-rd3: subjectID
-        name-cosas: umcg_numr
+        name-cosas: umcgID
         dataType: string
         idAttribute: true
         nillable: false
       - name: familyID
         name-rd3: fid
-        name-cosas: family_numr
+        name-cosas: familyID
       - name: maternalID
         name-rd3: mid
-        name-cosas: maternal_id
+        name-cosas: maternalID
       - name: paternalID
-        name-cosas: paternal_id
+        name-cosas: paternalID
         name-rd3: pid
       - name: linkedFamilyIDs
-        name-cosas: linked_family_ids
+        name-cosas: linkedFamilyIDs
         name-rd3: none
       - name: dateOfBirth
-        name-cosas: dob
+        name-cosas: dateOfBirth
         name-rd3: dateOfBirth # year
         dataType: date
       - name: yearOfBirth
@@ -40,20 +42,20 @@ entities:
         dataType: categorical
         refEntity: ...
       - name: dateOfDeath
-        name-cosas: date_deceased
+        name-cosas: dateOfDeath
         name-rd3: none
         dataType: date
       - name: ageAtDeath # years
-        name-cosas: age_at_death
+        name-cosas: ageAtDeath # years
         name-rd3: ageOfDeath
         dataType: integer
       - name: claimedSex
-        name-cosas: biological_sex
+        name-cosas: biologicalSex
         name-rd3: sex1
         dataType: categorical
         refEntity: ...
       - name: geneticSex
-        name-cosas: biological_sex
+        name-cosas: biologicalSex
         name-rd3: sex2
         dataType: categorical
         refEntity: ...
@@ -85,10 +87,10 @@ entities:
         name-rd3: none
         dataType: bool
       - name: altPersonalIDs
-        name-cosas: linked_patient_id
+        name-cosas: altPatientID
         name-rd3: none
       - name: firstContact
-        name-cosas: date_first_consult
+        name-cosas: none
         name-rd3: none
         dataType: date
       - name: consentStatus
@@ -97,21 +99,21 @@ entities:
         dataType: categoricalmref
         refEntity: ...
       - name: dateLastUpdated
-        name-cosas: date_last_updated
+        name-cosas: dateLastUpdated
         name-rd3: none
         dataType: dateTime
   - name: clinical
     attributes:
       - name: personalID
         name-rd3: subjectID
-        name-cosas: umcg_numr
-        dataType: xref
-        refEntity: patients
+        name-cosas: umcgID
+        idAttribute: true
+        nillable: false
       - name: clinicalID
-        name-cosas: id
+        name-cosas: none
         name-rd3: phenopacketsID
       - name: dateOfDiagnosis
-        name-cosas: date
+        name-cosas: none
         name-rd3: none
         dataType: date
       - name: ageAtDiagnosis
@@ -121,25 +123,16 @@ entities:
         name-cosas: none
         name-rd3: ageOfOnset
       - name: clinicalDiagnosis
-        name-cosas: primary_dx
+        name-cosas: confirmedPhenotype
         name-rd3: disease
-      - name: clinicalDiagnosisCertainty
-        name-cosas: primary_dx_certainty
-        name-rd3: none
-      - name: secondaryDiagnosis
-        name-cosas: extra_dx
-        name-rd3: none
-      - name: secondaryDiagnosisCertainty
-        name-cosas: extra_dx_certainty
-        name-rd3: none
       - name: observedPhenotype
-        name-cosas: hpo
+        name-cosas: confirmedPhenotype
         name-rd3: phenotype
       - name: unobservedPhenotype
-        name-cosas: none
+        name-cosas: excludedPhenotypeHpo # potentially
         name-rd3: hasNotPhenotype
       - name: molecularDiagnosis
-        name-cosas: none # for now
+        name-cosas: none
         name-rd3: variant
         label: Causal Variant
       - name: solvedStatus
@@ -150,7 +143,7 @@ entities:
         name-cosas: none
         name-rd3: date_solved
       - name: dateLastUpdated
-        name-cosas: date_last_updated
+        name-cosas: dateLastUpdated
         name-rd3: none
         dataType: dateTime
   - name: samples
@@ -161,92 +154,65 @@ entities:
     attributes:
       - name: personalID
         name-rd3: subjectID
-        name-cosas: umcg_numr
-        dataType: xref
-        refEntity: \*_patients
+        name-cosas: umcgID
         idAttribute: true
         nillable: false
+        dataType: string
       - name: sampleID
-        name-cosas: sample_id
+        name-cosas: sampleID
         name-rd3: sampleID
       - name: alternateID
-        name-cosas: request_id or test_id?
+        name-cosas: requestID
         name-rd3: alternativeIdentifier
       - name: materialID
-        name-cosas: dna_numr
+        name-cosas: dnaID
         name-rd3: none
       - name: samplingDate
-        name-cosas: test_date
+        name-cosas: testDate
         name-rd3: none
         dataType: date
       - name: materialType
-        name-cosas: material_type
+        name-cosas: materialType
         name-rd3: materialType
-        dataType: xref
-        refEntity: \*_materialTypes
+        # dataType: xref
+        # refEntity: \*_materialTypes
       - name: tissueType
         name-cosas: none
         name-rd3: tissueType
-        dataType: xref
-        refEntity: \*_tissueTypes
+        # dataType: xref
+        # refEntity: \*_tissueTypes
       - name: labIndication
-        name-cosas: lab_indication
-        dataType: xref
-        refEntity: ...
+        name-cosas: labIndication
+        # dataType: xref
+        # refEntity: ...
       - name: sampleStatus
         name-cosas: none
         name-rd3: retracted
-        dataType: xref
-        refEntity: ...
+        # dataType: xref
+        # refEntity: ...
       - name: dateLastUpdated
-        name-cosas: date_last_updated
+        name-cosas: dateLastUpdated
         name-rd3: none
         dataType: dateTime
-
-      # - name: test_id
-      #   label: Test ID
-      #   label-nl: Test-ID
-      # - name: test_code
-      #   label: Test code
-      #   label-nl: Test code
-      # - name: test_date
-      #   label: Test date
-      #   label-nl: Testdatum
-      #   dataType: date
-      # - name: test_result
-      #   label: Test result
-      #   label-nl: Testresultaat
-      #   dataType: text
-      # - name: test_result_status
-      #   label: Test result status
-      #   label-nl: Status testresultaat
-      # - name: disorder_code
-      #   label: Disorder code
-      #   label-nl: Aandoening code
-      #   dataType: xref
-      #   refEntity: cosasrefs_condition_codes
-      #   nillable: true
-
   - name: experiments
     attributes:
       - name: personalID
         name-rd3: subjectID
-        name-cosas: umcg_numr
-        dataType: xref
-        refEntity: \*_patients
+        name-cosas: umcgID
         # idAttribute: true
         # nillable: false
+        dataType: string
       - name: sampleID
-        name-cosas: sample_id
+        name-cosas: sampleID
         name-rd3: sampleID
       - name: materialID
-        name-cosas: dna_numr
+        name-cosas: dnaID
         name-rd3: none
       - name: experimentID
-        name-cosas: test_code  # more likely to be available than test_id
+        name-cosas: testCode 
         name-rd3: experimentID
       - name: experimentDate
-        name-cosas: test_date
+        name-cosas: testDate
         name-rd3: none
       - name: sequencingCenter
         name-cosas: none
@@ -267,7 +233,7 @@ entities:
         name-cosas: none
         name-rd3: capture
       - name: barcode
-        name-cosas: barcode  # tbd
+        name-cosas: none
         name-rd3: barcode
       - name: avgReadDepth
         name-cosas: none
@@ -278,37 +244,33 @@ entities:
       - name: experimentStatus
         name-cosas: none
         name-rd3: retracted
-        dataType: xref
-        refEntity: ...
+        # dataType: xref
+        # refEntity: ...
       - name: batch
         name-cosas: batch
         name-rd3: none
       - name: genomeBuild
-        name-cosas: genome_build
+        name-cosas: genomeBuild
         name-rd3: none
       - name: dateLastUpdated
-        name-cosas: date_last_updated
+        name-cosas: dateLastUpdated
         name-rd3: none
         dataType: dateTime
   - name: files
     attributes:
       - name: personalID
         name-rd3: subjectID
-        name-cosas: umcg_numr
-        dataType: xref
-        refEntity: \*_patients
+        name-cosas: umcgID
         # idAttribute: true
         # nillable: false
+        dataType: string
       # use one or more of the following three ID variables
       # it depends on what is available/more useful
       - name: sampleID
-        name-cosas: sample_id
+        name-cosas: sampleID
         name-rd3: sampleID
-      - name: materialID
-        name-cosas: dna_numr
-        name-rd3: none
       - name: experimentID
-        name-cosas: test_code  # more likely to be available than test_id
+        name-cosas: testCode  # more likely to be available than test_id
         name-rd3: experimentID
       - name: fileID
         name-cosas: none
@@ -319,8 +281,8 @@ entities:
       - name: fileType
         name-cosas: filetype
         name-rd3: typeFile
-        dataType: xref
-        refEntity: \*_filetypes
+        # dataType: xref
+        # refEntity: \*_filetypes
       - name: dateCreated
         name-cosas: created
         name-rd3: dateCreated
@@ -328,6 +290,6 @@ entities:
         label: Checksum
         label-nl: Checksum
       - name: dateLastUpdated
-        name-cosas: date_last_updated
+        name-cosas: dateLastUpdated
         name-rd3: none
         dataType: dateTime
