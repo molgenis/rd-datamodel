@@ -1,0 +1,9 @@
+entity,name,label,description,idAttribute,nillable,dataType,lookupAttribute,label-nl
+species,birdID,BirdID,Species Identifier,True,False,string,False,
+species,commonName,Common Name,Commonly used name for a species,False,True,string,False,
+species,scientificName,Scientific Name,Scientific name for a species,False,True,string,False,Wetenschappelijke naam
+species,count,Count,,False,True,int,False,
+species,reportingRate,Reporting Rate,Percent reported,False,True,decimal,False,
+states,code,,,True,True,string,False,
+states,category,,,False,True,string,False,
+states,name,,,False,True,string,False,naam
