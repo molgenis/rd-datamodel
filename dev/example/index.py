@@ -10,7 +10,18 @@
 #'////////////////////////////////////////////////////////////////////////////
 
 from src.convert.convert import Convert
-c = Convert(file = 'dev/example/birddata.yml')
+
+# convert example files
+c = Convert(files = ['dev/example/birddata.yml', 'dev/example/birddata_refs.yaml'])
+
+# convert and view
 c.convert()
-c.write(format = 'xlsx', outDir = 'dev/example/model/')
+c.packages
+c.entities
+c.attributes
+c.data
+
+
+# write files and schema
+c.write(name = "birddata", format = 'xlsx', outDir = 'dev/example/model/')
 c.write_schema(path = 'dev/example/model/birddata_schema.md')
