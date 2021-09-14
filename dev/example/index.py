@@ -2,7 +2,7 @@
 #' FILE: index.py
 #' AUTHOR: David Ruvolo
 #' CREATED: 2021-09-07
-#' MODIFIED: 2021-09-07
+#' MODIFIED: 2021-09-14
 #' PURPOSE: test conversion
 #' STATUS: working
 #' PACKAGES: NA
@@ -15,7 +15,7 @@ from src.convert.convert import Convert
 c = Convert(files = ['dev/example/birddata.yml', 'dev/example/birddata_refs.yaml'])
 
 # convert and view
-c.convert()
+c.convert(priorityNameKey = 'name-species')
 c.packages
 c.entities
 c.attributes

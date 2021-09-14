@@ -17,6 +17,7 @@ entities:
     description: Reporting Counts and Rates by Species
     attributes:
       - name: birdID
+        name-species: speciesID
         label: BirdID
         description: Species Identifier
         idAttribute: true
