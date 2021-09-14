@@ -132,6 +132,10 @@ from src.convert.utils import emxAttributes
 #
 # Lastly, you can write the schema to markdown using `write_md`.
 #
+# ```python
+# c.write_schema(path = 'path/to/save/my/model_schema.md')
+# ```
+#
 class Convert:
     def __init__(self, files: list = []):
         self.files = files
@@ -183,9 +187,10 @@ class Convert:
     # @name __emx__extract__entities
     # @description extract known EMX entity attributes
     # @param data parsed yaml object
+    # @param priorityNameKey the priority key name
     # @return list of dictionaries
     #
-    def __emx__extract__entities__(self, data):
+    def __emx__extract__entities__(self, data, priorityNameKey):
         emx = {'entities': [], 'attributes': [], 'data': {}}
         langAttrs = ('label-', 'description-')
         for entity in data['entities']:
@@ -197,7 +202,6 @@ class Convert:
             
             if 'attributes' not in entityKeys:
                 raise ValueError('Error in entity: missing required attribute "attributes"')
-            
 
             # extract entity attributes and append package name automatically
             e = {'package': data['name']}
@@ -205,6 +209,10 @@ class Convert:
                 if ekey in emxAttributes['entities'] or ekey.startswith(langAttrs):
                     e[ekey] = entity[ekey]
             emx['entities'].append(e)
+            
+            # append priorityNameKey to approved attributes list
+            if priorityNameKey:
+                emxAttributes['attributes'].append(priorityNameKey)
             
             # check for attributes and extract
             attributes = entity['attributes']
@@ -214,6 +222,11 @@ class Convert:
                 for aKey in attrKeys:
                     if aKey in emxAttributes['attributes'] or aKey.startswith(langAttrs):
                         d[aKey] = attr[aKey]
+                
+                if priorityNameKey:
+                    d.pop('name')
+                    d['name'] = d.get(priorityNameKey, None)
+                    d.pop(priorityNameKey, None)
 
                 # apply default settings if specified
                 if data['defaults']:
@@ -294,10 +307,14 @@ class Convert:
     #
     # @name convert
     # @description convert yaml file into EMX structure
-    # @param includePkgMeta if TRUE, version and date will be added to description
+    # @param includePkgMeta if TRUE (default), version and date will be added to description
+    # @param priorityNameKey For EMX markups that are harmonization projects (i.e.,
+    #   multiple `name` attributes), you can set which name attribute gets priority. This
+    #   means that you can compile the EMX for different projects. Leave as none if this
+    #   doesn't apply to you :-)
     # @return ...
     #
-    def convert(self, includePkgMeta: bool = True):
+    def convert(self, includePkgMeta: bool = True, priorityNameKey: str = None):
         for file in self.files:
             print('Processing: {}'.format(file))
             self.yaml = self.__yaml__read__(file)
@@ -311,7 +328,7 @@ class Convert:
             
             emx = {
                 'packages': self.__emx__extract__package__(self.yaml, includePkgMeta),
-                **self.__emx__extract__entities__(self.yaml)
+                **self.__emx__extract__entities__(self.yaml, priorityNameKey)
             }
 
             self.packages.extend([emx['packages']])
