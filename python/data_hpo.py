@@ -55,7 +55,8 @@ hpo = []
 for node in nodeset:
     hpo.append(__hpo__unpack__node__(node))
     
+
 # write to csv
 filename = 'data/hpo_release_{}.csv'.format(tag_name)
 hpoData = pd.DataFrame(hpo)
-hpoData.to_csv('data/hpo_release_v2021-08-02.csv')
+hpoData.to_csv('data/hpo_release_v2021-08-02.csv', index = False)
