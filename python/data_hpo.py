@@ -12,22 +12,7 @@
 import json
 import os
 import re
-import pandas as pd
-
-# @name __hpo__unpack__node__
-# @description Extract relevant HPO metadata per node
-# @param node a dictionary
-# @return dictionary aligned with Fairgenomes structure
-def __hpo__unpack__node__(node):
-    return {
-        'value': node.get('lbl'),
-        'definition': node.get('meta', {}).get('definition',{}).get('val', None),
-        'codesystem': re.sub(r'([0-9\_])', '', os.path.basename(node['id'])),
-        'code': re.sub('_', ':', os.path.basename(node['id'])),
-        'iri': node.get('id')
-    }
-    
-#//////////////////////////////////////
+import csv
 
 tag_name = 'v2021-08-02'
 
@@ -49,12 +34,22 @@ with open('downloads/obophenotype-human-phenotype-ontology-d3394d2/hp.json', 'r'
     nodeset = json.load(file)['graphs'][0]['nodes']
     file.close()
 
+
 # extract HPO nodeset and parse
 hpo = []
 for node in nodeset:
-    hpo.append(__hpo__unpack__node__(node))
+    if node['type'] == 'CLASS':
+        hpo.append({
+            'value': node.get('lbl'),
+            'definition': node.get('meta', {}).get('definition',{}).get('val', None),
+            'codesystem': re.sub(r'([0-9\_])', '', os.path.basename(node['id'])),
+            'code': re.sub('_', ':', os.path.basename(node['id'])),
+            'iri': node.get('id')
+        })
     
 
 # write to csv
-hpoData = pd.DataFrame(hpo)
-hpoData.to_csv('data/hpo_release_{}.csv'.format(tag_name), index = False)
+with open('data/hpo_release_{}.csv'.format(tag_name), 'w', newline='') as output:
+    writer = csv.DictWriter(output,hpo[0].keys())
+    writer.writeheader()
+    writer.writerows(hpo)

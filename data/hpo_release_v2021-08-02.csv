@@ -16562,11 +16562,4 @@ Anti-MuSK antibody,The presence of autoantibodies (immunoglobulins) in the blood
 Anti-Lrp4 antibody,The presence of autoantibodies (immunoglobulins) in the blood circulation that react against low-density lipoprotein receptor (Lrp4).,HP,HP:5000046,http://purl.obolibrary.org/obo/HP_5000046
 Anti-ryanodine receptor antibody,The presence of autoantibodies (immunoglobulins) in the blood circulation that react against ryanodine receptor.,HP,HP:5000047,http://purl.obolibrary.org/obo/HP_5000047
 Anti-Kv1.4 antibody,The presence of autoantibodies (immunoglobulins) in the blood circulation that react against the voltage-gated potassium channel Kv1.4.,HP,HP:5000048,http://purl.obolibrary.org/obo/HP_5000048
-abbreviation,,hp#abbreviation,hp#abbreviation,http://purl.obolibrary.org/obo/hp#abbreviation
-display label,,hp#displaylabel,hp#display:label,http://purl.obolibrary.org/obo/hp#display_label
-layperson term,,hp#layperson,hp#layperson,http://purl.obolibrary.org/obo/hp#layperson
-discarded/obsoleted synonym,,hp#obsoletesynonym,hp#obsolete:synonym,http://purl.obolibrary.org/obo/hp#obsolete_synonym
-plural form,,hp#pluralform,hp#plural:form,http://purl.obolibrary.org/obo/hp#plural_form
-UK spelling,,hp#ukspelling,hp#uk:spelling,http://purl.obolibrary.org/obo/hp#uk_spelling
 Hip joint hypermobility,,HP,HP:0045087,http://purl.obolibrary.org/obo/HP_0045087
-is_observable_through,,hp#isobservablethrough,hp#is:observable:through,http://purl.obolibrary.org/obo/hp#is_observable_through
