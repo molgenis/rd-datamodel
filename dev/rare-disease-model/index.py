@@ -11,14 +11,23 @@
 
 
 from src.convert.convert import Convert
-c = Convert(files = ['emx/model.yml'])
-c.convert(priorityNameKey = 'name-cosas')
-c.write_schema(path = 'dev/rare-disease-model/model/rd_schema.md')
 
-# c.convert()
+# convert model
+c = Convert(files = ['emx/model.yml'])
+
+
+# priorityNameKey options
+c.convert()
+# c.convert(priorityNameKey = 'name-cosas')
+# c.convert(priorityNameKey = 'name-rd3')
+
+# print fields
 c.packages
 c.entities
 c.attributes
 c.data
 
-c.write(name = 'rdModel', format = 'xlsx', outDir = 'dev/rare-disease-model/model/')
+
+# write model and schema
+c.write(name = 'rdModel', format = 'csv', outDir = 'dev/rare-disease-model/model/')
+c.write_schema(path = 'dev/rare-disease-model/model/rd_schema.md')
