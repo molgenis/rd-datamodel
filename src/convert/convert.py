@@ -224,9 +224,10 @@ class Convert:
                         d[aKey] = attr[aKey]
                 
                 if priorityNameKey and priorityNameKey in d:
-                    d.pop('name')
-                    d['name'] = d.get(priorityNameKey, None)
-                    d.pop(priorityNameKey, None)
+                    if d[priorityNameKey] != 'none':
+                        d.pop('name')
+                        d['name'] = d.get(priorityNameKey, None)
+                        d.pop(priorityNameKey, None)
 
                 # apply default settings if specified
                 if data['defaults']:
@@ -400,7 +401,9 @@ class Convert:
             for entity in self.entities:
                 entityPkgName = entity['package'] + '_' + entity['name']
                 md.write('\n## Entity: {}\n\n'.format(entityPkgName))
-                md.write('{}\n\n'.format(entity['description']))
+                
+                if 'description' in entity:
+                    md.write('{}\n\n'.format(entity['description']))
                 
                 entityData = list(filter(lambda d: d['entity'] in entityPkgName, self.attributes))
                 entityAttribs = []
