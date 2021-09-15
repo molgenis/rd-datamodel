@@ -45,18 +45,16 @@ tag_name = 'v2021-08-02'
 # process data here
 
 # load raw data and extract nodes
-file = open('downloads/obophenotype-human-phenotype-ontology-d3394d2/hp.json', 'r')
-raw = json.load(file)
-file.close()
+with open('downloads/obophenotype-human-phenotype-ontology-d3394d2/hp.json', 'r') as file:
+    nodeset = json.load(file)['graphs'][0]['nodes']
+    file.close()
 
 # extract HPO nodeset and parse
-nodeset = raw['graphs'][0]['nodes']
 hpo = []
 for node in nodeset:
     hpo.append(__hpo__unpack__node__(node))
     
 
 # write to csv
-filename = 'data/hpo_release_{}.csv'.format(tag_name)
 hpoData = pd.DataFrame(hpo)
-hpoData.to_csv('data/hpo_release_v2021-08-02.csv', index = False)
+hpoData.to_csv('data/hpo_release_{}.csv'.format(tag_name), index = False)
