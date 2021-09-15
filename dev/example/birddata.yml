@@ -1,8 +1,8 @@
-name: birddata
+name: birdData
 label: Bird Data
 description: Reporting Rates of Australian Birds
-version: 0.9000
-date: 2022-01-01
+version: 0.9100
+date: 2021-09-14
 
 defaults:
   dataType: string
@@ -17,6 +17,7 @@ entities:
     description: Reporting Counts and Rates by Species
     attributes:
       - name: birdID
+        name-species: speciesID
         label: BirdID
         description: Species Identifier
         idAttribute: true
@@ -111,40 +112,3 @@ entities:
         scientificName: Corvus coronoides
         count: 357750
         reportingRate: 15.50
-
-  - name: states
-    label: Australian States
-    label-nl: Australische Staten
-    description: Australian States and Codes
-    attributes:
-      - name: code
-        idAttribute: true
-        dataType: string
-      - name: category
-      - name: name
-        label-nl: naam
-    data:          
-      - code: AU-ACT
-        category: territory
-        name: Australian Capital Territory
-      - code: AU-NSW
-        category: state
-        name: New South Wales
-      - code: AU-NT
-        category: territory
-        name: Northern Territory
-      - code: AU-QLD
-        category: state
-        name: Queensland
-      - code: AU-SA
-        category: state
-        name: South Australia
-      - code: AU-TAS
-        category: state
-        name: Tasmania
-      - code: AU-VIC
-        category: state
-        name: Victori
-      - code: AU-WA
-        category: state
-        name: Western Australia

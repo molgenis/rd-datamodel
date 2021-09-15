@@ -1,0 +1,6 @@
+package,name,label,label-nl,description,description-nl
+rdModel,patients,,,,
+rdModel,clinical,,,,
+rdModel,samples,Samples,Samples,Sample metadata including tests performed and results,"Metagegevens over het monster, inclusief uitgevoerde tests en resultaten"
+rdModel,experiments,,,,
+rdModel,files,,,,

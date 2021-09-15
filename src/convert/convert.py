@@ -2,7 +2,7 @@
 #' FILE: convert.py
 #' AUTHOR: d.c.ruvolo
 #' CREATED: 2021-09-01
-#' MODIFIED: 2021-09-07
+#' MODIFIED: 2021-09-14
 #' PURPOSE: convert yaml to emx format
 #' STATUS: working; ongoing
 #' PACKAGES: see below
@@ -103,7 +103,7 @@ from src.convert.utils import emxAttributes
 # ```python
 # import molgenis.convert
 #
-# c = Convert(file = "path/to/my/file.yml")
+# c = Convert(files = "path/to/my/file.yml")
 # ```
 #
 # Use the method `convert` to compile the yaml into EMX format. By default,
@@ -132,10 +132,18 @@ from src.convert.utils import emxAttributes
 #
 # Lastly, you can write the schema to markdown using `write_md`.
 #
+# ```python
+# c.write_schema(path = 'path/to/save/my/model_schema.md')
+# ```
+#
 class Convert:
-    def __init__(self, file):
-        self.file = file
-        self.emx = False
+    def __init__(self, files: list = []):
+        self.files = files
+        self.packages = []
+        self.entities = []
+        self.attributes = []
+        self.data = {}
+        self.yaml = False
     #
     # @name __yaml__read__
     # @description read yaml file
@@ -179,9 +187,10 @@ class Convert:
     # @name __emx__extract__entities
     # @description extract known EMX entity attributes
     # @param data parsed yaml object
+    # @param priorityNameKey the priority key name
     # @return list of dictionaries
     #
-    def __emx__extract__entities__(self, data):
+    def __emx__extract__entities__(self, data, priorityNameKey):
         emx = {'entities': [], 'attributes': [], 'data': {}}
         langAttrs = ('label-', 'description-')
         for entity in data['entities']:
@@ -193,23 +202,32 @@ class Convert:
             
             if 'attributes' not in entityKeys:
                 raise ValueError('Error in entity: missing required attribute "attributes"')
-            
 
             # extract entity attributes and append package name automatically
-            e = {'package': self.package}
+            e = {'package': data['name']}
             for ekey in entityKeys:
                 if ekey in emxAttributes['entities'] or ekey.startswith(langAttrs):
                     e[ekey] = entity[ekey]
             emx['entities'].append(e)
             
+            # append priorityNameKey to approved attributes list
+            if priorityNameKey:
+                emxAttributes['attributes'].append(priorityNameKey)
+            
             # check for attributes and extract
             attributes = entity['attributes']
             for attr in attributes:
                 attrKeys = list(attr.keys())
-                d = {'entity': entity['name']}
+                d = {'entity': data['name'] + '_' + entity['name']}
                 for aKey in attrKeys:
                     if aKey in emxAttributes['attributes'] or aKey.startswith(langAttrs):
                         d[aKey] = attr[aKey]
+                
+                if priorityNameKey and priorityNameKey in d:
+                    if d[priorityNameKey] != 'none':
+                        d.pop('name')
+                        d['name'] = d.get(priorityNameKey, None)
+                        d.pop(priorityNameKey, None)
 
                 # apply default settings if specified
                 if data['defaults']:
@@ -222,7 +240,7 @@ class Convert:
             
             # check for datasets and extract
             if 'data' in entity:
-                name = self.package + '_' + entity['name']
+                name = data['name'] + '_' + entity['name']
                 emx['data'][name] = entity['data']
 
         return emx
@@ -246,26 +264,22 @@ class Convert:
     def __write__xlsx__(self, path, includeData: bool = True):
         wb = pd.ExcelWriter(path, engine = 'xlsxwriter')
 
-        # as.data.frame
-        pkgs = pd.DataFrame(self.emx['packages'], index=[0])
-        enty = pd.DataFrame(self.emx['entities'], index = range(0, len(self.emx['entities'])))
-        attr = pd.DataFrame(self.emx['attributes'], index = range(0, len(self.emx['attributes'])))
+        pkgs = pd.DataFrame(self.packages, index=range(0, len(self.packages)))
+        enty = pd.DataFrame(self.entities, index = range(0, len(self.entities)))
+        attr = pd.DataFrame(self.attributes, index = range(0, len(self.attributes)))
         
-        # write data
         pkgs.to_excel(wb, sheet_name = 'packages', startrow = 1, header = False, index = False)
         enty.to_excel(wb, sheet_name = 'entities', startrow = 1, header = False, index = False)
         attr.to_excel(wb, sheet_name = 'attributes', startrow = 1, header = False, index = False)
         
-        # write headers
         self.___xlsx__headers__(wb, pkgs.columns.values, 'packages')
         self.___xlsx__headers__(wb, enty.columns.values, 'entities')
         self.___xlsx__headers__(wb, attr.columns.values, 'attributes')
         
-        # write each dataset individually
-        if 'data' in self.emx and includeData:
-            for dataset in self.emx['data']:
-                i = range(0, len(self.emx['data'][dataset]))
-                df = pd.DataFrame(self.emx['data'][dataset], index = i)
+        if self.data and includeData:
+            for dataset in self.data:
+                i = range(0, len(self.data[dataset]))
+                df = pd.DataFrame(self.data[dataset], index = i)
                 df.to_excel(wb, sheet_name = dataset, startrow = 1, header = False, index = False)
                 self.___xlsx__headers__(wb, df.columns.values, dataset)
 
@@ -278,43 +292,50 @@ class Convert:
     #
     def __write__csv__(self, dir, includeData: bool = True):
 
-        # as.data.frame
-        pkgs = pd.DataFrame(self.emx['packages'], index=[0])
-        enty = pd.DataFrame(self.emx['entities'], index = range(0, len(self.emx['entities'])))
-        attr = pd.DataFrame(self.emx['attributes'], index = range(0, len(self.emx['attributes'])))
-        
-        # to_csv
+        pkgs = pd.DataFrame(self.packages, index=[0])
+        enty = pd.DataFrame(self.entities, index = range(0, len(self.entities)))
+        attr = pd.DataFrame(self.attributes, index = range(0, len(self.attributes)))
+
         pkgs.to_csv(dir + '/packages.csv', index = False)
         enty.to_csv(dir + '/entities.csv', index = False)
         attr.to_csv(dir + '/attributes.csv', index = False)
         
-        # write each dataset individually
-        if 'data' in self.emx and includeData:
-            for dataset in self.emx['data']:
-                i = range(0, len(self.emx['data'][dataset]))
-                df = pd.DataFrame(self.emx['data'][dataset], index = i)
+        if self.data and includeData:
+            for dataset in self.data:
+                i = range(0, len(self.data[dataset]))
+                df = pd.DataFrame(self.data[dataset], index = i)
                 df.to_csv(dir + '/' + dataset + '.csv', index = False)
     #
     # @name convert
     # @description convert yaml file into EMX structure
-    # @param includePkgMeta if TRUE, version and date will be added to description
+    # @param includePkgMeta if TRUE (default), version and date will be added to description
+    # @param priorityNameKey For EMX markups that are harmonization projects (i.e.,
+    #   multiple `name` attributes), you can set which name attribute gets priority. This
+    #   means that you can compile the EMX for different projects. Leave as none if this
+    #   doesn't apply to you :-)
     # @return ...
     #
-    def convert(self, includePkgMeta: bool = True):
-        yaml = self.__yaml__read__(self.file)
+    def convert(self, includePkgMeta: bool = True, priorityNameKey: str = None):
+        for file in self.files:
+            print('Processing: {}'.format(file))
+            self.yaml = self.__yaml__read__(file)
         
-        keys = list(yaml.keys())
-        if 'name' not in keys:
-            raise ValueError('Error in convert: missing required attribute "name"')
+            keys = list(self.yaml.keys())
+            if 'name' not in keys:
+                raise ValueError('Error in convert: missing required attribute "name"')
         
-        if 'entities' not in keys:
-            raise ValueError('Error in convert: missing "entities"')
+            if 'entities' not in keys:
+                raise ValueError('Error in convert: missing "entities"')
+            
+            emx = {
+                'packages': self.__emx__extract__package__(self.yaml, includePkgMeta),
+                **self.__emx__extract__entities__(self.yaml, priorityNameKey)
+            }
 
-        self.package = yaml['name']
-        self.emx = {
-            'packages': self.__emx__extract__package__(yaml, includePkgMeta),
-            **self.__emx__extract__entities__(yaml)
-        }   
+            self.packages.extend([emx['packages']])
+            self.entities.extend(emx['entities'])
+            self.attributes.extend(emx['attributes'])
+            self.data.update(emx['data'])
     #
     # @name write
     # @description write EMX files
@@ -325,6 +346,7 @@ class Convert:
     # @return None
     def write(
         self,
+        name: str = None,
         format: str = 'xlsx',
         outDir: str = '.',
         includeData: bool = True
@@ -333,9 +355,8 @@ class Convert:
             raise ValueError('Error in write: unexpected format ', str(format))
         
         if format == 'xlsx':
-            file = outDir + '/' + self.package + '.' + str(format)
+            file = outDir + '/' + name + '.' + str(format)
             if os.path.exists(file):
-                print('file exists deleting...')
                 os.remove(file)
             self.__write__xlsx__(file, includeData)
         
@@ -351,39 +372,52 @@ class Convert:
     # @param path path to file
     def write_schema(self, path: str = None):
         with open(path, 'w', encoding = 'utf-8') as md:
-            md.write('# {}\n\n'.format(self.package))
+            md.write('# Model Schema\n\n')
             
-            # write description as introduction
-            if 'description' in self.emx['packages']:
-                md.write('{}\n\n'.format(self.emx['packages']['description']))
+            md.write('## Packages\n\n')
+            pkgs = []
+            for pkg in self.packages:
+                pkgs.append({
+                    'Name': pkg.get('name'),
+                    'Description': pkg.get('description', '-')
+                })
+            pkgsTable = Tomark.table(pkgs)
+            md.write(pkgsTable)
+            
             
             # write entity overview
-            md.write('## Model Overview\n\n')
-            entities = self.emx['entities']
-            for e in entities:
-                e['Name'] = e.pop('name')
-                e['Description'] = e.pop('description')
+            md.write('\n## Entities\n\n')
+            entities = []
+            for e in self.entities:
+                entities.append({
+                    'Name': e.get('name', '-'),
+                    'Description': e.get('description', '-'),
+                    'Package': e.get('package', '-')
+                })
             entityTable = Tomark.table(entities)
             md.write(entityTable)
 
             # write data to file
-            keys = ['name', 'label', 'description', 'dataType']
-            for entity in entities:
-                md.write('\n## Entity: {}\n\n'.format(entity['Name']))
-                md.write('{}\n\n'.format(entity['Description']))
-                entityData = list(
-                    filter(lambda d: d['entity'] in entity['Name'], self.emx['attributes'])
-                )
+            for entity in self.entities:
+                entityPkgName = entity['package'] + '_' + entity['name']
+                md.write('\n## Entity: {}\n\n'.format(entityPkgName))
+                
+                if 'description' in entity:
+                    md.write('{}\n\n'.format(entity['description']))
+                
+                entityData = list(filter(lambda d: d['entity'] in entityPkgName, self.attributes))
                 entityAttribs = []
+
                 for d in entityData:
                     entityAttribs.append({
-                        'Name': d.get('name', '---'),
-                        'Label': d.get('label', '---'),
-                        'Description': d.get('description', '---'),
-                        'Data Type': d.get('dataType', '---'),
-                        'ID Attribute': d.get('idAttribute', '---')
+                        'Name': d.get('name', '-'),
+                        'Label': d.get('label', '-'),
+                        'Description': d.get('description', '-'),
+                        'Data Type': d.get('dataType', '-'),
+                        'ID Attribute': d.get('idAttribute', '-')
                     })
-                entityTable = Tomark.table(entityAttribs)
-                md.write(entityTable)
+
+                attributesTable = Tomark.table(entityAttribs)
+                md.write(attributesTable)
+
             md.close()
-    #
