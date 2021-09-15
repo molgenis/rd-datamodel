@@ -7,7 +7,7 @@
 | birdData | Reporting Rates of Australian Birds (v0.91, 2021-09-14) |
 | birdDataRefs | Reference Tables for birdData (v0.9, 2021-09-14) |
 
-## Model Overview
+## Entities
 
 | Name | Description | Package |
 |-----|-----|-----|
@@ -18,11 +18,9 @@
 
 Reporting Counts and Rates by Species
 
-### Attributes: birdData_species
-
 | Name | Label | Description | Data Type | ID Attribute |
 |-----|-----|-----|-----|-----|
-| birdID | BirdID | Species Identifier | string | True |
+| speciesID | BirdID | Species Identifier | string | True |
 | commonName | Common Name | Commonly used name for a species | string | False |
 | scientificName | Scientific Name | Scientific name for a species | string | False |
 | count | Count | - | int | False |
@@ -31,8 +29,6 @@ Reporting Counts and Rates by Species
 ## Entity: birdDataRefs_states
 
 Australian States and Codes
-
-### Attributes: birdDataRefs_states
 
 | Name | Label | Description | Data Type | ID Attribute |
 |-----|-----|-----|-----|-----|

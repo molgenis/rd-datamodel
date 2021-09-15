@@ -223,7 +223,7 @@ class Convert:
                     if aKey in emxAttributes['attributes'] or aKey.startswith(langAttrs):
                         d[aKey] = attr[aKey]
                 
-                if priorityNameKey:
+                if priorityNameKey and priorityNameKey in d:
                     d.pop('name')
                     d['name'] = d.get(priorityNameKey, None)
                     d.pop(priorityNameKey, None)
@@ -385,7 +385,7 @@ class Convert:
             
             
             # write entity overview
-            md.write('\n## Model Overview\n\n')
+            md.write('\n## Entities\n\n')
             entities = []
             for e in self.entities:
                 entities.append({
@@ -401,7 +401,6 @@ class Convert:
                 entityPkgName = entity['package'] + '_' + entity['name']
                 md.write('\n## Entity: {}\n\n'.format(entityPkgName))
                 md.write('{}\n\n'.format(entity['description']))
-                md.write('### Attributes: {}\n\n'.format(entityPkgName))
                 
                 entityData = list(filter(lambda d: d['entity'] in entityPkgName, self.attributes))
                 entityAttribs = []
