@@ -2,7 +2,7 @@
 #' FILE: index.py
 #' AUTHOR: David Ruvolo
 #' CREATED: 2021-05-05
-#' MODIFIED: 2021-09-23
+#' MODIFIED: 2021-10-08
 #' PURPOSE: Pull ERN reference table and clean names
 #' STATUS: working
 #' PACKAGES: requests, bs4/BeautifulSoup, re, csv
@@ -27,8 +27,16 @@ for row in table.findAll('tr'):
         'id': re.sub(r'[\s-]+', '_',row.select('td:nth-child(1)')[0].text.strip()).lower(),
         'shortname': row.select('td:nth-child(1)')[0].text.strip(),
         'fullname': re.sub(r'\([^)]*\)', '', row.select('td:nth-child(2)')[0].text.strip()).strip(),
-        'factsheet_url': row.select('td:nth-child(2) > a:nth-child(1)')[0]['href'],
-        'website': row.select('td:nth-child(2) > a:nth-child(2)')[0]['href']
+        'factsheet_url': re.sub(
+            pattern = 'http:',
+            repl = 'https',
+            string = row.select('td:nth-child(2) > a:nth-child(1)')[0]['href']
+        ),
+        'website': re.sub(
+            pattern = 'http:',
+            repl = 'https:',
+            string = row.select('td:nth-child(2) > a:nth-child(2)')[0]['href']
+        )
     })
 
 # write
