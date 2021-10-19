@@ -89,9 +89,6 @@ entities:
       - name: yearOfBirth
         name-cosas: none
         name-rd3: dateOfBirth # year
-      - name: inclusionStatus
-        dataType: categorical
-        refEntity: ...
       - name: dateOfDeath
         name-cosas: dateOfDeath
         name-rd3: none
@@ -100,6 +97,13 @@ entities:
         name-cosas: ageAtDeath # years
         name-rd3: ageOfDeath
         dataType: integer
+      
+      # TODO: Integrate FAIR Genomes Lookup table
+      - name: inclusionStatus
+        name-cosas: inclusionStatus
+        dataType: categorical
+        refEntity: ...
+
       - name: claimedSex
         name-cosas: biologicalSex
         name-rd3: sex1
@@ -110,6 +114,8 @@ entities:
         name-rd3: sex2
         dataType: categorical
         refEntity: ...
+
+      # TODO: include FG modules here: country and ancestry
       - name: countryOfBirth
         name-cosas: none
         name-rd3: Country_of_origin
@@ -119,16 +125,23 @@ entities:
       - name: ancestry
         name-cosas: none
         name-rd3: none
+
+      # For now, these should be strings. If the networks are ERNS, then we can
+      # use the ERN metadata dataset.
       - name: primaryAffiliation
         name-cosas: none
         name-rd3: organisation
       - name: affiliatedNetworks
         name-cosas: none
         name-rd3: ERN
+
       - name: consanguinity
         name-cosas: consanguinity
         name-rd3: consanguinity_suspected
         dataType: bool
+
+      # TODO: these are included in COSAS and GeneticLines, but I think they
+      # removed/no longer used
       - name: fetalStatus
         name-cosas: is_fetus
         name-rd3: none
@@ -137,22 +150,31 @@ entities:
         name-cosas: is_twin
         name-rd3: none
         dataType: bool
+
+      # The values in this attribute should be comma-separated strings
       - name: altPersonalIDs
         name-cosas: altPatientID
         name-rd3: none
+
+      # TODO: First contact of what? Clinical visit? Contacted by clinic? Is this even needed?
       - name: firstContact
         name-cosas: none
         name-rd3: none
         dataType: date
+
+      # TODO: a high-level consent status may be useful here
       - name: consentStatus
         name-cosas: none
         name-rd3: retracted, matchmaker permission, incidental findings
         dataType: categoricalmref
         refEntity: ...
+
+      # TODO: should we add additional internal attributes here?
       - name: dateLastUpdated
         name-cosas: dateLastUpdated
         name-rd3: none
         dataType: dateTime
+
   - name: clinical
     attributes:
       - name: personalID
