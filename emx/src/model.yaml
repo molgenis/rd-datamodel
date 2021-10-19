@@ -1,27 +1,77 @@
-name: rdModel
+# Unified Rare Disease Data Model
+# A harmonized data model for rare disease moglenis databases.
+
+name: rdmodel
 label: Rare Diseases Model
-description: Rare Disease Shared Data Model
+description: The Rare Disease Unified Data Model
 version: 0.0002
 date: 2021-09-07
+tags: dcat:catalog
 
+
+# set tag definitions
+tagDefinitions:
+
+  # data object types
+  - identifier: dcat:catalog
+    label: dcat:Catalog
+    objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
+    codeSystem: dcat
+    relationLabel: isAssociatedWith
+    relationIRI: http://molgenis.org#isAssociatedWith
+  - identifier: dcat:dataset
+    label: Dataset
+    objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+    codeSystem: dcat
+    relationLabel: isAssociatedWith
+    relationIRI: http://molgenis.org#isAssociatedWith
+
+    # tag for patients dataset
+  - identifier: NCIT:C90492
+    label: NCIT:C90492
+    objectIRI: http://purl.obolibrary.org/obo/NCIT_C90492
+    codeSystem: NCIT
+    relationLabel: isAssociatedWith
+    relationIRI: http://molgenis.org#isAssociatedWith
+
+# Set default attribute values
 defaults:
   idAttribute: false
   dataType: string
   nillable: true
   lookupAttribute: false
 
+
+# Define tables
 entities:
-  - name: patients
+
+  # TODO: What name should we use to describe individuals?
+  # COSAS uses patients and RD3 uses subject
+  - name: personal
+    label: Personal Information
+    description: Information about the individuals and family members
+    tags: dcat:dataset,NCIT:C90492
     attributes:
+    
+      # TODO: What name should we use for personal identifier?
+      # Consider the naming structure for family, maternal, paternal, and relatives
       - name: personalID
         name-rd3: subjectID
         name-cosas: umcgID
         dataType: string
         idAttribute: true
         nillable: false
+        unique: true
+        lookupAttribute: true
+        labelAttribute: true
+      
       - name: familyID
         name-rd3: fid
         name-cosas: familyID
+        dataType: string
+      
+      # TODO: Should the following attributes reference the personal identifier attribute?
+      # I.e., should the dataType be `xref` (or `mref` for more than one)
       - name: maternalID
         name-rd3: mid
         name-cosas: maternalID
@@ -31,8 +81,9 @@ entities:
       - name: linkedFamilyIDs
         name-cosas: linkedFamilyIDs
         name-rd3: none
+
       - name: dateOfBirth
-        name-cosas: dateOfBirth
+        name-cosas: dateOfBirth # yyyy-mm-dd
         name-rd3: dateOfBirth # year
         dataType: date
       - name: yearOfBirth
