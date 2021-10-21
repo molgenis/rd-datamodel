@@ -1,0 +1,155 @@
+#//////////////////////////////////////////////////////////////////////////////
+# NAME: module_approved_users.yaml
+# AUTHOR: @dcruvolo
+# CREATED: 2021-10-21
+# MODIFIED: 2021-10-21
+# PURPOSE: EMX for user management module in Molgenis databases
+# COMMENTS: The purpose of this model is to create a reusable EMX package for
+# managing approved users for a Molgenis database. This may be useful for
+# database management, reporting and auditing purposes, and general project
+# management. To use in your own project, build the model and import it into
+# your molgenis database. Then upload and run the python script
+# python/module_approved_users.py to populate the reference entities in this
+# package.
+#//////////////////////////////////////////////////////////////////////////////
+
+
+# Define Package Structure
+name: users
+label: User Management
+description: List of approved users
+date: 2021-10-21
+version: 1.0.0
+
+
+# Set attribute level defaults
+defaults:
+  dataType: string
+  idAttribute: false
+  labelAttribute: false
+  lookupAttribute: false
+  nillable: true
+  
+
+# Define Entities in the package Users
+entities:
+
+  # @title Approved Users
+  # @description Metadata about active and deactivated users
+  - name: users
+    label: Users
+    description: Metadata about the user including access levels
+    attributes:
+      - name: email
+        label: Email
+        description: email address that was used to activate the user account
+        idAttribute: true
+        dataType: email
+        lookupAttribute: true
+        labelAttribute: true
+        nillable: false
+      - name: firstname
+        label: First Name
+        nillable: false
+      - name: lastname
+        label: Last Name
+        nillable: false
+      - name: affiliation
+        label: Affiliation
+        description: Organization that the user is associated with
+        nillable: false
+      - name: function
+        label: Function
+        description: Describe the function that user has in relation to the database
+      - name: accountStatus
+        label: Account Status
+        description: If True, the account is active
+        dataType: xref
+        refEntity: users_statuses
+        nillable: false
+      - name: accountStartDate
+        label: Date Account Activated
+        description: Enter the date the account was activated
+        dataType: date
+      - name: accountEndDate
+        label: Date Account Deactived
+        description: Enter the date the account deactivated
+        dataType: date
+        visible: "{accountStatus}='Deactivated'" # supports molgenis v9+ only
+      - name: hasSubmittedDocuments
+        label: Submitted Documents
+        description: An indication if the user has submitted the required documents in order to gain access to the database
+        dataType: bool
+      - name: hasAuthorization
+        label: Authorization
+        description: User has submitted all required documentation and authorization has been granted
+        dataType: bool
+      - name: roles
+        label: Roles
+        description: Select the roles that the user has been assigned
+        dataType: mref
+        refEntity: users_roles
+      - name: packages
+        label: Packages
+        description: Select the packages that the user has access to
+        dataType: mref
+        refEntity: users_packages
+        
+  #////////////////////////////////////
+  # Reference Entities
+
+  # @title Packages
+  # @description list of packages (applicable to the current project)
+  - name: packages
+    label: Packages
+    description: All packages and entities associated with the current project
+    attributes:
+      - name: id
+        idAttribute: true
+        nillable: false
+        dataType: string
+      - name: label
+        lookupAttribute: true
+        labelAttribute: true
+      - name: description
+        
+  # @title Roles
+  # @description list of roles by package
+  - name: roles
+    label: Roles
+    description: All roles by package
+    attributes:
+      - name: id
+        idAttribute: true
+        nillable: false
+        dataType: string
+      - name: label
+        lookupAttribute: true
+        labelAttribute: true
+      - name: description
+      
+  # @title Account Staus
+  # @description account statuses and descriptions
+  - name: statuses
+    label: Account Statuses
+    description: available account status options and descriptions
+    attributes:
+      - name: id
+        idAttribute: true
+        nillable: false
+        dataType: string
+      - name: label
+        lookupAttribute: true
+        labelAttribute: true
+      - name: description
+    data:
+      - id: activated
+        label: Activated
+        description: User account is active and permissions to access resources has been granted
+      - id: deactivated
+        label: Deactivated
+        description: User account has been deactivated for a number of reasons (e.g., withdrawn, revoked, account terminated, etc.)
+      - id: pending
+        label: Pending
+        description: User account is not yet active
+  
