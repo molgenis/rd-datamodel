@@ -96,24 +96,24 @@ entities:
       - name: ageAtDeath # years
         name-cosas: ageAtDeath # years
         name-rd3: ageOfDeath
-        dataType: integer
+        dataType: int
       
       # TODO: Integrate FAIR Genomes Lookup table
       - name: inclusionStatus
         name-cosas: inclusionStatus
-        dataType: categorical
-        refEntity: ...
+        # dataType: categorical
+        # refEntity: ...
 
       - name: claimedSex
         name-cosas: biologicalSex
         name-rd3: sex1
-        dataType: categorical
-        refEntity: ...
+        # dataType: categorical
+        # refEntity: ...
       - name: geneticSex
         name-cosas: biologicalSex
         name-rd3: sex2
-        dataType: categorical
-        refEntity: ...
+        # dataType: categorical
+        # refEntity: ...
 
       # TODO: include FG modules here: country and ancestry
       - name: countryOfBirth
@@ -166,14 +166,14 @@ entities:
       - name: consentStatus
         name-cosas: none
         name-rd3: retracted, matchmaker permission, incidental findings
-        dataType: categoricalmref
-        refEntity: ...
+        # dataType: mref
+        # refEntity: ...
 
       # TODO: should we add additional internal attributes here?
       - name: dateLastUpdated
         name-cosas: dateLastUpdated
         name-rd3: none
-        dataType: dateTime
+        dataType: datetime
 
   - name: clinical
     attributes:
@@ -218,7 +218,7 @@ entities:
       - name: dateLastUpdated
         name-cosas: dateLastUpdated
         name-rd3: none
-        dataType: dateTime
+        dataType: datetime
   - name: samples
     label: Samples
     label-nl: Samples
@@ -266,7 +266,7 @@ entities:
       - name: dateLastUpdated
         name-cosas: dateLastUpdated
         name-rd3: none
-        dataType: dateTime
+        dataType: datetime
   - name: experiments
     attributes:
       - name: personalID
@@ -328,7 +328,7 @@ entities:
       - name: dateLastUpdated
         name-cosas: dateLastUpdated
         name-rd3: none
-        dataType: dateTime
+        dataType: datetime
   - name: files
     attributes:
       - name: personalID
@@ -365,4 +365,4 @@ entities:
       - name: dateLastUpdated
         name-cosas: dateLastUpdated
         name-rd3: none
-        dataType: dateTime
+        dataType: datetime

@@ -10,16 +10,30 @@
 #'////////////////////////////////////////////////////////////////////////////
 
 
-from emxconvert.convert import Convert
+import yamlemxconvert
 
-# data model
-c = Convert(files = ['emx/src/model.yaml'])
+
+#//////////////////////////////////////
+
+# ~ 1 ~
+# BUILD EMX1 MODEL
+# render model for EMX v1 Molgenis instances
+
+# build: main data model
+c = yamlemxconvert.Convert(files = ['emx/src/model_emx_v1.yaml'])
 c.convert()
+
 c.write('rdmodel', format = 'xlsx', outDir = 'emx/dist/')
-c.write_schema('emx/dist/rdmodel_schema.md')
+c.write_schema('emx/schemas/rdmodel_schema.md')
+
+c.convert(priorityNameKey = 'rd3')
+c.packages
+c.entities
+c.attributes
 
 
-# user management module
-usersModule = Convert(files = ['emx/src/module_approved_users.yaml'])
+# build: user management module
+usersModule = yamlemxconvert.Convert(files = ['emx/src/module_approved_users.yaml'])
 usersModule.convert()
 usersModule.write('users', format = 'xlsx', outDir = 'emx/dist/')
+usersModule.write_schema('emx/schemas/users_module_schema.md')
