@@ -3,7 +3,7 @@
 # AUTHOR: david ruvolo,
 # VERSION: 0.0.9000
 # CREATED: 2021-10-26
-# MODIFIED: 2021-10-26
+# MODIFIED: 2021-10-27
 # PURPOSE: Unified Rare Disease Data Model
 # STATUS: in.progress
 # COMMENTS:
@@ -14,9 +14,16 @@ tables:
   # @title Persons
   # @description This table provides an overview of the patients and any linked
   #   family members
-  # @TODO
-  #  - What is an appropriate name for this table?
-  #  - What is the appropriate semantic tag?
+  #
+  # @section Notes:
+  # The structure below follows the FairGenomes guidelines, but also adds RD3
+  # and COSAS input.
+  #
+  # @section Questions:
+  #
+  # - What is an appropriate name for this table and the "people" in here?
+  # - What is the appropriate semantic tag based on the table name?
+  #
   - name: persons
     description: Characteristics about an individual and related family members
     semantics: http://purl.obolibrary.org/obo/NCIT_C90492
@@ -77,7 +84,7 @@ tables:
         refTable: inclusionStatus
         refLabel: "${value}"
         description: An indicator that provides information on the current health status of this person.
-        semantics: http://purl.obolibrary.org/obo/NCIT_C166244 
+        semantics: http://purl.obolibrary.org/obo/NCIT_C166244
       
       # Should we include both date and year in the model?
       - name: dateOfBirth
@@ -106,7 +113,7 @@ tables:
         description: The age at which death occurred.
         semantics: http://purl.obolibrary.org/obo/NCIT_C135383
       
-      # I've seen 'biologicalSex' here, but I've opted for the FG term.
+      # Other projects use 'biologicalSex', but I've opted for the FG term.
       - name: phenotypicSex
         required: false
         columnType: ref
@@ -150,8 +157,11 @@ tables:
         description: Population category defined using ancestry informative markers (AIMs) based on genetic/genomic data.
         semantics: http://purl.obolibrary.org/obo/NCIT_C176763
         
+      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
       # This isn't in FG, but could be useful
-      # Should we use a reference database? Perhaps ROR IDs?
+      # Should we use a reference database? Perhaps ROR IDs? We could download the
+      # releases and use them.
       # Is a string array good or perhaps we could use hyperlinks?
       # In the earlier version of this model, we created the column 'affiliatedNetworks'.
       #   However, we can probably merge that column with this one. If that is the case,
@@ -161,9 +171,6 @@ tables:
         columnType: string_array
         description: The most significant institute for medical consultation and/or study inclusion in context of the genetic disease of this person.
         semantics: http://purl.obolibrary.org/obo/NCIT_C25412
-        
-        
-      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       
       # This is an RD3 specific column
       - name: contactPerson
@@ -171,9 +178,19 @@ tables:
         columnType: string
         description: A person acting as a channel for communication between groups or on behalf of a group.
         semantics: http://purl.obolibrary.org/obo/NCIT_C25461
+        
+      - name: dataRelease
+        required: false
+        columnType: string_array
+        refTable: dataReleases
+        refLabel: "${name}"
+        description: The act of making data or other structured information accessible to the public or to the user group of a database.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C172217
+
       #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-      # Perhaps "secondary identifier" would fit better? http://www.ontobee.org/ontology/NCIT?iri=http://purl.obolibrary.org/obo/NCIT_C101703
+      # Perhaps "secondary identifier" would fit better?
+      # http://www.ontobee.org/ontology/NCIT?iri=http://purl.obolibrary.org/obo/NCIT_C101703
       - name: alternativeIdentifiers
         required: false
         columnType: string_array
@@ -190,11 +207,28 @@ tables:
         
         
       # should this be moved to samples?
-      - name: twinStatus
-      - name: consanguinity
+      - name: twinStatus     # I don't think we need this, it was suggested earlier
+      - name: fetalStatus    # I don't think we need this, it was suggested earlier
+      - name: consanguinity  # move to clinical?
+      
+      # an RD3 attribute
+      - name: comments
+        required: false
+        columnType: string
+        description: A written explanation, observation or criticism added to textual material.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C25393
       
       #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      # table row metadata
+      # table record metadata
+      # This is useful to have for record keeping. I recommend that these attributes
+      # become standard across many tables. We may want to think about adding
+      # additional attributes (such as authorization and validity)
+      
+      - name: comments
+        required: false
+        columnType: string
+        description: A written explanation, observation or criticism added to textual material.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C25393
       
       # refers to the datetime when the entry was created in the database
       - name: dateRecordCreated
@@ -209,20 +243,43 @@ tables:
         columnType: datetime
         description: The date (and time) on which report was updated after it had been submitted.
         semantics: http://purl.obolibrary.org/obo/NCIT_C93629
+      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       
         
-  #////////////////////////////////////
+  #////////////////////////////////////////////////////////////////////////////
   
-  # I'm not sure what to put in this table. I've added the RD3 items, but for care databases,
-  # we do not usually collect this information.
+  # @title Consent
+  # @description table to capture consent information for a variety of situations
+  #   e.g., zorg, research, etc.
+  #
+  # @section Notes:
+  #
+  # I'm not sure what to put in this table. I've added the RD3 items, but for zorg databases,
+  # we do not usually collect this information. The GeneticLines consent is much different.
+  #
   - name: consent
     description: Consent given by a patient to a surgical or medical procedure or participation in a study, examination or analysis after achieving an understanding of the relevant medical facts and the risks involved.
     semantics: http://purl.obolibrary.org/obo/NCIT_C16735
     columns:
+    
+      # I'm not sure how EMX2 works, but can a primary key also be a reference?
+      # If not, add a second column that references back to the person
       - name: belongsToPerson
         key: 1
         required: true
-        
+        columnType: ref
+        refTable: persons
+        refLabel: "${belongsToPerson}"
+      
+      # this is likely affiliation, but should there also be a space for contact person?
+      # perhaps there should be another table called contacts? this table would have the
+      # contact person's info and affiliation. Then this table could be referenced in
+      # the person's table and consent.
+      - name: collectedBy
+        columnType: string # or ref entity
+        description: Indicates the ins who performed the collection act.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C45262
+      
       - name: validFrom
         columnType: date
         description: Starting date of the validity of this individual consent.
@@ -236,14 +293,16 @@ tables:
       #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # RD3 Specific Columns
       
-      # see notes about
-      - name: primaryAffiliation
+      # Withdrawn status. This is an RD3 specific attribute, but likely useful
+      # in other circumstances. Should this be moved to consent?
+      - name: withdrawn
         required: false
-        columnType: string_array
-        description: The most significant institute for medical consultation and/or study inclusion in context of the genetic disease of this person.
-        semantics: http://purl.obolibrary.org/obo/NCIT_C25412
+        columnType: bool
+        description: To cease active participation in; remove from active use.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C38061
          
-      # see notes above
+      # This isn't captured anywhere in FG. In RD3, the column `contact` has
+      # the email address of the person to contact 
       - name: contactPerson
         required: false
         columnType: string
@@ -252,16 +311,13 @@ tables:
         description: A person acting as a channel for communication between groups or on behalf of a group.
         semantics: http://purl.obolibrary.org/obo/NCIT_C25461
       
-      # some how we need to fit in match maker permission and incidental findings
-      # Should these be put in a ref_array?
+      # some how I need to fit in match maker permission and incidental findings
+      # Should these be put in a ref_array and then added to the DataUsePersmissions lookup?
+      # I think for specificity, RD3 opted for wide format rather than nesting this information
+      # into one column.
       - name: dataUsePermission
         description: A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used.
-        semantics: http://purl.obolibrary.org/obo/DUO_0000001
-        
-      - name: allowRecontacting
-        columnType: bool
-        description: The procedure of recontacting the patient for specified reasons. This means the patient agrees to be re-identifiable under those circumstances.
-        semantics: http://purl.obolibrary.org/obo/NCIT_C25737
+        semantics: http://purl.obolibrary.org/obo/DUO_0000001  
         
       - name: allowIncidentalFindingRecontact
         columnType: bool
@@ -270,27 +326,162 @@ tables:
         
       - name: allowMatchmaker
         columnType: bool
-        description: ...
+        description: Permission is given for MatchMaking
       
       #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
+      - name: allowRecontacting
+        columnType: bool
+        description: The procedure of recontacting the patient for specified reasons. This means the patient agrees to be re-identifiable under those circumstances.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C25737
+
+  
+  #////////////////////////////////////////////////////////////////////////////
+  
+  # @title Clinical
+  # @description metadata on clinical events including phenotypic information
+  #   and diagnostic information
+  #
+  # @section Notes:
+  # In some projects, this information is stored in the "persons" table. However,
+  # I like the Fair Genomes approach of separating this information. This module
+  # is heavily influenced by FAIR Genomes, but the handling of linked family
+  # members is different. If a family member is affected or has been sequenced,
+  # then they will be added as a new record.
+  #
+  # Records are usually tied to a person rather than a unique clinical identifier.
+  #
+  # 1. I didn't add age at last screening. We usually don't have that information
+  # 2. We also don't include medication or drug regimen
+  # 3. Family members affected and sequenced is a bit tricky. If information family
+  #     members are affected and sequenced, a new record would be created
+  # 4. We also don't collect medical history (but we could)
+  # 5. 'affectedStatus' could replace 'functioning'
+  # 6. consanguinity is usually listed in the "persons" table. Should this be moved here?
+  # 7. first contact is usually included inthe "persons" table. Move it here?
+  #
+  # In many projects, we have another reference list for phenotypes. We usually create
+  # additional columns of each phenotypic attribute and use the FairGenomes columns
+  # to map project data to HPO.
+  #
+  - name: clinical
+    description: Findings and circumstances relating to the examination and treatment of a patient.
+    semantics: http://purl.obolibrary.org/obo/NCIT_C25398
+    columns:
+      - name: belongsToPerson
+        key: 1
+        required: true
+        columnType: ref
+        refTable: patients
+        refLabel: "${name}"
         
-  
-  
-  #////////////////////////////////////
-  
-  # - name: clinical
-  #   description: Findings and circumstances relating to the examination and treatment of a patient.
-  #   semantics: http://purl.obolibrary.org/obo/NCIT_C25398
-  #   columns:
-  #     - name: belongsToPerson
-  #       key: 1
-  #       required: true
-  #       columnType: string
-  #     - name: person
-  #       columnType: string
-  #       refTable: patients
-  #       refLabel: "${name}"
+      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      # RD3 specific column, but could be useful as we do not collect "functioning"
+      # I used ALT_DEFINITION instead of the main one.
+      - name: affectedStatus
+        columnType: bool
+        description: Individuals in a pedigree who exhibit the specific phenotype under study.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C64917
+      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        
+      # This isn't in FG
+      - name: dateOfDiagnosis
+        required: false
+        columnType: date
+        description: The date on which a diagnosis of disease was made.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C164339
+        
+      - name: ageAtDiagnosis
+        required: false
+        columnType: decimal # using decimal for more accurate calcuations
+        description: The age, measured from some defined time point (e.g. birth) at which a patient is diagnosed with a disease.
+        semantics: http://purl.bioontology.org/ontology/SNOMEDCT/423493009
+        
+      - name: ageOfOnset
+        required: false
+        columnType: decimal # using decimal for more accurrate calcuations
+        description: Age of onset of clinical manifestations related to the disease of the patient.
+        semantics: http://www.orpha.net/ORDO/Orphanet_C023    
+        
+      - name: observedPhenotype
+        columnType: ref_array
+        refTable: phenotype
+        description: The outward appearance of the individual. In medical context, these are often the symptoms caused by a disease.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C16977
+      
+      - name: unobservedPhenotype
+        columnType: ref_array
+        refTable: phenotype
+        refLabel: "${value}"
+        description: Phenotypes or symptoms that were looked for but not observed, which may help in differential diagnosis or establish incomplete penetrance.
+        semantics: http://purl.bioontology.org/ontology/HL7/C0442737
+      
+      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      # COSAS attribute
+      # A reported phenotype, but it is unconfirmed
+      - name: provisionalPhenotype
+        columnType: ref_array
+        refTable: phenotype
+        refLabel: "${value}"
+        description: The test or procedure was successfully performed, but the results are borderline and can neither be declared positive / negative nor detected / not detected according to the current established criteria.
+        semantics: http://purl.bioontology.org/ontology/HL7/C0332241
+      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        
+      - name: clinicalDiagnosis
+        required: false
+        columnType: ref
+        refTable: diseases
+        refLabel: "${value}"
+        description: A diagnosis made from a study of the signs and symptoms of a disease.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C15607
+
+      - name: molecularDiagnosis
+        required: false
+        columnType: ref
+        refTable: genes
+        refLabel: "${value}"
+        description: Gene affected by pathogenic variation that is causal for disease of the patient.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C20826
+        
+        
+      - name: molecularDiagnosisOther
+        required: false
+        columnType: string
+        description: Causal variant in HGVS notation with optional classification or free text explaining any other molecular mechanisms involved.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C20826
+        
+      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      # RD3 specific columns
+      
+      # I think the "resolved" term is good here. We could change it to "solved"
+      # to fit with the NCIT ontology, but I'm not sure if that term fits 100%
+      # Should this attribute also reference a new lookup table?
+      # Or http://purl.bioontology.org/ontology/SNOMEDCT/723506003?
+      - name: resolved
+        required: false
+        columnType: bool
+        description: The satisfactory closure of a data item query.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C142482
+        
+        
+      # I'm not sure the ontology term is correct. Maybe there is a better one?
+      # Maybe the generic date: http://purl.obolibrary.org/obo/NCIT_C25164?
+      - name: resolvedDate # or dateResolved
+        required: false
+        columnType: date
+        description: The date (and time) when the adverse event ends or returns to baseline.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C93718
+      
+      # an RD3 attribute
+      - name: comments
+        required: false
+        columnType: string
+        description: A written explanation, observation or criticism added to textual material.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C25393
+        
+      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  #////////////////////////////////////////////////////////////////////////////
     
   # - name: material
   #   description: A natural substance derived from living organisms such as cells, tissues, proteins, and DNA.
@@ -300,6 +491,7 @@ tables:
   #       key: 1
   #       required: true
         
+  #////////////////////////////////////////////////////////////////////////////
     
   # - name: samplePreparation
   #   description: A sample preparation for a nucleic acids sequencing assay.
