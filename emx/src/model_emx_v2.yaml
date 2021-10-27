@@ -507,12 +507,114 @@ tables:
   #       required: true
   #       columnType: string
     
-  # - name: files
-  #   description: A set of related records (either written or electronic) kept together.
-  #   semantics: http://purl.obolibrary.org/obo/NCIT_C42883
-  #   columns:
-  #     - name: belongsToAnalysis
-  #       key: 1
-  #       required: true
-  #       columnType: string
+    
+  #////////////////////////////////////////////////////////////////////////////
+  
+  # @title Files
+  # @description metadata about the files that were generated post-analysis
+  
+  # @section Notes:
+  #
+  # @section Question:
+  #
+  # 1. Files typically refer to an experiment, but should we also create a
+  #    reference to belongsToPerson, belongsToSample, etc.?
+  #
+  - name: files
+    description: A set of related records (either written or electronic) kept together.
+    semantics: http://purl.obolibrary.org/obo/NCIT_C42883
+    columns:
+    
+      # 'belongsToAnalysis' may not be unique enough. Maybe use filename
+      # instead?
+      - name: belongsToAnalysis
+        key: 1
+        required: true
+        columnType: ref
+        refTable: sequencing
+        refLabel: "${...}"
       
+      - name: belongsToSample
+        required: true
+        refTable: material
+        refLabel: "${...}"
+        description: ...
+        semantics: ...
+        
+      # This name is a bit wonky. Is there something else? This should
+      # probably be standardized across the rest of the model.
+      - name: alternateFileId
+        required: false
+        columnType: string
+        description: A backup sequence of characters used to identify an entity.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C90353
+        
+      # It may be useful to indiciate which system has the file.
+      - name: server
+        required: false
+        columnType: string
+        description: A computer which provides some service for other computers connected to it via a network. 
+        semantics: http://purl.obolibrary.org/obo/NCIT_C48297
+        
+      # should we use "name", "filename", "fileName", or "basename"?
+      - name: name
+        required: true
+        columnType: string
+        description: The literal identifier for an electronic file. 
+        semantics: http://purl.obolibrary.org/obo/NCIT_C171191
+      
+      # should we use "path", "filepath", or "filePath"?
+      - name: path
+        required: true
+        columnType: string
+        description: The specification of a node (file or directory) in a hierarchical file system, usually specified by listing the nodes top-down.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C47922
+      
+      # shoud we use "extension", "fileextension", or "fileExtension"?
+      - name: extension
+        required: false
+        columnType: string
+        description: The format of an electronic file.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C171252
+        
+      # I'm not sure if this would be useful, but there are some situations
+      # where we need to know how much space a set of files uses.
+      # What should be the standard size? kb? 
+      - name: size
+        required: false
+        columnType: decimal
+        description: The size of an electronic file.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C171276
+
+      # in this context, I'm using the alternative definition
+      - name: dateCreated
+        required: false
+        columnType: date # or datetime?
+        description: The date and time a digital resource was created.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C69199
+      
+      # Use md5 or checksum?
+      - name: md5 # or checksum
+        required: false
+        columnType: string
+        description: A 32-character hexadecimal number that is computed on a file.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C171276
+      
+      - name: uploaded
+        required: false
+        columnType: bool
+        description: An indication that a submitted file has successfully been uploaded to a data repository.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C172862
+        
+      - name: released
+        required: false
+        columnType: bool
+        description: An indication that a file has been released to the users of a database or data repository. 
+        semantics: http://purl.obolibrary.org/obo/NCIT_C172876
+      
+      - name: invalid
+        required: false
+        columnType: bool
+        description: An indication that a file has invalid data or is in an invalid format and cannot be submitted to a data repository.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C172867
+        
