@@ -9,9 +9,8 @@
 #' COMMENTS: NA
 #'////////////////////////////////////////////////////////////////////////////
 
-
+# pip install yamlemxconvert
 import yamlemxconvert
-
 
 #//////////////////////////////////////
 
@@ -37,3 +36,9 @@ usersModule = yamlemxconvert.Convert(files = ['emx/src/module_approved_users.yam
 usersModule.convert()
 usersModule.write('users', format = 'xlsx', outDir = 'emx/dist/')
 usersModule.write_schema('emx/schemas/users_module_schema.md')
+
+# build: jobs module
+jobsModule = yamlemxconvert.Convert(files = ['emx/src/module_jobs.yaml'])
+jobsModule.convert()
+jobsModule.write('jobs', format = 'xlsx', outDir = 'emx/dist')
+jobsModule.write_schema('emx/schemas/jobs_module_schema.md')
