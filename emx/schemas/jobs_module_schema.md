@@ -5,6 +5,7 @@
 | Name | Description |
 |:---- |:-----------|
 | jobs | Overview and statuses of custom processes run in this database (v0.9.0, 2021-10-28) |
+| jobs_results | The outcome of process including analyzed data. |
 
 ## Entities
 

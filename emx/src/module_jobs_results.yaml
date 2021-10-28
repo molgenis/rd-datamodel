@@ -1,0 +1,13 @@
+#//////////////////////////////////////////////////////////////////////////////
+# NAME: module_jobs.yaml
+# AUTHOR: @dcruvolo
+# CREATED: 2021-10-28
+# MODIFIED: 2021-10-28
+# PURPOSE: EMX for storing job results
+# COMMENTS: NA
+#//////////////////////////////////////////////////////////////////////////////
+
+name: jobs_results
+label: Results
+description: The outcome of process including analyzed data.
+parent: jobs
