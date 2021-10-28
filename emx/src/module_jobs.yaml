@@ -1,0 +1,111 @@
+#//////////////////////////////////////////////////////////////////////////////
+# NAME: module_jobs.yaml
+# AUTHOR: @dcruvolo
+# CREATED: 2021-10-28
+# MODIFIED: 2021-10-28
+# PURPOSE: EMX for logging jobs or other processes run in a molgenis instance
+# COMMENTS: NA
+#//////////////////////////////////////////////////////////////////////////////
+
+name: jobs
+label: Jobs
+description: Overview and statuses of custom processes run in this database
+date: 2021-10-28
+version: 0.9.0
+
+# set attribute level defaults
+defaults:
+  dataType: string
+  idAttribute: false
+  labelAttribute: false
+  lookupAttribute: false
+  nillable: true
+  
+
+# define entities
+entities:
+  - name: jobs
+    label: Jobs
+    description: All log of processes run
+    attributes:
+      - name: id
+        idAttribute: true
+        nillable: false
+      - name: name
+        description: name or title of the job
+        lookupAttribute: true
+        labelAttribute: true
+      - name: description
+        description: a short description of the job
+      - name: systemUser
+        description: An individual who executed the job
+      - name: start
+        description: date and time the job started
+        dataType: datetime
+      - name: end
+        description: date and time the job ended
+        dataType: datetime
+      - name: status
+        description: outcome of the job (sucessful, failed, in process)
+        dataType: xref
+        refEntity: jobs_processStatus
+      - name: outputEntity
+        description: entity where the job output is stored
+      - name: comment
+        description: context of the job or outcome of the run  
+        dataType: text
+  - name: processStatus
+    label: Process Status
+    description: process status is a process quality that describes the state of a process.
+    attributes:
+      - name: value
+        description: Value
+        idAttribute: true
+        lookupAttribute: true
+        labelAttribute: true
+      - name: description
+        description: Description
+      - name: codesystem
+        description: The code system (e.g. ontology) this term belongs to
+      - name: code
+        description: The code within the code system
+      - name: iri
+        description: The Internationalized Resource Identifier for this term
+        dataType: hyperlink
+    data:
+      - value: aborted
+        description: aborted is a process status in which a started process will not complete as intended.
+        codesystem: SIO
+        code: '000997'
+        iri: http://semanticscience.org/resource/SIO_000997
+      - value: cancelled
+        description: cancelled is a process status in which the process, while planned to occur, will not occur.
+        codesystem: SIO
+        code: '000996'
+        iri: http://semanticscience.org/resource/SIO_000996
+      - value: completed
+        description: completed is that status of a process that successfully unfolds.
+        codesystem: SIO
+        code: '000034'
+        iri: http://semanticscience.org/resource/SIO_000034
+      - value: ongoing
+        description: ongoing is the status of a process that is not yet complete.
+        codesystem: SIO
+        code: '000035'
+        iri: http://semanticscience.org/resource/SIO_000035
+      - value: not started
+        description: not started is the status of a process that is predicted to exist but has not yet begun.
+        codesystem: SIO
+        code: '000963'
+        iri: http://semanticscience.org/resource/SIO_000963
+      - value: planned
+        description: planned is a process status for a process that has not yet started, but is referred to in a plan.
+        codesystem: SIO
+        code: '001060'
+        iri: http://semanticscience.org/resource/SIO_001060
+      - value: suspended
+        description: suspended is the status of a process that is no longer progressing towards completion.
+        codesystem: SIO
+        code: '000995'
+        iri: http://semanticscience.org/resource/SIO_000995
+      
