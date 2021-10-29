@@ -3,7 +3,7 @@
 # AUTHOR: david ruvolo,
 # VERSION: 0.0.9000
 # CREATED: 2021-10-26
-# MODIFIED: 2021-10-27
+# MODIFIED: 2021-10-29
 # PURPOSE: Unified Rare Disease Data Model
 # STATUS: in.progress
 # COMMENTS:
@@ -14,106 +14,91 @@ tables:
   # @title Persons
   # @description This table provides an overview of the patients and any linked
   #   family members
-  #
   # @section Notes:
-  # The structure below follows the FairGenomes guidelines, but also adds RD3
-  # and COSAS input.
+  #
+  # The structure below follows the FairGenomes guidelines, but also adds input
+  # from RD3 and COSAS.
   #
   # @section Questions:
   #
-  # - What is an appropriate name for this table and the "people" in here?
-  # - What is the appropriate semantic tag based on the table name?
-  #
-  - name: persons
-    description: Characteristics about an individual and related family members
-    semantics: http://purl.obolibrary.org/obo/NCIT_C90492
+  - name: subjects
+    description: Persons who are observed, analyzed, examined, investigated, experimented upon, or/and treated in the course of a particular study
+    semantics: http://purl.obolibrary.org/obo/ExO_0000127
     columns:
     
-      # perhaps this solves of the patients vs subjects discussion?
-      - name: belongsToPerson
+      - name: subjectID
         key: 1
         required: true
         columnType: string
-        description: A unique proper name or character sequence that identifies this particular person.
-        semantics: http://purl.obolibrary.org/obo/NCIT_C164337
+        description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C142495
 
-      # Perhaps a better name could be used here?
-      # Should this attribute also be a key?
       - name: belongsToFamily
         required: true
         columnType: string
         description: A domestic group, or a number of domestic groups linked through descent (demonstrated or stipulated) from a common ancestor, marriage, or adoption.
         semantics: http://purl.obolibrary.org/obo/NCIT_C25173
         
-      # Should we continue to use the 'belongsTo*' format?
-      # This should always be a ref to the same table 
       - name: belongsToMother
         required: false
         columnType: ref
-        refTable: persons
-        refLabel: "${belongsToPerson}"
+        refTable: subjects
+        refLabel: "${subjectID}"
         description: A designation that has some relationship to motherhood.
         semantics: http://purl.obolibrary.org/obo/NCIT_C89336
         
-      # Should we continue to use the 'belongsTo*' format?
-      # This should always be a ref to the same table
       - name: belongsToFather
         required: false
         columnType: ref
-        refTable: persons
-        refLabel: "${belongsToPerson}"
+        refTable: subjects
+        refLabel: "${subjectID}"
         description: Having to do with the father, coming from the father, or related through the father.
         semantics: http://purl.obolibrary.org/obo/NCIT_C94324
       
-      # How should we name linked family members? I like the 'belongs*' format :-)
-      # Should the main definition be used instead? I opted for the alt as it was
-      #   a bit more universal.
-      #   "A person related by blood or marriage"
       - name: belongsWithFamilyMembers
         required: false
         columnType: ref_array
         refTable: person
-        refLabel: "${belongsToPerson}"
+        refLabel: "${subjectID}"
         description: Any individual related biologically or legally to another individual.
-        semantics: http://purl.obolibrary.org/obo/NCIT_C21480
-      
-      # Where in the model should inclusionStatus go?
+        semantics: http://purl.obolibrary.org/obo/NCIT_C21480  
+
+      # TODO: integrate lookup table when ready
       - name: inclusionStatus
         required: false
         columnType: ref
-        refTable: inclusionStatus
-        refLabel: "${value}"
+        # refTable: inclusionStatus
+        # refLabel: "${value}"
         description: An indicator that provides information on the current health status of this person.
         semantics: http://purl.obolibrary.org/obo/NCIT_C166244
       
-      # Should we include both date and year in the model?
       - name: dateOfBirth
         required: false
         columnType: date
         description: The calendar date on which a person was born.
         semantics: http://purl.obolibrary.org/obo/NCIT_C68615
       
+      # TODO: Add validation when expressions have been implemented
       - name: yearOfBirth
         required: false
         columnType: int
+        # validation: "if (yearOfBirth != dateOfBirth.split('-')[0]) 'yearOfBirth must match dateOfBirth' "
         description: The year in which a person was born.
         semantics: http://purl.obolibrary.org/obo/NCIT_C83164
       
-      # Date of death does not sit in FairGenomes. Should this be added?
       - name: dateOfDeath
         required: false
         columnType: date
         description: The calendar date of subject's death
         semantics: http://purl.obolibrary.org/obo/NCIT_C70810
 
-      # I'm using decimal for more precise calculations
+      # TODO: Add validation when expressions have been implemented
       - name: ageAtDeath
         required: false
         columnType: decimal
         description: The age at which death occurred.
         semantics: http://purl.obolibrary.org/obo/NCIT_C135383
       
-      # Other projects use 'biologicalSex', but I've opted for the FG term.
       - name: phenotypicSex
         required: false
         columnType: ref
@@ -122,107 +107,99 @@ tables:
         description: An organismal quality inhering in a bearer by virtue of the bearer's physical expression of sexual characteristics.
         semantics: http://purl.obolibrary.org/obo/PATO_0001894
         
-      # I'm adding genotypicSex in the model, but we usually don't have access to it
+      # TODO: implement lookup table when ready
       - name: genotypicSex
         required: false
         columnType: ref
-        refTable: genotypicSex
-        refLabel: "${value}"
+        # refTable: genotypicSex
+        # refLabel: "${value}"
         description: A biological sex quality inhering in an individual based upon genotypic composition of sex chromosomes.
         semantics: http://purl.obolibrary.org/obo/PATO_0020000
         
-      # I'm adding this, but we normally don't use it.
+
+      # TODO: implement lookup table when ready
       - name: countryOfBirth
         required: false
         columnType: ref
-        refTable: countries
-        refLabel: "${value}"
+        # refTable: countries
+        # refLabel: "${value}"
         description: The country that this person was born in.
         semantics: http://purl.obolibrary.org/obo/GENEPIO_0001094
         
-      # I'm adding this, but we normally don't use it
+      # TODO: implement lookup table when ready
       - name: countryOfResidence
         required: false
         columnType: ref
-        refTable: countries
-        refLabel: "${value}"
+        # refTable: countries
+        # refLabel: "${value}"
         description: Country of residence at enrollment.
         semantics: http://purl.obolibrary.org/obo/NCIT_C171105
         
+      # TODO: implement lookup table when ready
       - name: ancestry
         required: false
         columnType: ref
-        refTable: ancestry
-        refLabel: "${value}"
+        # refTable: ancestry
+        # refLabel: "${value}"
         description: Population category defined using ancestry informative markers (AIMs) based on genetic/genomic data.
         semantics: http://purl.obolibrary.org/obo/NCIT_C176763
         
-      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-      # This isn't in FG, but could be useful
-      # Should we use a reference database? Perhaps ROR IDs? We could download the
-      # releases and use them.
-      # Is a string array good or perhaps we could use hyperlinks?
-      # In the earlier version of this model, we created the column 'affiliatedNetworks'.
-      #   However, we can probably merge that column with this one. If that is the case,
-      #   then we may want to consider renaming this column
       - name: primaryAffiliation
         required: false
         columnType: string_array
         description: The most significant institute for medical consultation and/or study inclusion in context of the genetic disease of this person.
         semantics: http://purl.obolibrary.org/obo/NCIT_C25412
-      
-      # This is an RD3 specific column
+
       - name: contactPerson
         required: false
         columnType: string
         description: A person acting as a channel for communication between groups or on behalf of a group.
         semantics: http://purl.obolibrary.org/obo/NCIT_C25461
         
+      - name: contactEmail
+        required: false
+        columnType: string
+        description: Email address of the contact person or organization
+        semantics: http://purl.obolibrary.org/obo/MS_1000589
+        
+      # TODO: implement lookup table when ready
       - name: dataRelease
         required: false
         columnType: string_array
-        refTable: dataReleases
-        refLabel: "${name}"
+        # refTable: dataReleases
+        # refLabel: "${name}"
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
         semantics: http://purl.obolibrary.org/obo/NCIT_C172217
-
-      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-      # Perhaps "secondary identifier" would fit better?
-      # http://www.ontobee.org/ontology/NCIT?iri=http://purl.obolibrary.org/obo/NCIT_C101703
       - name: alternativeIdentifiers
         required: false
         columnType: string_array
-        description: A unique proper name or character sequence that identifies this particular person.
-        semantics: http://purl.obolibrary.org/obo/NCIT_C164337
-        
-        
-      # This isn't in FG, but it is often collected in RD databases
+        description: A backup sequence of characters used to identify an entity. 
+        semantics: http://purl.obolibrary.org/obo/NCIT_C90353
+
       - name: firstVisitDate
         required: false
         columnType: date
         description: The date for the first patient visit.
         semantics: http://purl.obolibrary.org/obo/NCIT_C164021
         
-        
-      # should this be moved to samples?
-      - name: twinStatus     # I don't think we need this, it was suggested earlier
-      - name: fetalStatus    # I don't think we need this, it was suggested earlier
-      - name: consanguinity  # move to clinical?
-      
-      # an RD3 attribute
-      - name: comments
+      - name: belongsWithTwin
         required: false
-        columnType: string
-        description: A written explanation, observation or criticism added to textual material.
-        semantics: http://purl.obolibrary.org/obo/NCIT_C25393
+        columnType: bool
+        description: Either of two offspring born from the same pregnancy.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C73427
       
-      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      # table record metadata
-      # This is useful to have for record keeping. I recommend that these attributes
-      # become standard across many tables. We may want to think about adding
-      # additional attributes (such as authorization and validity)
+      - name: fetalStatus
+        required: false
+        columnType: bool
+        description: Any tissue from a fetus.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C17730
+      
+      - name: consanguinity
+        required: false
+        columnType: bool
+        description: Genetic relatedness between individuals who are descendants of at least one common ancestor.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C71384
       
       - name: comments
         required: false
@@ -243,19 +220,18 @@ tables:
         columnType: datetime
         description: The date (and time) on which report was updated after it had been submitted.
         semantics: http://purl.obolibrary.org/obo/NCIT_C93629
-      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       
         
   #////////////////////////////////////////////////////////////////////////////
   
   # @title Consent
   # @description table to capture consent information for a variety of situations
-  #   e.g., zorg, research, etc.
-  #
   # @section Notes:
   #
   # I'm not sure what to put in this table. I've added the RD3 items, but for zorg databases,
   # we do not usually collect this information. The GeneticLines consent is much different.
+  #
+  # @section Questions:
   #
   - name: consent
     description: Consent given by a patient to a surgical or medical procedure or participation in a study, examination or analysis after achieving an understanding of the relevant medical facts and the risks involved.
@@ -264,20 +240,18 @@ tables:
     
       # I'm not sure how EMX2 works, but can a primary key also be a reference?
       # If not, add a second column that references back to the person
-      - name: belongsToPerson
+      - name: belongsToSubject
         key: 1
         required: true
         columnType: ref
-        refTable: persons
-        refLabel: "${belongsToPerson}"
+        refTable: subjects
+        refLabel: "${subjectID}"
+        description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C142495
       
-      # this is likely affiliation, but should there also be a space for contact person?
-      # perhaps there should be another table called contacts? this table would have the
-      # contact person's info and affiliation. Then this table could be referenced in
-      # the person's table and consent.
       - name: collectedBy
-        columnType: string # or ref entity
-        description: Indicates the ins who performed the collection act.
+        columnType: string
+        description: Indicates the person, group, or institution who performed the collection act.
         semantics: http://purl.obolibrary.org/obo/NCIT_C45262
       
       - name: validFrom
@@ -290,26 +264,11 @@ tables:
         description: End date of the validity of this individual consent.
         semantics: http://purl.org/dc/terms/valid
   
-      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      # RD3 Specific Columns
-      
-      # Withdrawn status. This is an RD3 specific attribute, but likely useful
-      # in other circumstances. Should this be moved to consent?
       - name: withdrawn
         required: false
         columnType: bool
         description: To cease active participation in; remove from active use.
         semantics: http://purl.obolibrary.org/obo/NCIT_C38061
-         
-      # This isn't captured anywhere in FG. In RD3, the column `contact` has
-      # the email address of the person to contact 
-      - name: contactPerson
-        required: false
-        columnType: string
-        validation: "if(!/^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/.test(value))\
-          \ 'Should be valid email address'"
-        description: A person acting as a channel for communication between groups or on behalf of a group.
-        semantics: http://purl.obolibrary.org/obo/NCIT_C25461
       
       # some how I need to fit in match maker permission and incidental findings
       # Should these be put in a ref_array and then added to the DataUsePersmissions lookup?
@@ -327,23 +286,38 @@ tables:
       - name: allowMatchmaker
         columnType: bool
         description: Permission is given for MatchMaking
-      
-      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
       - name: allowRecontacting
         columnType: bool
         description: The procedure of recontacting the patient for specified reasons. This means the patient agrees to be re-identifiable under those circumstances.
         semantics: http://purl.obolibrary.org/obo/NCIT_C25737
 
+      - name: comments
+        required: false
+        columnType: string
+        description: A written explanation, observation or criticism added to textual material.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C25393
+      
+      - name: dateRecordCreated
+        required: true
+        columnType: datetime
+        description: The date on which the activity or entity is created.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C164483
+      
+      - name: dateRecordUpdated
+        required: true
+        columnType: datetime
+        description: The date (and time) on which report was updated after it had been submitted.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C93629
   
   #////////////////////////////////////////////////////////////////////////////
   
   # @title Clinical
   # @description metadata on clinical events including phenotypic information
   #   and diagnostic information
-  #
   # @section Notes:
-  # In some projects, this information is stored in the "persons" table. However,
+  #
+  # In some projects, this information is stored in the subjects table. However,
   # I like the Fair Genomes approach of separating this information. This module
   # is heavily influenced by FAIR Genomes, but the handling of linked family
   # members is different. If a family member is affected or has been sequenced,
@@ -364,27 +338,29 @@ tables:
   # additional columns of each phenotypic attribute and use the FairGenomes columns
   # to map project data to HPO.
   #
+  # @section Questions:
+  #
   - name: clinical
     description: Findings and circumstances relating to the examination and treatment of a patient.
     semantics: http://purl.obolibrary.org/obo/NCIT_C25398
     columns:
-      - name: belongsToPerson
+
+      - name: belongsToSubject
         key: 1
         required: true
         columnType: ref
-        refTable: patients
-        refLabel: "${name}"
-        
-      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        refTable: subjects
+        refLabel: "${subjectID}"
+        description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C142495
+
       # RD3 specific column, but could be useful as we do not collect "functioning"
       # I used ALT_DEFINITION instead of the main one.
       - name: affectedStatus
         columnType: bool
         description: Individuals in a pedigree who exhibit the specific phenotype under study.
         semantics: http://purl.obolibrary.org/obo/NCIT_C64917
-      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        
-      # This isn't in FG
+
       - name: dateOfDiagnosis
         required: false
         columnType: date
@@ -393,56 +369,57 @@ tables:
         
       - name: ageAtDiagnosis
         required: false
-        columnType: decimal # using decimal for more accurate calcuations
-        description: The age, measured from some defined time point (e.g. birth) at which a patient is diagnosed with a disease.
+        columnType: decimal
+        description: The age (in years), measured from some defined time point (e.g. birth) at which a patient is diagnosed with a disease.
         semantics: http://purl.bioontology.org/ontology/SNOMEDCT/423493009
         
       - name: ageOfOnset
         required: false
-        columnType: decimal # using decimal for more accurrate calcuations
-        description: Age of onset of clinical manifestations related to the disease of the patient.
+        columnType: decimal
+        description: Age (in years) of onset of clinical manifestations related to the disease of the patient.
         semantics: http://www.orpha.net/ORDO/Orphanet_C023    
         
+      # TODO: implement lookup table
       - name: observedPhenotype
-        columnType: ref_array
-        refTable: phenotype
+        # columnType: ref_array
+        # refTable: phenotype
         description: The outward appearance of the individual. In medical context, these are often the symptoms caused by a disease.
         semantics: http://purl.obolibrary.org/obo/NCIT_C16977
       
+      # TODO: implement lookup table
       - name: unobservedPhenotype
-        columnType: ref_array
-        refTable: phenotype
-        refLabel: "${value}"
+        # columnType: ref_array
+        # refTable: phenotype
+        # refLabel: "${value}"
         description: Phenotypes or symptoms that were looked for but not observed, which may help in differential diagnosis or establish incomplete penetrance.
         semantics: http://purl.bioontology.org/ontology/HL7/C0442737
       
-      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # COSAS attribute
-      # A reported phenotype, but it is unconfirmed
+      # TODO: implement lookup table
       - name: provisionalPhenotype
-        columnType: ref_array
-        refTable: phenotype
-        refLabel: "${value}"
+        # columnType: ref_array
+        # refTable: phenotype
+        # refLabel: "${value}"
         description: The test or procedure was successfully performed, but the results are borderline and can neither be declared positive / negative nor detected / not detected according to the current established criteria.
         semantics: http://purl.bioontology.org/ontology/HL7/C0332241
-      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
+      # TODO: implement lookup table
       - name: clinicalDiagnosis
         required: false
-        columnType: ref
-        refTable: diseases
-        refLabel: "${value}"
+        # columnType: ref
+        # refTable: diseases
+        # refLabel: "${value}"
         description: A diagnosis made from a study of the signs and symptoms of a disease.
         semantics: http://purl.obolibrary.org/obo/NCIT_C15607
 
+      # TODO: implement lookup table
       - name: molecularDiagnosis
         required: false
-        columnType: ref
-        refTable: genes
-        refLabel: "${value}"
+        # columnType: ref
+        # refTable: genes
+        # refLabel: "${value}"
         description: Gene affected by pathogenic variation that is causal for disease of the patient.
         semantics: http://purl.obolibrary.org/obo/NCIT_C20826
-        
         
       - name: molecularDiagnosisOther
         required: false
@@ -450,9 +427,7 @@ tables:
         description: Causal variant in HGVS notation with optional classification or free text explaining any other molecular mechanisms involved.
         semantics: http://purl.obolibrary.org/obo/NCIT_C20826
         
-      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      # RD3 specific columns
-      
+      # RD3 Attribute
       # I think the "resolved" term is good here. We could change it to "solved"
       # to fit with the NCIT ontology, but I'm not sure if that term fits 100%
       # Should this attribute also reference a new lookup table?
@@ -463,138 +438,271 @@ tables:
         description: The satisfactory closure of a data item query.
         semantics: http://purl.obolibrary.org/obo/NCIT_C142482
         
-        
       # I'm not sure the ontology term is correct. Maybe there is a better one?
       # Maybe the generic date: http://purl.obolibrary.org/obo/NCIT_C25164?
-      - name: resolvedDate # or dateResolved
+      - name: dateResolved
         required: false
         columnType: date
         description: The date (and time) when the adverse event ends or returns to baseline.
         semantics: http://purl.obolibrary.org/obo/NCIT_C93718
       
-      # an RD3 attribute
       - name: comments
         required: false
         columnType: string
         description: A written explanation, observation or criticism added to textual material.
         semantics: http://purl.obolibrary.org/obo/NCIT_C25393
-        
-      #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      
+      - name: dateRecordCreated
+        required: true
+        columnType: datetime
+        description: The date on which the activity or entity is created.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C164483
+      
+      - name: dateRecordUpdated
+        required: true
+        columnType: datetime
+        description: The date (and time) on which report was updated after it had been submitted.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C93629
 
   #////////////////////////////////////////////////////////////////////////////
+  
+  # @title Material
+  # @description
+  # @section Notes:
+  #
+  # @section Questions:
+  #
+  - name: material
+    description: A natural substance derived from living organisms such as cells, tissues, proteins, and DNA.
+    semantics: http://purl.obolibrary.org/obo/NCIT_C43376
+    columns:
     
-  # - name: material
-  #   description: A natural substance derived from living organisms such as cells, tissues, proteins, and DNA.
-  #   semantics: http://purl.obolibrary.org/obo/NCIT_C43376
-  #   columns:
-  #     - name: belongsToSample
-  #       key: 1
-  #       required: true
+      - name: materialID
+        key: 1
+        required: true
+        description: A unique proper name or character sequence that identifies this particular material.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C93400
+        
+      - name: belongsToSubject
+        required: true
+        columnType: ref
+        refTable: subjects
+        refLabel: "${subjectID}"
+        
+      - name: samplingDate
+        required: false
+        columnType: date
+        description: http://www.ebi.ac.uk/efo/EFO_0000689
+        
+      # TODO: implement reference entity where available
+      - name: materialType
+        required: false
+        columnType: string
+        description: The type of material taken from a biological entity for testing, diagnostic, propagation, treatment or research purposes.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C70713
+        
+      # TODO: find appropriate semantic tag
+      - name: requestID
+        required: false
+        columnType: string
+        # description: 
+        # semantics:
+        
+      - name: alternativeIdentifiers
+        required: false
+        columnType: string_array
+        description: A backup sequence of characters used to identify an entity. 
+        semantics: http://purl.obolibrary.org/obo/NCIT_C90353
+        
+      # TODO: integrate lookup table when ready (labIndication)
+      - name: samplingReason
+        required: false
+        columnType: string
+        description: The explanation for why a test, measurement, or assessment is executed.  
+        semantics: http://purl.obolibrary.org/obo/NCIT_C171003
+        
+      # TODO: add attribute 'sampleStatus' an indication if a sample has been
+      # retracted or withdrawn from the study. In addition, we may want to add
+      # a column for "reason"
+        
+      - name: comments
+        required: false
+        columnType: string
+        description: A written explanation, observation or criticism added to textual material.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C25393
+      
+      - name: dateRecordCreated
+        required: true
+        columnType: datetime
+        description: The date on which the activity or entity is created.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C164483
+      
+      - name: dateRecordUpdated
+        required: true
+        columnType: datetime
+        description: The date (and time) on which report was updated after it had been submitted.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C93629
         
   #////////////////////////////////////////////////////////////////////////////
     
-  # - name: samplePreparation
-  #   description: A sample preparation for a nucleic acids sequencing assay.
-  #   semantics: http://purl.obolibrary.org/obo/OBI_0001902
-  #   columns:
+  - name: samplePreparation
+    description: A sample preparation for a nucleic acids sequencing assay.
+    semantics: http://purl.obolibrary.org/obo/OBI_0001902
+    columns:
+    
+      - name: belongsToSample
+        key: 1
+        required: true
+        columnType: string
+    
+      - name: belongsToSubject
+        required: true
+        columnType: ref
+        refTable: subjects
+        refLabel: "${subjectID}"
+        
+      # INSERT ATTRIBUTES HERE
+      
+      - name: comments
+        required: false
+        columnType: string
+        description: A written explanation, observation or criticism added to textual material.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C25393
+      
+      - name: dateRecordCreated
+        required: true
+        columnType: datetime
+        description: The date on which the activity or entity is created.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C164483
+      
+      - name: dateRecordUpdated
+        required: true
+        columnType: datetime
+        description: The date (and time) on which report was updated after it had been submitted.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C93629
 
-  # - name: sequencing
-  #   description: The determination of complete (typically nucleotide) sequences, including those of genomes (full genome sequencing, de novo sequencing and resequencing), amplicons and transcriptomes.
-  #   semantics: http://edamontology.org/topic_3168
-  #   columns:
-  #     - name: belongsToSample
-  #       key: 1
-  #       required: true
-  #       columnType: string
+  #////////////////////////////////////////////////////////////////////////////
+  
+  # @title Sequencing
+  # @description
+  # @section Notes:
+  #
+  # @section Questions:
+  #
+  - name: sequencing
+    description: The determination of complete (typically nucleotide) sequences, including those of genomes (full genome sequencing, de novo sequencing and resequencing), amplicons and transcriptomes.
+    semantics: http://edamontology.org/topic_3168
+    columns:
+      - name: belongsToSample
+        key: 1
+        required: true
+        columnType: string
+        
+      - name: belongsToSubject
+        required: true
+        columnType: ref
+        refTable: subjects
+        refLabel: "${subjectID}"
+        
+      # INSERT ATTRIBUTES HERE
+        
+      - name: comments
+        required: false
+        columnType: string
+        description: A written explanation, observation or criticism added to textual material.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C25393
+      
+      - name: dateRecordCreated
+        required: true
+        columnType: datetime
+        description: The date on which the activity or entity is created.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C164483
+      
+      - name: dateRecordUpdated
+        required: true
+        columnType: datetime
+        description: The date (and time) on which report was updated after it had been submitted.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C93629
     
     
   #////////////////////////////////////////////////////////////////////////////
   
   # @title Files
   # @description metadata about the files that were generated post-analysis
-  
+  #
   # @section Notes:
   #
   # @section Question:
-  #
-  # 1. Files typically refer to an experiment, but should we also create a
-  #    reference to belongsToPerson, belongsToSample, etc.?
   #
   - name: files
     description: A set of related records (either written or electronic) kept together.
     semantics: http://purl.obolibrary.org/obo/NCIT_C42883
     columns:
-    
-      # 'belongsToAnalysis' may not be unique enough. Maybe use filename
-      # instead?
-      - name: belongsToAnalysis
-        key: 1
+
+      - name: filename
         required: true
-        columnType: ref
-        refTable: sequencing
-        refLabel: "${...}"
+        key: 1
+        columnType: string
+        description: The literal identifier for an electronic file. 
+        semantics: http://purl.obolibrary.org/obo/NCIT_C171191
+
+      # TODO: implement lookup table when ready
+      # TODO: add appropriate semantic tag
+      - name: belongsToAnalysis
+        required: true
+        # columnType: ref
+        # refTable: sequencing
+        # refLabel: "${...}"
       
+      # TODO: implement lookup table when ready
+      # TODO: add appropriate semantic tag
       - name: belongsToSample
         required: true
-        refTable: material
-        refLabel: "${...}"
-        description: ...
-        semantics: ...
+        # refTable: material
+        # refLabel: "${...}"
+        # description: ...
+        # semantics: ...
         
-      # This name is a bit wonky. Is there something else? This should
-      # probably be standardized across the rest of the model.
-      - name: alternateFileId
-        required: false
-        columnType: string
-        description: A backup sequence of characters used to identify an entity.
-        semantics: http://purl.obolibrary.org/obo/NCIT_C90353
-        
-      # It may be useful to indiciate which system has the file.
+      # TODO: add appropriate semantic tag
+      - name: belongsToSubject
+        required: true
+        columnType: ref
+        refTable: subjects
+        refLabel: "${subjectID}"
+        description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C142495
+
       - name: server
         required: false
         columnType: string
         description: A computer which provides some service for other computers connected to it via a network. 
         semantics: http://purl.obolibrary.org/obo/NCIT_C48297
-        
-      # should we use "name", "filename", "fileName", or "basename"?
-      - name: name
-        required: true
-        columnType: string
-        description: The literal identifier for an electronic file. 
-        semantics: http://purl.obolibrary.org/obo/NCIT_C171191
       
-      # should we use "path", "filepath", or "filePath"?
       - name: path
         required: true
         columnType: string
         description: The specification of a node (file or directory) in a hierarchical file system, usually specified by listing the nodes top-down.
         semantics: http://purl.obolibrary.org/obo/NCIT_C47922
       
-      # shoud we use "extension", "fileextension", or "fileExtension"?
-      - name: extension
+      - name: format
         required: false
         columnType: string
         description: The format of an electronic file.
         semantics: http://purl.obolibrary.org/obo/NCIT_C171252
         
-      # I'm not sure if this would be useful, but there are some situations
-      # where we need to know how much space a set of files uses.
-      # What should be the standard size? kb? 
       - name: size
         required: false
-        columnType: decimal
-        description: The size of an electronic file.
+        columnType: int
+        description: The size of an electronic file in bytes.
         semantics: http://purl.obolibrary.org/obo/NCIT_C171276
 
-      # in this context, I'm using the alternative definition
       - name: dateCreated
         required: false
-        columnType: date # or datetime?
-        description: The date and time a digital resource was created.
+        columnType: date
+        description: The date a digital resource was created.
         semantics: http://purl.obolibrary.org/obo/NCIT_C69199
       
-      # Use md5 or checksum?
-      - name: md5 # or checksum
+      - name: md5
         required: false
         columnType: string
         description: A 32-character hexadecimal number that is computed on a file.
@@ -617,4 +725,28 @@ tables:
         columnType: bool
         description: An indication that a file has invalid data or is in an invalid format and cannot be submitted to a data repository.
         semantics: http://purl.obolibrary.org/obo/NCIT_C172867
+      
+      - name: alternativeFileId
+        required: false
+        columnType: string
+        description: A backup sequence of characters used to identify an entity.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C90353
         
+      - name: comments
+        required: false
+        columnType: string
+        description: A written explanation, observation or criticism added to textual material.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C25393
+      
+      - name: dateRecordCreated
+        required: true
+        columnType: datetime
+        description: The date on which the activity or entity is created.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C164483
+      
+      - name: dateRecordUpdated
+        required: true
+        columnType: datetime
+        description: The date (and time) on which report was updated after it had been submitted.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C93629
+  
