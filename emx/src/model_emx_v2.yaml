@@ -790,6 +790,12 @@ tables:
         columnType: text
         description: Other NGS quality control metrics, including but not limited to (i) sequencer metrics such as yield, error rate, density (K/mm2), cluster PF (%) and phas/prephas (%), (ii) alignment metrics such as QM insert size, GC content, QM duplicated reads (%), QM error rate, uniformity/evenness of coverage and maternal cell contamination, and (iii) variant call metrics such as number of SNVs/CNVs/SVs called, number of missense/nonsense variants, common variants (%), unique variants (%), gender match and trio inheritance check.
         semantics: http://edamontology.org/data_3914
+      
+      # TODO: insert reference table here
+      - name: referenceGenomeUsed
+        columnType: string
+        description: The specific build of the human genome used as reference for sequence alignment and variant calling.
+        semantics: http://edamontology.org/data_2340
         
       - name: comments
         columnType: string
@@ -807,7 +813,6 @@ tables:
         columnType: datetime
         description: The date (and time) on which report was updated after it had been submitted.
         semantics: http://purl.obolibrary.org/obo/NCIT_C93629
-    
     
   #////////////////////////////////////////////////////////////////////////////
   
