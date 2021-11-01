@@ -3,7 +3,7 @@
 # AUTHOR: david ruvolo,
 # VERSION: 0.0.9000
 # CREATED: 2021-10-26
-# MODIFIED: 2021-10-29
+# MODIFIED: 2021-11-01
 # PURPOSE: Unified Rare Disease Data Model
 # STATUS: in.progress
 # COMMENTS:
@@ -40,7 +40,6 @@ tables:
         semantics: http://purl.obolibrary.org/obo/NCIT_C25173
         
       - name: belongsToMother
-        required: false
         columnType: ref
         refTable: subjects
         refLabel: "${subjectID}"
@@ -48,7 +47,6 @@ tables:
         semantics: http://purl.obolibrary.org/obo/NCIT_C89336
         
       - name: belongsToFather
-        required: false
         columnType: ref
         refTable: subjects
         refLabel: "${subjectID}"
@@ -56,7 +54,6 @@ tables:
         semantics: http://purl.obolibrary.org/obo/NCIT_C94324
       
       - name: belongsWithFamilyMembers
-        required: false
         columnType: ref_array
         refTable: person
         refLabel: "${subjectID}"
@@ -65,7 +62,6 @@ tables:
 
       # TODO: integrate lookup table when ready
       - name: inclusionStatus
-        required: false
         columnType: ref
         # refTable: inclusionStatus
         # refLabel: "${value}"
@@ -73,34 +69,29 @@ tables:
         semantics: http://purl.obolibrary.org/obo/NCIT_C166244
       
       - name: dateOfBirth
-        required: false
         columnType: date
         description: The calendar date on which a person was born.
         semantics: http://purl.obolibrary.org/obo/NCIT_C68615
       
       # TODO: Add validation when expressions have been implemented
       - name: yearOfBirth
-        required: false
         columnType: int
         # validation: "if (yearOfBirth != dateOfBirth.split('-')[0]) 'yearOfBirth must match dateOfBirth' "
         description: The year in which a person was born.
         semantics: http://purl.obolibrary.org/obo/NCIT_C83164
       
       - name: dateOfDeath
-        required: false
         columnType: date
         description: The calendar date of subject's death
         semantics: http://purl.obolibrary.org/obo/NCIT_C70810
 
       # TODO: Add validation when expressions have been implemented
       - name: ageAtDeath
-        required: false
         columnType: decimal
         description: The age at which death occurred.
         semantics: http://purl.obolibrary.org/obo/NCIT_C135383
       
       - name: phenotypicSex
-        required: false
         columnType: ref
         refTable: phenotypicSex
         refLabel: "${value}"
@@ -109,7 +100,6 @@ tables:
         
       # TODO: implement lookup table when ready
       - name: genotypicSex
-        required: false
         columnType: ref
         # refTable: genotypicSex
         # refLabel: "${value}"
@@ -119,7 +109,6 @@ tables:
 
       # TODO: implement lookup table when ready
       - name: countryOfBirth
-        required: false
         columnType: ref
         # refTable: countries
         # refLabel: "${value}"
@@ -128,7 +117,6 @@ tables:
         
       # TODO: implement lookup table when ready
       - name: countryOfResidence
-        required: false
         columnType: ref
         # refTable: countries
         # refLabel: "${value}"
@@ -137,7 +125,6 @@ tables:
         
       # TODO: implement lookup table when ready
       - name: ancestry
-        required: false
         columnType: ref
         # refTable: ancestry
         # refLabel: "${value}"
@@ -145,63 +132,55 @@ tables:
         semantics: http://purl.obolibrary.org/obo/NCIT_C176763
         
       - name: primaryAffiliation
-        required: false
         columnType: string_array
         description: The most significant institute for medical consultation and/or study inclusion in context of the genetic disease of this person.
         semantics: http://purl.obolibrary.org/obo/NCIT_C25412
       - name: contactPerson
-        required: false
         columnType: string
         description: A person acting as a channel for communication between groups or on behalf of a group.
         semantics: http://purl.obolibrary.org/obo/NCIT_C25461
         
       - name: contactEmail
-        required: false
         columnType: string
         description: Email address of the contact person or organization
         semantics: http://purl.obolibrary.org/obo/MS_1000589
         
-      # TODO: implement lookup table when ready
-      - name: dataRelease
-        required: false
+      - name: belongsWithDataRelease
         columnType: string_array
-        # refTable: dataReleases
-        # refLabel: "${name}"
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
         semantics: http://purl.obolibrary.org/obo/NCIT_C172217
         
       - name: alternativeIdentifiers
-        required: false
         columnType: string_array
         description: A backup sequence of characters used to identify an entity. 
         semantics: http://purl.obolibrary.org/obo/NCIT_C90353
 
       - name: firstVisitDate
-        required: false
         columnType: date
         description: The date for the first patient visit.
         semantics: http://purl.obolibrary.org/obo/NCIT_C164021
         
       - name: belongsWithTwin
-        required: false
         columnType: bool
         description: Either of two offspring born from the same pregnancy.
         semantics: http://purl.obolibrary.org/obo/NCIT_C73427
       
       - name: fetalStatus
-        required: false
         columnType: bool
         description: Any tissue from a fetus.
         semantics: http://purl.obolibrary.org/obo/NCIT_C17730
       
       - name: consanguinity
-        required: false
         columnType: bool
         description: Genetic relatedness between individuals who are descendants of at least one common ancestor.
         semantics: http://purl.obolibrary.org/obo/NCIT_C71384
+        
+      - name: belongsToStudy
+        columnType: ref_array
+        description: Reference to the study or studies in which this person participates.
+        semantics: http://purl.obolibrary.org/obo/RO_0000056
       
       - name: comments
-        required: false
         columnType: string
         description: A written explanation, observation or criticism added to textual material.
         semantics: http://purl.obolibrary.org/obo/NCIT_C25393
@@ -221,6 +200,105 @@ tables:
         semantics: http://purl.obolibrary.org/obo/NCIT_C93629
       
         
+  #////////////////////////////////////////////////////////////////////////////
+  
+  # @title Study
+  # @description additional context for samples that indicates if they were
+  #   collected for research purposes
+  # @section Notes:
+  #
+  # @Section Questions:
+  #
+  - name: study
+    description: A detailed examination, analysis, or critical inspection of one or multiple subjects designed to discover facts.
+    semantics: http://purl.obolibrary.org/obo/NCIT_C63536
+    columns:
+    
+      - name: studyID
+        required: true
+        key: 1
+        columnType: string
+        description: A unique proper name or character sequence that identifies this particular study.
+        semantics: http://purl.obolibrary.org/obo/OMIABIS_0000006
+      
+      - name: name
+        columnType: string
+        description: A name that designates this study.
+        semantics: http://purl.obolibrary.org/obo/OMIABIS_0000037
+      
+      - name: description
+        columnType: text
+        description: A statement or piece of writing that provides details on this study.
+        semantics: http://purl.obolibrary.org/obo/OMIABIS_0000036
+      
+      # TODO: implement lookup table when ready
+      - name: inclusionCriteria
+        columnType: string
+        description: The conditions which, if met, make an person eligible for participation in this study.
+        semantics: http://purl.obolibrary.org/obo/OBI_0500027
+        
+      - name: principleInvestigator
+        columnType: string
+        description: The principle investigator or responsible person for this study.
+        semantics: http://purl.obolibrary.org/obo/OMIABIS_0000100
+        
+      - name: contactInformation
+        columnType: string
+        description: An email address for the purpose of contacting the study contact person.
+        semantics: http://purl.obolibrary.org/obo/OMIABIS_0000035
+        
+      - name: studyDescription
+        columnType: text
+        description: A plan specification comprised of protocols (which may specify how and what kinds of data will be gathered) that are executed as part of this study.
+        semantics: http://purl.obolibrary.org/obo/OBI_0500000  
+        
+      - name: startDate
+        columnType: date
+        description: The date on which this study began.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C69208
+        
+      - name: completionDate
+        columnType: date
+        description: The date on which the concluding information for this study is completed. Usually, this is when the last subject has a final visit, or the main analysis has finished, or any other protocol-defined completion date.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C142702
+      
+      # TODO: create lookup table
+      - name: studyStatus
+        columnType: string
+        description: 
+        semantics:
+        
+      - name: participantsEnrolled
+        columnType: int
+        description: An integer specifying the quantity of study subjects enrolled in the study at the current time.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C153145
+        
+      # TODO: find tag
+      - name: samplesCollected
+        columnType: int
+        description: An integer specifying the quantity of samples collected at the current time.
+        semantics: 
+      
+      - name: comments
+        columnType: string
+        description: A written explanation, observation or criticism added to textual material.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C25393
+      
+      # refers to the datetime when the entry was created in the database
+      - name: dateRecordCreated
+        required: true
+        columnType: datetime
+        description: The date on which the activity or entity is created.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C164483
+      
+      # refers to the datetime when the entry was last updated in the database
+      - name: dateRecordUpdated
+        required: true
+        columnType: datetime
+        description: The date (and time) on which report was updated after it had been submitted.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C93629
+  
+  
   #////////////////////////////////////////////////////////////////////////////
   
   # @title Consent
@@ -263,11 +341,10 @@ tables:
         description: End date of the validity of this individual consent.
         semantics: http://purl.org/dc/terms/valid
   
-      - name: withdrawn
-        required: false
+      - name: consentWithdrawn
         columnType: bool
-        description: To cease active participation in; remove from active use.
-        semantics: http://purl.obolibrary.org/obo/NCIT_C38061
+        description: An indication that the consent to participate in the study or one or more segments of the study has been revoked.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C176342
       
       # some how I need to fit in match maker permission and incidental findings
       # Should these be put in a ref_array and then added to the DataUsePersmissions lookup?
@@ -292,7 +369,6 @@ tables:
         semantics: http://purl.obolibrary.org/obo/NCIT_C25737
 
       - name: comments
-        required: false
         columnType: string
         description: A written explanation, observation or criticism added to textual material.
         semantics: http://purl.obolibrary.org/obo/NCIT_C25393
@@ -353,74 +429,57 @@ tables:
         description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
         semantics: http://purl.obolibrary.org/obo/NCIT_C142495
 
-      # RD3 specific column, but could be useful as we do not collect "functioning"
-      # I used ALT_DEFINITION instead of the main one.
       - name: affectedStatus
         columnType: bool
         description: Individuals in a pedigree who exhibit the specific phenotype under study.
         semantics: http://purl.obolibrary.org/obo/NCIT_C64917
       - name: dateOfDiagnosis
-        required: false
         columnType: date
         description: The date on which a diagnosis of disease was made.
         semantics: http://purl.obolibrary.org/obo/NCIT_C164339
         
       - name: ageAtDiagnosis
-        required: false
         columnType: decimal
         description: The age (in years), measured from some defined time point (e.g. birth) at which a patient is diagnosed with a disease.
         semantics: http://purl.bioontology.org/ontology/SNOMEDCT/423493009
         
       - name: ageOfOnset
-        required: false
         columnType: decimal
         description: Age (in years) of onset of clinical manifestations related to the disease of the patient.
         semantics: http://www.orpha.net/ORDO/Orphanet_C023    
         
       # TODO: implement lookup table
       - name: observedPhenotype
-        # columnType: ref_array
-        # refTable: phenotype
+        columnType: string
         description: The outward appearance of the individual. In medical context, these are often the symptoms caused by a disease.
         semantics: http://purl.obolibrary.org/obo/NCIT_C16977
       
       # TODO: implement lookup table
       - name: unobservedPhenotype
-        # columnType: ref_array
-        # refTable: phenotype
-        # refLabel: "${value}"
+        columnType: string
         description: Phenotypes or symptoms that were looked for but not observed, which may help in differential diagnosis or establish incomplete penetrance.
         semantics: http://purl.bioontology.org/ontology/HL7/C0442737
       
       # COSAS attribute
       # TODO: implement lookup table
       - name: provisionalPhenotype
-        # columnType: ref_array
-        # refTable: phenotype
-        # refLabel: "${value}"
+        columnType: string
         description: The test or procedure was successfully performed, but the results are borderline and can neither be declared positive / negative nor detected / not detected according to the current established criteria.
         semantics: http://purl.bioontology.org/ontology/HL7/C0332241
         
       # TODO: implement lookup table
       - name: clinicalDiagnosis
-        required: false
-        # columnType: ref
-        # refTable: diseases
-        # refLabel: "${value}"
+        columnType: string
         description: A diagnosis made from a study of the signs and symptoms of a disease.
         semantics: http://purl.obolibrary.org/obo/NCIT_C15607
 
       # TODO: implement lookup table
       - name: molecularDiagnosis
-        required: false
-        # columnType: ref
-        # refTable: genes
-        # refLabel: "${value}"
+        columnType: string
         description: Gene affected by pathogenic variation that is causal for disease of the patient.
         semantics: http://purl.obolibrary.org/obo/NCIT_C20826
         
       - name: molecularDiagnosisOther
-        required: false
         columnType: string
         description: Causal variant in HGVS notation with optional classification or free text explaining any other molecular mechanisms involved.
         semantics: http://purl.obolibrary.org/obo/NCIT_C20826
@@ -431,7 +490,6 @@ tables:
       # Should this attribute also reference a new lookup table?
       # Or http://purl.bioontology.org/ontology/SNOMEDCT/723506003?
       - name: resolved
-        required: false
         columnType: bool
         description: The satisfactory closure of a data item query.
         semantics: http://purl.obolibrary.org/obo/NCIT_C142482
@@ -439,13 +497,11 @@ tables:
       # I'm not sure the ontology term is correct. Maybe there is a better one?
       # Maybe the generic date: http://purl.obolibrary.org/obo/NCIT_C25164?
       - name: dateResolved
-        required: false
         columnType: date
         description: The date (and time) when the adverse event ends or returns to baseline.
         semantics: http://purl.obolibrary.org/obo/NCIT_C93718
       
       - name: comments
-        required: false
         columnType: string
         description: A written explanation, observation or criticism added to textual material.
         semantics: http://purl.obolibrary.org/obo/NCIT_C25393
@@ -465,7 +521,7 @@ tables:
   #////////////////////////////////////////////////////////////////////////////
   
   # @title Material
-  # @description
+  # @description matadata about the samples collected
   # @section Notes:
   #
   # @section Questions:
@@ -482,49 +538,72 @@ tables:
         semantics: http://purl.obolibrary.org/obo/NCIT_C93400
         
       - name: belongsToSubject
-        required: true
         columnType: ref
         refTable: subjects
         refLabel: "${subjectID}"
+        description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C142495
         
-      - name: samplingDate
-        required: false
-        columnType: date
-        description: http://www.ebi.ac.uk/efo/EFO_0000689
-        
-      # TODO: implement reference entity where available
-      - name: materialType
-        required: false
+      - name: belongsToRequest
         columnType: string
-        description: The type of material taken from a biological entity for testing, diagnostic, propagation, treatment or research purposes.
-        semantics: http://purl.obolibrary.org/obo/NCIT_C70713
-        
-      # TODO: find appropriate semantic tag
-      - name: requestID
-        required: false
-        columnType: string
-        # description: 
-        # semantics:
-        
-      - name: alternativeIdentifiers
-        required: false
-        columnType: string_array
-        description: A backup sequence of characters used to identify an entity. 
-        semantics: http://purl.obolibrary.org/obo/NCIT_C90353
-        
+        description: A sequence of letters, numbers, or other characters that specifically identifies a particular order.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C164567
+      
       # TODO: integrate lookup table when ready (labIndication)
       - name: samplingReason
-        required: false
         columnType: string
         description: The explanation for why a test, measurement, or assessment is executed.  
         semantics: http://purl.obolibrary.org/obo/NCIT_C171003
         
-      # TODO: add attribute 'sampleStatus' an indication if a sample has been
-      # retracted or withdrawn from the study. In addition, we may want to add
-      # a column for "reason"
+      - name: samplingTimestamp
+        columnType: datetime
+        description: Date and time at which this material was collected.
+        semantics: http://www.ebi.ac.uk/efo/EFO_0000689
+        
+      - name: samplingProtocol
+        columnType: text
+        description: The procedure whereby this material was sampled for an analysis.
+        semantics:
+      
+      - name: samplingProtocolDeviation
+        columnType: string
+        description: A variation from processes or procedures defined in the sampling protocol. Deviations usually do not preclude the overall evaluability of subject data for either efficacy or safety, and are often acknowledged and accepted in advance by the sponsor.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C50996
+        
+      - name: reasonForSamplingProtocolDeviation
+        columnType: text
+        description: The rationale for why a deviation from the sampling protocol has occurred.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C93529
+        
+      # TODO: implement reference entity
+      - name: biospecimenType
+        columnType: string
+        description: The type of material taken from a biological entity for testing, diagnostic, propagation, treatment or research purposes.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C70713
+        
+      # TODO: integrate lookup table
+      - name: anatomicalSource
+        columnType: string
+        description: Biological entity that constitutes the structural organization of an individual member of a biological species from which this material was taken.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C103264
+        
+      # TODO: integrate lookup table
+      - name: pathologicalState
+        columnType: string
+        description: The pathological state of the tissue from which this material was derived.
+        semantics: http://purl.obolibrary.org/obo/GO_0001894
+      
+      - name: biospecimenUsability
+        columnType: string
+        description: An indication as to whether a biospecimen is suitable for testing purposes.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C171004
+        
+      - name: alternativeIdentifiers
+        columnType: string_array
+        description: A backup sequence of characters used to identify an entity. 
+        semantics: http://purl.obolibrary.org/obo/NCIT_C90353
         
       - name: comments
-        required: false
         columnType: string
         description: A written explanation, observation or criticism added to textual material.
         semantics: http://purl.obolibrary.org/obo/NCIT_C25393
@@ -548,21 +627,74 @@ tables:
     semantics: http://purl.obolibrary.org/obo/OBI_0001902
     columns:
     
-      - name: belongsToSample
+      - name: sampleID
         key: 1
         required: true
         columnType: string
+        description: A unique proper name or character sequence that identifies this particular sample preparation.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C132299
+    
+      - name: belongsToMaterial
+        columnType: ref
+        refTable: material
+        refLabel: "${materialID}"
+        description: A unique proper name or character sequence that identifies this particular material.	
+        semantics: http://purl.obolibrary.org/obo/NCIT_C93400
     
       - name: belongsToSubject
-        required: true
         columnType: ref
         refTable: subjects
         refLabel: "${subjectID}"
+        description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C142495
         
-      # INSERT ATTRIBUTES HERE
+      - name: belongsToRequest
+        columnType: string
+        description: A sequence of letters, numbers, or other characters that specifically identifies a particular order.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C164567
+      
+      - name: inputAmount
+        columnType: int
+        description: Amount of input material in nanogram (ng).
+        semantics: http://purl.allotrope.org/ontologies/role#AFRL_0000010
+
+      # TODO: insert reference table when ready
+      - name: libraryPreparationKit
+        columnType: string
+        description: Pre-filled, ready-to-use reagent cartridges intented to improve chemistry, cluster density and read length as well as improve quality (Q) scores for this sample. Reagent components are encoded to interact with the sequencing system to validate compatibility with user-defined applications.
+        semantics: http://purl.obolibrary.org/obo/GENEPIO_0000085
+
+      - name: pcrFree
+        columnType: string
+        description: Indicates whether a polymerase chain reaction (PCR) was used to prepare this sample. PCR is a method for amplifying a DNA base sequence using multiple rounds of heat denaturation of the DNA and annealing of oligonucleotide primers complementary to flanking regions in the presence of a heat-stable polymerase.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C17003
+        
+      # TODO: insert reference table when ready
+      - name: targetEnrichmentKit
+        columnType: string
+        description: Indicates which target enrichment kit was used to prepare this sample. Target enrichment is a pre-sequencing DNA preparation step where DNA sequences are either directly amplified (amplicon or multiplex PCR-based) or captured (hybrid capture-based) in order to only focus on specific regions of a genome or DNA sample.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C154307
+
+      - name: umIsPresent
+        columnType: string
+        description: Indicates whether any unique molecular identifiers (UMIs) are present. An UMI barcode is a short nucleotide sequence that is used to identify reads originating from an individual mRNA molecule.
+
+      - name: intendedInsertSize
+        columnType: int
+        description: In paired-end sequencing, the DNA between the adapter sequences is the insert. The length of this sequence is known as the insert size, not to be confused with the inner distance between reads. So, fragment length equals read adapter length (2x) plus insert size, and insert size equals read lenght (2x) plus inner distance.
+        semantics: https://w3id.org/fair-genomes/resource/FG_0000001
+
+      - name: intendedReadLength
+        columnType: int
+        description: The number of nucleotides intended to be ordered from each side of a nucleic acid fragment obtained after the completion of a sequencing process.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C153362
+
+      - name: barcode
+        columnType: string
+        description: A machine-readable representation of information in a visual format on a surface.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C43361
       
       - name: comments
-        required: false
         columnType: string
         description: A written explanation, observation or criticism added to textual material.
         semantics: http://purl.obolibrary.org/obo/NCIT_C25393
@@ -591,21 +723,75 @@ tables:
     description: The determination of complete (typically nucleotide) sequences, including those of genomes (full genome sequencing, de novo sequencing and resequencing), amplicons and transcriptomes.
     semantics: http://edamontology.org/topic_3168
     columns:
-      - name: belongsToSample
+      - name: sequencingID
         key: 1
         required: true
         columnType: string
+        description: A unique proper name or character sequence that identifies this particular nucleic acid sequencing assay.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C171337
+    
+      - name: belongsToSample
+        columnType: string
+        description: A unique proper name or character sequence that identifies this particular sample preparation.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C132299
         
       - name: belongsToSubject
-        required: true
         columnType: ref
         refTable: subjects
         refLabel: "${subjectID}"
+        description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C142495
+
+      - name: sequencingDate
+        columnType: date
+        description: Date on which this sequencing assay was performed.
+        semantics: http://purl.obolibrary.org/obo/GENEPIO_0000069
+
+      # TODO: insert reference table when ready or use ROR links
+      - name: sequencingFacilityOrganization
+        columnType: string
+        description: An organization that provides sequence determination service
+        semantics: http://purl.obolibrary.org/obo/OBI_0001891
+      
+      # TODO: insert reference table when ready
+      - name: sequencingPlatform
+        columnType: string
+        description: The used sequencing platform (i.e. brand, name of a company that produces sequencer equipment).
+        semantics: http://purl.obolibrary.org/obo/GENEPIO_0000071
         
-      # INSERT ATTRIBUTES HERE
+      # TODO: insert reference table when ready
+      - name: sequencingInstrumentModel
+        columnType: string
+        description: The used product name and model number of a manufacturer's genomic (dna) sequencer.
+        semantics: http://purl.obolibrary.org/obo/GENEPIO_0001921
+
+      # TODO: insert reference table when ready
+      - name: sequencingMethod
+        columnType: string
+        description: Method used to determine the order of bases in a nucleic acid sequence.
+        semantics: http://purl.obolibrary.org/obo/FIX_0000704
+        
+      - name: averageReadDepth
+        columnType: int
+        description: The average number of times a particular locus (site, nucleotide, amplicon, region) was sequenced.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C155320
+
+      - name: percentageQ30
+        columnType: decimal
+        description: Percentage of reads with a Phred quality score over 30, which indicates less than a 1/1000 chance that the base was called incorrectly.
+        semantics: http://purl.obolibrary.org/obo/GENEPIO_0000089
+        
+      - name: percentTR20
+        columnType: decimal
+        description: Percentage of the target sequence on which 20 or more unique reads were successfully mapped.
+        semantics: https://w3id.org/fair-genomes/resource/FG_0000003
+        
+      - name: otherQualityMetrics
+        columnType: text
+        description: Other NGS quality control metrics, including but not limited to (i) sequencer metrics such as yield, error rate, density (K/mm2), cluster PF (%) and phas/prephas (%), (ii) alignment metrics such as QM insert size, GC content, QM duplicated reads (%), QM error rate, uniformity/evenness of coverage and maternal cell contamination, and (iii) variant call metrics such as number of SNVs/CNVs/SVs called, number of missense/nonsense variants, common variants (%), unique variants (%), gender match and trio inheritance check.
+        semantics: http://edamontology.org/data_3914
         
       - name: comments
-        required: false
         columnType: string
         description: A written explanation, observation or criticism added to textual material.
         semantics: http://purl.obolibrary.org/obo/NCIT_C25393
@@ -630,6 +816,9 @@ tables:
   #
   # @section Notes:
   #
+  # - If we are including the analysis table, insert link to the table's
+  #   primary key. Otherwise, use sequencing ID
+  #
   # @section Question:
   #
   - name: files
@@ -643,25 +832,14 @@ tables:
         columnType: string
         description: The literal identifier for an electronic file. 
         semantics: http://purl.obolibrary.org/obo/NCIT_C171191
-
-      # TODO: implement lookup table when ready
-      # TODO: add appropriate semantic tag
-      - name: belongsToAnalysis
-        required: true
-        # columnType: ref
-        # refTable: sequencing
-        # refLabel: "${...}"
       
       # TODO: implement lookup table when ready
-      # TODO: add appropriate semantic tag
-      - name: belongsToSample
+      - name: belongsToSequencing
         required: true
-        # refTable: material
-        # refLabel: "${...}"
-        # description: ...
-        # semantics: ...
-        
-      # TODO: add appropriate semantic tag
+        columnType: string
+        description: A unique proper name or character sequence that identifies this particular nucleic acid sequencing assay.
+        semantics: http://purl.obolibrary.org/obo/NCIT_C171337
+
       - name: belongsToSubject
         required: true
         columnType: ref
@@ -671,7 +849,6 @@ tables:
         semantics: http://purl.obolibrary.org/obo/NCIT_C142495
 
       - name: server
-        required: false
         columnType: string
         description: A computer which provides some service for other computers connected to it via a network. 
         semantics: http://purl.obolibrary.org/obo/NCIT_C48297
@@ -683,55 +860,46 @@ tables:
         semantics: http://purl.obolibrary.org/obo/NCIT_C47922
       
       - name: format
-        required: false
         columnType: string
         description: The format of an electronic file.
         semantics: http://purl.obolibrary.org/obo/NCIT_C171252
         
       - name: size
-        required: false
         columnType: int
         description: The size of an electronic file in bytes.
         semantics: http://purl.obolibrary.org/obo/NCIT_C171276
 
       - name: dateCreated
-        required: false
         columnType: date
         description: The date a digital resource was created.
         semantics: http://purl.obolibrary.org/obo/NCIT_C69199
       
       - name: md5
-        required: false
         columnType: string
         description: A 32-character hexadecimal number that is computed on a file.
         semantics: http://purl.obolibrary.org/obo/NCIT_C171276
       
       - name: uploaded
-        required: false
         columnType: bool
         description: An indication that a submitted file has successfully been uploaded to a data repository.
         semantics: http://purl.obolibrary.org/obo/NCIT_C172862
         
       - name: released
-        required: false
         columnType: bool
         description: An indication that a file has been released to the users of a database or data repository. 
         semantics: http://purl.obolibrary.org/obo/NCIT_C172876
       
       - name: invalid
-        required: false
         columnType: bool
         description: An indication that a file has invalid data or is in an invalid format and cannot be submitted to a data repository.
         semantics: http://purl.obolibrary.org/obo/NCIT_C172867
       
       - name: alternativeFileId
-        required: false
         columnType: string
         description: A backup sequence of characters used to identify an entity.
         semantics: http://purl.obolibrary.org/obo/NCIT_C90353
         
       - name: comments
-        required: false
         columnType: string
         description: A written explanation, observation or criticism added to textual material.
         semantics: http://purl.obolibrary.org/obo/NCIT_C25393
