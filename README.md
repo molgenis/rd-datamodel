@@ -8,13 +8,13 @@ The Unified Rare Disease Model is a *plug and play* [Molgenis EMX](https://molge
 
 Here are a list of features.
 
-:package:&#10240;**Rare Disease Model**: a *plug and play* FAIR data model for Molgenis databases on rare diseases. The model contains modules for patients, studies, consent, clinical events, biomaterials collected, preparation of samples, sample sequencing, and metadata from generated files.
+:package: **Rare Disease Model**: a *plug and play* FAIR data model for Molgenis databases on rare diseases. The model contains modules for patients, studies, consent, clinical events, biomaterials collected, preparation of samples, sample sequencing, and metadata from generated files.
 
-:books:&#10240;**Reference Datasets**: an extensive library of reference datasets standardized to ontologies, international standards, and field specific standards.
+:books: **Reference Datasets**: an extensive library of reference datasets standardized to ontologies, international standards, and field specific standards.
 
-:busts_in_silhouette:&#10240;**User Module**: table structure and script tracking users, registrations, and authorization levels. Ideal for auditing and database management!
+:busts_in_silhouette: **User Module**: table structure and script tracking users, registrations, and authorization levels. Ideal for auditing and database management!
 
-:wrench:&#10240;**Jobs**: table structure for logging custom jobs and results (extension of the existing jobs entity)
+:wrench: **Jobs**: table structure for logging custom jobs and results (extension of the existing jobs entity)
 
 For more information on Molgenis, visit [molgenis.org](https://www.molgenis.org/).
 
