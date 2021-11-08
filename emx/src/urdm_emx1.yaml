@@ -1,0 +1,334 @@
+#//////////////////////////////////////////////////////////////////////////////
+# NAME: urdm_emx1.yaml
+# AUTHOR: david ruvolo,
+# VERSION: 0.0.9100
+# CREATED: 2021-11-08
+# MODIFIED: 2021-11-08
+# PURPOSE: Unified Rare Disease Data Model for EMX1
+# STATUS: in.progress
+# COMMENTS:
+#//////////////////////////////////////////////////////////////////////////////
+
+# set package info
+name: urdm
+label: Unified Rare Disease Model
+description: The Unified Rare Disease Model for NGS data in research and healthcare
+version: 0.9.0
+date: 2021-11-08
+tags: dcat:catalog
+
+# define tags
+# in the post build processing append tags entity with standard attributes
+# relationLabel: isAssociatedWith
+# relationIRI: http://molgenis.org#isAssociatedWith
+# codeSystem: *use regrex to split IRI to extract codeSystem*
+#
+tagDefinitions:
+
+  # data object types
+  - identifier: dcat:catalog
+    label: dcat:Catalog
+    objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
+    codeSystem: dcat
+  - identifier: dcat:dataset
+    label: Dataset
+    objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+    codeSystem: dcat
+    
+  #////////////////////////////////////////
+  # Tags for Subjects
+  
+  # table level tag: subject
+  - identifier: ExO_0000127
+    label: ExO_0000127
+    objectIRI: http://purl.obolibrary.org/obo/ExO_0000127
+  
+  #////////////////////////////////////////
+  # Tags for Study
+  
+  # table level tag: study
+  - identifier: NCIT_C63536
+    label: NCIT_C63536
+    objectIRI: http://purl.obolibrary.org/obo/NCIT_C63536
+  
+  #////////////////////////////////////////
+  # Tags for Consent
+  
+  # table level tag: consent
+  - identifier: NCIT_C16735
+    label: NCIT_C16735
+    objectIRI: http://purl.obolibrary.org/obo/NCIT_C16735
+
+  #////////////////////////////////////////
+  # Tags for Clinical
+  
+  # table level tag: clinical
+  - identifier: NCIT_C25398
+    label: NCIT_C25398
+    objectIRI: http://purl.obolibrary.org/obo/NCIT_C25398
+  
+  #////////////////////////////////////////
+  # Tags for Material
+  
+  # table level tag: material
+  - identifier: NCIT_C43376
+    label: NCIT_C43376
+    objectIRI: http://purl.obolibrary.org/obo/NCIT_C43376
+    
+  #////////////////////////////////////////
+  # Tags for Sample Preparation
+    
+  # table level tag: sample preparation
+  - identifier: OBI_0001902
+    label: OBI_0001902
+    objectIRI: http://purl.obolibrary.org/obo/OBI_0001902
+  
+  #////////////////////////////////////////
+  # Tags for Sequencing
+  
+  # table level tag: sequencing
+  - identifier: topic_3168
+    label: topic_3168
+    objectIRI: http://edamontology.org/topic_3168
+  
+  #////////////////////////////////////////
+  # Tags for files
+  
+  # table level tag: files
+  - identifier: NCIT_C42883
+    label: NCIT_C42883
+    objectIRI: http://purl.obolibrary.org/obo/NCIT_C42883
+  
+
+#//////////////////////////////////////////////////////////////////////////////
+
+# set attribute level defaults
+defaults:
+  idAttribute: false
+  dataType: string
+  nillable: false
+  lookupAttribute: false
+  labelAttribute: false
+
+# define tables
+entities:
+
+  # Table: subjects
+  - name: subjects
+    label: Subjects
+    description: Persons who are observed, analyzed, examined, investigated, experimented upon, or/and treated in the course of a particular study
+    tags: ExO_0000127,dcat:dataset
+    attributes:
+    
+      # http://purl.obolibrary.org/obo/NCIT_C142495
+      - name: subjectID
+        dataType: string
+        idAttribute: true
+        nillable: false
+        lookupAttribute: true
+        labelAttribute: true
+        description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
+        
+      # http://purl.obolibrary.org/obo/NCIT_C25173
+      - name: belongsToFamily
+        description: A domestic group, or a number of domestic groups linked through descent (demonstrated or stipulated) from a common ancestor, marriage, or adoption.
+        
+      # http://purl.obolibrary.org/obo/NCIT_C89336
+      - name: belongsToMother
+        dataType: xref
+        refEntity: subjects
+        description: A designation that has some relationship to motherhood.
+        
+      # http://purl.obolibrary.org/obo/NCIT_C94324
+      - name: belongsToFather
+        dataType: xref
+        refEntity: subjects
+        description: Having to do with the father, coming from the father, or related through the father.
+        
+      # http://purl.obolibrary.org/obo/NCIT_C21480
+      - name: belongsWithFamilyMembers
+        dataType: mref
+        refEntity: subjects
+        description: Any individual related biologically or legally to another individual.
+        
+      # TODO: integrate lookup table when ready
+      # http://purl.obolibrary.org/obo/NCIT_C166244
+      - name: inclusionStatus
+        description: An indicator that provides information on the current health status of this person.
+        
+      # http://purl.obolibrary.org/obo/NCIT_C68615
+      - name: dateOfBirth
+        dataType: date
+        description: The calendar date on which a person was born.
+        
+      # http://purl.obolibrary.org/obo/NCIT_C83164
+      - name: yearOfBirth
+        dataType: int
+        description: The year in which a person was born.
+        
+      # http://purl.obolibrary.org/obo/NCIT_C70810
+      - name: dateOfDeath
+        dataType: date
+        description: The calendar date of subject's death
+        
+      # TODO: Add validation when expressions have been implemented
+      # http://purl.obolibrary.org/obo/NCIT_C135383
+      - name: ageAtDeath
+        dataType: decimal
+        description: The age at which death occurred.
+      
+      # TODO: add lookup table when available
+      # http://purl.obolibrary.org/obo/PATO_0001894
+      - name: phenotypicSex
+        description: An organismal quality inhering in a bearer by virtue of the bearer's physical expression of sexual characteristics.
+        
+      # TODO: implement lookup table when ready
+      # http://purl.obolibrary.org/obo/PATO_0020000
+      - name: genotypicSex
+        description: A biological sex quality inhering in an individual based upon genotypic composition of sex chromosomes.
+
+      # TODO: implement lookup table when ready
+      # http://purl.obolibrary.org/obo/GENEPIO_0001094
+      - name: countryOfBirth
+        description: The country that this person was born in.
+        
+      # TODO: implement lookup table when ready
+      # http://purl.obolibrary.org/obo/NCIT_C171105
+      - name: countryOfResidence
+        dataType: string
+        description: Country of residence at enrollment.
+        
+      # TODO: implement lookup table when ready
+      # http://purl.obolibrary.org/obo/NCIT_C176763
+      - name: ancestry
+        dataType: string
+        description: Population category defined using ancestry informative markers (AIMs) based on genetic/genomic data.
+        
+      # http://purl.obolibrary.org/obo/NCIT_C25412
+      - name: primaryAffiliation
+        description: The most significant institute for medical consultation and/or study inclusion in context of the genetic disease of this person.
+        
+      # http://purl.obolibrary.org/obo/NCIT_C25461
+      - name: contactPerson
+        description: A person acting as a channel for communication between groups or on behalf of a group.
+        
+      # http://purl.obolibrary.org/obo/MS_1000589
+      - name: contactEmail
+        dataType: email
+        description: Email address of the contact person or organization
+        
+      # TODO: implement lookup table when ready
+      # http://purl.obolibrary.org/obo/NCIT_C172217
+      - name: belongsWithDataRelease
+        description: The act of making data or other structured information accessible to the public or to the user group of a database.
+    
+      # http://purl.obolibrary.org/obo/NCIT_C90353
+      - name: alternativeIdentifiers
+        columnType: STRING_ARRAY
+        description: A backup sequence of characters used to identify an entity. 
+        
+      # http://purl.obolibrary.org/obo/NCIT_C164021
+      - name: firstVisitDate
+        dataType: date
+        description: The date for the first patient visit.
+        
+      # http://purl.obolibrary.org/obo/NCIT_C73427
+      - name: belongsWithTwin
+        dataType: bool
+        description: Either of two offspring born from the same pregnancy.
+        
+      # http://purl.obolibrary.org/obo/NCIT_C17730
+      - name: fetalStatus
+        dataType: bool
+        description: Any tissue from a fetus.
+        
+      # http://purl.obolibrary.org/obo/NCIT_C71384
+      - name: consanguinity
+        dataType: bool
+        description: Genetic relatedness between individuals who are descendants of at least one common ancestor.
+      
+      # http://purl.obolibrary.org/obo/RO_0000056
+      - name: belongsToStudy
+        dataType: mref
+        refEntity: study
+        description: Reference to the study or studies in which this person participates.
+    
+      # http://semanticscience.org/resource/SIO_001330
+      - name: recordMetadata
+        dataType: compound
+        description: metadata is data that provides information about data.
+    
+      # http://purl.obolibrary.org/obo/NCIT_C25393
+      - name: comments
+        dataType: text
+        description: A written explanation, observation or criticism added to textual material.
+        partOfAttribute: recordMetadata
+        
+      # http://purl.obolibrary.org/obo/NCIT_C164483
+      - name: dateRecordCreated
+        nillable: false
+        dataType: datetime
+        description: The date on which the activity or entity is created.
+        partOfAttribute: recordMetadata
+      
+      # http://purl.obolibrary.org/obo/NCIT_C93629
+      - name: dateRecordUpdated
+        nillable: false
+        columnType: DATETIME
+        description: The date (and time) on which report was updated after it had been submitted.
+        partOfAttribute: recordMetadata
+   
+  #////////////////////////////////////////////////////////////////////////////
+  # Table: study
+  - name: study
+    label: Study
+    description: A detailed examination, analysis, or critical inspection of one or multiple subjects designed to discover facts.
+    tags: NCIT_C63536,dcat:dataset
+    attributes:
+
+  #////////////////////////////////////////////////////////////////////////////
+  # Table: consent
+  - name: consent
+    label: Consent
+    description: Consent given by a patient to a surgical or medical procedure or participation in a study, examination or analysis after achieving an understanding of the relevant medical facts and the risks involved.
+    tags: NCIT_C16735,dcat:dataset
+    attributes:
+  
+  #////////////////////////////////////////////////////////////////////////////
+  # Table: clinical
+  - name: clinical
+    label: Clinical
+    description: Findings and circumstances relating to the examination and treatment of a patient.
+    tags: NCIT_C25398,dcat:dataset
+    attributes: 
+  
+  #////////////////////////////////////////////////////////////////////////////
+  # Table: material
+  - name: material
+    label: Material
+    description: A natural substance derived from living organisms such as cells, tissues, proteins, and DNA.
+    tags: NCIT_C43376,dcat:dataset
+    attributes: 
+  
+  #////////////////////////////////////////////////////////////////////////////
+  # Table: samplePrep
+  - name: samplePreparation
+    label: Sample Preparation
+    description: A sample preparation for a nucleic acids sequencing assay.
+    tags: OBI_0001902, dcat:dataset
+    attributes:
+    
+  #////////////////////////////////////////////////////////////////////////////
+  # Table: sequencing
+  - name: sequencing
+    label: Sequencing
+    description: The determination of complete (typically nucleotide) sequences, including those of genomes (full genome sequencing, de novo sequencing and resequencing), amplicons and transcriptomes.
+    tags: topic_3168,dcat:dataset
+    attributes: 
+  
+  #////////////////////////////////////////////////////////////////////////////
+  # Table: files
+  - name: files
+    label: Files
+    description: A set of related records (either written or electronic) kept together.
+    tags: NCIT_C42883,dcat:dataset
