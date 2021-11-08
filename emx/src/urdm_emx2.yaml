@@ -1,10 +1,10 @@
 #//////////////////////////////////////////////////////////////////////////////
-# NAME: model_emx_v2.yaml
+# NAME: urdm_emx2.yaml
 # AUTHOR: david ruvolo,
 # VERSION: 0.0.9100
 # CREATED: 2021-10-26
-# MODIFIED: 2021-11-02
-# PURPOSE: Unified Rare Disease Data Model
+# MODIFIED: 2021-11-08
+# PURPOSE: Unified Rare Disease Data Model for EMX2
 # STATUS: in.progress
 # COMMENTS:
 #//////////////////////////////////////////////////////////////////////////////
@@ -31,20 +31,20 @@ tables:
         required: true
         columnType: STRING
         description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
-        # semantics: "http://purl.obolibrary.org/obo/NCIT_C142495"
+        # semantics: http://purl.obolibrary.org/obo/NCIT_C142495
 
       - name: belongsToFamily
         required: true
         columnType: STRING
         description: A domestic group, or a number of domestic groups linked through descent (demonstrated or stipulated) from a common ancestor, marriage, or adoption.
-        # semantics: "http://purl.obolibrary.org/obo/NCIT_C25173"
+        # semantics: http://purl.obolibrary.org/obo/NCIT_C25173
         
       - name: belongsToMother
         columnType: REF
         refTable: subjects
         refLabel: ${subjectID}
         description: A designation that has some relationship to motherhood.
-        # semantics: "http://purl.obolibrary.org/obo/NCIT_C89336"
+        # semantics: http://purl.obolibrary.org/obo/NCIT_C89336
         
       - name: belongsToFather
         columnType: REF
@@ -128,6 +128,7 @@ tables:
         columnType: STRING_ARRAY
         description: The most significant institute for medical consultation and/or study inclusion in context of the genetic disease of this person.
         # semantics: http://purl.obolibrary.org/obo/NCIT_C25412
+
       - name: contactPerson
         columnType: STRING
         description: A person acting as a channel for communication between groups or on behalf of a group.
@@ -649,6 +650,12 @@ tables:
         
   #////////////////////////////////////////////////////////////////////////////
     
+  # @title Sample Preparation
+  # @description metadata about how the sample was prepared
+  # @section Notes:
+  #
+  # @section Questions:
+  # 
   - name: samplePreparation
     description: A sample preparation for a nucleic acids sequencing assay.
     # semantics: http://purl.obolibrary.org/obo/OBI_0001902
