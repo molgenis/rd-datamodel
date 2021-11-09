@@ -1,0 +1,142 @@
+#//////////////////////////////////////////////////////////////////////////////
+# NAME: urdm_emx1.yaml
+# AUTHOR: david ruvolo
+# CREATED: 2021-11-09
+# MODIFIED: 2021-11-09
+# PURPOSE: Unified Rare Disease Data Model lookups for EMX1
+# STATUS: in.progress
+# COMMENTS:
+#//////////////////////////////////////////////////////////////////////////////
+
+# set package info
+name: urdm_lookups
+label: Lookups
+description: Lookup tables
+version: 0.9.0
+date: 2021-11-09
+tags: dcat:catalog
+
+# define tags
+tagDefinitions:
+
+  # data object types
+  - identifier: dcat:catalog
+    label: dcat:Catalog
+    objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
+    codeSystem: dcat
+    relationIRI:
+    relationLabel:
+  - identifier: dcat:dataset
+    label: Dataset
+    objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+    codeSystem: dcat
+    
+# define tables
+entities:
+
+  # define template for all lookup tables
+  - name: template
+    description: attribute template for lookups
+    tags: dcat:dataset
+    attributes:
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25364
+      - name: id
+        idAttribute: true
+        nillable: false
+        description: One or more characters used to identify, name, or characterize the nature, properties, or contents of a thing. 
+
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
+      - name: value
+        lookupAttribute: true
+        labelAttribute: true
+        description: he information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
+      - name: description
+        dataType: text
+        description: A written or verbal account, representation, statement, or explanation of something
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
+      - name: codesystem
+        description: A systematized collection of concepts that define corresponding codes.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
+      - name: code
+        description: A symbol or combination of symbols which is assigned to the members of a collection.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
+      - name: iri
+        dataType: hyperlink
+        description: A unique symbol that establishes identity of the resource.
+  
+  #////////////////////////////////////
+  
+  # @section ancestry
+  # @reference semantics: http://purl.obolibrary.org/obo/NCIT_C176763
+  - name: ancestry
+    description: Population category defined using ancestry informative markers (AIMs) based on genetic/genomic data.
+    extends: urmd_lookupTemplate
+    tags: dcat:dataset
+  
+  #////////////////////////////////////
+  
+  # @section country
+  # @references semantics: http://purl.obolibrary.org/obo/NCIT_C171105  
+  - name: country
+    description: A collective generic term that refers here to a wide variety of dependencies, areas of special sovereignty, uninhabited islands, and other entities in addition to the traditional countries or independent states.
+    tags: dcat:dataset
+    extends: urmd_lookupTemplate
+  
+  #////////////////////////////////////
+  
+  # @section genotypicSex
+  # @references semantics: http://purl.obolibrary.org/obo/PATO_0020000
+  - name: genotypicSex
+    description: A biological sex quality inhering in an individual based upon genotypic composition of sex chromosomes.
+    tags: dcat:dataset
+    extends: urmd_lookupTemplate
+    
+  
+  #////////////////////////////////////
+  
+  # @section inclusionStatus
+  # @#references semantics: http://purl.obolibrary.org/obo/NCIT_C166244
+  - name: inclusionStatus
+    description: An indicator that provides information on the current health status of this person.
+    extends: urmd_lookupTemplate
+    tags: dcat:dataset
+    data:
+      - id: alive
+        value: Alive
+        description: Showing characteristics of life; displaying signs of life.
+        codesystem: NCIT
+        code: C37987
+        iri: http://purl.obolibrary.org/obo/NCIT_C37987
+      - id: deceased
+        value: Deceased
+        description: The cessation of life.
+        codesystem: NCIT
+        code: C28554
+        iri: http://purl.obolibrary.org/obo/NCIT_C28554
+      - id: presumedAlive
+        value: Presumed Alive
+        description: The assumption that a person is still living.
+        codesystem: NCIT
+        code: C141463
+        iri: http://purl.obolibrary.org/obo/NCIT_C141463
+      - id: unknown
+        value: Unknown
+        description: A proper value is applicable, but not known.
+        codesystem: HL7
+        code: UNK
+        iri: http://terminology.hl7.org/CodeSystem/v3-NullFlavor#UNK
+        
+  #////////////////////////////////////
+  
+  # @section phenotypicSex
+  # @references semantics: http://purl.obolibrary.org/obo/PATO_0001894
+  - name: phenotypicSex
+    description: An organismal quality inhering in a bearer by virtue of the bearer's physical expression of sexual characteristics.
+    extends: urmd_lookupTemplate
+    tags: dcat:dataset
