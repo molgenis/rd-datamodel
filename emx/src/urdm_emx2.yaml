@@ -222,10 +222,10 @@ tables:
         description: A name that designates this study.
         # semantics: http://purl.obolibrary.org/obo/OMIABIS_0000037
       
-      - name: description
-        columnType: TEXT
-        description: A statement or piece of writing that provides details on this study.
-        # semantics: http://purl.obolibrary.org/obo/OMIABIS_0000036
+      # - name: description
+      #   columnType: TEXT
+      #   description: A statement or piece of writing that provides details on this study.
+      #   # semantics: http://purl.obolibrary.org/obo/OMIABIS_0000036
       
       # TODO: implement lookup table when ready
       - name: inclusionCriteria
@@ -261,8 +261,8 @@ tables:
       # TODO: create lookup table
       - name: studyStatus
         columnType: STRING
-        description: 
-        # semantics:
+        description: The status of a study or trial.
+        # semantics: http://purl.obolibrary.org/obo/NCIT_C171103
         
       - name: participantsEnrolled
         columnType: INT
@@ -454,6 +454,7 @@ tables:
         columnType: BOOL
         description: Individuals in a pedigree who exhibit the specific phenotype under study.
         # semantics: http://purl.obolibrary.org/obo/NCIT_C64917
+
       - name: dateOfDiagnosis
         columnType: DATE
         description: The date on which a diagnosis of disease was made.
@@ -467,7 +468,7 @@ tables:
       - name: ageOfOnset
         columnType: DECIMAL
         description: Age (in years) of onset of clinical manifestations related to the disease of the patient.
-        # semantics: http://www.orpha.net/ORDO/Orphanet_C023    
+        # semantics: http://www.orpha.net/ORDO/Orphanet_C023
         
       # TODO: implement lookup table
       - name: observedPhenotype
@@ -664,7 +665,7 @@ tables:
       - name: sampleID
         key: 1
         required: true
-        columnType: STRING
+        # columnType: STRING
         description: A unique proper name or character sequence that identifies this particular sample preparation.
         # semantics: http://purl.obolibrary.org/obo/NCIT_C132299
     

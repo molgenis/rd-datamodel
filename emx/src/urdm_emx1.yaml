@@ -1,12 +1,19 @@
 #//////////////////////////////////////////////////////////////////////////////
 # NAME: urdm_emx1.yaml
-# AUTHOR: david ruvolo,
-# VERSION: 0.0.9100
+# AUTHOR: david ruvolo
 # CREATED: 2021-11-08
 # MODIFIED: 2021-11-08
 # PURPOSE: Unified Rare Disease Data Model for EMX1
 # STATUS: in.progress
 # COMMENTS:
+#
+# After building the model, the following attributes should be added to the
+# `tags`. The `relationLabel` and `relationIRI` are standard, but the code
+# system should be extracted from the `objectIRI`
+# relationLabel: isAssociatedWith
+# relationIRI: http://molgenis.org#isAssociatedWith
+# codeSystem: *use regrex to split IRI to extract codeSystem*
+#
 #//////////////////////////////////////////////////////////////////////////////
 
 # set package info
@@ -18,11 +25,6 @@ date: 2021-11-08
 tags: dcat:catalog
 
 # define tags
-# in the post build processing append tags entity with standard attributes
-# relationLabel: isAssociatedWith
-# relationIRI: http://molgenis.org#isAssociatedWith
-# codeSystem: *use regrex to split IRI to extract codeSystem*
-#
 tagDefinitions:
 
   # data object types
@@ -30,6 +32,8 @@ tagDefinitions:
     label: dcat:Catalog
     objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
     codeSystem: dcat
+    relationIRI:
+    relationLabel:
   - identifier: dcat:dataset
     label: Dataset
     objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
@@ -120,7 +124,7 @@ entities:
     tags: ExO_0000127,dcat:dataset
     attributes:
     
-      # http://purl.obolibrary.org/obo/NCIT_C142495
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C142495
       - name: subjectID
         dataType: string
         idAttribute: true
@@ -129,152 +133,151 @@ entities:
         labelAttribute: true
         description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
         
-      # http://purl.obolibrary.org/obo/NCIT_C25173
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25173
       - name: belongsToFamily
         description: A domestic group, or a number of domestic groups linked through descent (demonstrated or stipulated) from a common ancestor, marriage, or adoption.
         
-      # http://purl.obolibrary.org/obo/NCIT_C89336
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C89336
       - name: belongsToMother
         dataType: xref
-        refEntity: subjects
+        refEntity: urdm_subjects
         description: A designation that has some relationship to motherhood.
         
-      # http://purl.obolibrary.org/obo/NCIT_C94324
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C94324
       - name: belongsToFather
         dataType: xref
-        refEntity: subjects
+        refEntity: urdm_subjects
         description: Having to do with the father, coming from the father, or related through the father.
         
-      # http://purl.obolibrary.org/obo/NCIT_C21480
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C21480
       - name: belongsWithFamilyMembers
         dataType: mref
-        refEntity: subjects
+        refEntity: urdm_subjects
         description: Any individual related biologically or legally to another individual.
-        
-      # TODO: integrate lookup table when ready
-      # http://purl.obolibrary.org/obo/NCIT_C166244
+
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C166244
       - name: inclusionStatus
         description: An indicator that provides information on the current health status of this person.
         
-      # http://purl.obolibrary.org/obo/NCIT_C68615
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C68615
       - name: dateOfBirth
         dataType: date
         description: The calendar date on which a person was born.
         
-      # http://purl.obolibrary.org/obo/NCIT_C83164
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C83164
       - name: yearOfBirth
         dataType: int
         description: The year in which a person was born.
+        expression: "{dateOfBirth} notempty "
+        validationExpression: "{dateOfBirth} notempty and {yearOfBirth} notempty and {yearOfBirth} = regex('^([0-9]{4})', {dateOfBirth})"
         
-      # http://purl.obolibrary.org/obo/NCIT_C70810
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C70810
       - name: dateOfDeath
         dataType: date
-        description: The calendar date of subject's death
+        description: The calendar date of subject's death.
+        validationExpression: "{dateOfBirth} notempty and {dateOfDeath} notempty and {dateOfDeath} > {dateOfBirth} or {dateOfDeath} = {dateOfBirth}"
         
       # TODO: Add validation when expressions have been implemented
-      # http://purl.obolibrary.org/obo/NCIT_C135383
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C135383
       - name: ageAtDeath
         dataType: decimal
         description: The age at which death occurred.
       
-      # TODO: add lookup table when available
-      # http://purl.obolibrary.org/obo/PATO_0001894
+      # semantics: http://purl.obolibrary.org/obo/PATO_0001894
       - name: phenotypicSex
         description: An organismal quality inhering in a bearer by virtue of the bearer's physical expression of sexual characteristics.
         
-      # TODO: implement lookup table when ready
-      # http://purl.obolibrary.org/obo/PATO_0020000
+      # semantics: http://purl.obolibrary.org/obo/PATO_0020000
       - name: genotypicSex
         description: A biological sex quality inhering in an individual based upon genotypic composition of sex chromosomes.
 
-      # TODO: implement lookup table when ready
-      # http://purl.obolibrary.org/obo/GENEPIO_0001094
+      # semantics: http://purl.obolibrary.org/obo/GENEPIO_0001094
       - name: countryOfBirth
         description: The country that this person was born in.
+        dataType: xref
+        refEntity: urdm_lookups_country
         
-      # TODO: implement lookup table when ready
-      # http://purl.obolibrary.org/obo/NCIT_C171105
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C171105
       - name: countryOfResidence
-        dataType: string
         description: Country of residence at enrollment.
+        dataType: xref
+        refEntity: urdm_lookups_country
         
-      # TODO: implement lookup table when ready
-      # http://purl.obolibrary.org/obo/NCIT_C176763
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C176763
       - name: ancestry
         dataType: string
         description: Population category defined using ancestry informative markers (AIMs) based on genetic/genomic data.
         
-      # http://purl.obolibrary.org/obo/NCIT_C25412
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25412
       - name: primaryAffiliation
         description: The most significant institute for medical consultation and/or study inclusion in context of the genetic disease of this person.
         
-      # http://purl.obolibrary.org/obo/NCIT_C25461
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25461
       - name: contactPerson
         description: A person acting as a channel for communication between groups or on behalf of a group.
         
-      # http://purl.obolibrary.org/obo/MS_1000589
+      # semantics: http://purl.obolibrary.org/obo/MS_1000589
       - name: contactEmail
         dataType: email
         description: Email address of the contact person or organization
         
       # TODO: implement lookup table when ready
-      # http://purl.obolibrary.org/obo/NCIT_C172217
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C172217
       - name: belongsWithDataRelease
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
     
-      # http://purl.obolibrary.org/obo/NCIT_C90353
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C90353
       - name: alternativeIdentifiers
-        columnType: STRING_ARRAY
         description: A backup sequence of characters used to identify an entity. 
         
-      # http://purl.obolibrary.org/obo/NCIT_C164021
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C164021
       - name: firstVisitDate
         dataType: date
         description: The date for the first patient visit.
         
-      # http://purl.obolibrary.org/obo/NCIT_C73427
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C73427
       - name: belongsWithTwin
         dataType: bool
         description: Either of two offspring born from the same pregnancy.
         
-      # http://purl.obolibrary.org/obo/NCIT_C17730
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C17730
       - name: fetalStatus
         dataType: bool
         description: Any tissue from a fetus.
         
-      # http://purl.obolibrary.org/obo/NCIT_C71384
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C71384
       - name: consanguinity
         dataType: bool
         description: Genetic relatedness between individuals who are descendants of at least one common ancestor.
       
-      # http://purl.obolibrary.org/obo/RO_0000056
+      # semantics: http://purl.obolibrary.org/obo/RO_0000056
       - name: belongsToStudy
         dataType: mref
-        refEntity: study
+        refEntity: urdm_study
         description: Reference to the study or studies in which this person participates.
     
-      # http://semanticscience.org/resource/SIO_001330
+      # semantics: http://semanticscience.org/resource/SIO_001330
       - name: recordMetadata
         dataType: compound
         description: metadata is data that provides information about data.
     
-      # http://purl.obolibrary.org/obo/NCIT_C25393
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25393
       - name: comments
         dataType: text
         description: A written explanation, observation or criticism added to textual material.
         partOfAttribute: recordMetadata
         
-      # http://purl.obolibrary.org/obo/NCIT_C164483
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C164483
       - name: dateRecordCreated
         nillable: false
         dataType: datetime
         description: The date on which the activity or entity is created.
         partOfAttribute: recordMetadata
       
-      # http://purl.obolibrary.org/obo/NCIT_C93629
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C93629
       - name: dateRecordUpdated
         nillable: false
-        columnType: DATETIME
+        dataType: dateTIME
         description: The date (and time) on which report was updated after it had been submitted.
         partOfAttribute: recordMetadata
    
@@ -285,6 +288,89 @@ entities:
     description: A detailed examination, analysis, or critical inspection of one or multiple subjects designed to discover facts.
     tags: NCIT_C63536,dcat:dataset
     attributes:
+    
+      # semantics: http://purl.obolibrary.org/obo/OMIABIS_0000006
+      - name: studyID
+        nillable: false
+        idAttribute: true
+        dataType: string
+        labelAttribute: true
+        lookupAttribute: true
+        description: A unique proper name or character sequence that identifies this particular study.
+        
+      # semantics: http://purl.obolibrary.org/obo/OMIABIS_0000037
+      - name: name
+        description: A name that designates this study.
+        
+      # TODO: implement lookup table when ready
+      # semantics: http://purl.obolibrary.org/obo/OBI_0500027
+      - name: inclusionCriteria
+        description: The conditions which, if met, make an person eligible for participation in this study.
+        
+      # semantics: http://purl.obolibrary.org/obo/OMIABIS_0000100
+      - name: principleInvestigator
+        description: The principle investigator or responsible person for this study.
+        
+      # semantics: http://purl.obolibrary.org/obo/OMIABIS_0000035
+      - name: contactInformation
+        dataType: email
+        description: An email address for the purpose of contacting the study contact person.
+        
+      # semantics: http://purl.obolibrary.org/obo/OBI_0500000  
+      - name: studyDescription
+        dataType: text
+        description: A plan specification comprised of protocols (which may specify how and what kinds of data will be gathered) that are executed as part of this study.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C69208
+      - name: startDate
+        dataType: date
+        description: The date on which this study began.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C142702
+      - name: completionDate
+        dataType: date
+        description: The date on which the concluding information for this study is completed. Usually, this is when the last subject has a final visit, or the main analysis has finished, or any other protocol-defined completion date.
+        
+      # TODO: create lookup table
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C171103
+      - name: studyStatus
+        description: The status of a study or trial.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C153145
+      - name: participantsEnrolled
+        dataType: int
+        description: An integer specifying the quantity of study subjects enrolled in the study at the current time.
+        
+      # TODO: find tag
+      - name: samplesCollected
+        dataType: int
+        description: An integer specifying the quantity of samples collected at the current time.
+        # semantics: 
+        
+      # semantics: http://semanticscience.org/resource/SIO_001330
+      - name: recordMetadata
+        dataType: compound
+        description: metadata is data that provides information about data.
+    
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25393
+      - name: comments
+        dataType: text
+        description: A written explanation, observation or criticism added to textual material.
+        partOfAttribute: recordMetadata
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C164483
+      - name: dateRecordCreated
+        nillable: false
+        dataType: datetime
+        description: The date on which the activity or entity is created.
+        partOfAttribute: recordMetadata
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C93629
+      - name: dateRecordUpdated
+        nillable: false
+        dataType: dateTIME
+        description: The date (and time) on which report was updated after it had been submitted.
+        partOfAttribute: recordMetadata
 
   #////////////////////////////////////////////////////////////////////////////
   # Table: consent
@@ -293,6 +379,98 @@ entities:
     description: Consent given by a patient to a surgical or medical procedure or participation in a study, examination or analysis after achieving an understanding of the relevant medical facts and the risks involved.
     tags: NCIT_C16735,dcat:dataset
     attributes:
+    
+      # semantics: http://purl.obolibrary.org/obo/ICO_0000044
+      - name: consentID
+        idAttribute: true
+        nillable: false
+        description: A unique proper name or character sequence that identifies this particular signed individual consent.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C142495
+      - name: belongsToSubject
+        dataType: xref
+        refEntity: urdm_subjects
+        description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
+    
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C45262
+      - name: collectedBy
+        description: Indicates the person, group, or institution who performed the collection act.
+      
+      # semantics: http://purl.obolibrary.org/obo/ICO_0000036
+      - name: signingDate
+        dataType: date
+        description: A date specification that designates when this individual consent form was signed.
+        
+      # semantics: http://purl.org/dc/terms/valid  
+      - name: validFrom
+        dataType: date
+        description: Starting date of the validity of this individual consent.
+        
+      # semantics: http://purl.org/dc/terms/valid
+      - name: validUntil
+        dataType: date
+        description: End date of the validity of this individual consent.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C176342  
+      - name: consentWithdrawn
+        dataType: bool
+        description: An indication that the consent to participate in the study or one or more segments of the study has been revoked.
+      
+      # some how I need to fit in match maker permission and incidental findings
+      # Should these be put in a ref_ARRAY and then added to the DataUsePersmissions lookup?
+      # I think for specificity, RD3 opted for wide format rather than nesting this information
+      # into one column.
+      # semantics: http://purl.obolibrary.org/obo/DUO_0000001
+      - name: dataUsePermission
+        description: A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used.
+        
+      # semantics: http://purl.obolibrary.org/obo/DUO_0000017
+      - name: dataUseModifiers
+        description: Data use modifiers indicate additional conditions for use. For instance, a dataset is restricted to investigations into specific diseases or performed at specific geographical locations.
+        
+      # semantics: http://semanticscience.org/resource/SIO_000090
+      - name: dataUseSpecification
+        dataType: text
+        description: Further specification of applied data use permissions and modifiers. For example, a list of countries in case of geographic restrictions or a list of diseases when restricted to disease-specific research.
+      
+      # semantics: http://purl.obolibrary.org/obo/ICO_0000178
+      - name: allowIncidentalFindingRecontact
+        dataType: bool
+        description: A planned process for a subject agrees not to be informed about any incidental finding.
+      
+      - name: allowMatchmaker
+        dataType: bool
+        description: Permission is given for MatchMaking
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25737
+      - name: allowRecontacting
+        dataType: bool
+        description: The procedure of recontacting the patient for specified reasons. This means the patient agrees to be re-identifiable under those circumstances.    
+    
+      # semantics: http://semanticscience.org/resource/SIO_001330
+      - name: recordMetadata
+        dataType: compound
+        description: metadata is data that provides information about data.
+    
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25393
+      - name: comments
+        dataType: text
+        description: A written explanation, observation or criticism added to textual material.
+        partOfAttribute: recordMetadata
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C164483
+      - name: dateRecordCreated
+        nillable: false
+        dataType: datetime
+        description: The date on which the activity or entity is created.
+        partOfAttribute: recordMetadata
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C93629
+      - name: dateRecordUpdated
+        nillable: false
+        dataType: dateTIME
+        description: The date (and time) on which report was updated after it had been submitted.
+        partOfAttribute: recordMetadata
   
   #////////////////////////////////////////////////////////////////////////////
   # Table: clinical
@@ -302,6 +480,116 @@ entities:
     tags: NCIT_C25398,dcat:dataset
     attributes: 
   
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C87853
+      - name: clinicalID
+        idAttribute: true
+        description: A unique proper name or character sequence that identifies this particular clinical examination.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C142495
+      - name: belongsToSubject
+        dataType: xref
+        refEntity: urdm_subjects
+        description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C64917
+      - name: affectedStatus
+        dataType: bool
+        description: Individuals in a pedigree who exhibit the specific phenotype under study.
+  
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C164339
+      - name: dateOfDiagnosis
+        dataType: date
+        description: The date on which a diagnosis of disease was made.
+      
+      # semantics: http://purl.bioontology.org/ontology/SNOMEDCT/423493009
+      - name: ageAtDiagnosis
+        dataType: decimal
+        description: The age (in years), measured from some defined time point (e.g. birth) at which a patient is diagnosed with a disease.
+  
+      # semantics: http://www.orpha.net/ORDO/Orphanet_C023
+      - name: ageOfOnset
+        dataType: decimal
+        description: Age (in years) of onset of clinical manifestations related to the disease of the patient.
+  
+      # TODO: implement lookup table
+      - name: observedPhenotype
+        description: The outward appearance of the individual. In medical context, these are often the symptoms caused by a disease.
+        # semantics: http://purl.obolibrary.org/obo/NCIT_C16977
+  
+      # TODO: implement lookup table
+      # semantics: http://purl.bioontology.org/ontology/HL7/C0442737
+      - name: unobservedPhenotype
+        description: Phenotypes or symptoms that were looked for but not observed, which may help in differential diagnosis or establish incomplete penetrance.
+  
+      # TODO: implement lookup table
+      # semantics: http://purl.bioontology.org/ontology/HL7/C0332241
+      - name: provisionalPhenotype
+        description: The test or procedure was successfully performed, but the results are borderline and can neither be declared positive / negative nor detected / not detected according to the current established criteria.
+  
+      # TODO: implement lookup table
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C15607
+      - name: clinicalDiagnosis
+        description: A diagnosis made from a study of the signs and symptoms of a disease.
+  
+      # TODO: implement lookup table
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C20826
+      - name: molecularDiagnosis
+        description: Gene affected by pathogenic variation that is causal for disease of the patient.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C20826
+      - name: molecularDiagnosisOther
+        columnType: STRING
+        description: Causal variant in HGVS notation with optional classification or free text explaining any other molecular mechanisms involved.
+  
+      # RD3 Attribute
+      # I think the resolved term is good here. We could change it to solved
+      # to fit with the NCIT ontology, but I'm not sure if that term fits 100%
+      # Should this attribute also reference a new lookup table?
+      # Or http://purl.bioontology.org/ontology/SNOMEDCT/723506003?
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C142482
+      - name: resolved
+        dataType: bool
+        description: The satisfactory closure of a data item query.
+  
+      # I'm not sure the ontology term is correct. Maybe there is a better one?
+      # Maybe the generic date: http://purl.obolibrary.org/obo/NCIT_C25164?
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C93718
+      - name: dateResolved
+        dataType: date
+        description: The date (and time) when the adverse event ends or returns to baseline.
+  
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C93400
+      - name: belongsToMaterial
+        dataType: mref
+        refEntity: urdm_material
+        description: A unique proper name or character sequence that identifies this particular material.
+  
+      # semantics: http://semanticscience.org/resource/SIO_001330
+      - name: recordMetadata
+        dataType: compound
+        description: metadata is data that provides information about data.
+    
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25393
+      - name: comments
+        dataType: text
+        description: A written explanation, observation or criticism added to textual material.
+        partOfAttribute: recordMetadata
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C164483
+      - name: dateRecordCreated
+        nillable: false
+        dataType: datetime
+        description: The date on which the activity or entity is created.
+        partOfAttribute: recordMetadata
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C93629
+      - name: dateRecordUpdated
+        nillable: false
+        dataType: dateTIME
+        description: The date (and time) on which report was updated after it had been submitted.
+        partOfAttribute: recordMetadata
+  
+  
   #////////////////////////////////////////////////////////////////////////////
   # Table: material
   - name: material
@@ -309,6 +597,95 @@ entities:
     description: A natural substance derived from living organisms such as cells, tissues, proteins, and DNA.
     tags: NCIT_C43376,dcat:dataset
     attributes: 
+    
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C93400
+      - name: materialID
+        idAttribute: true
+        nillable: false
+        description: A unique proper name or character sequence that identifies this particular material.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C142495
+      - name: belongsToSubject
+        dataType: xref
+        refEntity: urdm_subjects
+        description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C164567
+      - name: belongsToRequest
+        description: A sequence of letters, numbers, or other characters that specifically identifies a particular order.
+      
+      # TODO: integrate lookup table when ready (labIndication)
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C171003
+      - name: samplingReason
+        columnType: STRING
+        description: The explanation for why a test, measurement, or assessment is executed.  
+      
+      # semantics: http://www.ebi.ac.uk/efo/EFO_0000689
+      - name: samplingTimestamp
+        dataType: datetime
+        description: Date and time at which this material was collected.
+      
+      # semantics: http://www.ebi.ac.uk/efo/EFO_0005518
+      - name: samplingProtocol
+        dataType: text
+        description: The procedure whereby this material was sampled for an analysis.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C50996
+      - name: samplingProtocolDeviation
+        description: A variation from processes or procedures defined in the sampling protocol. Deviations usually do not preclude the overall evaluability of subject data for either efficacy or safety, and are often acknowledged and accepted in advance by the sponsor.
+    
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C93529
+      - name: reasonForSamplingProtocolDeviation
+        dataType: text
+        description: The rationale for why a deviation from the sampling protocol has occurred.
+    
+      # TODO: implement reference entity
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C70713
+      - name: biospecimenType
+        description: The type of material taken from a biological entity for testing, diagnostic, propagation, treatment or research purposes.
+    
+      # TODO: integrate lookup table
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C103264
+      - name: anatomicalSource
+        description: Biological entity that constitutes the structural organization of an individual member of a biological species from which this material was taken.
+    
+      # TODO: integrate lookup table
+      # semantics: http://purl.obolibrary.org/obo/GO_0001894
+      - name: pathologicalState
+        description: The pathological state of the tissue from which this material was derived.
+  
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C171004
+      - name: biospecimenUsability
+        description: An indication as to whether a biospecimen is suitable for testing purposes.
+    
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C90353
+      - name: alternativeIdentifiers
+        description: A backup sequence of characters used to identify an entity. 
+    
+      # semantics: http://semanticscience.org/resource/SIO_001330
+      - name: recordMetadata
+        dataType: compound
+        description: metadata is data that provides information about data.
+    
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25393
+      - name: comments
+        dataType: text
+        description: A written explanation, observation or criticism added to textual material.
+        partOfAttribute: recordMetadata
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C164483
+      - name: dateRecordCreated
+        nillable: false
+        dataType: datetime
+        description: The date on which the activity or entity is created.
+        partOfAttribute: recordMetadata
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C93629
+      - name: dateRecordUpdated
+        nillable: false
+        dataType: dateTIME
+        description: The date (and time) on which report was updated after it had been submitted.
+        partOfAttribute: recordMetadata
   
   #////////////////////////////////////////////////////////////////////////////
   # Table: samplePrep
@@ -318,6 +695,79 @@ entities:
     tags: OBI_0001902, dcat:dataset
     attributes:
     
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C132299
+      - name: sampleID
+        idAttribute: true
+        nillable: false
+        description: A unique proper name or character sequence that identifies this particular sample preparation.
+    
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C93400
+      - name: belongsToMaterial
+        dataType: xref
+        refEntity: urdm_material
+        description: A unique proper name or character sequence that identifies this particular material.	
+    
+      # semantics: http://purl.allotrope.org/ontologies/role#AFRL_0000010
+      - name: inputAmount
+        dataType: int
+        description: Amount of input material in nanogram (ng).
+        
+      # TODO: insert reference table when ready
+      # semantics: http://purl.obolibrary.org/obo/GENEPIO_0000085
+      - name: libraryPreparationKit
+        description: Pre-filled, ready-to-use reagent cartridges intented to improve chemistry, cluster density and read length as well as improve quality (Q) scores for this sample. Reagent components are encoded to interact with the sequencing system to validate compatibility with user-defined applications.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C17003
+      - name: pcrFree
+        description: Indicates whether a polymerase chain reaction (PCR) was used to prepare this sample. PCR is a method for amplifying a DNA base sequence using multiple rounds of heat denaturation of the DNA and annealing of oligonucleotide primers complementary to flanking regions in the presence of a heat-stable polymerase.
+        
+      # TODO: insert reference table when ready
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C154307
+      - name: targetEnrichmentKit
+        description: Indicates which target enrichment kit was used to prepare this sample. Target enrichment is a pre-sequencing DNA preparation step where DNA sequences are either directly amplified (amplicon or multiplex PCR-based) or captured (hybrid capture-based) in order to only focus on specific regions of a genome or DNA sample.
+        
+      - name: umIsPresent
+        description: Indicates whether any unique molecular identifiers (UMIs) are present. An UMI barcode is a short nucleotide sequence that is used to identify reads originating from an individual mRNA molecule.
+        
+      # semantics: https://w3id.org/fair-genomes/resource/FG_0000001 
+      - name: intendedInsertSize
+        dataType: int
+        description: In paired-end sequencing, the DNA between the adapter sequences is the insert. The length of this sequence is known as the insert size, not to be confused with the inner distance between reads. So, fragment length equals read adapter length (2x) plus insert size, and insert size equals read lenght (2x) plus inner distance.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C153362
+      - name: intendedReadLength
+        dataType: int
+        description: The number of nucleotides intended to be ordered from each side of a nucleic acid fragment obtained after the completion of a sequencing process.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C43361
+      - name: barcode
+        description: A machine-readable representation of information in a visual format on a surface.
+    
+      # semantics: http://semanticscience.org/resource/SIO_001330
+      - name: recordMetadata
+        dataType: compound
+        description: metadata is data that provides information about data.
+    
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25393
+      - name: comments
+        dataType: text
+        description: A written explanation, observation or criticism added to textual material.
+        partOfAttribute: recordMetadata
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C164483
+      - name: dateRecordCreated
+        nillable: false
+        dataType: datetime
+        description: The date on which the activity or entity is created.
+        partOfAttribute: recordMetadata
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C93629
+      - name: dateRecordUpdated
+        nillable: false
+        dataType: dateTIME
+        description: The date (and time) on which report was updated after it had been submitted.
+        partOfAttribute: recordMetadata
+    
   #////////////////////////////////////////////////////////////////////////////
   # Table: sequencing
   - name: sequencing
@@ -325,6 +775,105 @@ entities:
     description: The determination of complete (typically nucleotide) sequences, including those of genomes (full genome sequencing, de novo sequencing and resequencing), amplicons and transcriptomes.
     tags: topic_3168,dcat:dataset
     attributes: 
+    
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C171337
+      - name: sequencingID
+        idAttribute: true
+        nillable: false
+        lookupAttribute: true
+        labelAttribute: true
+        description: A unique proper name or character sequence that identifies this particular nucleic acid sequencing assay.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C132299
+      - name: belongsToSample
+        dataType: xref
+        refEntity: urdm_samplePreparation
+        description: A unique proper name or character sequence that identifies this particular sample preparation.
+    
+      # semantics: http://purl.obolibrary.org/obo/GENEPIO_0000069
+      - name: sequencingDate
+        dataType: date
+        description: Date on which this sequencing assay was performed.
+    
+      # TODO: insert reference table when ready or use ROR links
+      # semantics: http://purl.obolibrary.org/obo/OBI_0001891
+      - name: sequencingFacilityOrganization
+        description: An organization that provides sequence determination service
+    
+      # TODO: insert reference table when ready
+      # semantics: http://purl.obolibrary.org/obo/GENEPIO_0000071
+      - name: sequencingPlatform
+        description: The used sequencing platform (i.e. brand, name of a company that produces sequencer equipment).
+        
+      # TODO: insert reference table when ready
+      # semantics: http://purl.obolibrary.org/obo/GENEPIO_0001921
+      - name: sequencingInstrumentModel
+        description: The used product name and model number of a manufacturer's genomic (dna) sequencer.
+    
+      # TODO: insert reference table when ready
+      # semantics: http://purl.obolibrary.org/obo/FIX_0000704
+      - name: sequencingMethod
+        description: Method used to determine the order of bases in a nucleic acid sequence.
+    
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C155320
+      - name: averageReadDepth
+        dataType: int
+        description: The average number of times a particular locus (site, nucleotide, amplicon, region) was sequenced.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C153362
+      - name: observedReadLength
+        dataType: int
+        description: The number of nucleotides successfully ordered from each side of a nucleic acid fragment obtained after the completion of a sequencing process.
+        
+      # semantics: https://w3id.org/fair-genomes/resource/FG_0000002
+      - name: observedInsertSize
+        dataType: int
+        description: In paired-end sequencing, the DNA between the adapter sequences is the insert. The length of this sequence is known as the insert size, not to be confused with the inner distance between reads. So, fragment length equals read adapter length (2x) plus insert size, and insert size equals read lenght (2x) plus inner distance.
+        
+      # semantics: http://purl.obolibrary.org/obo/GENEPIO_0000089
+      - name: percentageQ30
+        dataType: decimal
+        description: Percentage of reads with a Phred quality score over 30, which indicates less than a 1/1000 chance that the base was called incorrectly.
+    
+      # semantics: https://w3id.org/fair-genomes/resource/FG_0000003
+      - name: percentageTR20
+        dataType: decimal
+        description: Percentage of the target sequence on which 20 or more unique reads were successfully mapped.
+        
+      # semantics: http://edamontology.org/data_3914
+      - name: otherQualityMetrics
+        dataType: text
+        description: Other NGS quality control metrics, including but not limited to (i) sequencer metrics such as yield, error rate, density (K/mm2), cluster PF (%) and phas/prephas (%), (ii) alignment metrics such as QM insert size, GC content, QM duplicated reads (%), QM error rate, uniformity/evenness of coverage and maternal cell contamination, and (iii) variant call metrics such as number of SNVs/CNVs/SVs called, number of missense/nonsense variants, common variants (%), unique variants (%), gender match and trio inheritance check.
+    
+      # TODO: insert reference table here
+      # semantics: http://edamontology.org/data_2340
+      - name: referenceGenomeUsed
+        description: The specific build of the human genome used as reference for sequence alignment and variant calling.
+    
+      # semantics: http://semanticscience.org/resource/SIO_001330
+      - name: recordMetadata
+        dataType: compound
+        description: metadata is data that provides information about data.
+    
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25393
+      - name: comments
+        dataType: text
+        description: A written explanation, observation or criticism added to textual material.
+        partOfAttribute: recordMetadata
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C164483
+      - name: dateRecordCreated
+        nillable: false
+        dataType: datetime
+        description: The date on which the activity or entity is created.
+        partOfAttribute: recordMetadata
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C93629
+      - name: dateRecordUpdated
+        nillable: false
+        dataType: dateTIME
+        description: The date (and time) on which report was updated after it had been submitted.
+        partOfAttribute: recordMetadata
   
   #////////////////////////////////////////////////////////////////////////////
   # Table: files
@@ -332,3 +881,93 @@ entities:
     label: Files
     description: A set of related records (either written or electronic) kept together.
     tags: NCIT_C42883,dcat:dataset
+    attributes:
+    
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C171191
+      - name: filename
+        idAttribute: true
+        nillable: false
+        description: The literal identifier for an electronic file. 
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C171337
+      - name: belongsToSequencing
+        dataType: mref
+        refEntity: urdm_sequencing
+        description: A unique proper name or character sequence that identifies this particular nucleic acid sequencing assay.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C142495 
+      - name: belongsToSubject
+        idAttribute: true
+        dataType: xref
+        refEntity: urdm_subjects
+        description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C48297
+      - name: server
+        description: A computer which provides some service for other computers connected to it via a network. 
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C47922
+      - name: path
+        description: The specification of a node (file or directory) in a hierarchical file system, usually specified by listing the nodes top-down.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C171252   
+      - name: format
+        description: The format of an electronic file.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C171276  
+      - name: size
+        dataType: int
+        description: The size of an electronic file in bytes.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C69199  
+      - name: dateCreated
+        dataType: date
+        description: The date a digital resource was created.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C171276  
+      - name: md5
+        description: A 32-character hexadecimal number that is computed on a file.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C172862
+      - name: uploaded
+        dataType: bool
+        description: An indication that a submitted file has successfully been uploaded to a data repository.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C172876
+      - name: released
+        dataType: bool
+        description: An indication that a file has been released to the users of a database or data repository. 
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C172867
+      - name: invalid
+        dataType: bool
+        description: An indication that a file has invalid data or is in an invalid format and cannot be submitted to a data repository.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C90353
+      - name: alternativeFileId
+        description: A backup sequence of characters used to identify an entity.
+    
+      # semantics: http://semanticscience.org/resource/SIO_001330
+      - name: recordMetadata
+        dataType: compound
+        description: metadata is data that provides information about data.
+    
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25393
+      - name: comments
+        dataType: text
+        description: A written explanation, observation or criticism added to textual material.
+        partOfAttribute: recordMetadata
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C164483
+      - name: dateRecordCreated
+        nillable: false
+        dataType: datetime
+        description: The date on which the activity or entity is created.
+        partOfAttribute: recordMetadata
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C93629
+      - name: dateRecordUpdated
+        nillable: false
+        dataType: dateTIME
+        description: The date (and time) on which report was updated after it had been submitted.
+        partOfAttribute: recordMetadata
