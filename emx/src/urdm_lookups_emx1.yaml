@@ -2,7 +2,7 @@
 # NAME: urdm_emx1.yaml
 # AUTHOR: david ruvolo
 # CREATED: 2021-11-09
-# MODIFIED: 2021-11-10
+# MODIFIED: 2021-11-11
 # PURPOSE: Unified Rare Disease Data Model lookups for EMX1
 # STATUS: in.progress
 # COMMENTS:
@@ -21,7 +21,7 @@ description: URDM Lookup tables
 parent: urdm
 tags: dcat:catalog
 version: 0.9.0
-date: 2021-11-10
+date: 2021-11-11
 
 # define tags
 tagDefinitions:
@@ -102,6 +102,14 @@ tagDefinitions:
   - identifier: NCIT:C20826
     label: NCIT:C20826
     objectIRI: http://purl.obolibrary.org/obo/NCIT_C20826
+    codesystem: NCIT
+    relationLabel: isAssociatedWith
+    relationIRI: http://molgenis.org#isAssociatedWith
+    
+  # organization
+  - identifier: NCIT:C25412
+    label: NCIT:C25412
+    objectIRI: http://purl.obolibrary.org/obo/NCIT_C25412
     codesystem: NCIT
     relationLabel: isAssociatedWith
     relationIRI: http://molgenis.org#isAssociatedWith
@@ -392,10 +400,45 @@ entities:
   
   # @section molecularDiagnosis
   # @references semantics: http://purl.obolibrary.org/obo/NCIT_C20826
-  - name: molecularDiagnosis
-    description: Gene affected by pathogenic variation that is causal for disease of the patient.
-    tags: NCIT:C20826,dcat:dataset
+  # - name: molecularDiagnosis
+  #   description: Gene affected by pathogenic variation that is causal for disease of the patient.
+  #   tags: NCIT:C20826,dcat:dataset
+  #   attributes:
+  #     # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
+  #     - name: value
+  #       idAttribute: true
+  #       nillable: false
+  #       lookupAttribute: true
+  #       labelAttribute: true
+  #       description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
+        
+  #     # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
+  #     - name: description
+  #       dataType: text
+  #       description: A written or verbal account, representation, statement, or explanation of something
+      
+  #     # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
+  #     - name: codesystem
+  #       description: A systematized collection of concepts that define corresponding codes.
+      
+  #     # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
+  #     - name: code
+  #       description: A symbol or combination of symbols which is assigned to the members of a collection.
+      
+  #     # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
+  #     - name: iri
+  #       dataType: hyperlink
+  #       description: A unique symbol that establishes identity of the resource.
+  
+  #////////////////////////////////////
+  
+  # @section organization
+  # @references semantics: http://purl.obolibrary.org/obo/NCIT_C25412
+  - name: organization
+    description: Organization information
+    tags: NCIT:C25412,dcat:dataset
     attributes:
+
       # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
       - name: value
         idAttribute: true
@@ -421,6 +464,7 @@ entities:
       - name: iri
         dataType: hyperlink
         description: A unique symbol that establishes identity of the resource.
+  
   
   #////////////////////////////////////
   

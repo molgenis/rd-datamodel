@@ -2,7 +2,7 @@
 #' FILE: emx.py
 #' AUTHOR: David Ruvolo
 #' CREATED: 2021-10-19
-#' MODIFIED: 2021-10-21
+#' MODIFIED: 2021-10-11
 #' PURPOSE: compile and build EMX files
 #' STATUS: working; ongoing
 #' PACKAGES: emxconvert

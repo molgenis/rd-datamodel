@@ -2,7 +2,7 @@
 # NAME: urdm_emx1.yaml
 # AUTHOR: david ruvolo
 # CREATED: 2021-11-08
-# MODIFIED: 2021-11-10
+# MODIFIED: 2021-11-11
 # PURPOSE: Unified Rare Disease Data Model for EMX1
 # STATUS: in.progress
 # COMMENTS:
@@ -20,7 +20,7 @@ name: urdm
 label: Unified Rare Disease Model
 description: The Unified Rare Disease Model (URDM) for NGS data in research and healthcare
 version: 0.9.0
-date: 2021-11-09
+date: 2021-11-11
 tags: dcat:catalog
 
 # define tags
@@ -136,9 +136,10 @@ tagDefinitions:
 defaults:
   idAttribute: false
   dataType: string
-  nillable: false
+  nillable: true
   lookupAttribute: false
   labelAttribute: false
+  visible: true
 
 # define tables
 entities:
@@ -192,14 +193,14 @@ entities:
       - name: yearOfBirth
         dataType: int
         description: The year in which a person was born.
-        expression: "{dateOfBirth} notempty "
-        validationExpression: "{dateOfBirth} notempty and {yearOfBirth} notempty and {yearOfBirth} = regex('^([0-9]{4})', {dateOfBirth})"
+        # expression: "{dateOfBirth} notempty "
+        # validationExpression: "{dateOfBirth} notempty and {yearOfBirth} notempty and {yearOfBirth} = regex('^([0-9]{4})', {dateOfBirth})"
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C70810
       - name: dateOfDeath
         dataType: date
         description: The calendar date of subject's death.
-        validationExpression: "{dateOfBirth} notempty and {dateOfDeath} notempty and {dateOfDeath} > {dateOfBirth} or {dateOfDeath} = {dateOfBirth}"
+        # validationExpression: "{dateOfBirth} notempty and {dateOfDeath} notempty and {dateOfDeath} > {dateOfBirth} or {dateOfDeath} = {dateOfBirth}"
 
       # TODO: Add validation when expressions have been implemented
       # semantics: http://purl.obolibrary.org/obo/NCIT_C135383
@@ -239,6 +240,8 @@ entities:
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C25412
       - name: primaryAffiliation
+        dataType: mref
+        refEntity: urdm_lookups_organization
         description: The most significant institute for medical consultation and/or study inclusion in context of the genetic disease of this person.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C25461
@@ -281,7 +284,7 @@ entities:
         description: Reference to the study or studies in which this person participates.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C172217
-      - name: belongsWithDataRelease
+      - name: belongsToDataRelease
         dataType: mref
         refEntity: urdm_lookups_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
@@ -377,7 +380,7 @@ entities:
         # semantics:
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C172217
-      - name: belongsWithDataRelease
+      - name: belongsToDataRelease
         dataType: mref
         refEntity: urdm_lookups_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
@@ -482,7 +485,7 @@ entities:
         description: The procedure of recontacting the patient for specified reasons. This means the patient agrees to be re-identifiable under those circumstances.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C172217
-      - name: belongsWithDataRelease
+      - name: belongsToDataRelease
         dataType: mref
         refEntity: urdm_lookups_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
@@ -572,7 +575,6 @@ entities:
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C20826
       - name: molecularDiagnosisOther
-        columnType: STRING
         description: Causal variant in HGVS notation with optional classification or free text explaining any other molecular mechanisms involved.
 
       # RD3 Attribute
@@ -599,7 +601,7 @@ entities:
         description: A unique proper name or character sequence that identifies this particular material.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C172217
-      - name: belongsWithDataRelease
+      - name: belongsToDataRelease
         dataType: mref
         refEntity: urdm_lookups_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
@@ -704,7 +706,7 @@ entities:
         description: A backup sequence of characters used to identify an entity.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C172217
-      - name: belongsWithDataRelease
+      - name: belongsToDataRelease
         dataType: mref
         refEntity: urdm_lookups_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
@@ -790,7 +792,7 @@ entities:
         description: A machine-readable representation of information in a visual format on a surface.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C172217
-      - name: belongsWithDataRelease
+      - name: belongsToDataRelease
         dataType: mref
         refEntity: urdm_lookups_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
@@ -901,7 +903,7 @@ entities:
         description: The specific build of the human genome used as reference for sequence alignment and variant calling.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C172217
-      - name: belongsWithDataRelease
+      - name: belongsToDataRelease
         dataType: mref
         refEntity: urdm_lookups_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
@@ -1002,7 +1004,7 @@ entities:
         description: A backup sequence of characters used to identify an entity.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C172217
-      - name: belongsWithDataRelease
+      - name: belongsToDataRelease
         dataType: mref
         refEntity: urdm_lookups_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
