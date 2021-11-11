@@ -2,7 +2,7 @@
 #' FILE: emx.py
 #' AUTHOR: David Ruvolo
 #' CREATED: 2021-10-19
-#' MODIFIED: 2021-10-21
+#' MODIFIED: 2021-10-11
 #' PURPOSE: compile and build EMX files
 #' STATUS: working; ongoing
 #' PACKAGES: emxconvert
@@ -19,24 +19,30 @@ import yamlemxconvert
 # render model for EMX v1 Molgenis instances
 
 # build: main data model
-c = yamlemxconvert.Convert(files = ['emx/src/model_emx_v1.yaml'])
-c.convert()
+urdm = yamlemxconvert.Convert(
+    files = [
+        'emx/src/urdm_emx1.yaml',
+        'emx/src/urdm_lookups_emx1.yaml'
+    ]
+)
 
-c.write('rdmodel', format = 'xlsx', outDir = 'emx/dist/')
-c.write_schema('emx/schemas/rdmodel_schema.md')
+urdm.convert()
+# urdm.packages
+# urdm.entities
+# urdm.attributes
 
-c.convert(priorityNameKey = 'rd3')
-c.packages
-c.entities
-c.attributes
+urdm.write('urdm', format = 'xlsx', outDir = 'emx/dist/')
+urdm.write_schema('emx/schemas/urdm_schema.md')
 
 
+# ~ a ~
 # build: user management module
 usersModule = yamlemxconvert.Convert(files = ['emx/src/module_approved_users.yaml'])
 usersModule.convert()
 usersModule.write('users', format = 'xlsx', outDir = 'emx/dist/')
 usersModule.write_schema('emx/schemas/users_module_schema.md')
 
+# ~ b ~
 # build: jobs module
 jobsModule = yamlemxconvert.Convert(
     files = [

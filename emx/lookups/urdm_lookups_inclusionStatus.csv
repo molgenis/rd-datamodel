@@ -1,0 +1,7 @@
+value,description,codesystem,code,iri
+alive,"Showing characteristics of life; displaying signs of life.",NCIT,C37987,http://purl.obolibrary.org/obo/NCIT_C37987
+deceased,"The cessation of life.",NCIT,C28554,http://purl.obolibrary.org/obo/NCIT_C28554
+lost in follow-up,"The loss or lack of continuation of subject participation after a study has officially closed.",NCIT,C159824,http://purl.obolibrary.org/obo/NCIT_C159824
+opted-out,"A grantor's dissent to the terms of agreement offered by a grantee without an opportunity for to assent to any terms.",HL7,C3858493,http://purl.bioontology.org/ontology/HL7/C3858493
+presumed alive,"The assumption that a person is still living.",NCIT,C141463,http://purl.obolibrary.org/obo/NCIT_C141463
+unknown,"A proper value is applicable, but not known.",HL7,UNK,http://terminology.hl7.org/CodeSystem/v3-NullFlavor#UNK

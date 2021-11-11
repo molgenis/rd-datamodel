@@ -2,17 +2,15 @@
 #' FILE: data_fairgenomes.py
 #' AUTHOR: David Ruvolo
 #' CREATED: 2021-10-19
-#' MODIFIED: 2021-10-19
-#' PURPOSE: fetch fairgenomes attribute files and write to csv
-#' STATUS: in.progress
-#' PACKAGES: NA
+#' MODIFIED: 2021-11-11
+#' PURPOSE: fetch fairgenomes lookups for use in URDM
+#' STATUS: working
+#' PACKAGES: pandas; requests
 #' COMMENTS: NA
 #'////////////////////////////////////////////////////////////////////////////
 
-
-from datatable import dt, f, fread
+import pandas as pd
 import requests
-import re
 
 # define class for listing metadata for public github repos
 class github:
@@ -46,35 +44,40 @@ class github:
         raw = self._get(url, self.headers)
         return raw
 
+#//////////////////////////////////////////////////////////////////////////////
 
-# get repo contents
+# List files from FAIR Genomes Github repo:
+# https://github.com/fairgenomes/fairgenomes-semantic-model/tree/main/lookups
 gh = github()
-files = gh.contents(
+repo = gh.contents(
     owner = 'fairgenomes',
     repo = 'fairgenomes-semantic-model',
-    path = 'generated/molgenis-emx'
+    path = 'lookups'
 )
 
-# reduce data
-data = []
-for file in files:
-    if re.search(r'(_attributes.tsv)$', file['name']):
-        data.append({
-            'name': file.get('name'),
-            'download_url': file.get('download_url')
+# select files that are used in the URDM
+filesToDownload = {
+    'AnatomicalSources.txt' : 'anatomicalSource',
+    'Ancestry.txt' : 'ancestry',
+    'BiospecimenTypes.txt': 'biospecimenType',
+    'Countries.txt': 'country',
+    'GenotypicSex.txt' : 'genotypicSex',
+    'PathologicalState.txt' : 'pathologicalState',
+    'PhenotypicSex.txt': 'phenotypicSex'
+}
+
+# pull download URLs for files of interest
+files = []
+for file in repo:
+    if file['name'] in filesToDownload:
+        files.append({
+            'name': file['name'],
+            'download_url': file['download_url']
         })
 
-# read attributes
-attribs = dt.Frame()
-for d in data:
-    raw = fread(url = d['download_url'])
-    raw[:,dt.update(
-        file = d['name'].replace('_attributes.tsv', '')
-    )]
-    if not bool(attribs):
-        attribs = raw
-    else:
-        attribs = dt.rbind(attribs, raw, force = True)
-
-# del attribs, d, raw
-attribs.to_pandas().to_excel('data/mapped_attributes.xlsx', index = False)
+# read files and save to `emx/lookups/`
+for f in files:
+    print('Downloading file: {}'.format(f['name']))
+    raw = pd.read_csv(f['download_url'], sep='\t', dtype=str)
+    path = 'emx/lookups/urdm_lookups_{}.csv'.format(filesToDownload[f['name']])
+    raw.to_csv(path, index=False)
