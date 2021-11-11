@@ -1,7 +1,7 @@
 #//////////////////////////////////////////////////////////////////////////////
 # FILE: setup.sh
 # CREATED: 2021-11-10
-# MODIFIED: 2021-11-10
+# MODIFIED: 2021-11-11
 # PURPOSE: import URDM and assets into a new Molgenis instance
 # COMMENTS: start by cloning this repository
 #//////////////////////////////////////////////////////////////////////////////
@@ -29,6 +29,12 @@ mcmd import -p emx/lookups/urdm_lookups_pathologicalState.csv
 mcmd import -p emx/lookups/urdm_lookups_phenotype.csv
 mcmd import -p emx/lookups/urdm_lookups_phenotypicSex.csv
 
-# Optional imports
+# Optional: URDM modules
 mcmd import -p emx/dist/jobs.xlsx   # module for tracking jobs
 mcmd import -p emx/dist/users.xlsx  # module for user auditing
+
+
+# Optional: create demo
+mcmd import -p data/demo/UnifiedRareDiseaseDatabase_demo.xlsx --as urdm
+mcmd make --role ANONYMOUS urdm_VIEWER
+mcmd give anonymous view sys_md
