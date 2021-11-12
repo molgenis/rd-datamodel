@@ -1,4 +1,4 @@
-# Rare Diseases Data Model
+# Unified Rare Diseases Data Model
 
 Welcome! This repository contains the necessary files and scripts for getting started with the Unified Rare Disease Model.
 
@@ -6,7 +6,7 @@ Welcome! This repository contains the necessary files and scripts for getting st
 
 The Unified Rare Disease Model is a *plug and play* [Molgenis EMX](https://molgenis.gitbook.io/molgenis/data-management/guide-emx) model for collating metadata on patients and samples, analyses that were performed on the samples, and files that were generated. The model comprises several modules built on the [FAIR data principles](https://www.go-fair.org/fair-principles/). The module system enables the model to be adapted for research or care contexts.
 
-Here are a list of features.
+Here is a list of features. To see what's in the model, checkout the [Unified Rare Disease Data Model Schema](https://github.com/molgenis/rd-datamodel/blob/main/emx/schemas/urdm_schema.md)
 
 :package: **Rare Disease Model**: a *plug and play* FAIR data model for Molgenis databases on rare diseases. The model contains modules for patients, studies, consent, clinical events, biomaterials collected, preparation of samples, sample sequencing, and metadata from generated files.
 
@@ -20,4 +20,4 @@ For more information on Molgenis, visit [molgenis.org](https://www.molgenis.org/
 
 ## Getting Started
 
-*TBD*
+To get started, you will need **a Molgenis instance** running on the latest version. See the [Molgenis Documentation](https://molgenis.gitbook.io/molgenis/) for more information about setting up Molgenis.
