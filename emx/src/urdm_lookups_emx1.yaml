@@ -2,9 +2,9 @@
 # NAME: urdm_emx1.yaml
 # AUTHOR: david ruvolo
 # CREATED: 2021-11-09
-# MODIFIED: 2021-11-11
+# MODIFIED: 2021-11-15
 # PURPOSE: Unified Rare Disease Data Model lookups for EMX1
-# STATUS: in.progress
+# STATUS: maturing
 # COMMENTS:
 # After building the model, the following attributes should be added to the
 # `tags`. The `relationLabel` and `relationIRI` are standard, but the code
@@ -158,419 +158,155 @@ defaults:
 
 # define tables
 entities:
+
+  #' @name attributeTemplateDefault
+  - name: attributeTemplateDefault
+    description: default attribute template ('value' is idAttribute)
+    attributes:
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
+      - name: value
+        idAttribute: true
+        nillable: false
+        lookupAttribute: true
+        labelAttribute: true
+        description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
+      - name: description
+        dataType: text
+        description: A written or verbal account, representation, statement, or explanation of something
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
+      - name: codesystem
+        description: A systematized collection of concepts that define corresponding codes.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
+      - name: code
+        description: A symbol or combination of symbols which is assigned to the members of a collection.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
+      - name: iri
+        dataType: hyperlink
+        description: A unique symbol that establishes identity of the resource.
   
-  # @section anatomicalSource
-  # @reference semantics: http://purl.obolibrary.org/obo/NCIT_C103264
+  #' @name attributeTemplateCode
+  - name: attributeTemplateCode
+    description: code centric attribute template ('code' is idAttribute)
+    attributes:
+    
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
+      - name: value
+        lookupAttribute: true
+        labelAttribute: true
+        description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
+      - name: description
+        dataType: text
+        description: A written or verbal account, representation, statement, or explanation of something
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
+      - name: codesystem
+        nillable: false
+        idAttribute: true
+        description: A systematized collection of concepts that define corresponding codes.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
+      - name: code
+        description: A symbol or combination of symbols which is assigned to the members of a collection.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
+      - name: iri
+        dataType: hyperlink
+        description: A unique symbol that establishes identity of the resource.
+  
+  #////////////////////////////////////
+  
+  #' @name anatomicalSource
+  #' @reference http://purl.obolibrary.org/obo/NCIT_C103264
   - name: anatomicalSource
     description: Biological entity that constitutes the structural organization of an individual member of a biological species from which this material was taken.
     tags: NCIT:C103264, dcat:dataset
-    attributes:
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
-      - name: value
-        idAttribute: true
-        nillable: false
-        lookupAttribute: true
-        labelAttribute: true
-        description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
-        
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
-      - name: description
-        dataType: text
-        description: A written or verbal account, representation, statement, or explanation of something
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
-      - name: codesystem
-        description: A systematized collection of concepts that define corresponding codes.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
-      - name: code
-        description: A symbol or combination of symbols which is assigned to the members of a collection.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
-      - name: iri
-        dataType: hyperlink
-        description: A unique symbol that establishes identity of the resource.
+    extends: urdm_lookups_attributeTemplateDefault
   
-  #////////////////////////////////////
-  
-  # @section ancestry
-  # @reference semantics: http://purl.obolibrary.org/obo/NCIT_C176763
+  # @name ancestry
+  # @reference http://purl.obolibrary.org/obo/NCIT_C176763
   - name: ancestry
     description: Population category defined using ancestry informative markers (AIMs) based on genetic/genomic data.
     tags: NCIT:C176763,dcat:dataset
-    attributes:
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
-      - name: value
-        idAttribute: true
-        nillable: false
-        lookupAttribute: true
-        labelAttribute: true
-        description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
-        
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
-      - name: description
-        dataType: text
-        description: A written or verbal account, representation, statement, or explanation of something
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
-      - name: codesystem
-        description: A systematized collection of concepts that define corresponding codes.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
-      - name: code
-        description: A symbol or combination of symbols which is assigned to the members of a collection.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
-      - name: iri
-        dataType: hyperlink
-        description: A unique symbol that establishes identity of the resource.
+    extends: urdm_lookups_attributeTemplateDefault
   
-  #////////////////////////////////////
-  
-  # @section biospecimenType
-  # @reference semantics:
-  # semantics: http://purl.obolibrary.org/obo/NCIT_C70713
+  # @name biospecimenType
+  # @reference http://purl.obolibrary.org/obo/NCIT_C70713
   - name: biospecimenType
     description: The type of material taken from a biological entity for testing, diagnostic, propagation, treatment or research purposes.
     tags: NCIT:C70713,dcat:dataset
-    attributes:
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
-      - name: value
-        idAttribute: true
-        nillable: false
-        lookupAttribute: true
-        labelAttribute: true
-        description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
-        
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
-      - name: description
-        dataType: text
-        description: A written or verbal account, representation, statement, or explanation of something
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
-      - name: codesystem
-        description: A systematized collection of concepts that define corresponding codes.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
-      - name: code
-        description: A symbol or combination of symbols which is assigned to the members of a collection.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
-      - name: iri
-        dataType: hyperlink
-        description: A unique symbol that establishes identity of the resource.
+    extends: urdm_lookups_attributeTemplateDefault
   
-  #////////////////////////////////////
-  
-  # @section country
+  # @name country
   # @references semantics: http://purl.obolibrary.org/obo/NCIT_C171105
   - name: country
     description: A collective generic term that refers here to a wide variety of dependencies, areas of special sovereignty, uninhabited islands, and other entities in addition to the traditional countries or independent states.
     tags: NCIT:C171105,dcat:dataset
-    attributes:
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
-      - name: value
-        idAttribute: true
-        nillable: false
-        lookupAttribute: true
-        labelAttribute: true
-        description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
-        
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
-      - name: description
-        dataType: text
-        description: A written or verbal account, representation, statement, or explanation of something
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
-      - name: codesystem
-        description: A systematized collection of concepts that define corresponding codes.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
-      - name: code
-        description: A symbol or combination of symbols which is assigned to the members of a collection.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
-      - name: iri
-        dataType: hyperlink
-        description: A unique symbol that establishes identity of the resource.
+    extends: urdm_lookups_attributeTemplateCode
   
-  #////////////////////////////////////
-  
-  # @section genotypicSex
-  # @references semantics: http://purl.obolibrary.org/obo/PATO_0020000
+  # @name genotypicSex
+  # @references http://purl.obolibrary.org/obo/PATO_0020000
   - name: genotypicSex
     description: A biological sex quality inhering in an individual based upon genotypic composition of sex chromosomes.
     tags: PATO:0020000,dcat:dataset
-    attributes:
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
-      - name: value
-        idAttribute: true
-        nillable: false
-        lookupAttribute: true
-        labelAttribute: true
-        description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
-        
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
-      - name: description
-        dataType: text
-        description: A written or verbal account, representation, statement, or explanation of something
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
-      - name: codesystem
-        description: A systematized collection of concepts that define corresponding codes.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
-      - name: code
-        description: A symbol or combination of symbols which is assigned to the members of a collection.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
-      - name: iri
-        dataType: hyperlink
-        description: A unique symbol that establishes identity of the resource.
+    extends: urdm_lookups_attributeTemplateDefault
   
-  #////////////////////////////////////
-  
-  # @section inclusionStatus
-  # @#references semantics: http://purl.obolibrary.org/obo/NCIT_C166244
+  # @name inclusionStatus
+  # @#references http://purl.obolibrary.org/obo/NCIT_C166244
   - name: inclusionStatus
     description: An indicator that provides information on the current health status of this person.
     tags: NCIT:C166244,dcat:dataset
-    attributes:
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
-      - name: value
-        idAttribute: true
-        nillable: false
-        lookupAttribute: true
-        labelAttribute: true
-        description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
-        
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
-      - name: description
-        dataType: text
-        description: A written or verbal account, representation, statement, or explanation of something
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
-      - name: codesystem
-        description: A systematized collection of concepts that define corresponding codes.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
-      - name: code
-        description: A symbol or combination of symbols which is assigned to the members of a collection.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
-      - name: iri
-        dataType: hyperlink
-        description: A unique symbol that establishes identity of the resource.
-        
-  #////////////////////////////////////
+    extends: urdm_lookups_attributeTemplateDefault
   
-  # @section labIndication
-  # @references semantics: http://purl.obolibrary.org/obo/NCIT_C171003
+  # @name labIndication
+  # @references http://purl.obolibrary.org/obo/NCIT_C171003
   - name: labIndication
     description: The explanation for why a test, measurement, or assessment is executed.  
     tags: NCIT:C171003,dcat:dataset
-    attributes:
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
-      - name: value
-        idAttribute: true
-        nillable: false
-        lookupAttribute: true
-        labelAttribute: true
-        description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
-        
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
-      - name: description
-        dataType: text
-        description: A written or verbal account, representation, statement, or explanation of something
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
-      - name: codesystem
-        description: A systematized collection of concepts that define corresponding codes.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
-      - name: code
-        description: A symbol or combination of symbols which is assigned to the members of a collection.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
-      - name: iri
-        dataType: hyperlink
-        description: A unique symbol that establishes identity of the resource.
+    extends: urdm_lookups_attributeTemplateDefault
   
-  #////////////////////////////////////
-  
-  # @section molecularDiagnosis
+  # @name molecularDiagnosis
   # @references semantics: http://purl.obolibrary.org/obo/NCIT_C20826
   # - name: molecularDiagnosis
   #   description: Gene affected by pathogenic variation that is causal for disease of the patient.
   #   tags: NCIT:C20826,dcat:dataset
-  #   attributes:
-  #     # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
-  #     - name: value
-  #       idAttribute: true
-  #       nillable: false
-  #       lookupAttribute: true
-  #       labelAttribute: true
-  #       description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
-        
-  #     # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
-  #     - name: description
-  #       dataType: text
-  #       description: A written or verbal account, representation, statement, or explanation of something
-      
-  #     # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
-  #     - name: codesystem
-  #       description: A systematized collection of concepts that define corresponding codes.
-      
-  #     # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
-  #     - name: code
-  #       description: A symbol or combination of symbols which is assigned to the members of a collection.
-      
-  #     # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
-  #     - name: iri
-  #       dataType: hyperlink
-  #       description: A unique symbol that establishes identity of the resource.
+  #   extends: urdm_lookups_attributeTemplateDefault
   
-  #////////////////////////////////////
-  
-  # @section organization
+  # @name organization
   # @references semantics: http://purl.obolibrary.org/obo/NCIT_C25412
   - name: organization
     description: Organization information
     tags: NCIT:C25412,dcat:dataset
-    attributes:
-
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
-      - name: value
-        idAttribute: true
-        nillable: false
-        lookupAttribute: true
-        labelAttribute: true
-        description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
-        
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
-      - name: description
-        dataType: text
-        description: A written or verbal account, representation, statement, or explanation of something
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
-      - name: codesystem
-        description: A systematized collection of concepts that define corresponding codes.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
-      - name: code
-        description: A symbol or combination of symbols which is assigned to the members of a collection.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
-      - name: iri
-        dataType: hyperlink
-        description: A unique symbol that establishes identity of the resource.
+    extends: urdm_lookups_attributeTemplateDefault
   
-  
-  #////////////////////////////////////
-  
-  # @section pathologicalState
+  # @name pathologicalState
   # @reference semantics: http://purl.obolibrary.org/obo/GO_0001894
   - name: pathologicalState
     description: The pathological state of the tissue from which this material was derived.
     tags: GO:0001894,dcat:dataset
-    attributes:
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
-      - name: value
-        idAttribute: true
-        nillable: false
-        lookupAttribute: true
-        labelAttribute: true
-        description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
-        
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
-      - name: description
-        dataType: text
-        description: A written or verbal account, representation, statement, or explanation of something
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
-      - name: codesystem
-        description: A systematized collection of concepts that define corresponding codes.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
-      - name: code
-        description: A symbol or combination of symbols which is assigned to the members of a collection.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
-      - name: iri
-        dataType: hyperlink
-        description: A unique symbol that establishes identity of the resource.
+    extends: urdm_lookups_attributeTemplateDefault
   
-  #////////////////////////////////////
-  
-  # @section phenotype
+  # @name phenotype
   # @references semantics: http://purl.obolibrary.org/obo/NCIT_C16977
   - name: phenotype
     description: Human Phenotype Ontology (HPO) release v2021-08-02 
     tags: NCIT:C16977,dcat:dataset
-    attributes:
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
-      - name: value
-        idAttribute: true
-        nillable: false
-        lookupAttribute: true
-        labelAttribute: true
-        description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
-        
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
-      - name: definition
-        dataType: text
-        description: A written or verbal account, representation, statement, or explanation of something
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
-      - name: codesystem
-        description: A systematized collection of concepts that define corresponding codes.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
-      - name: code
-        description: A symbol or combination of symbols which is assigned to the members of a collection.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
-      - name: iri
-        dataType: hyperlink
-        description: A unique symbol that establishes identity of the resource.
+    extends: urdm_lookups_attributeTemplateDefault
   
-  #////////////////////////////////////
-  
-  # @section phenotypicSex
+  # @name phenotypicSex
   # @references semantics: http://purl.obolibrary.org/obo/PATO_0001894
   - name: phenotypicSex
     description: An organismal quality inhering in a bearer by virtue of the bearer's physical expression of sexual characteristics.
     tags: PATO:0001894,dcat:dataset
-    attributes:
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
-      - name: value
-        idAttribute: true
-        nillable: false
-        lookupAttribute: true
-        labelAttribute: true
-        description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
-        
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
-      - name: description
-        dataType: text
-        description: A written or verbal account, representation, statement, or explanation of something
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
-      - name: codesystem
-        description: A systematized collection of concepts that define corresponding codes.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
-      - name: code
-        description: A symbol or combination of symbols which is assigned to the members of a collection.
-      
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
-      - name: iri
-        dataType: hyperlink
-        description: A unique symbol that establishes identity of the resource.
+    extends: urdm_lookups_attributeTemplateDefault
   
-  #////////////////////////////////////
-  
-  # @section releases
+  # @name releases
   # @references semantics: http://purl.obolibrary.org/obo/NCIT_C172217
   - name: releases
     description: The act of making data or other structured information accessible to the public or to the user group of a database.
@@ -617,3 +353,9 @@ entities:
       - name: releaseComments
         dataType: text
         description: A notation regarding the decisions, and/or clarification of any information pertaining to data management. 
+  
+  # @name studyStatus
+  # @references http://purl.obolibrary.org/obo/NCIT_C171103
+  - name: studyStatus
+    description: The status of a study or trial.
+    extends: urdm_lookups_attributeTemplateDefault
