@@ -22,12 +22,15 @@ mcmd import -p emx/lookups/urdm_lookups_anatomicalSource.csv
 mcmd import -p emx/lookups/urdm_lookups_ancestry.csv
 mcmd import -p emx/lookups/urdm_lookups_biospecimenType.csv
 mcmd import -p emx/lookups/urdm_lookups_country.csv
+mcmd import -p emx/lookups/urdm_lookups_genomeAccessions.csv
 mcmd import -p emx/lookups/urdm_lookups_genotypicSex.csv
 mcmd import -p emx/lookups/urdm_lookups_inclusionStatus.csv
 mcmd import -p emx/lookups/urdm_lookups_labIndication.csv
 mcmd import -p emx/lookups/urdm_lookups_pathologicalState.csv
 mcmd import -p emx/lookups/urdm_lookups_phenotype.csv
 mcmd import -p emx/lookups/urdm_lookups_phenotypicSex.csv
+mcmd import -p emx/lookups/urdm_lookups_sequencingMethods.csv
+mcmd import -p emx/lookups/urdm_lookups_studyStatus.csv
 
 # Optional: URDM modules
 mcmd import -p emx/dist/jobs.xlsx   # module for tracking jobs

@@ -27,13 +27,12 @@ urdm = yamlemxconvert.Convert(
 )
 
 urdm.convert()
-# urdm.packages
-# urdm.entities
-# urdm.attributes
-
 urdm.write('urdm', format = 'xlsx', outDir = 'emx/dist/')
 urdm.write_schema('emx/schemas/urdm_schema.md')
 
+# urdm.packages
+# urdm.entities
+# urdm.attributes
 
 # ~ a ~
 # build: user management module
