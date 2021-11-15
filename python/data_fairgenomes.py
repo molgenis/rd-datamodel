@@ -2,7 +2,7 @@
 #' FILE: data_fairgenomes.py
 #' AUTHOR: David Ruvolo
 #' CREATED: 2021-10-19
-#' MODIFIED: 2021-11-11
+#' MODIFIED: 2021-11-15
 #' PURPOSE: fetch fairgenomes lookups for use in URDM
 #' STATUS: working
 #' PACKAGES: pandas; requests
@@ -61,9 +61,11 @@ filesToDownload = {
     'Ancestry.txt' : 'ancestry',
     'BiospecimenTypes.txt': 'biospecimenType',
     'Countries.txt': 'country',
+    'GenomeAccessions.txt': 'genomeAccessions',
     'GenotypicSex.txt' : 'genotypicSex',
     'PathologicalState.txt' : 'pathologicalState',
-    'PhenotypicSex.txt': 'phenotypicSex'
+    'PhenotypicSex.txt': 'phenotypicSex',
+    'SequencingMethods.txt': 'sequencingMethods'
 }
 
 # pull download URLs for files of interest
