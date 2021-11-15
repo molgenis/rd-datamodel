@@ -20,8 +20,8 @@ label: Lookups
 description: URDM Lookup tables
 parent: urdm
 tags: dcat:catalog
-version: 0.9.0
-date: 2021-11-11
+version: 0.9.1
+date: 2021-11-15
 
 # define tags
 tagDefinitions:
@@ -74,6 +74,14 @@ tagDefinitions:
     relationLabel: isAssociatedWith
     relationIRI: http://molgenis.org#isAssociatedWith
     
+  # genome accessions
+  - identifier: EDAM:2340
+    label: EDAM:2340
+    objectIRI: http://edamontology.org/data_2340
+    codesystem: EDAM
+    relationLabel: isAssociatedWith
+    relationIRI: http://molgenis.org#isAssociatedWith
+    
   # genotypic sex
   - identifier: PATO:0020000
     label: PATO:0020000
@@ -99,12 +107,12 @@ tagDefinitions:
     relationIRI: http://molgenis.org#isAssociatedWith
     
   # molecular status
-  - identifier: NCIT:C20826
-    label: NCIT:C20826
-    objectIRI: http://purl.obolibrary.org/obo/NCIT_C20826
-    codesystem: NCIT
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: NCIT:C20826
+  #   label: NCIT:C20826
+  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C20826
+  #   codesystem: NCIT
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
   # organization
   - identifier: NCIT:C25412
@@ -146,6 +154,22 @@ tagDefinitions:
     relationLabel: isAssociatedWith
     relationIRI: http://molgenis.org#isAssociatedWith
     
+  # sequencingMethods
+  - identifier: FIX:0000704
+    label: FIX:0000704
+    objectIRI: http://purl.obolibrary.org/obo/FIX_0000704
+    codesystem: FIX
+    relationLabel: isAssociatedWith
+    relationIRI: http://molgenis.org#isAssociatedWith
+    
+  # study status
+  - identifier: NCIT:C171103
+    label: NCIT:C171103
+    objectIRI: http://purl.obolibrary.org/obo/NCIT_C171103
+    codesystem: NCIT
+    relationLabel: isAssociatedWith
+    relationIRI: http://molgenis.org#isAssociatedWith
+    
 #//////////////////////////////////////////////////////////////////////////////
 
 # set attribute level defaults
@@ -162,6 +186,7 @@ entities:
   #' @name attributeTemplateDefault
   - name: attributeTemplateDefault
     description: default attribute template ('value' is idAttribute)
+    abstract: true
     attributes:
       # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
       - name: value
@@ -192,12 +217,11 @@ entities:
   #' @name attributeTemplateCode
   - name: attributeTemplateCode
     description: code centric attribute template ('code' is idAttribute)
+    abstract: true
     attributes:
     
       # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
       - name: value
-        lookupAttribute: true
-        labelAttribute: true
         description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
         
       # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
@@ -207,12 +231,14 @@ entities:
       
       # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
       - name: codesystem
-        nillable: false
-        idAttribute: true
         description: A systematized collection of concepts that define corresponding codes.
       
       # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
       - name: code
+        idAttribute: true
+        nillable: false
+        lookupAttribute: true
+        labelAttribute: true
         description: A symbol or combination of symbols which is assigned to the members of a collection.
       
       # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
@@ -225,35 +251,42 @@ entities:
   #' @name anatomicalSource
   #' @reference http://purl.obolibrary.org/obo/NCIT_C103264
   - name: anatomicalSource
-    description: Biological entity that constitutes the structural organization of an individual member of a biological species from which this material was taken.
+    description: reference dataset defined by FAIR Genomes v1.1
     tags: NCIT:C103264, dcat:dataset
     extends: urdm_lookups_attributeTemplateDefault
   
   # @name ancestry
   # @reference http://purl.obolibrary.org/obo/NCIT_C176763
   - name: ancestry
-    description: Population category defined using ancestry informative markers (AIMs) based on genetic/genomic data.
+    description: reference dataset defined by FAIR Genomes v1.1
     tags: NCIT:C176763,dcat:dataset
     extends: urdm_lookups_attributeTemplateDefault
   
   # @name biospecimenType
   # @reference http://purl.obolibrary.org/obo/NCIT_C70713
   - name: biospecimenType
-    description: The type of material taken from a biological entity for testing, diagnostic, propagation, treatment or research purposes.
+    description: reference dataset defined by FAIR Genomes v1.1
     tags: NCIT:C70713,dcat:dataset
     extends: urdm_lookups_attributeTemplateDefault
   
   # @name country
-  # @references semantics: http://purl.obolibrary.org/obo/NCIT_C171105
+  # @references http://purl.obolibrary.org/obo/NCIT_C171105
   - name: country
-    description: A collective generic term that refers here to a wide variety of dependencies, areas of special sovereignty, uninhabited islands, and other entities in addition to the traditional countries or independent states.
+    description: reference dataset defined by FAIR Genomes v1.1
     tags: NCIT:C171105,dcat:dataset
     extends: urdm_lookups_attributeTemplateCode
+  
+  # @name genomeAccessions
+  # @reference http://edamontology.org/data_2340
+  - name: genomeAccessions
+    description: reference dataset defined by FAIR Genomes v1.1
+    tags: EDAM:2340, dcat:dataset
+    extends: urdm_lookups_attributeTemplateDefault
   
   # @name genotypicSex
   # @references http://purl.obolibrary.org/obo/PATO_0020000
   - name: genotypicSex
-    description: A biological sex quality inhering in an individual based upon genotypic composition of sex chromosomes.
+    description: reference dataset defined by FAIR Genomes v1.1
     tags: PATO:0020000,dcat:dataset
     extends: urdm_lookups_attributeTemplateDefault
   
@@ -272,42 +305,42 @@ entities:
     extends: urdm_lookups_attributeTemplateDefault
   
   # @name molecularDiagnosis
-  # @references semantics: http://purl.obolibrary.org/obo/NCIT_C20826
+  # @references http://purl.obolibrary.org/obo/NCIT_C20826
   # - name: molecularDiagnosis
-  #   description: Gene affected by pathogenic variation that is causal for disease of the patient.
+  #   description:
   #   tags: NCIT:C20826,dcat:dataset
   #   extends: urdm_lookups_attributeTemplateDefault
   
   # @name organization
-  # @references semantics: http://purl.obolibrary.org/obo/NCIT_C25412
+  # @references http://purl.obolibrary.org/obo/NCIT_C25412
   - name: organization
-    description: Organization information
+    description: Organization information standardized to the Research Organization Registry (ROR)
     tags: NCIT:C25412,dcat:dataset
     extends: urdm_lookups_attributeTemplateDefault
   
   # @name pathologicalState
   # @reference semantics: http://purl.obolibrary.org/obo/GO_0001894
   - name: pathologicalState
-    description: The pathological state of the tissue from which this material was derived.
+    description: reference dataset defined by FAIR Genomes v1.1
     tags: GO:0001894,dcat:dataset
     extends: urdm_lookups_attributeTemplateDefault
   
   # @name phenotype
-  # @references semantics: http://purl.obolibrary.org/obo/NCIT_C16977
+  # @references http://purl.obolibrary.org/obo/NCIT_C16977
   - name: phenotype
     description: Human Phenotype Ontology (HPO) release v2021-08-02 
     tags: NCIT:C16977,dcat:dataset
     extends: urdm_lookups_attributeTemplateDefault
   
   # @name phenotypicSex
-  # @references semantics: http://purl.obolibrary.org/obo/PATO_0001894
+  # @references http://purl.obolibrary.org/obo/PATO_0001894
   - name: phenotypicSex
-    description: An organismal quality inhering in a bearer by virtue of the bearer's physical expression of sexual characteristics.
+    description: reference dataset defined by FAIR Genomes v1.1
     tags: PATO:0001894,dcat:dataset
     extends: urdm_lookups_attributeTemplateDefault
   
   # @name releases
-  # @references semantics: http://purl.obolibrary.org/obo/NCIT_C172217
+  # @references http://purl.obolibrary.org/obo/NCIT_C172217
   - name: releases
     description: The act of making data or other structured information accessible to the public or to the user group of a database.
     tags: NCIT:C172217,dcat:dataset
@@ -354,8 +387,16 @@ entities:
         dataType: text
         description: A notation regarding the decisions, and/or clarification of any information pertaining to data management. 
   
+  # @name sequencingMethods
+  # @references http://purl.obolibrary.org/obo/FIX_0000704
+  - name: sequencingMethods
+    description: reference dataset defined by FAIR Genomes v1.1
+    tags: FIX:0000704, dcat:dataset
+    extends: urdm_lookups_attributeTemplateDefault
+        
   # @name studyStatus
   # @references http://purl.obolibrary.org/obo/NCIT_C171103
   - name: studyStatus
     description: The status of a study or trial.
+    tags: NCIT:C171103, dcat:dataset
     extends: urdm_lookups_attributeTemplateDefault
