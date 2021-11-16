@@ -2,11 +2,10 @@
 # NAME: urdm_emx1.yaml
 # AUTHOR: david ruvolo
 # CREATED: 2021-11-08
-# MODIFIED: 2021-11-11
+# MODIFIED: 2021-11-16
 # PURPOSE: Unified Rare Disease Data Model for EMX1
-# STATUS: in.progress
+# STATUS: maturing
 # COMMENTS:
-#
 # After building the model, the following attributes should be added to the
 # `tags`. The `relationLabel` and `relationIRI` are standard, but the code
 # system should be extracted from the `objectIRI`
@@ -19,8 +18,8 @@
 name: urdm
 label: Unified Rare Disease Model
 description: The Unified Rare Disease Model (URDM) for NGS data in research and healthcare
-version: 0.9.0
-date: 2021-11-11
+version: 0.9.2
+date: 2021-11-16
 tags: dcat:catalog
 
 # define tags
@@ -143,7 +142,8 @@ defaults:
 
 # define tables
 entities:
-  # Table: subjects
+  
+  # @name subjects
   - name: subjects
     label: Subjects
     description: Persons who are observed, analyzed, examined, investigated, experimented upon, or/and treated in the course of a particular study
@@ -182,6 +182,8 @@ entities:
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C166244
       - name: inclusionStatus
+        dataType: xref
+        refEntity: urdm_lookups_inclusionStatus
         description: An indicator that provides information on the current health status of this person.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C68615
@@ -315,7 +317,8 @@ entities:
         partOfAttribute: recordMetadata
 
   #////////////////////////////////////////////////////////////////////////////
-  # Table: study
+  
+  # @name study
   - name: study
     label: Study
     description: A detailed examination, analysis, or critical inspection of one or multiple subjects designed to discover facts.
@@ -334,7 +337,6 @@ entities:
       - name: name
         description: A name that designates this study.
 
-      # TODO: implement lookup table when ready
       # semantics: http://purl.obolibrary.org/obo/OBI_0500027
       - name: inclusionCriteria
         description: The conditions which, if met, make an person eligible for participation in this study.
@@ -363,9 +365,10 @@ entities:
         dataType: date
         description: The date on which the concluding information for this study is completed. Usually, this is when the last subject has a final visit, or the main analysis has finished, or any other protocol-defined completion date.
 
-      # TODO: create lookup table
       # semantics: http://purl.obolibrary.org/obo/NCIT_C171103
       - name: studyStatus
+        dataType: mref
+        refEntity: urdm_lookups_studyStatus
         description: The status of a study or trial.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C153145
@@ -411,7 +414,8 @@ entities:
         partOfAttribute: recordMetadata
 
   #////////////////////////////////////////////////////////////////////////////
-  # Table: consent
+  
+  # @name consent
   - name: consent
     label: Consent
     description: Consent given by a patient to a surgical or medical procedure or participation in a study, examination or analysis after achieving an understanding of the relevant medical facts and the risks involved.
@@ -516,7 +520,8 @@ entities:
         partOfAttribute: recordMetadata
 
   #////////////////////////////////////////////////////////////////////////////
-  # Table: clinical
+  
+  # @name clinical
   - name: clinical
     label: Clinical
     description: Findings and circumstances relating to the examination and treatment of a patient.
@@ -553,9 +558,9 @@ entities:
         dataType: decimal
         description: Age (in years) of onset of clinical manifestations related to the disease of the patient.
 
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C16977
       - name: observedPhenotype
         description: The outward appearance of the individual. In medical context, these are often the symptoms caused by a disease.
-        # semantics: http://purl.obolibrary.org/obo/NCIT_C16977
 
       # semantics: http://purl.bioontology.org/ontology/HL7/C0442737
       - name: unobservedPhenotype
@@ -632,7 +637,8 @@ entities:
         partOfAttribute: recordMetadata
 
   #////////////////////////////////////////////////////////////////////////////
-  # Table: material
+  
+  # @name material
   - name: material
     label: Material
     description: A natural substance derived from living organisms such as cells, tissues, proteins, and DNA.
@@ -737,7 +743,8 @@ entities:
         partOfAttribute: recordMetadata
 
   #////////////////////////////////////////////////////////////////////////////
-  # Table: samplePrep
+  
+  # @name samplePrep
   - name: samplePreparation
     label: Sample Preparation
     description: A sample preparation for a nucleic acids sequencing assay.
@@ -760,7 +767,7 @@ entities:
         dataType: int
         description: Amount of input material in nanogram (ng).
 
-      # TODO: insert reference table when ready
+      # TODO: insert reference table when ready (NGS Kits)
       # semantics: http://purl.obolibrary.org/obo/GENEPIO_0000085
       - name: libraryPreparationKit
         description: Pre-filled, ready-to-use reagent cartridges intented to improve chemistry, cluster density and read length as well as improve quality (Q) scores for this sample. Reagent components are encoded to interact with the sequencing system to validate compatibility with user-defined applications.
@@ -769,7 +776,7 @@ entities:
       - name: pcrFree
         description: Indicates whether a polymerase chain reaction (PCR) was used to prepare this sample. PCR is a method for amplifying a DNA base sequence using multiple rounds of heat denaturation of the DNA and annealing of oligonucleotide primers complementary to flanking regions in the presence of a heat-stable polymerase.
 
-      # TODO: insert reference table when ready
+      # TODO: insert reference table when ready (NGS Kits)
       # semantics: http://purl.obolibrary.org/obo/NCIT_C154307
       - name: targetEnrichmentKit
         description: Indicates which target enrichment kit was used to prepare this sample. Target enrichment is a pre-sequencing DNA preparation step where DNA sequences are either directly amplified (amplicon or multiplex PCR-based) or captured (hybrid capture-based) in order to only focus on specific regions of a genome or DNA sample.
@@ -823,7 +830,8 @@ entities:
         partOfAttribute: recordMetadata
 
   #////////////////////////////////////////////////////////////////////////////
-  # Table: sequencing
+  
+  # @name sequencing
   - name: sequencing
     label: Sequencing
     description: The determination of complete (typically nucleotide) sequences, including those of genomes (full genome sequencing, de novo sequencing and resequencing), amplicons and transcriptomes.
@@ -850,6 +858,8 @@ entities:
 
       # semantics: http://purl.obolibrary.org/obo/OBI_0001891
       - name: sequencingFacilityOrganization
+        dataType: xref
+        refEntity: urdm_lookups_organization
         description: An organization that provides sequence determination service
 
       # TODO: insert reference table when ready
@@ -862,9 +872,10 @@ entities:
       - name: sequencingInstrumentModel
         description: The used product name and model number of a manufacturer's genomic (dna) sequencer.
 
-      # TODO: insert reference table when ready
       # semantics: http://purl.obolibrary.org/obo/FIX_0000704
       - name: sequencingMethod
+        dataType: xref
+        refEntity: urdm_lookups_sequencingMethods
         description: Method used to determine the order of bases in a nucleic acid sequence.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C155320
@@ -897,9 +908,10 @@ entities:
         dataType: text
         description: Other NGS quality control metrics, including but not limited to (i) sequencer metrics such as yield, error rate, density (K/mm2), cluster PF (%) and phas/prephas (%), (ii) alignment metrics such as QM insert size, GC content, QM duplicated reads (%), QM error rate, uniformity/evenness of coverage and maternal cell contamination, and (iii) variant call metrics such as number of SNVs/CNVs/SVs called, number of missense/nonsense variants, common variants (%), unique variants (%), gender match and trio inheritance check.
 
-      # TODO: insert reference table here
       # semantics: http://edamontology.org/data_2340
       - name: referenceGenomeUsed
+        dataType: xref
+        refEntity: urdm_lookups_genomeAccessions
         description: The specific build of the human genome used as reference for sequence alignment and variant calling.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C172217
@@ -934,7 +946,8 @@ entities:
         partOfAttribute: recordMetadata
 
   #////////////////////////////////////////////////////////////////////////////
-  # Table: files
+  
+  # @name files
   - name: files
     label: Files
     description: A set of related records (either written or electronic) kept together.
