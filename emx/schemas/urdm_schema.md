@@ -4,8 +4,8 @@
 
 | Name | Description | Parent |
 |:---- |:-----------|:------|
-| urdm | The Unified Rare Disease Model (URDM) for NGS data in research and healthcare (v0.9.1, 2021-11-15) | - |
-| urdm_lookups | URDM Lookup tables (v0.9.1, 2021-11-15) | urdm |
+| urdm | The Unified Rare Disease Model (URDM) for NGS data in research and healthcare (v0.9.2, 2021-11-16) | - |
+| urdm_lookups | URDM Lookup tables (v0.9.2, 2021-11-16) | urdm |
 
 ## Entities
 
@@ -50,7 +50,7 @@ Persons who are observed, analyzed, examined, investigated, experimented upon, o
 | belongsToMother | - | A designation that has some relationship to motherhood. | xref |
 | belongsToFather | - | Having to do with the father, coming from the father, or related through the father. | xref |
 | belongsWithFamilyMembers | - | Any individual related biologically or legally to another individual. | mref |
-| inclusionStatus | - | An indicator that provides information on the current health status of this person. | string |
+| inclusionStatus | - | An indicator that provides information on the current health status of this person. | xref |
 | dateOfBirth | - | The calendar date on which a person was born. | date |
 | yearOfBirth | - | The year in which a person was born. | int |
 | dateOfDeath | - | The calendar date of subject's death. | date |
@@ -206,10 +206,10 @@ The determination of complete (typically nucleotide) sequences, including those 
 | sequencingID&#8251; | - | A unique proper name or character sequence that identifies this particular nucleic acid sequencing assay. | string |
 | belongsToSample | - | A unique proper name or character sequence that identifies this particular sample preparation. | xref |
 | sequencingDate | - | Date on which this sequencing assay was performed. | date |
-| sequencingFacilityOrganization | - | An organization that provides sequence determination service | string |
+| sequencingFacilityOrganization | - | An organization that provides sequence determination service | xref |
 | sequencingPlatform | - | The used sequencing platform (i.e. brand, name of a company that produces sequencer equipment). | string |
 | sequencingInstrumentModel | - | The used product name and model number of a manufacturer's genomic (dna) sequencer. | string |
-| sequencingMethod | - | Method used to determine the order of bases in a nucleic acid sequence. | string |
+| sequencingMethod | - | Method used to determine the order of bases in a nucleic acid sequence. | xref |
 | averageReadDepth | - | The average number of times a particular locus (site, nucleotide, amplicon, region) was sequenced. | int |
 | observedReadLength | - | The number of nucleotides successfully ordered from each side of a nucleic acid fragment obtained after the completion of a sequencing process. | int |
 | observedInsertSize | - | In paired-end sequencing, the DNA between the adapter sequences is the insert. The length of this sequence is known as the insert size, not to be confused with the inner distance between reads. So, fragment length equals read adapter length (2x) plus insert size, and insert size equals read lenght (2x) plus inner distance. | int |

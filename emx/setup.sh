@@ -32,12 +32,13 @@ mcmd import -p emx/lookups/urdm_lookups_phenotypicSex.csv
 mcmd import -p emx/lookups/urdm_lookups_sequencingMethods.csv
 mcmd import -p emx/lookups/urdm_lookups_studyStatus.csv
 
-# Optional: URDM modules
-mcmd import -p emx/dist/jobs.xlsx   # module for tracking jobs
-mcmd import -p emx/dist/users.xlsx  # module for user auditing
-
-
 # Optional: create demo
 mcmd import -p data/demo/urdm_demo.xlsx --as urdm
 mcmd make --role ANONYMOUS urdm_VIEWER
 mcmd give anonymous view sys_md
+
+# mcmd delete -p urdm # completing remove package
+
+# Optional: URDM modules
+mcmd import -p emx/dist/jobs.xlsx   # module for tracking jobs
+mcmd import -p emx/dist/users.xlsx  # module for user auditing

@@ -2,7 +2,7 @@
 # NAME: urdm_emx1.yaml
 # AUTHOR: david ruvolo
 # CREATED: 2021-11-08
-# MODIFIED: 2021-11-15
+# MODIFIED: 2021-11-16
 # PURPOSE: Unified Rare Disease Data Model for EMX1
 # STATUS: maturing
 # COMMENTS:
@@ -18,8 +18,8 @@
 name: urdm
 label: Unified Rare Disease Model
 description: The Unified Rare Disease Model (URDM) for NGS data in research and healthcare
-version: 0.9.1
-date: 2021-11-15
+version: 0.9.2
+date: 2021-11-16
 tags: dcat:catalog
 
 # define tags
@@ -182,6 +182,8 @@ entities:
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C166244
       - name: inclusionStatus
+        dataType: xref
+        refEntity: urdm_lookups_inclusionStatus
         description: An indicator that provides information on the current health status of this person.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C68615
@@ -856,6 +858,8 @@ entities:
 
       # semantics: http://purl.obolibrary.org/obo/OBI_0001891
       - name: sequencingFacilityOrganization
+        dataType: xref
+        refEntity: urdm_lookups_organization
         description: An organization that provides sequence determination service
 
       # TODO: insert reference table when ready
@@ -870,6 +874,8 @@ entities:
 
       # semantics: http://purl.obolibrary.org/obo/FIX_0000704
       - name: sequencingMethod
+        dataType: xref
+        refEntity: urdm_lookups_sequencingMethods
         description: Method used to determine the order of bases in a nucleic acid sequence.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C155320
