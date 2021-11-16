@@ -2,7 +2,7 @@
 #' FILE: data_fairgenomes.py
 #' AUTHOR: David Ruvolo
 #' CREATED: 2021-10-19
-#' MODIFIED: 2021-11-15
+#' MODIFIED: 2021-11-16
 #' PURPOSE: fetch fairgenomes lookups for use in URDM
 #' STATUS: working
 #' PACKAGES: pandas; requests
@@ -80,6 +80,6 @@ for file in repo:
 # read files and save to `emx/lookups/`
 for f in files:
     print('Downloading file: {}'.format(f['name']))
-    raw = pd.read_csv(f['download_url'], sep='\t', dtype=str)
+    raw = pd.read_csv(f['download_url'], sep='\t', dtype=str, keep_default_na=False)
     path = 'emx/lookups/urdm_lookups_{}.csv'.format(filesToDownload[f['name']])
     raw.to_csv(path, index=False)
