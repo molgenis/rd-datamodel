@@ -5,7 +5,7 @@
 | Name | Description | Parent |
 |:---- |:-----------|:------|
 | urdm | The Unified Rare Disease Model (URDM) for NGS data in research and healthcare (v0.9.2, 2021-11-16) | - |
-| urdm_lookups | URDM Lookup tables (v0.9.2, 2021-11-16) | urdm |
+| urdm_lookups | URDM Lookup tables (v0.9.3, 2021-11-16) | urdm |
 
 ## Entities
 
@@ -135,9 +135,9 @@ Findings and circumstances relating to the examination and treatment of a patien
 | dateOfDiagnosis | - | The date on which a diagnosis of disease was made. | date |
 | ageAtDiagnosis | - | The age (in years), measured from some defined time point (e.g. birth) at which a patient is diagnosed with a disease. | decimal |
 | ageOfOnset | - | Age (in years) of onset of clinical manifestations related to the disease of the patient. | decimal |
-| observedPhenotype | - | The outward appearance of the individual. In medical context, these are often the symptoms caused by a disease. | string |
-| unobservedPhenotype | - | Phenotypes or symptoms that were looked for but not observed, which may help in differential diagnosis or establish incomplete penetrance. | string |
-| provisionalPhenotype | - | The test or procedure was successfully performed, but the results are borderline and can neither be declared positive / negative nor detected / not detected according to the current established criteria. | string |
+| observedPhenotype | - | The outward appearance of the individual. In medical context, these are often the symptoms caused by a disease. | mref |
+| unobservedPhenotype | - | Phenotypes or symptoms that were looked for but not observed, which may help in differential diagnosis or establish incomplete penetrance. | mref |
+| provisionalPhenotype | - | The test or procedure was successfully performed, but the results are borderline and can neither be declared positive / negative nor detected / not detected according to the current established criteria. | mref |
 | clinicalDiagnosis | - | A diagnosis made from a study of the signs and symptoms of a disease. | string |
 | molecularDiagnosis | - | Gene affected by pathogenic variation that is causal for disease of the patient. | string |
 | molecularDiagnosisOther | - | Causal variant in HGVS notation with optional classification or free text explaining any other molecular mechanisms involved. | string |

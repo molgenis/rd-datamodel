@@ -560,14 +560,20 @@ entities:
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C16977
       - name: observedPhenotype
+        dataType: mref
+        refEntity: urdm_lookups_phenotype
         description: The outward appearance of the individual. In medical context, these are often the symptoms caused by a disease.
 
       # semantics: http://purl.bioontology.org/ontology/HL7/C0442737
       - name: unobservedPhenotype
+        dataType: mref
+        refEntity: urdm_lookups_phenotype
         description: Phenotypes or symptoms that were looked for but not observed, which may help in differential diagnosis or establish incomplete penetrance.
 
       # semantics: http://purl.bioontology.org/ontology/HL7/C0332241
       - name: provisionalPhenotype
+        dataType: mref
+        refEntity: urdm_lookups_phenotype
         description: The test or procedure was successfully performed, but the results are borderline and can neither be declared positive / negative nor detected / not detected according to the current established criteria.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C15607
