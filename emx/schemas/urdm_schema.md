@@ -4,8 +4,8 @@
 
 | Name | Description | Parent |
 |:---- |:-----------|:------|
-| urdm | The Unified Rare Disease Model (URDM) for NGS data in research and healthcare (v0.9.2, 2021-11-16) | - |
-| urdm_lookups | URDM Lookup tables (v0.9.3, 2021-11-16) | urdm |
+| urdm | The Unified Rare Disease Model (URDM) for NGS data in research and healthcare (v0.9.3, 2021-11-18) | - |
+| urdm_lookups | URDM Lookup tables (v0.9.4, 2021-11-18) | urdm |
 
 ## Entities
 
@@ -29,6 +29,7 @@
 | genotypicSex | reference dataset defined by FAIR Genomes v1.1 | urdm_lookups |
 | inclusionStatus | An indicator that provides information on the current health status of this person. | urdm_lookups |
 | labIndication | The explanation for why a test, measurement, or assessment is executed. | urdm_lookups |
+| laboratoryProcedures | Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting. | urdm_lookups |
 | organization | Organization information standardized to the Research Organization Registry (ROR) | urdm_lookups |
 | pathologicalState | reference dataset defined by FAIR Genomes v1.1 | urdm_lookups |
 | phenotype | Human Phenotype Ontology (HPO) release v2021-08-02 | urdm_lookups |
@@ -204,6 +205,7 @@ The determination of complete (typically nucleotide) sequences, including those 
 | Name | Label | Description | Data Type |
 |:---- |:-----|:-----------|:---------|
 | sequencingID&#8251; | - | A unique proper name or character sequence that identifies this particular nucleic acid sequencing assay. | string |
+| belongsTolabProcedure | - | Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting. | xref |
 | belongsToSample | - | A unique proper name or character sequence that identifies this particular sample preparation. | xref |
 | sequencingDate | - | Date on which this sequencing assay was performed. | date |
 | sequencingFacilityOrganization | - | An organization that provides sequence determination service | xref |
@@ -271,6 +273,18 @@ code centric attribute template ('code' is idAttribute)
 | codesystem | - | A systematized collection of concepts that define corresponding codes. | string |
 | code&#8251; | - | A symbol or combination of symbols which is assigned to the members of a collection. | string |
 | iri | - | A unique symbol that establishes identity of the resource. | hyperlink |
+
+### Entity: urdm_lookups_laboratoryProcedures
+
+Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting.
+
+| Name | Label | Description | Data Type |
+|:---- |:-----|:-----------|:---------|
+| code&#8251; | - | A character or string that represents the short code name of the laboratory test. | string |
+| test | - | A character or string that represents the full name of the laboratory assessment. | string |
+| category | - | A classification of the laboratory test. | string |
+| subcategory | - | A sub-division of the laboratory test classification. | string |
+| geneList | - | A data set of the names or identifiers of genes that are the outcome of an analysis or have been put together for the purpose of an analysis. | text |
 
 ### Entity: urdm_lookups_releases
 
