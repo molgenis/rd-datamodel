@@ -18,8 +18,8 @@
 name: urdm
 label: Unified Rare Disease Model
 description: The Unified Rare Disease Model (URDM) for NGS data in research and healthcare
-version: 0.9.2
-date: 2021-11-16
+version: 0.9.3
+date: 2021-11-18
 tags: dcat:catalog
 
 # define tags
@@ -850,6 +850,12 @@ entities:
         lookupAttribute: true
         labelAttribute: true
         description: A unique proper name or character sequence that identifies this particular nucleic acid sequencing assay.
+        
+      # http://purl.obolibrary.org/obo/NCIT_C25294
+      - name: belongsTolabProcedure
+        dataType: xref
+        refEntity: urdm_lookups_laboratoryProcedures
+        description: Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C132299
       - name: belongsToSample

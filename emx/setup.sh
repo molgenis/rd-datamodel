@@ -1,7 +1,7 @@
 #//////////////////////////////////////////////////////////////////////////////
 # FILE: setup.sh
 # CREATED: 2021-11-10
-# MODIFIED: 2021-11-12
+# MODIFIED: 2021-11-18
 # PURPOSE: import URDM and assets into a new Molgenis instance
 # COMMENTS: start by cloning this repository
 #//////////////////////////////////////////////////////////////////////////////
@@ -10,10 +10,10 @@
 # Install molgenis commander
 # See github repo for the latest installation instructions and release notes
 # https://github.com/molgenis/molgenis-tools-commander/wiki/Installation-guide
-pip3 install --upgrade molgenis-commander
+# pip3 install --upgrade molgenis-commander
 
 # run interactive config and set host (e.g., https://database.molgenis.org)
-mcmd config set host
+# mcmd config set host
 
 # ~ 2 ~
 # Import URDM and assets
@@ -40,5 +40,5 @@ mcmd give anonymous view sys_md
 # mcmd delete -p urdm # completing remove package
 
 # Optional: URDM modules
-mcmd import -p emx/dist/jobs.xlsx   # module for tracking jobs
-mcmd import -p emx/dist/users.xlsx  # module for user auditing
+# mcmd import -p emx/dist/jobs.xlsx   # module for tracking jobs
+# mcmd import -p emx/dist/users.xlsx  # module for user auditing

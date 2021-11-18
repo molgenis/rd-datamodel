@@ -20,8 +20,8 @@ label: Lookups
 description: URDM Lookup tables
 parent: urdm
 tags: dcat:catalog
-version: 0.9.3
-date: 2021-11-16
+version: 0.9.4
+date: 2021-11-18
 
 # define tags
 tagDefinitions:
@@ -103,6 +103,14 @@ tagDefinitions:
     label: NCIT:C171003
     objectIRI: http://purl.obolibrary.org/obo/NCIT_C171003
     codesystem: NCIT
+    relationLabel: isAssociatedWith
+    relationIRI: http://molgenis.org#isAssociatedWith
+    
+  # laboratoryProcedures
+  - identifier: NCIT:C25294
+    label: NCIT:C25294
+    objectIRI:  http://purl.obolibrary.org/obo/NCIT_C25294
+    codesystem: http://purl.obolibrary.org/obo/NCIT_C25294
     relationLabel: isAssociatedWith
     relationIRI: http://molgenis.org#isAssociatedWith
     
@@ -303,6 +311,37 @@ entities:
     description: The explanation for why a test, measurement, or assessment is executed.  
     tags: NCIT:C171003,dcat:dataset
     extends: urdm_lookups_attributeTemplateDefault
+    
+  # @name laboratoryProcedures
+  # @references http://purl.obolibrary.org/obo/NCIT_C25294
+  - name: laboratoryProcedures
+    description: Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting.
+    tags: NCIT:C25294,dcat:dataset
+    attributes:
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C83322
+      - name: code
+        idAttribute: true
+        nillable: false
+        lookupAttribute: true
+        labelAttribute: true
+        description: A character or string that represents the short code name of the laboratory test.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C117142
+      - name: test
+        description: A character or string that represents the full name of the laboratory assessment.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C83017
+      - name: category
+        description: A classification of the laboratory test.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C83142
+      - name: subcategory
+        description: A sub-division of the laboratory test classification.
+        
+      # semantics: http://purl.obolibrary.org/obo/OBI_0000118
+      - name: geneList
+        dataType: text
+        description: A data set of the names or identifiers of genes that are the outcome of an analysis or have been put together for the purpose of an analysis.
   
   # @name molecularDiagnosis
   # @references http://purl.obolibrary.org/obo/NCIT_C20826
