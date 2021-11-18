@@ -1,0 +1,13 @@
+{
+  "name": "rd-datamodel",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/molgenis/rd-datamodel.git",
+  "author": "dcruvolo",
+  "license": "MIT",
+  "scripts": {
+    "molgenis:config": "mcmd config set host https://david.gcc.rug.nl/",
+    "molgenis:predeploy": "mcmd delete -p urdm",
+    "molgenis:deploy": "sh emx/setup.sh"
+  }
+}
