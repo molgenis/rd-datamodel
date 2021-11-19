@@ -18,8 +18,8 @@
 name: urdm
 label: Unified Rare Disease Model
 description: The Unified Rare Disease Model (URDM) for NGS data in research and healthcare
-version: 0.9.3
-date: 2021-11-18
+version: 0.9.4
+date: 2021-11-19
 tags: dcat:catalog
 
 # define tags
@@ -339,6 +339,8 @@ entities:
 
       # semantics: http://purl.obolibrary.org/obo/OBI_0500027
       - name: inclusionCriteria
+        dataType: mref
+        refEntity: urdm_lookups_inclusionCriteria
         description: The conditions which, if met, make an person eligible for participation in this study.
 
       # semantics: http://purl.obolibrary.org/obo/OMIABIS_0000100
@@ -463,6 +465,8 @@ entities:
       # into one column.
       # semantics: http://purl.obolibrary.org/obo/DUO_0000001
       - name: dataUsePermission
+        dataType: mref
+        refEntity: urdm_lookups_dataUsePermissions
         description: A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used.
 
       # semantics: http://purl.obolibrary.org/obo/DUO_0000017
@@ -578,14 +582,19 @@ entities:
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C15607
       - name: clinicalDiagnosis
+        dataType: mref
+        refEntity: urdm_lookups_diseases
         description: A diagnosis made from a study of the signs and symptoms of a disease.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C20826
       - name: molecularDiagnosis
+        dataType: mref
+        refEntity: urdm_lookups_molecularDiagnosis
         description: Gene affected by pathogenic variation that is causal for disease of the patient.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C20826
       - name: molecularDiagnosisOther
+        dataType: text
         description: Causal variant in HGVS notation with optional classification or free text explaining any other molecular mechanisms involved.
 
       # RD3 Attribute
@@ -711,6 +720,7 @@ entities:
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C171004
       - name: biospecimenUsability
+        dataType: bool
         description: An indication as to whether a biospecimen is suitable for testing purposes.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C90353
@@ -776,6 +786,8 @@ entities:
       # TODO: insert reference table when ready (NGS Kits)
       # semantics: http://purl.obolibrary.org/obo/GENEPIO_0000085
       - name: libraryPreparationKit
+        dataType: xref
+        refEntity: urdm_lookups_ngsKits
         description: Pre-filled, ready-to-use reagent cartridges intented to improve chemistry, cluster density and read length as well as improve quality (Q) scores for this sample. Reagent components are encoded to interact with the sequencing system to validate compatibility with user-defined applications.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C17003
@@ -874,14 +886,16 @@ entities:
         refEntity: urdm_lookups_organization
         description: An organization that provides sequence determination service
 
-      # TODO: insert reference table when ready
       # semantics: http://purl.obolibrary.org/obo/GENEPIO_0000071
       - name: sequencingPlatform
+        dataType: xref
+        refEntity: urdm_lookups_sequencingPlatform
         description: The used sequencing platform (i.e. brand, name of a company that produces sequencer equipment).
 
-      # TODO: insert reference table when ready
       # semantics: http://purl.obolibrary.org/obo/GENEPIO_0001921
       - name: sequencingInstrumentModel
+        dataType: xref
+        refEntity: urdm_lookups_sequencingInstrumentModels
         description: The used product name and model number of a manufacturer's genomic (dna) sequencer.
 
       # semantics: http://purl.obolibrary.org/obo/FIX_0000704

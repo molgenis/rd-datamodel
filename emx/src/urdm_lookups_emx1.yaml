@@ -2,7 +2,7 @@
 # NAME: urdm_emx1.yaml
 # AUTHOR: david ruvolo
 # CREATED: 2021-11-09
-# MODIFIED: 2021-11-16
+# MODIFIED: 2021-11-19
 # PURPOSE: Unified Rare Disease Data Model lookups for EMX1
 # STATUS: maturing
 # COMMENTS:
@@ -20,8 +20,8 @@ label: Lookups
 description: URDM Lookup tables
 parent: urdm
 tags: dcat:catalog
-version: 0.9.4
-date: 2021-11-18
+version: 0.9.5
+date: 2021-11-19
 
 # define tags
 tagDefinitions:
@@ -74,6 +74,22 @@ tagDefinitions:
     relationLabel: isAssociatedWith
     relationIRI: http://molgenis.org#isAssociatedWith
     
+  # dataUsePermission
+  - identifier: DUO:0000001
+    label: DUO:0000001
+    objectIRI: http://purl.obolibrary.org/obo/DUO_0000001
+    codesystem: DUO
+    relationLabel: isAssociatedWith
+    relationIRI: http://molgenis.org#isAssociatedWith
+
+  # diseases
+  - identifier: NCIT:C15607
+    label: NCIT:C15607
+    objectIRI: http://purl.obolibrary.org/obo/NCIT_C15607
+    codesystem: DUO
+    relationLabel: isAssociatedWith
+    relationIRI: http://molgenis.org#isAssociatedWith
+    
   # genome accessions
   - identifier: EDAM:2340
     label: EDAM:2340
@@ -87,6 +103,14 @@ tagDefinitions:
     label: PATO:0020000
     objectIRI: http://purl.obolibrary.org/obo/PATO_0020000
     codesystem: PATO
+    relationLabel: isAssociatedWith
+    relationIRI: http://molgenis.org#isAssociatedWith
+    
+  # inclusion criteria
+  - identifier: OBI:0500027
+    label: OBI:0500027
+    objectIRI: http://purl.obolibrary.org/obo/OBI_0500027
+    codesystem: OBI
     relationLabel: isAssociatedWith
     relationIRI: http://molgenis.org#isAssociatedWith
     
@@ -115,12 +139,28 @@ tagDefinitions:
     relationIRI: http://molgenis.org#isAssociatedWith
     
   # molecular status
-  # - identifier: NCIT:C20826
-  #   label: NCIT:C20826
-  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C20826
-  #   codesystem: NCIT
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
+  - identifier: NCIT:C20826
+    label: NCIT:C20826
+    objectIRI: http://purl.obolibrary.org/obo/NCIT_C20826
+    codesystem: NCIT
+    relationLabel: isAssociatedWith
+    relationIRI: http://molgenis.org#isAssociatedWith
+    
+  # NGS Kits: library prep
+  - identifier: GENEPIO:0000085
+    label: GENEPIO:0000085
+    objectIRI: http://purl.obolibrary.org/obo/GENEPIO_0000085
+    codesystem: GENEPIO
+    relationLabel: isAssociatedWith
+    relationIRI: http://molgenis.org#isAssociatedWith
+  
+  # NGS Kits: target enrichment kit
+  - identifier: NCIT:C154307
+    label: NCIT:C154307
+    objectIRI: http://purl.obolibrary.org/obo/NCIT_C154307
+    codesystem: NCIT
+    relationLabel: isAssociatedWith
+    relationIRI: http://molgenis.org#isAssociatedWith
     
   # organization
   - identifier: NCIT:C25412
@@ -162,11 +202,27 @@ tagDefinitions:
     relationLabel: isAssociatedWith
     relationIRI: http://molgenis.org#isAssociatedWith
     
+  # sequencing Instrument Models
+  - identifier: GENEPIO:0001921
+    label: GENEPIO:0001921
+    objectIRI: http://purl.obolibrary.org/obo/GENEPIO_0001921
+    codesystem: GENEPIO
+    relationLabel: isAssociatedWith
+    relationIRI: http://molgenis.org#isAssociatedWith
+    
   # sequencingMethods
   - identifier: FIX:0000704
     label: FIX:0000704
     objectIRI: http://purl.obolibrary.org/obo/FIX_0000704
     codesystem: FIX
+    relationLabel: isAssociatedWith
+    relationIRI: http://molgenis.org#isAssociatedWith
+    
+  # sequencing platforms
+  - identifier: GENEPIO:0000071
+    label: GENEPIO:0000071
+    objectIRI: http://purl.obolibrary.org/obo/GENEPIO_0000071
+    codesystem: GENEPIO
     relationLabel: isAssociatedWith
     relationIRI: http://molgenis.org#isAssociatedWith
     
@@ -284,6 +340,20 @@ entities:
     tags: NCIT:C171105,dcat:dataset
     extends: urdm_lookups_attributeTemplateCode
   
+  # @name dataUsePermission
+  # @references http://purl.obolibrary.org/obo/DUO_0000001
+  - name: dataUsePermissions
+    description: reference dataset defined by FAIR Genomes v1.1
+    tags: DUO:0000001, dcat:dataset
+    extends: urdm_lookups_attributeTemplateDefault
+    
+  # @name diseases
+  # @references http://purl.obolibrary.org/obo/NCIT_C15607
+  - name: diseases
+    tags: NCIT:C15607,dcat:dataset
+    description: reference dataset defined by FAIR Genomes v1.1
+    extends: urdm_lookups_attributeTemplateDefault
+  
   # @name genomeAccessions
   # @reference http://edamontology.org/data_2340
   - name: genomeAccessions
@@ -296,6 +366,13 @@ entities:
   - name: genotypicSex
     description: reference dataset defined by FAIR Genomes v1.1
     tags: PATO:0020000,dcat:dataset
+    extends: urdm_lookups_attributeTemplateDefault
+    
+  # @name inclusionCriteria
+  # @references http://purl.obolibrary.org/obo/OBI_0500027
+  - name: inclusionCriteria
+    description: reference dataset defined by FAIR Genomes v1.1
+    tags: OBI:0500027, dcat:dataset
     extends: urdm_lookups_attributeTemplateDefault
   
   # @name inclusionStatus
@@ -345,10 +422,17 @@ entities:
   
   # @name molecularDiagnosis
   # @references http://purl.obolibrary.org/obo/NCIT_C20826
-  # - name: molecularDiagnosis
-  #   description:
-  #   tags: NCIT:C20826,dcat:dataset
-  #   extends: urdm_lookups_attributeTemplateDefault
+  - name: molecularDiagnosis
+    description: reference dataset defined by FAIR Genomes v1.1
+    tags: NCIT:C20826,dcat:dataset
+    extends: urdm_lookups_attributeTemplateDefault
+    
+  # @name ngsKits
+  # @references http://purl.obolibrary.org/obo/GENEPIO_0000085, http://purl.obolibrary.org/obo/NCIT_C154307
+  - name: ngsKits
+    description: reference dataset defined by FAIR Genomes v1.1
+    tags: GENEPIO:0000085, NCIT:C154307, dcat:dataset
+    extends: urdm_lookups_attributeTemplateDefault
   
   # @name organization
   # @references http://purl.obolibrary.org/obo/NCIT_C25412
@@ -425,7 +509,14 @@ entities:
       - name: releaseComments
         dataType: text
         description: A notation regarding the decisions, and/or clarification of any information pertaining to data management. 
-  
+        
+  # @name sequencingInstrumentModels
+  # @references http://purl.obolibrary.org/obo/GENEPIO_0001921
+  - name: sequencingInstrumentModels
+    description: reference dataset defined by FAIR Genomes v1.1
+    tags: GENEPIO:0001921, dcat:dataset
+    extends: urdm_lookups_attributeTemplateDefault
+    
   # @name sequencingMethods
   # @references http://purl.obolibrary.org/obo/FIX_0000704
   - name: sequencingMethods
@@ -433,6 +524,13 @@ entities:
     tags: FIX:0000704, dcat:dataset
     extends: urdm_lookups_attributeTemplateDefault
         
+  # @name sequencingPlatform
+  # @references 
+  - name: sequencingPlatform
+    description: reference dataset defined by FAIR Genomes v1.1
+    tags: dcat:dataset
+    extends: urdm_lookups_attributeTemplateDefault
+
   # @name studyStatus
   # @references http://purl.obolibrary.org/obo/NCIT_C171103
   - name: studyStatus
