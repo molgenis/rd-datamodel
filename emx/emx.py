@@ -2,7 +2,7 @@
 #' FILE: emx.py
 #' AUTHOR: David Ruvolo
 #' CREATED: 2021-10-19
-#' MODIFIED: 2021-10-11
+#' MODIFIED: 2021-11-19
 #' PURPOSE: compile and build EMX files
 #' STATUS: working; ongoing
 #' PACKAGES: emxconvert
@@ -36,19 +36,19 @@ urdm.write_schema('emx/schemas/urdm_schema.md')
 
 # ~ a ~
 # build: user management module
-usersModule = yamlemxconvert.Convert(files = ['emx/src/module_approved_users.yaml'])
-usersModule.convert()
-usersModule.write('users', format = 'xlsx', outDir = 'emx/dist/')
-usersModule.write_schema('emx/schemas/users_module_schema.md')
+# usersModule = yamlemxconvert.Convert(files = ['emx/src/module_approved_users.yaml'])
+# usersModule.convert()
+# usersModule.write('users', format = 'xlsx', outDir = 'emx/dist/')
+# usersModule.write_schema('emx/schemas/users_module_schema.md')
 
 # ~ b ~
 # build: jobs module
-jobsModule = yamlemxconvert.Convert(
-    files = [
-        'emx/src/module_jobs.yaml',
-        'emx/src/module_jobs_results.yaml'
-    ]
-)
-jobsModule.convert()
-jobsModule.write('jobs', format = 'xlsx', outDir = 'emx/dist')
-jobsModule.write_schema('emx/schemas/jobs_module_schema.md')
+# jobsModule = yamlemxconvert.Convert(
+#     files = [
+#         'emx/src/module_jobs.yaml',
+#         'emx/src/module_jobs_results.yaml'
+#     ]
+# )
+# jobsModule.convert()
+# jobsModule.write('jobs', format = 'xlsx', outDir = 'emx/dist')
+# jobsModule.write_schema('emx/schemas/jobs_module_schema.md')

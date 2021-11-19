@@ -4,8 +4,8 @@
 
 | Name | Description | Parent |
 |:---- |:-----------|:------|
-| urdm | The Unified Rare Disease Model (URDM) for NGS data in research and healthcare (v0.9.3, 2021-11-18) | - |
-| urdm_lookups | URDM Lookup tables (v0.9.4, 2021-11-18) | urdm |
+| urdm | The Unified Rare Disease Model (URDM) for NGS data in research and healthcare (v0.9.4, 2021-11-19) | - |
+| urdm_lookups | URDM Lookup tables (v0.9.5, 2021-11-19) | urdm |
 
 ## Entities
 
@@ -25,17 +25,24 @@
 | ancestry | reference dataset defined by FAIR Genomes v1.1 | urdm_lookups |
 | biospecimenType | reference dataset defined by FAIR Genomes v1.1 | urdm_lookups |
 | country | reference dataset defined by FAIR Genomes v1.1 | urdm_lookups |
+| dataUsePermissions | reference dataset defined by FAIR Genomes v1.1 | urdm_lookups |
+| diseases | reference dataset defined by FAIR Genomes v1.1 | urdm_lookups |
 | genomeAccessions | reference dataset defined by FAIR Genomes v1.1 | urdm_lookups |
 | genotypicSex | reference dataset defined by FAIR Genomes v1.1 | urdm_lookups |
+| inclusionCriteria | reference dataset defined by FAIR Genomes v1.1 | urdm_lookups |
 | inclusionStatus | An indicator that provides information on the current health status of this person. | urdm_lookups |
 | labIndication | The explanation for why a test, measurement, or assessment is executed. | urdm_lookups |
 | laboratoryProcedures | Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting. | urdm_lookups |
+| molecularDiagnosis | reference dataset defined by FAIR Genomes v1.1 | urdm_lookups |
+| ngsKits | reference dataset defined by FAIR Genomes v1.1 | urdm_lookups |
 | organization | Organization information standardized to the Research Organization Registry (ROR) | urdm_lookups |
 | pathologicalState | reference dataset defined by FAIR Genomes v1.1 | urdm_lookups |
 | phenotype | Human Phenotype Ontology (HPO) release v2021-08-02 | urdm_lookups |
 | phenotypicSex | reference dataset defined by FAIR Genomes v1.1 | urdm_lookups |
 | releases | The act of making data or other structured information accessible to the public or to the user group of a database. | urdm_lookups |
+| sequencingInstrumentModels | reference dataset defined by FAIR Genomes v1.1 | urdm_lookups |
 | sequencingMethods | reference dataset defined by FAIR Genomes v1.1 | urdm_lookups |
+| sequencingPlatform | reference dataset defined by FAIR Genomes v1.1 | urdm_lookups |
 | studyStatus | The status of a study or trial. | urdm_lookups |
 
 ## Attributes
@@ -84,7 +91,7 @@ A detailed examination, analysis, or critical inspection of one or multiple subj
 |:---- |:-----|:-----------|:---------|
 | studyID&#8251; | - | A unique proper name or character sequence that identifies this particular study. | string |
 | name | - | A name that designates this study. | string |
-| inclusionCriteria | - | The conditions which, if met, make an person eligible for participation in this study. | string |
+| inclusionCriteria | - | The conditions which, if met, make an person eligible for participation in this study. | mref |
 | principleInvestigator | - | The principle investigator or responsible person for this study. | string |
 | contactInformation | - | An email address for the purpose of contacting the study contact person. | email |
 | studyDescription | - | A plan specification comprised of protocols (which may specify how and what kinds of data will be gathered) that are executed as part of this study. | text |
@@ -112,7 +119,7 @@ Consent given by a patient to a surgical or medical procedure or participation i
 | validFrom | - | Starting date of the validity of this individual consent. | date |
 | validUntil | - | End date of the validity of this individual consent. | date |
 | consentWithdrawn | - | An indication that the consent to participate in the study or one or more segments of the study has been revoked. | bool |
-| dataUsePermission | - | A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used. | string |
+| dataUsePermission | - | A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used. | mref |
 | dataUseModifiers | - | Data use modifiers indicate additional conditions for use. For instance, a dataset is restricted to investigations into specific diseases or performed at specific geographical locations. | string |
 | dataUseSpecification | - | Further specification of applied data use permissions and modifiers. For example, a list of countries in case of geographic restrictions or a list of diseases when restricted to disease-specific research. | text |
 | allowIncidentalFindingRecontact | - | A planned process for a subject agrees not to be informed about any incidental finding. | bool |
@@ -139,9 +146,9 @@ Findings and circumstances relating to the examination and treatment of a patien
 | observedPhenotype | - | The outward appearance of the individual. In medical context, these are often the symptoms caused by a disease. | mref |
 | unobservedPhenotype | - | Phenotypes or symptoms that were looked for but not observed, which may help in differential diagnosis or establish incomplete penetrance. | mref |
 | provisionalPhenotype | - | The test or procedure was successfully performed, but the results are borderline and can neither be declared positive / negative nor detected / not detected according to the current established criteria. | mref |
-| clinicalDiagnosis | - | A diagnosis made from a study of the signs and symptoms of a disease. | string |
-| molecularDiagnosis | - | Gene affected by pathogenic variation that is causal for disease of the patient. | string |
-| molecularDiagnosisOther | - | Causal variant in HGVS notation with optional classification or free text explaining any other molecular mechanisms involved. | string |
+| clinicalDiagnosis | - | A diagnosis made from a study of the signs and symptoms of a disease. | mref |
+| molecularDiagnosis | - | Gene affected by pathogenic variation that is causal for disease of the patient. | mref |
+| molecularDiagnosisOther | - | Causal variant in HGVS notation with optional classification or free text explaining any other molecular mechanisms involved. | text |
 | resolved | - | The satisfactory closure of a data item query. | bool |
 | dateResolved | - | The date (and time) when the adverse event ends or returns to baseline. | date |
 | belongsToMaterial | - | A unique proper name or character sequence that identifies this particular material. | mref |
@@ -168,7 +175,7 @@ A natural substance derived from living organisms such as cells, tissues, protei
 | biospecimenType | - | The type of material taken from a biological entity for testing, diagnostic, propagation, treatment or research purposes. | xref |
 | anatomicalSource | - | Biological entity that constitutes the structural organization of an individual member of a biological species from which this material was taken. | xref |
 | pathologicalState | - | The pathological state of the tissue from which this material was derived. | xref |
-| biospecimenUsability | - | An indication as to whether a biospecimen is suitable for testing purposes. | string |
+| biospecimenUsability | - | An indication as to whether a biospecimen is suitable for testing purposes. | bool |
 | alternativeIdentifiers | - | A backup sequence of characters used to identify an entity. | string |
 | belongsToDataRelease | - | The act of making data or other structured information accessible to the public or to the user group of a database. | mref |
 | recordMetadata | - | metadata is data that provides information about data. | compound |
@@ -185,7 +192,7 @@ A sample preparation for a nucleic acids sequencing assay.
 | sampleID&#8251; | - | A unique proper name or character sequence that identifies this particular sample preparation. | string |
 | belongsToMaterial | - | A unique proper name or character sequence that identifies this particular material. | xref |
 | inputAmount | - | Amount of input material in nanogram (ng). | int |
-| libraryPreparationKit | - | Pre-filled, ready-to-use reagent cartridges intented to improve chemistry, cluster density and read length as well as improve quality (Q) scores for this sample. Reagent components are encoded to interact with the sequencing system to validate compatibility with user-defined applications. | string |
+| libraryPreparationKit | - | Pre-filled, ready-to-use reagent cartridges intented to improve chemistry, cluster density and read length as well as improve quality (Q) scores for this sample. Reagent components are encoded to interact with the sequencing system to validate compatibility with user-defined applications. | xref |
 | pcrFree | - | Indicates whether a polymerase chain reaction (PCR) was used to prepare this sample. PCR is a method for amplifying a DNA base sequence using multiple rounds of heat denaturation of the DNA and annealing of oligonucleotide primers complementary to flanking regions in the presence of a heat-stable polymerase. | string |
 | targetEnrichmentKit | - | Indicates which target enrichment kit was used to prepare this sample. Target enrichment is a pre-sequencing DNA preparation step where DNA sequences are either directly amplified (amplicon or multiplex PCR-based) or captured (hybrid capture-based) in order to only focus on specific regions of a genome or DNA sample. | string |
 | umIsPresent | - | Indicates whether any unique molecular identifiers (UMIs) are present. An UMI barcode is a short nucleotide sequence that is used to identify reads originating from an individual mRNA molecule. | string |
@@ -209,8 +216,8 @@ The determination of complete (typically nucleotide) sequences, including those 
 | belongsToSample | - | A unique proper name or character sequence that identifies this particular sample preparation. | xref |
 | sequencingDate | - | Date on which this sequencing assay was performed. | date |
 | sequencingFacilityOrganization | - | An organization that provides sequence determination service | xref |
-| sequencingPlatform | - | The used sequencing platform (i.e. brand, name of a company that produces sequencer equipment). | string |
-| sequencingInstrumentModel | - | The used product name and model number of a manufacturer's genomic (dna) sequencer. | string |
+| sequencingPlatform | - | The used sequencing platform (i.e. brand, name of a company that produces sequencer equipment). | xref |
+| sequencingInstrumentModel | - | The used product name and model number of a manufacturer's genomic (dna) sequencer. | xref |
 | sequencingMethod | - | Method used to determine the order of bases in a nucleic acid sequence. | xref |
 | averageReadDepth | - | The average number of times a particular locus (site, nucleotide, amplicon, region) was sequenced. | int |
 | observedReadLength | - | The number of nucleotides successfully ordered from each side of a nucleic acid fragment obtained after the completion of a sequencing process. | int |
