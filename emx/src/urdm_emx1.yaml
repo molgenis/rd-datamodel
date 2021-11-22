@@ -223,7 +223,6 @@ entities:
         refEntity: urdm_lookups_subjectStatus
         description: A findings domain that contains general subject characteristics that are evaluated periodically to determine if they have changed.
 
-
       # semantics: http://purl.obolibrary.org/obo/NCIT_C68615
       - name: dateOfBirth
         dataType: date
@@ -286,7 +285,7 @@ entities:
       # semantics: http://purl.obolibrary.org/obo/NCIT_C25412
       - name: primaryAffiliation
         dataType: mref
-        refEntity: urdm_lookups_organization
+        refEntity: urdm_organizations
         description: The most significant institute for medical consultation and/or study inclusion in context of the genetic disease of this person.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C25461
@@ -325,13 +324,19 @@ entities:
       # semantics: http://purl.obolibrary.org/obo/RO_0000056
       - name: belongsToStudy
         dataType: mref
-        refEntity: urdm_study
+        refEntity: urdm_studies
         description: Reference to the study or studies in which this person participates.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C61512
+      - name: belongsToCohort
+        dataType: mref
+        refEntity: urdm_cohorts
+        description: A group of individuals, identified by a common characteristic.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C172217
       - name: belongsToDataRelease
         dataType: mref
-        refEntity: urdm_lookups_releases
+        refEntity: urdm_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
 
       # semantics: http://semanticscience.org/resource/SIO_001330
@@ -372,8 +377,8 @@ entities:
   #////////////////////////////////////////////////////////////////////////////
   
   # @name study
-  - name: study
-    label: Study
+  - name: studies
+    label: Studies
     description: A detailed examination, analysis, or critical inspection of one or multiple subjects designed to discover facts.
     tags: NCIT_C63536,dcat:dataset
     attributes:
@@ -385,6 +390,10 @@ entities:
         labelAttribute: true
         lookupAttribute: true
         description: A unique proper name or character sequence that identifies this particular study.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C93495
+      - name: acronym
+        description: The non-unique initials or abbreviated name used for identification.
 
       # semantics: http://purl.obolibrary.org/obo/OMIABIS_0000037
       - name: name
@@ -399,6 +408,10 @@ entities:
       # semantics: http://purl.obolibrary.org/obo/OMIABIS_0000100
       - name: principleInvestigator
         description: The principle investigator or responsible person for this study.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25461
+      - name: contactPerson
+        description: A person acting as a channel for communication between groups or on behalf of a group.
 
       # semantics: http://purl.obolibrary.org/obo/OMIABIS_0000035
       - name: contactInformation
@@ -440,7 +453,7 @@ entities:
       # semantics: http://purl.obolibrary.org/obo/NCIT_C172217
       - name: belongsToDataRelease
         dataType: mref
-        refEntity: urdm_lookups_releases
+        refEntity: urmd_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
 
       # semantics: http://semanticscience.org/resource/SIO_001330
@@ -558,7 +571,7 @@ entities:
       # semantics: http://purl.obolibrary.org/obo/NCIT_C172217
       - name: belongsToDataRelease
         dataType: mref
-        refEntity: urdm_lookups_releases
+        refEntity: urmd_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
 
       # semantics: http://semanticscience.org/resource/SIO_001330
@@ -696,7 +709,7 @@ entities:
       # semantics: http://purl.obolibrary.org/obo/NCIT_C172217
       - name: belongsToDataRelease
         dataType: mref
-        refEntity: urdm_lookups_releases
+        refEntity: urmd_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
 
       # semantics: http://semanticscience.org/resource/SIO_001330
@@ -821,7 +834,7 @@ entities:
       # semantics: http://purl.obolibrary.org/obo/NCIT_C172217
       - name: belongsToDataRelease
         dataType: mref
-        refEntity: urdm_lookups_releases
+        refEntity: urmd_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
 
       # semantics: http://semanticscience.org/resource/SIO_001330
@@ -876,7 +889,7 @@ entities:
       # semantics: http://purl.obolibrary.org/obo/NCIT_C93400
       - name: belongsToSample
         dataType: xref
-        refEntity: urdm_sample
+        refEntity: urdm_samples
         description: Name or other identifier of an entry from a biosample database.
 
       # semantics: http://purl.allotrope.org/ontologies/role#AFRL_0000010
@@ -923,7 +936,7 @@ entities:
       # semantics: http://purl.obolibrary.org/obo/NCIT_C172217
       - name: belongsToDataRelease
         dataType: mref
-        refEntity: urdm_lookups_releases
+        refEntity: urmd_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
 
       # semantics: http://semanticscience.org/resource/SIO_001330
@@ -980,13 +993,13 @@ entities:
       # http://purl.obolibrary.org/obo/NCIT_C25294
       - name: belongsTolabProcedure
         dataType: xref
-        refEntity: urdm_lookups_laboratoryProcedures
+        refEntity: urdm_laboratoryProcedures
         description: Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C132299
       - name: belongsToSample
         dataType: xref
-        refEntity: urdm_samplePreparation
+        refEntity: urdm_samples
         description: A unique proper name or character sequence that identifies this particular sample preparation.
 
       # semantics: http://purl.obolibrary.org/obo/GENEPIO_0000069
@@ -997,7 +1010,7 @@ entities:
       # semantics: http://purl.obolibrary.org/obo/OBI_0001891
       - name: sequencingFacilityOrganization
         dataType: xref
-        refEntity: urdm_lookups_organization
+        refEntity: urdm_organizations
         description: An organization that provides sequence determination service
 
       # semantics: http://purl.obolibrary.org/obo/GENEPIO_0000071
@@ -1057,7 +1070,7 @@ entities:
       # semantics: http://purl.obolibrary.org/obo/NCIT_C172217
       - name: belongsToDataRelease
         dataType: mref
-        refEntity: urdm_lookups_releases
+        refEntity: urmd_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
 
       # semantics: http://semanticscience.org/resource/SIO_001330
@@ -1110,7 +1123,7 @@ entities:
         description: The literal identifier for an electronic file.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C171337
-      - name: belongsToSequencing
+      - name: producedBySequencing
         dataType: mref
         refEntity: urdm_sequencing
         description: A unique proper name or character sequence that identifies this particular nucleic acid sequencing assay.
@@ -1119,7 +1132,19 @@ entities:
       - name: belongsToSubject
         dataType: xref
         refEntity: urdm_subjects
-        description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
+        description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.        
+        
+      # semantics: http://purl.obolibrary.org/obo/RO_0000056
+      - name: belongsToStudy
+        dataType: mref
+        refEntity: urdm_studies
+        description: Reference to the study or studies in which this person participates.
+
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C61512
+      - name: belongsToCohort
+        dataType: mref
+        refEntity: urdm_cohorts
+        description: A group of individuals, identified by a common characteristic.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C48297
       - name: server
@@ -1169,7 +1194,7 @@ entities:
       # semantics: http://purl.obolibrary.org/obo/NCIT_C172217
       - name: belongsToDataRelease
         dataType: mref
-        refEntity: urdm_lookups_releases
+        refEntity: urmd_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
 
       # semantics: http://semanticscience.org/resource/SIO_001330
@@ -1209,9 +1234,101 @@ entities:
 
   #////////////////////////////////////////////////////////////////////////////
   
+  # @name cohorts
+  # @references: http://purl.obolibrary.org/obo/NCIT_C61512
+  - name: cohorts
+    label: Cohorts
+    description: A group of individuals, identified by a common characteristic.
+    tags: NCIT:C61512, dcat:dataset
+    attributes:
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25364
+      - name: cohortID
+        idAttribute: true
+        nillable: false
+        description: One or more characters used to identify, name, or characterize the nature, properties, or contents of a thing.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C93495
+      - name: acronym
+        description: The non-unique initials or abbreviated name used for identification.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C42614
+      - name: name
+        lookupAttribute: true
+        labelAttribute: true
+        description: The words or language units by which a thing is known.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C166209
+      - name: description
+        dataType: text
+        description: The description of the characteristics that define a cohort.
+      
+      # semantics: http://purl.obolibrary.org/obo/OMIABIS_0000100
+      - name: principleInvestigator
+        description: The principle investigator or responsible person for this study.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25461
+      - name: contactPerson
+        description: A person acting as a channel for communication between groups or on behalf of a group.
+
+      # semantics: http://purl.obolibrary.org/obo/OMIABIS_0000035
+      - name: contactInformation
+        dataType: email
+        description: An email address for the purpose of contacting the study contact person.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C53190
+      - name: sizeOfCohort
+        dataType: int
+        description: A subset of a larger population, selected for investigation to draw conclusions or make estimates about the larger population.
+      
+      # semantics: http://purl.obolibrary.org/obo/RO_0000056
+      - name: belongsToStudy
+        dataType: mref
+        refEntity: urdm_studies
+        description: Reference to the study or studies in which this person participates.
+      
+      # semantics: http://semanticscience.org/resource/SIO_001330
+      - name: recordMetadata
+        dataType: compound
+        description: metadata is data that provides information about data.
+
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25393
+      - name: comments
+        dataType: text
+        description: A written explanation, observation or criticism added to textual material.
+        partOfAttribute: recordMetadata  
+
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C164483
+      - name: dateRecordCreated
+        nillable: false
+        dataType: datetime
+        description: The date on which the activity or entity is created.
+        partOfAttribute: recordMetadata
+
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C42628
+      - name: recordCreatedBy
+        nillable: false
+        description: Indicates the person or authoritative body who brought the item into existence.
+        partOfAttribute: recordMetadata
+
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C93629
+      - name: dateRecordUpdated
+        dataType: datetime
+        description: The date (and time) on which report was updated after it had been submitted.
+        partOfAttribute: recordMetadata
+
+      # semantics: https://w3id.org/reproduceme#wasUpdatedBy
+      - name: wasUpdatedBy
+        description: An entity which is updated by another entity or an agent.
+        partOfAttribute: recordMetadata
+    
+  
+  #////////////////////////////////////////////////////////////////////////////
+  
   # @name laboratoryProcedures
   # @references http://purl.obolibrary.org/obo/NCIT_C25294
   - name: laboratoryProcedures
+    label: Laboratory Procedures
     description: Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting.
     tags: NCIT:C25294,dcat:dataset
     attributes:
@@ -1244,7 +1361,8 @@ entities:
   
   # @name organization
   # @references http://purl.obolibrary.org/obo/NCIT_C25412
-  - name: organization
+  - name: organizations
+    label: Organizations
     description: Organization information standardized to the Research Organization Registry (ROR)
     tags: NCIT:C25412,dcat:dataset
     attributes:
@@ -1279,6 +1397,7 @@ entities:
   # @name releases
   # @references http://purl.obolibrary.org/obo/NCIT_C172217
   - name: releases
+    label: Data Releases
     description: The act of making data or other structured information accessible to the public or to the user group of a database.
     tags: NCIT:C172217,dcat:dataset
     attributes:
@@ -1329,8 +1448,9 @@ entities:
   # @name samplingProtocols
   # @references http://www.ebi.ac.uk/efo/EFO_0005518
   - name: samplingProtocols
+    label: Sampling Protocols
     description: Describes the procedure whereby biological samples for an experiment are sourced.
-    tags: dcat:dataset
+    tags: EFO:0005518,dcat:dataset
     attributes:
       
       # semantics: http://purl.obolibrary.org/obo/NCIT_C25364
@@ -1353,4 +1473,9 @@ entities:
       # semantics: http://purl.obolibrary.org/obo/NCIT_C25714
       - name: version
         description: A form or variant of a type or original; one of a sequence of copies of a program, each incorporating new modifications.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
+      - name: iri
+        dataType: hyperlink
+        description: A unique symbol that establishes identity of the resource.
         
