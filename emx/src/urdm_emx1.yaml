@@ -129,6 +129,43 @@ tagDefinitions:
     relationLabel: isAssociatedWith
     relationIRI: http://molgenis.org#isAssociatedWith
 
+  #////////////////////////////////////////////////////////////////////////////
+  
+  # TAGS FOR USER-MANAGED REFERENCE ENTITIES
+  
+  # Tags for laboratoryProcedures
+  
+  # table level tag: laboratory procedures
+  - identifier: NCIT:C25294
+    label: NCIT:C25294
+    objectIRI:  http://purl.obolibrary.org/obo/NCIT_C25294
+    codesystem: http://purl.obolibrary.org/obo/NCIT_C25294
+    relationLabel: isAssociatedWith
+    relationIRI: http://molgenis.org#isAssociatedWith
+  
+  #////////////////////////////////////////
+  # Tags for organization
+  
+  # table level tag: organization
+  - identifier: NCIT:C25412
+    label: NCIT:C25412
+    objectIRI: http://purl.obolibrary.org/obo/NCIT_C25412
+    codesystem: NCIT
+    relationLabel: isAssociatedWith
+    relationIRI: http://molgenis.org#isAssociatedWith
+    
+  #////////////////////////////////////////
+  # Tags for releases
+  
+  # table level tag: releases (data)
+  - identifier: NCIT:C172217
+    label: NCIT:C172217
+    objectIRI: http://purl.obolibrary.org/obo/NCIT_C172217
+    codesystem: NCIT
+    relationLabel: isAssociatedWith
+    relationIRI: http://molgenis.org#isAssociatedWith
+
+  
 #//////////////////////////////////////////////////////////////////////////////
 
 # set attribute level defaults
@@ -1072,3 +1109,121 @@ entities:
         datatype: datetime
         description: The date (and time) on which report was updated after it had been submitted.
         partOfAttribute: recordMetadata
+
+  #////////////////////////////////////////////////////////////////////////////
+  
+  # @name laboratoryProcedures
+  # @references http://purl.obolibrary.org/obo/NCIT_C25294
+  - name: laboratoryProcedures
+    description: Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting.
+    tags: NCIT:C25294,dcat:dataset
+    attributes:
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C83322
+      - name: code
+        idAttribute: true
+        nillable: false
+        lookupAttribute: true
+        labelAttribute: true
+        description: A character or string that represents the short code name of the laboratory test.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C117142
+      - name: test
+        description: A character or string that represents the full name of the laboratory assessment.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C83017
+      - name: category
+        description: A classification of the laboratory test.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C83142
+      - name: subcategory
+        description: A sub-division of the laboratory test classification.
+        
+      # semantics: http://purl.obolibrary.org/obo/OBI_0000118
+      - name: geneList
+        dataType: text
+        description: A data set of the names or identifiers of genes that are the outcome of an analysis or have been put together for the purpose of an analysis.
+  
+  #////////////////////////////////////////////////////////////////////////////
+  
+  # @name organization
+  # @references http://purl.obolibrary.org/obo/NCIT_C25412
+  - name: organization
+    description: Organization information standardized to the Research Organization Registry (ROR)
+    tags: NCIT:C25412,dcat:dataset
+    attributes:
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
+      - name: value
+        idAttribute: true
+        nillable: false
+        lookupAttribute: true
+        labelAttribute: true
+        description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
+      - name: description
+        dataType: text
+        description: A written or verbal account, representation, statement, or explanation of something
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
+      - name: codesystem
+        description: A systematized collection of concepts that define corresponding codes.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
+      - name: code
+        description: A symbol or combination of symbols which is assigned to the members of a collection.
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
+      - name: iri
+        dataType: hyperlink
+        description: A unique symbol that establishes identity of the resource.
+  
+  #////////////////////////////////////////////////////////////////////////////
+  
+  # @name releases
+  # @references http://purl.obolibrary.org/obo/NCIT_C172217
+  - name: releases
+    description: The act of making data or other structured information accessible to the public or to the user group of a database.
+    tags: NCIT:C172217,dcat:dataset
+    attributes:
+    
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25364
+      - name: id
+        idAttribute: true
+        nillable: false
+        description: One or more characters used to identify, name, or characterize the nature, properties, or contents of a thing. 
+
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C42614
+      - name: name
+        lookupAttribute: true
+        labelAttribute: true
+        description: The words or language units by which a thing is known.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
+      - name: description
+        dataType: text
+        description: A written or verbal account, representation, statement, or explanation of something.
+        
+      # semantics: http://semanticscience.org/resource/SIO_001083
+      - name: date
+        dataType: date
+        description: A date of database submission refers to the moment in time in which some information was submitted/received to a database system.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C42628
+      - name: createdBy
+        description: Indicates the person or authoritative body who brought the item into existence.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25463
+      # semantics: http://semanticscience.org/resource/SIO_000756
+      - name: numberOfEntriesAdded
+        dataType: int
+        description: Determining the number or amount of something (NCIT). A database entry is a single, implicitly structured data item in a table. (SIO)
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C16493
+      - name: dataSource
+        description: The person or authoritative body who provided the information.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C115505
+      - name: releaseComments
+        dataType: text
+        description: A notation regarding the decisions, and/or clarification of any information pertaining to data management. 
+  
