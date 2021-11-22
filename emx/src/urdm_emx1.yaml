@@ -217,11 +217,12 @@ entities:
         refEntity: urdm_subjects
         description: Any individual related biologically or legally to another individual.
 
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C166244
-      - name: inclusionStatus
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C117655
+      - name: subjectStatus
         dataType: xref
-        refEntity: urdm_lookups_inclusionStatus
-        description: An indicator that provides information on the current health status of this person.
+        refEntity: urdm_lookups_subjectStatus
+        description: A findings domain that contains general subject characteristics that are evaluated periodically to determine if they have changed.
+
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C68615
       - name: dateOfBirth

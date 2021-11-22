@@ -360,13 +360,6 @@ entities:
     description: reference dataset defined by FAIR Genomes v1.1
     tags: OBI:0500027, dcat:dataset
     extends: urdm_lookups_attributeTemplateDefault
-  
-  # @name inclusionStatus
-  # @#references http://purl.obolibrary.org/obo/NCIT_C166244
-  - name: inclusionStatus
-    description: An indicator that provides information on the current health status of this person.
-    tags: NCIT:C166244,dcat:dataset
-    extends: urdm_lookups_attributeTemplateDefault
     
   # @name molecularDiagnosis
   # @references http://purl.obolibrary.org/obo/NCIT_C20826
@@ -436,4 +429,11 @@ entities:
   - name: studyStatus
     description: The status of a study or trial.
     tags: NCIT:C171103, dcat:dataset
+    extends: urdm_lookups_attributeTemplateDefault
+  
+  # @name subjectStatus
+  # @#references http://purl.obolibrary.org/obo/NCIT_C117655
+  - name: subjectStatus
+    description: A findings domain that contains general subject characteristics that are evaluated periodically to determine if they have changed.
+    tags: NCIT:C166244,dcat:dataset
     extends: urdm_lookups_attributeTemplateDefault
