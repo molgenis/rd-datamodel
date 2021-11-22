@@ -23,111 +23,111 @@ date: 2021-11-19
 tags: dcat:catalog
 
 # define tags
-tagDefinitions:
+# tagDefinitions:
   
   # dcat:catalog
-  - identifier: dcat:catalog
-    label: dcat:Catalog
-    objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
-    codeSystem: dcat
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: dcat:catalog
+  #   label: dcat:Catalog
+  #   objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
+  #   codeSystem: dcat
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
 
-  # dcat:dataset
-  - identifier: dcat:dataset
-    label: Dataset
-    objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
-    codeSystem: dcat
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # # dcat:dataset
+  # - identifier: dcat:dataset
+  #   label: Dataset
+  #   objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+  #   codeSystem: dcat
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
 
   #////////////////////////////////////////
   # Tags for Subjects
 
   # table level tag: subject
-  - identifier: ExO_0000127
-    label: ExO_0000127
-    codesystem: ExO
-    objectIRI: http://purl.obolibrary.org/obo/ExO_0000127
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: ExO_0000127
+  #   label: ExO_0000127
+  #   codesystem: ExO
+  #   objectIRI: http://purl.obolibrary.org/obo/ExO_0000127
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
 
   #////////////////////////////////////////
   # Tags for Study
 
   # table level tag: study
-  - identifier: NCIT_C63536
-    label: NCIT_C63536
-    objectIRI: http://purl.obolibrary.org/obo/NCIT_C63536
-    codesystem: NCIT
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: NCIT_C63536
+  #   label: NCIT_C63536
+  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C63536
+  #   codesystem: NCIT
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
 
   #////////////////////////////////////////
   # Tags for Consent
 
   # table level tag: consent
-  - identifier: NCIT_C16735
-    label: NCIT_C16735
-    codesystem: NCIT
-    objectIRI: http://purl.obolibrary.org/obo/NCIT_C16735
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: NCIT_C16735
+  #   label: NCIT_C16735
+  #   codesystem: NCIT
+  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C16735
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
 
   #////////////////////////////////////////
   # Tags for Clinical
 
   # table level tag: clinical
-  - identifier: NCIT_C25398
-    label: NCIT_C25398
-    codesystem: NCIT
-    objectIRI: http://purl.obolibrary.org/obo/NCIT_C25398
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: NCIT_C25398
+  #   label: NCIT_C25398
+  #   codesystem: NCIT
+  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C25398
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
 
   #////////////////////////////////////////
   # Tags for Material
 
   # table level tag: material
-  - identifier: NCIT_C43376
-    label: NCIT_C43376
-    codesystem: NCIT
-    objectIRI: http://purl.obolibrary.org/obo/NCIT_C43376
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: NCIT_C43376
+  #   label: NCIT_C43376
+  #   codesystem: NCIT
+  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C43376
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
 
   #////////////////////////////////////////
   # Tags for Sample Preparation
 
   # table level tag: sample preparation
-  - identifier: OBI_0001902
-    label: OBI_0001902
-    codeSystem: OBI
-    objectIRI: http://purl.obolibrary.org/obo/OBI_0001902
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: OBI_0001902
+  #   label: OBI_0001902
+  #   codeSystem: OBI
+  #   objectIRI: http://purl.obolibrary.org/obo/OBI_0001902
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
 
   #////////////////////////////////////////
   # Tags for Sequencing
 
   # table level tag: sequencing
-  - identifier: topic_3168
-    label: topic_3168
-    codesystem: EDAM
-    objectIRI: http://edamontology.org/topic_3168
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: topic_3168
+  #   label: topic_3168
+  #   codesystem: EDAM
+  #   objectIRI: http://edamontology.org/topic_3168
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
 
   #////////////////////////////////////////
   # Tags for files
 
-  # table level tag: files
-  - identifier: NCIT_C42883
-    label: NCIT_C42883
-    codesystem: NCIT
-    objectIRI: http://purl.obolibrary.org/obo/NCIT_C42883
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # # table level tag: files
+  # - identifier: NCIT_C42883
+  #   label: NCIT_C42883
+  #   codesystem: NCIT
+  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C42883
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
 
   #////////////////////////////////////////////////////////////////////////////
   
@@ -136,34 +136,34 @@ tagDefinitions:
   # Tags for laboratoryProcedures
   
   # table level tag: laboratory procedures
-  - identifier: NCIT:C25294
-    label: NCIT:C25294
-    objectIRI:  http://purl.obolibrary.org/obo/NCIT_C25294
-    codesystem: http://purl.obolibrary.org/obo/NCIT_C25294
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: NCIT:C25294
+  #   label: NCIT:C25294
+  #   codesystem: NCIT
+  #   objectIRI:  http://purl.obolibrary.org/obo/NCIT_C25294
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
   
   #////////////////////////////////////////
   # Tags for organization
   
   # table level tag: organization
-  - identifier: NCIT:C25412
-    label: NCIT:C25412
-    objectIRI: http://purl.obolibrary.org/obo/NCIT_C25412
-    codesystem: NCIT
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: NCIT:C25412
+  #   label: NCIT:C25412
+  #   codesystem: NCIT
+  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C25412
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
   #////////////////////////////////////////
   # Tags for releases
   
   # table level tag: releases (data)
-  - identifier: NCIT:C172217
-    label: NCIT:C172217
-    objectIRI: http://purl.obolibrary.org/obo/NCIT_C172217
-    codesystem: NCIT
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: NCIT:C172217
+  #   label: NCIT:C172217
+  #   codesystem: NCIT
+  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C172217
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
 
   
 #//////////////////////////////////////////////////////////////////////////////

@@ -24,191 +24,191 @@ version: 0.9.5
 date: 2021-11-19
 
 # define tags
-tagDefinitions:
+# tagDefinitions:
 
   # dcat:catalog
-  - identifier: dcat:catalog
-    label: dcat:Catalog
-    objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
-    codeSystem: dcat
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: dcat:catalog
+  #   label: dcat:Catalog
+  #   objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
+  #   codeSystem: dcat
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
 
-  # dcat:dataset
-  - identifier: dcat:dataset
-    label: Dataset
-    objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
-    codeSystem: dcat
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # # dcat:dataset
+  # - identifier: dcat:dataset
+  #   label: Dataset
+  #   objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+  #   codeSystem: dcat
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
   
   # anatomoical source
-  - identifier: NCIT:C103264
-    label: NCIT:C103264
-    objectIRI: http://purl.obolibrary.org/obo/NCIT_C103264
-    codesystem: NCIT
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: NCIT:C103264
+  #   label: NCIT:C103264
+  #   codesystem: NCIT
+  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C103264
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
   # ancestry
-  - identifier: NCIT:C176763
-    label: NCIT:C176763
-    objectIRI: http://purl.obolibrary.org/obo/NCIT_C176763
-    codesystem: NCIT
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: NCIT:C176763
+  #   label: NCIT:C176763
+  #   codesystem: NCIT
+  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C176763
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
   # biospecimen type
-  - identifier: NCIT:C70713
-    label: NCIT:C70713
-    objectIRI: http://purl.obolibrary.org/obo/NCIT_C70713
-    codesystem: NCIT
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: NCIT:C70713
+  #   label: NCIT:C70713
+  #   codesystem: NCIT
+  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C70713
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
   # country
-  - identifier: NCIT:C171105
-    label: NCIT:C171105
-    objectIRI: http://purl.obolibrary.org/obo/NCIT_C171105
-    codesystem: NCIT
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: NCIT:C171105
+  #   label: NCIT:C171105
+  #   codesystem: NCIT
+  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C171105
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
   # dataUsePermission
-  - identifier: DUO:0000001
-    label: DUO:0000001
-    objectIRI: http://purl.obolibrary.org/obo/DUO_0000001
-    codesystem: DUO
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: DUO:0000001
+  #   label: DUO:0000001
+  #   codesystem: DUO
+  #   objectIRI: http://purl.obolibrary.org/obo/DUO_0000001
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
 
   # diseases
-  - identifier: NCIT:C15607
-    label: NCIT:C15607
-    objectIRI: http://purl.obolibrary.org/obo/NCIT_C15607
-    codesystem: DUO
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: NCIT:C15607
+  #   label: NCIT:C15607
+  #   codesystem: DUO
+  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C15607
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
   # genome accessions
-  - identifier: EDAM:2340
-    label: EDAM:2340
-    objectIRI: http://edamontology.org/data_2340
-    codesystem: EDAM
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: EDAM:2340
+  #   label: EDAM:2340
+  #   codesystem: EDAM
+  #   objectIRI: http://edamontology.org/data_2340
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
   # genotypic sex
-  - identifier: PATO:0020000
-    label: PATO:0020000
-    objectIRI: http://purl.obolibrary.org/obo/PATO_0020000
-    codesystem: PATO
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: PATO:0020000
+  #   label: PATO:0020000
+  #   codesystem: PATO
+  #   objectIRI: http://purl.obolibrary.org/obo/PATO_0020000
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
   # inclusion criteria
-  - identifier: OBI:0500027
-    label: OBI:0500027
-    objectIRI: http://purl.obolibrary.org/obo/OBI_0500027
-    codesystem: OBI
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: OBI:0500027
+  #   label: OBI:0500027
+  #   codesystem: OBI
+  #   objectIRI: http://purl.obolibrary.org/obo/OBI_0500027
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
   # inclusion status
-  - identifier: NCIT:C166244
-    label: NCIT:C166244
-    objectIRI: http://purl.obolibrary.org/obo/NCIT_C166244
-    codesystem: NCIT
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: NCIT:C166244
+  #   label: NCIT:C166244
+  #   codesystem: NCIT
+  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C166244
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
   # lab indication
-  - identifier: NCIT:C171003
-    label: NCIT:C171003
-    objectIRI: http://purl.obolibrary.org/obo/NCIT_C171003
-    codesystem: NCIT
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: NCIT:C171003
+  #   label: NCIT:C171003
+  #   codesystem: NCIT
+  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C171003
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
   # molecular status
-  - identifier: NCIT:C20826
-    label: NCIT:C20826
-    objectIRI: http://purl.obolibrary.org/obo/NCIT_C20826
-    codesystem: NCIT
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: NCIT:C20826
+  #   label: NCIT:C20826
+  #   codesystem: NCIT
+  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C20826
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
   # NGS Kits: library prep
-  - identifier: GENEPIO:0000085
-    label: GENEPIO:0000085
-    objectIRI: http://purl.obolibrary.org/obo/GENEPIO_0000085
-    codesystem: GENEPIO
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: GENEPIO:0000085
+  #   label: GENEPIO:0000085
+  #   codesystem: GENEPIO
+  #   objectIRI: http://purl.obolibrary.org/obo/GENEPIO_0000085
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
   
   # NGS Kits: target enrichment kit
-  - identifier: NCIT:C154307
-    label: NCIT:C154307
-    objectIRI: http://purl.obolibrary.org/obo/NCIT_C154307
-    codesystem: NCIT
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: NCIT:C154307
+  #   label: NCIT:C154307
+  #   codesystem: NCIT
+  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C154307
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
   # pathological state
-  - identifier: GO:0001894
-    label: GO:0001894
-    objectIRI: http://purl.obolibrary.org/obo/GO_0001894
-    codesystem: GO
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: GO:0001894
+  #   label: GO:0001894
+  #   codesystem: GO
+  #   objectIRI: http://purl.obolibrary.org/obo/GO_0001894
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
   # phenotype
-  - identifier: NCIT:C16977
-    label: NCIT:C16977
-    objectIRI: http://purl.obolibrary.org/obo/NCIT_C16977
-    codesystem: NCIT
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: NCIT:C16977
+  #   label: NCIT:C16977
+  #   codesystem: NCIT
+  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C16977
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
   # phenotypic sex
-  - identifier: PATO:0001894
-    label: PATO:0001894
-    objectIRI: http://purl.obolibrary.org/obo/PATO_0001894
-    codesystem: PATO
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: PATO:0001894
+  #   label: PATO:0001894
+  #   codesystem: PATO
+  #   objectIRI: http://purl.obolibrary.org/obo/PATO_0001894
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
   # sequencing Instrument Models
-  - identifier: GENEPIO:0001921
-    label: GENEPIO:0001921
-    objectIRI: http://purl.obolibrary.org/obo/GENEPIO_0001921
-    codesystem: GENEPIO
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: GENEPIO:0001921
+  #   label: GENEPIO:0001921
+  #   codesystem: GENEPIO
+  #   objectIRI: http://purl.obolibrary.org/obo/GENEPIO_0001921
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
   # sequencingMethods
-  - identifier: FIX:0000704
-    label: FIX:0000704
-    objectIRI: http://purl.obolibrary.org/obo/FIX_0000704
-    codesystem: FIX
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: FIX:0000704
+  #   label: FIX:0000704
+  #   codesystem: FIX
+  #   objectIRI: http://purl.obolibrary.org/obo/FIX_0000704
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
   # sequencing platforms
-  - identifier: GENEPIO:0000071
-    label: GENEPIO:0000071
-    objectIRI: http://purl.obolibrary.org/obo/GENEPIO_0000071
-    codesystem: GENEPIO
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: GENEPIO:0000071
+  #   label: GENEPIO:0000071
+  #   codesystem: GENEPIO
+  #   objectIRI: http://purl.obolibrary.org/obo/GENEPIO_0000071
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
   # study status
-  - identifier: NCIT:C171103
-    label: NCIT:C171103
-    objectIRI: http://purl.obolibrary.org/obo/NCIT_C171103
-    codesystem: NCIT
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+  # - identifier: NCIT:C171103
+  #   label: NCIT:C171103
+  #   codesystem: NCIT
+  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C171103
+  #   relationLabel: isAssociatedWith
+  #   relationIRI: http://molgenis.org#isAssociatedWith
     
 #//////////////////////////////////////////////////////////////////////////////
 
@@ -234,24 +234,29 @@ entities:
         nillable: false
         lookupAttribute: true
         labelAttribute: true
+        tags: NCIT:C49100
         description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
         
       # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
       - name: description
         dataType: text
+        tags: NCIT:C25365
         description: A written or verbal account, representation, statement, or explanation of something
       
       # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
       - name: codesystem
+        tags: NCIT:C70895
         description: A systematized collection of concepts that define corresponding codes.
       
       # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
       - name: code
+        tags: NCIT:C25162
         description: A symbol or combination of symbols which is assigned to the members of a collection.
       
       # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
       - name: iri
         dataType: hyperlink
+        tags: NCIT:C165071
         description: A unique symbol that establishes identity of the resource.
   
   #' @name attributeTemplateCode
@@ -264,26 +269,31 @@ entities:
       - name: value
         lookupAttribute: true
         labelAttribute: true
+        tags: NCIT:C49100
         description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
         
       # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
       - name: description
         dataType: text
+        tags: NCIT:C25365
         description: A written or verbal account, representation, statement, or explanation of something
       
       # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
       - name: codesystem
+        tags: NCIT:C70895
         description: A systematized collection of concepts that define corresponding codes.
       
       # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
       - name: code
         idAttribute: true
         nillable: false
+        tags: NCIT:C25162
         description: A symbol or combination of symbols which is assigned to the members of a collection.
       
       # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
       - name: iri
         dataType: hyperlink
+        tags: NCIT:C165071
         description: A unique symbol that establishes identity of the resource.
   
   #////////////////////////////////////
