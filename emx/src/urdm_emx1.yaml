@@ -241,6 +241,11 @@ entities:
         dataType: date
         description: The calendar date of subject's death.
         # validationExpression: "{dateOfBirth} notempty and {dateOfDeath} notempty and {dateOfDeath} > {dateOfBirth} or {dateOfDeath} = {dateOfBirth}"
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C156426
+      - name: yearOfDeath
+        dataType: int
+        description: The year in which an individual died. 
 
       # TODO: Add validation when expressions have been implemented
       # semantics: http://purl.obolibrary.org/obo/NCIT_C135383
@@ -338,22 +343,32 @@ entities:
       - name: comments
         dataType: text
         description: A written explanation, observation or criticism added to textual material.
-        partOfAttribute: recordMetadata
+        partOfAttribute: recordMetadata  
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C164483
       - name: dateRecordCreated
         nillable: false
-        datatype: datetime
+        dataType: datetime
         description: The date on which the activity or entity is created.
+        partOfAttribute: recordMetadata
+
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C42628
+      - name: recordCreatedBy
+        nillable: false
+        description: Indicates the person or authoritative body who brought the item into existence.
         partOfAttribute: recordMetadata
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C93629
       - name: dateRecordUpdated
-        nillable: false
-        datatype: datetime
+        dataType: datetime
         description: The date (and time) on which report was updated after it had been submitted.
         partOfAttribute: recordMetadata
 
+      # semantics: https://w3id.org/reproduceme#wasUpdatedBy
+      - name: wasUpdatedBy
+        description: An entity which is updated by another entity or an agent.
+        partOfAttribute: recordMetadata
+        
   #////////////////////////////////////////////////////////////////////////////
   
   # @name study
@@ -437,20 +452,30 @@ entities:
       - name: comments
         dataType: text
         description: A written explanation, observation or criticism added to textual material.
-        partOfAttribute: recordMetadata
+        partOfAttribute: recordMetadata  
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C164483
       - name: dateRecordCreated
         nillable: false
-        datatype: datetime
+        dataType: datetime
         description: The date on which the activity or entity is created.
+        partOfAttribute: recordMetadata
+
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C42628
+      - name: recordCreatedBy
+        nillable: false
+        description: Indicates the person or authoritative body who brought the item into existence.
         partOfAttribute: recordMetadata
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C93629
       - name: dateRecordUpdated
-        nillable: false
-        datatype: datetime
+        dataType: datetime
         description: The date (and time) on which report was updated after it had been submitted.
+        partOfAttribute: recordMetadata
+
+      # semantics: https://w3id.org/reproduceme#wasUpdatedBy
+      - name: wasUpdatedBy
+        description: An entity which is updated by another entity or an agent.
         partOfAttribute: recordMetadata
 
   #////////////////////////////////////////////////////////////////////////////
@@ -545,20 +570,30 @@ entities:
       - name: comments
         dataType: text
         description: A written explanation, observation or criticism added to textual material.
-        partOfAttribute: recordMetadata
+        partOfAttribute: recordMetadata  
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C164483
       - name: dateRecordCreated
         nillable: false
-        datatype: datetime
+        dataType: datetime
         description: The date on which the activity or entity is created.
+        partOfAttribute: recordMetadata
+
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C42628
+      - name: recordCreatedBy
+        nillable: false
+        description: Indicates the person or authoritative body who brought the item into existence.
         partOfAttribute: recordMetadata
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C93629
       - name: dateRecordUpdated
-        nillable: false
-        datatype: datetime
+        dataType: datetime
         description: The date (and time) on which report was updated after it had been submitted.
+        partOfAttribute: recordMetadata
+
+      # semantics: https://w3id.org/reproduceme#wasUpdatedBy
+      - name: wasUpdatedBy
+        description: An entity which is updated by another entity or an agent.
         partOfAttribute: recordMetadata
 
   #////////////////////////////////////////////////////////////////////////////
@@ -673,20 +708,30 @@ entities:
       - name: comments
         dataType: text
         description: A written explanation, observation or criticism added to textual material.
-        partOfAttribute: recordMetadata
+        partOfAttribute: recordMetadata  
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C164483
       - name: dateRecordCreated
         nillable: false
-        datatype: datetime
+        dataType: datetime
         description: The date on which the activity or entity is created.
+        partOfAttribute: recordMetadata
+
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C42628
+      - name: recordCreatedBy
+        nillable: false
+        description: Indicates the person or authoritative body who brought the item into existence.
         partOfAttribute: recordMetadata
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C93629
       - name: dateRecordUpdated
-        nillable: false
-        datatype: datetime
+        dataType: datetime
         description: The date (and time) on which report was updated after it had been submitted.
+        partOfAttribute: recordMetadata
+
+      # semantics: https://w3id.org/reproduceme#wasUpdatedBy
+      - name: wasUpdatedBy
+        description: An entity which is updated by another entity or an agent.
         partOfAttribute: recordMetadata
 
   #////////////////////////////////////////////////////////////////////////////
@@ -721,7 +766,7 @@ entities:
 
       # semantics: http://www.ebi.ac.uk/efo/EFO_0000689
       - name: samplingTimestamp
-        datatype: datetime
+        dataType: datetime
         description: Date and time at which this material was collected.
 
       # semantics: http://www.ebi.ac.uk/efo/EFO_0005518
@@ -780,20 +825,30 @@ entities:
       - name: comments
         dataType: text
         description: A written explanation, observation or criticism added to textual material.
-        partOfAttribute: recordMetadata
+        partOfAttribute: recordMetadata  
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C164483
       - name: dateRecordCreated
         nillable: false
-        datatype: datetime
+        dataType: datetime
         description: The date on which the activity or entity is created.
+        partOfAttribute: recordMetadata
+
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C42628
+      - name: recordCreatedBy
+        nillable: false
+        description: Indicates the person or authoritative body who brought the item into existence.
         partOfAttribute: recordMetadata
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C93629
       - name: dateRecordUpdated
-        nillable: false
-        datatype: datetime
+        dataType: datetime
         description: The date (and time) on which report was updated after it had been submitted.
+        partOfAttribute: recordMetadata
+
+      # semantics: https://w3id.org/reproduceme#wasUpdatedBy
+      - name: wasUpdatedBy
+        description: An entity which is updated by another entity or an agent.
         partOfAttribute: recordMetadata
 
   #////////////////////////////////////////////////////////////////////////////
@@ -869,20 +924,30 @@ entities:
       - name: comments
         dataType: text
         description: A written explanation, observation or criticism added to textual material.
-        partOfAttribute: recordMetadata
+        partOfAttribute: recordMetadata  
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C164483
       - name: dateRecordCreated
         nillable: false
-        datatype: datetime
+        dataType: datetime
         description: The date on which the activity or entity is created.
+        partOfAttribute: recordMetadata
+
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C42628
+      - name: recordCreatedBy
+        nillable: false
+        description: Indicates the person or authoritative body who brought the item into existence.
         partOfAttribute: recordMetadata
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C93629
       - name: dateRecordUpdated
-        nillable: false
-        datatype: datetime
+        dataType: datetime
         description: The date (and time) on which report was updated after it had been submitted.
+        partOfAttribute: recordMetadata
+
+      # semantics: https://w3id.org/reproduceme#wasUpdatedBy
+      - name: wasUpdatedBy
+        description: An entity which is updated by another entity or an agent.
         partOfAttribute: recordMetadata
 
   #////////////////////////////////////////////////////////////////////////////
@@ -993,20 +1058,30 @@ entities:
       - name: comments
         dataType: text
         description: A written explanation, observation or criticism added to textual material.
-        partOfAttribute: recordMetadata
+        partOfAttribute: recordMetadata  
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C164483
       - name: dateRecordCreated
         nillable: false
-        datatype: datetime
+        dataType: datetime
         description: The date on which the activity or entity is created.
+        partOfAttribute: recordMetadata
+
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C42628
+      - name: recordCreatedBy
+        nillable: false
+        description: Indicates the person or authoritative body who brought the item into existence.
         partOfAttribute: recordMetadata
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C93629
       - name: dateRecordUpdated
-        nillable: false
-        datatype: datetime
+        dataType: datetime
         description: The date (and time) on which report was updated after it had been submitted.
+        partOfAttribute: recordMetadata
+
+      # semantics: https://w3id.org/reproduceme#wasUpdatedBy
+      - name: wasUpdatedBy
+        description: An entity which is updated by another entity or an agent.
         partOfAttribute: recordMetadata
 
   #////////////////////////////////////////////////////////////////////////////
@@ -1095,20 +1170,30 @@ entities:
       - name: comments
         dataType: text
         description: A written explanation, observation or criticism added to textual material.
-        partOfAttribute: recordMetadata
+        partOfAttribute: recordMetadata  
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C164483
       - name: dateRecordCreated
         nillable: false
-        datatype: datetime
+        dataType: datetime
         description: The date on which the activity or entity is created.
+        partOfAttribute: recordMetadata
+
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C42628
+      - name: recordCreatedBy
+        nillable: false
+        description: Indicates the person or authoritative body who brought the item into existence.
         partOfAttribute: recordMetadata
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C93629
       - name: dateRecordUpdated
-        nillable: false
-        datatype: datetime
+        dataType: datetime
         description: The date (and time) on which report was updated after it had been submitted.
+        partOfAttribute: recordMetadata
+
+      # semantics: https://w3id.org/reproduceme#wasUpdatedBy
+      - name: wasUpdatedBy
+        description: An entity which is updated by another entity or an agent.
         partOfAttribute: recordMetadata
 
   #////////////////////////////////////////////////////////////////////////////
