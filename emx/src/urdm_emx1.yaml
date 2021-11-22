@@ -687,11 +687,11 @@ entities:
         dataType: date
         description: The date (and time) when the adverse event ends or returns to baseline.
 
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C93400
-      - name: belongsToMaterial
+      # semantics: http://edamontology.org/data_3273
+      - name: belongsToSample
         dataType: mref
-        refEntity: urdm_material
-        description: A unique proper name or character sequence that identifies this particular material.
+        refEntity: urdm_samples
+        description: Name or other identifier of an entry from a biosample database.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C172217
       - name: belongsToDataRelease
@@ -736,17 +736,18 @@ entities:
 
   #////////////////////////////////////////////////////////////////////////////
   
-  # @name material
-  - name: material
-    label: Material
-    description: A natural substance derived from living organisms such as cells, tissues, proteins, and DNA.
-    tags: NCIT_C43376,dcat:dataset
+  # @name samples
+  - name: samples
+    label: Samples
+    description: A sample is a limited quantity of something (e.g. an individual or set of individuals from a population, or a portion of a material) to be used for testing, analysis, inspection, investigation, demonstration, or trial use.
+    tags: SCDO:0002829,dcat:dataset
     attributes:
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C93400
-      - name: materialID
+    
+      # semantics: http://edamontology.org/data_3273
+      - name: sampleID
         idAttribute: true
         nillable: false
-        description: A unique proper name or character sequence that identifies this particular material.
+        description: Name or other identifier of an entry from a biosample database.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C142495
       - name: belongsToSubject
@@ -761,8 +762,13 @@ entities:
       # semantics: http://purl.obolibrary.org/obo/NCIT_C171003
       - name: samplingReason
         dataType: mref
-        refEntity: urdm_lookups_labIndication
+        refEntity: urdm_lookups_samplingReason
         description: The explanation for why a test, measurement, or assessment is executed.
+
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C164024
+      - name: samplingDate
+        dataType: date
+        description: The date that a sample was collected or obtained.
 
       # semantics: http://www.ebi.ac.uk/efo/EFO_0000689
       - name: samplingTimestamp
@@ -771,11 +777,13 @@ entities:
 
       # semantics: http://www.ebi.ac.uk/efo/EFO_0005518
       - name: samplingProtocol
-        dataType: text
+        dataType: mref
+        refEntity: urdm_samplingProtocols
         description: The procedure whereby this material was sampled for an analysis.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C50996
       - name: samplingProtocolDeviation
+        dataType: text
         description: A variation from processes or procedures defined in the sampling protocol. Deviations usually do not preclude the overall evaluability of subject data for either efficacy or safety, and are often acknowledged and accepted in advance by the sponsor.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C93529
@@ -866,10 +874,10 @@ entities:
         description: A unique proper name or character sequence that identifies this particular sample preparation.
 
       # semantics: http://purl.obolibrary.org/obo/NCIT_C93400
-      - name: belongsToMaterial
+      - name: belongsToSample
         dataType: xref
-        refEntity: urdm_material
-        description: A unique proper name or character sequence that identifies this particular material.
+        refEntity: urdm_sample
+        description: Name or other identifier of an entry from a biosample database.
 
       # semantics: http://purl.allotrope.org/ontologies/role#AFRL_0000010
       - name: inputAmount
@@ -1313,3 +1321,33 @@ entities:
         dataType: text
         description: A notation regarding the decisions, and/or clarification of any information pertaining to data management. 
   
+  #////////////////////////////////////////////////////////////////////////////
+  
+  # @name samplingProtocols
+  # @references http://www.ebi.ac.uk/efo/EFO_0005518
+  - name: samplingProtocols
+    description: Describes the procedure whereby biological samples for an experiment are sourced.
+    tags: dcat:dataset
+    attributes:
+      
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25364
+      - name: id
+        idAttribute: true
+        nillable: false
+        description: One or more characters used to identify, name, or characterize the nature, properties, or contents of a thing. 
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C42614
+      - name: name
+        lookupAttribute: true
+        labelAttribute: true
+        description: The words or language units by which a thing is known.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
+      - name: description
+        dataType: text
+        description: A written or verbal account, representation, statement, or explanation of something.
+        
+      # semantics: http://purl.obolibrary.org/obo/NCIT_C25714
+      - name: version
+        description: A form or variant of a type or original; one of a sequence of copies of a program, each incorporating new modifications.
+        
