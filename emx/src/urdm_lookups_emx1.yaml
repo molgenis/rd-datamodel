@@ -340,6 +340,13 @@ entities:
     description: reference dataset defined by FAIR Genomes v1.1
     extends: urdm_lookups_attributeTemplateDefault
   
+  # @name fileStatus
+  # @references http://purl.obolibrary.org/obo/NCIT_C171193
+  - name: fileStatus
+    description: The condition for an electronic file relative to the current data or file processing step.
+    tags: NCIT:C171193, dcat:dataset
+    extends: urdm_lookups_attributeTemplateDefault
+  
   # @name genomeAccessions
   # @reference http://edamontology.org/data_2340
   - name: genomeAccessions

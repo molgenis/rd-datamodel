@@ -24,6 +24,7 @@ mcmd import -p emx/lookups/urdm_lookups_biospecimenType.csv
 mcmd import -p emx/lookups/urdm_lookups_country.csv
 mcmd import -p emx/lookups/urdm_lookups_dataUsePermissions.csv
 mcmd import -p emx/lookups/urdm_lookups_diseases.csv
+mcmd import -p emx/lookups/urdm_lookups_fileStatus.csv
 mcmd import -p emx/lookups/urdm_lookups_genomeAccessions.csv
 mcmd import -p emx/lookups/urdm_lookups_genotypicSex.csv
 mcmd import -p emx/lookups/urdm_lookups_inclusionCriteria.csv
