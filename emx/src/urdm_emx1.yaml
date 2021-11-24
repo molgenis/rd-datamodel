@@ -36,8 +36,8 @@
 name: urdm
 label: Unified Rare Disease Model
 description: The Unified Rare Disease Model (URDM) for NGS data in research and healthcare
-version: 0.9.4
-date: 2021-11-19
+version: 0.9.5
+date: 2021-11-24
 tags: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
 
 # define tags (the rest are added at build time)
@@ -119,13 +119,11 @@ entities:
       - name: yearOfBirth
         dataType: int
         description: The year in which a person was born.
-        # validationExpression: "{dateOfBirth} notempty and {yearOfBirth} notempty and {yearOfBirth} = regex('^([0-9]{4})', {dateOfBirth})"
         tags: http://purl.obolibrary.org/obo/NCIT_C83164
 
       - name: dateOfDeath
         dataType: date
         description: The calendar date of subject's death.
-        # validationExpression: "{dateOfBirth} notempty and {dateOfDeath} notempty and {dateOfDeath} > {dateOfBirth} or {dateOfDeath} = {dateOfBirth}"
         tags: http://purl.obolibrary.org/obo/NCIT_C70810
         
       - name: yearOfDeath
@@ -429,6 +427,8 @@ entities:
         tags: http://purl.obolibrary.org/obo/DUO_0000001
 
       - name: dataUseModifiers
+        dataType: mref
+        refEntity: urdm_lookups_dataUseModifiers
         description: Data use modifiers indicate additional conditions for use. For instance, a dataset is restricted to investigations into specific diseases or performed at specific geographical locations.
         tags: http://purl.obolibrary.org/obo/DUO_0000017
 
@@ -938,7 +938,7 @@ entities:
         dataType: text
         description: Other NGS quality control metrics, including but not limited to (i) sequencer metrics such as yield, error rate, density (K/mm2), cluster PF (%) and phas/prephas (%), (ii) alignment metrics such as QM insert size, GC content, QM duplicated reads (%), QM error rate, uniformity/evenness of coverage and maternal cell contamination, and (iii) variant call metrics such as number of SNVs/CNVs/SVs called, number of missense/nonsense variants, common variants (%), unique variants (%), gender match and trio inheritance check.
         tags: http://edamontology.org/data_3914
-
+        
       - name: referenceGenomeUsed
         dataType: xref
         refEntity: urdm_lookups_genomeAccessions
@@ -1138,7 +1138,7 @@ entities:
         description: A person acting as a channel for communication between groups or on behalf of a group.
         tags: http://purl.obolibrary.org/obo/NCIT_C25461
 
-      - name: contactInformation
+      - name: contactEmail
         dataType: email
         description: An email address for the purpose of contacting the study contact person.
         tags: http://purl.obolibrary.org/obo/OMIABIS_0000035

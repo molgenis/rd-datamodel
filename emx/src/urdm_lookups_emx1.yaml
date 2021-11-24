@@ -95,32 +95,37 @@ entities:
         description: A unique symbol that establishes identity of the resource.
   
   - name: anatomicalSource
-    description: reference dataset defined by FAIR Genomes v1.1
+    description: Anatomical Source (FAIR Genomes, v1.1)
     tags: http://purl.obolibrary.org/obo/NCIT_C103264, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
   
   - name: ancestry
-    description: reference dataset defined by FAIR Genomes v1.1
+    description: Ancestry (FAIR Genomes, v1.1)
     tags: http://purl.obolibrary.org/obo/NCIT_C176763, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
   
   - name: biospecimenType
-    description: reference dataset defined by FAIR Genomes v1.1
+    description: Biospecimen Type (FAIR Genomes, v1.1)
     tags: http://purl.obolibrary.org/obo/NCIT_C70713, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
   
   - name: country
-    description: reference dataset defined by FAIR Genomes v1.1
+    description: Country (FAIR Genomes, v1.1)
     tags: http://purl.obolibrary.org/obo/NCIT_C171105, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateCode
+    
+  - name: dataUseModifiers
+    description: A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used.
+    tags: http://purl.obolibrary.org/obo/DUO_0000001, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+    extends: urdm_lookups_attributeTemplateDefault
   
   - name: dataUsePermissions
-    description: reference dataset defined by FAIR Genomes v1.1
+    description: Data Use Permissions (FAIR Genomes, v1.1)
     tags: http://purl.obolibrary.org/obo/DUO_0000001, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
     
   - name: diseases
-    description: reference dataset defined by FAIR Genomes v1.1
+    description: Diseases (FAIR Genomes, v1.1)
     tags: http://purl.obolibrary.org/obo/NCIT_C15607, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
   
@@ -130,42 +135,42 @@ entities:
     extends: urdm_lookups_attributeTemplateDefault
   
   - name: genomeAccessions
-    description: reference dataset defined by FAIR Genomes v1.1
+    description: Genome Accessions (FAIR Genomes, v1.1)
     tags: http://edamontology.org/data_2340, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
   
   - name: genotypicSex
-    description: reference dataset defined by FAIR Genomes v1.1
+    description: Genotypic Sex (FAIR Genomes, v1.1)
     tags: http://purl.obolibrary.org/obo/PATO_0020000, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
     
   - name: inclusionCriteria
-    description: reference dataset defined by FAIR Genomes v1.1
+    description: Inclusion Criteria (FAIR Genomes, v1.1)
     tags: http://purl.obolibrary.org/obo/OBI_0500027, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
     
   - name: molecularDiagnosis
-    description: reference dataset defined by FAIR Genomes v1.1
+    description: Molecular Diagnosis (FAIR Genomes, v1.1)
     tags: http://purl.obolibrary.org/obo/NCIT_C20826, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
     
   - name: ngsKits
-    description: reference dataset defined by FAIR Genomes v1.1
+    description: NGS Kits (FAIR Genomes, v1.1)
     tags: http://purl.obolibrary.org/obo/GENEPIO_0000085, http://purl.obolibrary.org/obo/NCIT_C154307, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
   
   - name: pathologicalState
-    description: reference dataset defined by FAIR Genomes v1.1
+    description: pathological state (FAIR Genomes, v1.1)
     tags: http://purl.obolibrary.org/obo/GO_0001894, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
   
   - name: phenotype
-    description: Human Phenotype Ontology (HPO) release v2021-08-02 
+    description: Human Phenotype Ontology (HPO, v2021-08-02)
     tags: http://purl.obolibrary.org/obo/NCIT_C16977, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateCode
   
   - name: phenotypicSex
-    description: reference dataset defined by FAIR Genomes v1.1
+    description: phenotypic sex (FAIR Genomes, v1.1)
     tags: http://purl.obolibrary.org/obo/PATO_0001894, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
   
@@ -175,17 +180,17 @@ entities:
     extends: urdm_lookups_attributeTemplateDefault
   
   - name: sequencingInstrumentModels
-    description: reference dataset defined by FAIR Genomes v1.1
+    description: Sequencing instrument models (FAIR Genomes, v1.1)
     tags: http://purl.obolibrary.org/obo/GENEPIO_0001921, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
     
   - name: sequencingMethods
-    description: reference dataset defined by FAIR Genomes v1.1
+    description: Sequencing methods (FAIR Genomes, v1.1)
     tags: http://purl.obolibrary.org/obo/FIX_0000704, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
         
   - name: sequencingPlatform
-    description: reference dataset defined by FAIR Genomes v1.1
+    description: Sequencing platforms (FAIR Genomes, v1.1)
     tags: http://purl.obolibrary.org/obo/GENEPIO_0000071, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
 

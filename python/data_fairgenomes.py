@@ -2,7 +2,7 @@
 #' FILE: data_fairgenomes.py
 #' AUTHOR: David Ruvolo
 #' CREATED: 2021-10-19
-#' MODIFIED: 2021-11-19
+#' MODIFIED: 2021-11-24
 #' PURPOSE: fetch fairgenomes lookups for use in URDM
 #' STATUS: working
 #' PACKAGES: pandas; requests
@@ -62,10 +62,11 @@ filesToDownload = {
     'BiospecimenTypes.txt': 'biospecimenType',
     'Countries.txt': 'country',
     'Diseases.txt': 'diseases',
+    'DataUseModifiers.txt': 'dataUseModifiers',
     'DataUsePermissions.txt': 'dataUsePermissions',
     'GenomeAccessions.txt': 'genomeAccessions',
     'GenotypicSex.txt' : 'genotypicSex',
-    'InclusionStatus.txt' : 'inclusionStatus',
+    'InclusionStatus.txt' : 'subjectStatus',
     'InclusionCriteria.txt': 'inclusionCriteria',
     'NGSKits.txt': 'ngsKits',
     'PathologicalState.txt' : 'pathologicalState',
@@ -85,15 +86,15 @@ for file in repo:
         })
         
 # download null flavors
-nullFlavorsUrl = [x['download_url'] for x in repo if x['name'] == 'NullFlavors.txt'][0]
-nullFlavors = pd.read_csv(nullFlavorsUrl, sep='\t',dtype=str,keep_default_na=False)
+# nullFlavorsUrl = [x['download_url'] for x in repo if x['name'] == 'NullFlavors.txt'][0]
+# nullFlavors = pd.read_csv(nullFlavorsUrl, sep='\t',dtype=str,keep_default_na=False)
 
 # read files and save to `emx/lookups/`
 for f in files:
     print('Downloading file: {}'.format(f['name']))
     raw = pd.read_csv(f['download_url'], sep='\t', dtype=str, keep_default_na=False)
     path = 'emx/lookups/urdm_lookups_{}.csv'.format(filesToDownload[f['name']])
-    if f['name'] not in ['Countries.txt']:
-        raw = raw.append(pd.DataFrame(data = nullFlavors))
+    # if f['name'] not in ['Countries.txt']:
+    #     raw = raw.append(pd.DataFrame(data = nullFlavors))
     raw.to_csv(path, index=False)
 
