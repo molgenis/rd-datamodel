@@ -1,17 +1,19 @@
-category	entity	identifier	label	codesystem	objectIRI	relationLabel	relationIRI
+associatedEmxCategory	foundInEntity	identifier	label	codesystem	objectIRI	relationLabel	relationIRI
 emx	emx_pkg	dcat:catalog	dcat:catalog	dcat	https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog	isAssociatedWith	http://molgenis.org#isAssociatedWith
 emx	emx_entity	dcat:dataset	dcat:dataset	dcat	https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset	isAssociatedWith	http://molgenis.org#isAssociatedWith
 core	subjects	ExO_0000127	ExO_0000127	ExO	http://purl.obolibrary.org/obo/ExO_0000127	isAssociatedWith	http://molgenis.org#isAssociatedWith
 core	study	NCIT_C63536	NCIT_C63536	NCIT	http://purl.obolibrary.org/obo/NCIT_C63536	isAssociatedWith	http://molgenis.org#isAssociatedWith
 core	consent	NCIT_C16735	NCIT_C16735	NCIT	http://purl.obolibrary.org/obo/NCIT_C16735	isAssociatedWith	http://molgenis.org#isAssociatedWith
 core	clinical	NCIT_C25398	NCIT_C25398	NCIT	http://purl.obolibrary.org/obo/NCIT_C25398	isAssociatedWith	http://molgenis.org#isAssociatedWith
-core	material	NCIT_C43376	NCIT_C43376	NCIT	http://purl.obolibrary.org/obo/NCIT_C43376	isAssociatedWith	http://molgenis.org#isAssociatedWith
+core	sample	SCDO:0002829	SCDO:0002829	SCDO	http://purl.obolibrary.org/obo/SCDO_0002829	isAssociatedWith	http://molgenis.org#isAssociatedWith
 core	samplePreparation	OBI_0001902	OBI_0001902	OBI	http://purl.obolibrary.org/obo/OBI_0001902	isAssociatedWith	http://molgenis.org#isAssociatedWith
 core	sequencing	topic_3168	topic_3168	EDAM	http://edamontology.org/topic_3168	isAssociatedWith	http://molgenis.org#isAssociatedWith
 core	files	NCIT_C42883	NCIT_C42883	NCIT	http://purl.obolibrary.org/obo/NCIT_C42883	isAssociatedWith	http://molgenis.org#isAssociatedWith
+core	cohorts	NCIT:C61512	NCIT:C61512	NCIT	http://purl.obolibrary.org/obo/NCIT_C61512	isAssociatedWith	http://molgenis.org#isAssociatedWith
 core	laboratoryProcedures	NCIT:C25294	NCIT:C25294	NCIT	http://purl.obolibrary.org/obo/NCIT_C25294	isAssociatedWith	http://molgenis.org#isAssociatedWith
 core	organization	NCIT:C25412	NCIT:C25412	NCIT	http://purl.obolibrary.org/obo/NCIT_C25412	isAssociatedWith	http://molgenis.org#isAssociatedWith
 core	releases (data)	NCIT:C172217	NCIT:C172217	NCIT	http://purl.obolibrary.org/obo/NCIT_C172217	isAssociatedWith	http://molgenis.org#isAssociatedWith
+core	samplingProtocols	EFO:0005518	EFO:0005518	EFO	http://www.ebi.ac.uk/efo/EFO_0005518	isAssociatedWith	http://molgenis.org#isAssociatedWith
 lookups	anatomicalSource	NCIT:C103264	NCIT:C103264	NCIT	http://purl.obolibrary.org/obo/NCIT_C103264	isAssociatedWith	http://molgenis.org#isAssociatedWith
 lookups	ancestry	NCIT:C176763	NCIT:C176763	NCIT	http://purl.obolibrary.org/obo/NCIT_C176763	isAssociatedWith	http://molgenis.org#isAssociatedWith
 lookups	biospecimenType	NCIT:C70713	NCIT:C70713	NCIT	http://purl.obolibrary.org/obo/NCIT_C70713	isAssociatedWith	http://molgenis.org#isAssociatedWith

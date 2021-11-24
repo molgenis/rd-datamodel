@@ -2,215 +2,20 @@
 # NAME: urdm_emx1.yaml
 # AUTHOR: david ruvolo
 # CREATED: 2021-11-09
-# MODIFIED: 2021-11-19
+# MODIFIED: 2021-11-24
 # PURPOSE: Unified Rare Disease Data Model lookups for EMX1
 # STATUS: maturing
-# COMMENTS:
-# After building the model, the following attributes should be added to the
-# `tags`. The `relationLabel` and `relationIRI` are standard, but the code
-# system should be extracted from the `objectIRI`
-# relationLabel: isAssociatedWith
-# relationIRI: http://molgenis.org#isAssociatedWith
-# codeSystem: *use regrex to split IRI to extract codeSystem*
+# COMMENTS: None
 #//////////////////////////////////////////////////////////////////////////////
 
-# set package info
+# define package
 name: urdm_lookups
 label: Lookups
 description: URDM Lookup tables
 parent: urdm
-tags: dcat:catalog
+tags: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
 version: 0.9.5
-date: 2021-11-19
-
-# define tags
-# tagDefinitions:
-
-  # dcat:catalog
-  # - identifier: dcat:catalog
-  #   label: dcat:Catalog
-  #   objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
-  #   codeSystem: dcat
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-
-  # # dcat:dataset
-  # - identifier: dcat:dataset
-  #   label: Dataset
-  #   objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
-  #   codeSystem: dcat
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-  
-  # anatomoical source
-  # - identifier: NCIT:C103264
-  #   label: NCIT:C103264
-  #   codesystem: NCIT
-  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C103264
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-    
-  # ancestry
-  # - identifier: NCIT:C176763
-  #   label: NCIT:C176763
-  #   codesystem: NCIT
-  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C176763
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-    
-  # biospecimen type
-  # - identifier: NCIT:C70713
-  #   label: NCIT:C70713
-  #   codesystem: NCIT
-  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C70713
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-    
-  # country
-  # - identifier: NCIT:C171105
-  #   label: NCIT:C171105
-  #   codesystem: NCIT
-  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C171105
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-    
-  # dataUsePermission
-  # - identifier: DUO:0000001
-  #   label: DUO:0000001
-  #   codesystem: DUO
-  #   objectIRI: http://purl.obolibrary.org/obo/DUO_0000001
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-
-  # diseases
-  # - identifier: NCIT:C15607
-  #   label: NCIT:C15607
-  #   codesystem: DUO
-  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C15607
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-    
-  # genome accessions
-  # - identifier: EDAM:2340
-  #   label: EDAM:2340
-  #   codesystem: EDAM
-  #   objectIRI: http://edamontology.org/data_2340
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-    
-  # genotypic sex
-  # - identifier: PATO:0020000
-  #   label: PATO:0020000
-  #   codesystem: PATO
-  #   objectIRI: http://purl.obolibrary.org/obo/PATO_0020000
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-    
-  # inclusion criteria
-  # - identifier: OBI:0500027
-  #   label: OBI:0500027
-  #   codesystem: OBI
-  #   objectIRI: http://purl.obolibrary.org/obo/OBI_0500027
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-    
-  # inclusion status
-  # - identifier: NCIT:C166244
-  #   label: NCIT:C166244
-  #   codesystem: NCIT
-  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C166244
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-    
-  # lab indication
-  # - identifier: NCIT:C171003
-  #   label: NCIT:C171003
-  #   codesystem: NCIT
-  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C171003
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-    
-  # molecular status
-  # - identifier: NCIT:C20826
-  #   label: NCIT:C20826
-  #   codesystem: NCIT
-  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C20826
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-    
-  # NGS Kits: library prep
-  # - identifier: GENEPIO:0000085
-  #   label: GENEPIO:0000085
-  #   codesystem: GENEPIO
-  #   objectIRI: http://purl.obolibrary.org/obo/GENEPIO_0000085
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-  
-  # NGS Kits: target enrichment kit
-  # - identifier: NCIT:C154307
-  #   label: NCIT:C154307
-  #   codesystem: NCIT
-  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C154307
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-    
-  # pathological state
-  # - identifier: GO:0001894
-  #   label: GO:0001894
-  #   codesystem: GO
-  #   objectIRI: http://purl.obolibrary.org/obo/GO_0001894
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-    
-  # phenotype
-  # - identifier: NCIT:C16977
-  #   label: NCIT:C16977
-  #   codesystem: NCIT
-  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C16977
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-    
-  # phenotypic sex
-  # - identifier: PATO:0001894
-  #   label: PATO:0001894
-  #   codesystem: PATO
-  #   objectIRI: http://purl.obolibrary.org/obo/PATO_0001894
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-    
-  # sequencing Instrument Models
-  # - identifier: GENEPIO:0001921
-  #   label: GENEPIO:0001921
-  #   codesystem: GENEPIO
-  #   objectIRI: http://purl.obolibrary.org/obo/GENEPIO_0001921
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-    
-  # sequencingMethods
-  # - identifier: FIX:0000704
-  #   label: FIX:0000704
-  #   codesystem: FIX
-  #   objectIRI: http://purl.obolibrary.org/obo/FIX_0000704
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-    
-  # sequencing platforms
-  # - identifier: GENEPIO:0000071
-  #   label: GENEPIO:0000071
-  #   codesystem: GENEPIO
-  #   objectIRI: http://purl.obolibrary.org/obo/GENEPIO_0000071
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-    
-  # study status
-  # - identifier: NCIT:C171103
-  #   label: NCIT:C171103
-  #   codesystem: NCIT
-  #   objectIRI: http://purl.obolibrary.org/obo/NCIT_C171103
-  #   relationLabel: isAssociatedWith
-  #   relationIRI: http://molgenis.org#isAssociatedWith
-    
-#//////////////////////////////////////////////////////////////////////////////
+date: 2021-11-14
 
 # set attribute level defaults
 defaults:
@@ -219,228 +24,177 @@ defaults:
   nillable: true
   lookupAttribute: false
   labelAttribute: false
+  visible: true
 
-# define tables
+# define entities: use a template or create a new one. Any user managed lookup
+# should be defined in main file (`urdm_emx1.yaml`). 
 entities:
 
-  #' @name attributeTemplateDefault
+  # @name attributeTemplateDefault
+  # @description 
   - name: attributeTemplateDefault
-    description: default attribute template ('value' is idAttribute)
     abstract: true
+    description: attribute template where value is the primary key
+    tags: http://purl.obolibrary.org/obo/NCIT_C45677
     attributes:
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
       - name: value
         idAttribute: true
         nillable: false
         lookupAttribute: true
         labelAttribute: true
-        tags: NCIT:C49100
+        tags: http://purl.obolibrary.org/obo/NCIT_C49100
         description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
         
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
       - name: description
         dataType: text
-        tags: NCIT:C25365
+        tags: http://purl.obolibrary.org/obo/NCIT_C25365
         description: A written or verbal account, representation, statement, or explanation of something
       
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
       - name: codesystem
-        tags: NCIT:C70895
+        tags: http://purl.obolibrary.org/obo/NCIT_C70895
         description: A systematized collection of concepts that define corresponding codes.
       
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
       - name: code
-        tags: NCIT:C25162
+        tags: http://purl.obolibrary.org/obo/NCIT_C25162
         description: A symbol or combination of symbols which is assigned to the members of a collection.
       
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
       - name: iri
         dataType: hyperlink
-        tags: NCIT:C165071
+        tags: http://purl.obolibrary.org/obo/NCIT_C165071
         description: A unique symbol that establishes identity of the resource.
   
-  #' @name attributeTemplateCode
   - name: attributeTemplateCode
-    description: code centric attribute template ('code' is idAttribute)
     abstract: true
+    description: attribute template where code is the primary key
+    tags: http://purl.obolibrary.org/obo/NCIT_C45677
     attributes:
-    
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C49100
       - name: value
         lookupAttribute: true
         labelAttribute: true
-        tags: NCIT:C49100
+        tags: http://purl.obolibrary.org/obo/NCIT_C49100
         description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
         
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25365
       - name: description
         dataType: text
-        tags: NCIT:C25365
+        tags: http://purl.obolibrary.org/obo/NCIT_C25365
         description: A written or verbal account, representation, statement, or explanation of something
       
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C70895
       - name: codesystem
-        tags: NCIT:C70895
+        tags: http://purl.obolibrary.org/obo/NCIT_C70895
         description: A systematized collection of concepts that define corresponding codes.
       
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C25162
       - name: code
         idAttribute: true
         nillable: false
-        tags: NCIT:C25162
+        tags: http://purl.obolibrary.org/obo/NCIT_C25162
         description: A symbol or combination of symbols which is assigned to the members of a collection.
       
-      # semantics: http://purl.obolibrary.org/obo/NCIT_C165071
       - name: iri
         dataType: hyperlink
-        tags: NCIT:C165071
+        tags: http://purl.obolibrary.org/obo/NCIT_C165071
         description: A unique symbol that establishes identity of the resource.
   
-  #////////////////////////////////////
-  
-  #' @name anatomicalSource
-  #' @reference http://purl.obolibrary.org/obo/NCIT_C103264
   - name: anatomicalSource
     description: reference dataset defined by FAIR Genomes v1.1
-    tags: NCIT:C103264, dcat:dataset
+    tags: http://purl.obolibrary.org/obo/NCIT_C103264, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
   
-  # @name ancestry
-  # @reference http://purl.obolibrary.org/obo/NCIT_C176763
   - name: ancestry
     description: reference dataset defined by FAIR Genomes v1.1
-    tags: NCIT:C176763,dcat:dataset
+    tags: http://purl.obolibrary.org/obo/NCIT_C176763, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
   
-  # @name biospecimenType
-  # @reference http://purl.obolibrary.org/obo/NCIT_C70713
   - name: biospecimenType
     description: reference dataset defined by FAIR Genomes v1.1
-    tags: NCIT:C70713,dcat:dataset
+    tags: http://purl.obolibrary.org/obo/NCIT_C70713, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
   
-  # @name country
-  # @references http://purl.obolibrary.org/obo/NCIT_C171105
   - name: country
     description: reference dataset defined by FAIR Genomes v1.1
-    tags: NCIT:C171105,dcat:dataset
+    tags: http://purl.obolibrary.org/obo/NCIT_C171105, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateCode
   
-  # @name dataUsePermission
-  # @references http://purl.obolibrary.org/obo/DUO_0000001
   - name: dataUsePermissions
     description: reference dataset defined by FAIR Genomes v1.1
-    tags: DUO:0000001, dcat:dataset
+    tags: http://purl.obolibrary.org/obo/DUO_0000001, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
     
-  # @name diseases
-  # @references http://purl.obolibrary.org/obo/NCIT_C15607
   - name: diseases
-    tags: NCIT:C15607,dcat:dataset
     description: reference dataset defined by FAIR Genomes v1.1
+    tags: http://purl.obolibrary.org/obo/NCIT_C15607, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
   
-  # @name fileStatus
-  # @references http://purl.obolibrary.org/obo/NCIT_C171193
   - name: fileStatus
     description: The condition for an electronic file relative to the current data or file processing step.
-    tags: NCIT:C171193, dcat:dataset
+    tags: http://purl.obolibrary.org/obo/NCIT_C171193, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
   
-  # @name genomeAccessions
-  # @reference http://edamontology.org/data_2340
   - name: genomeAccessions
     description: reference dataset defined by FAIR Genomes v1.1
-    tags: EDAM:2340, dcat:dataset
+    tags: http://edamontology.org/data_2340, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
   
-  # @name genotypicSex
-  # @references http://purl.obolibrary.org/obo/PATO_0020000
   - name: genotypicSex
     description: reference dataset defined by FAIR Genomes v1.1
-    tags: PATO:0020000,dcat:dataset
+    tags: http://purl.obolibrary.org/obo/PATO_0020000, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
     
-  # @name inclusionCriteria
-  # @references http://purl.obolibrary.org/obo/OBI_0500027
   - name: inclusionCriteria
     description: reference dataset defined by FAIR Genomes v1.1
-    tags: OBI:0500027, dcat:dataset
+    tags: http://purl.obolibrary.org/obo/OBI_0500027, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
     
-  # @name molecularDiagnosis
-  # @references http://purl.obolibrary.org/obo/NCIT_C20826
   - name: molecularDiagnosis
     description: reference dataset defined by FAIR Genomes v1.1
-    tags: NCIT:C20826,dcat:dataset
+    tags: http://purl.obolibrary.org/obo/NCIT_C20826, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
     
-  # @name ngsKits
-  # @references http://purl.obolibrary.org/obo/GENEPIO_0000085, http://purl.obolibrary.org/obo/NCIT_C154307
   - name: ngsKits
     description: reference dataset defined by FAIR Genomes v1.1
-    tags: GENEPIO:0000085, NCIT:C154307, dcat:dataset
+    tags: http://purl.obolibrary.org/obo/GENEPIO_0000085, http://purl.obolibrary.org/obo/NCIT_C154307, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
   
-  # @name pathologicalState
-  # @reference semantics: http://purl.obolibrary.org/obo/GO_0001894
   - name: pathologicalState
     description: reference dataset defined by FAIR Genomes v1.1
-    tags: GO:0001894,dcat:dataset
+    tags: http://purl.obolibrary.org/obo/GO_0001894, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
   
-  # @name phenotype
-  # @references http://purl.obolibrary.org/obo/NCIT_C16977
   - name: phenotype
     description: Human Phenotype Ontology (HPO) release v2021-08-02 
-    tags: NCIT:C16977,dcat:dataset
+    tags: http://purl.obolibrary.org/obo/NCIT_C16977, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateCode
   
-  # @name phenotypicSex
-  # @references http://purl.obolibrary.org/obo/PATO_0001894
   - name: phenotypicSex
     description: reference dataset defined by FAIR Genomes v1.1
-    tags: PATO:0001894,dcat:dataset
+    tags: http://purl.obolibrary.org/obo/PATO_0001894, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
   
-  # @name samplingReaspon
-  # @references http://purl.obolibrary.org/obo/NCIT_C171003
   - name: samplingReason
     description: The explanation for why a test, measurement, or assessment is executed.  
-    tags: NCIT:C171003,dcat:dataset
+    tags: http://purl.obolibrary.org/obo/NCIT_C171003, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
   
-  # @name sequencingInstrumentModels
-  # @references http://purl.obolibrary.org/obo/GENEPIO_0001921
   - name: sequencingInstrumentModels
     description: reference dataset defined by FAIR Genomes v1.1
-    tags: GENEPIO:0001921, dcat:dataset
+    tags: http://purl.obolibrary.org/obo/GENEPIO_0001921, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
     
-  # @name sequencingMethods
-  # @references http://purl.obolibrary.org/obo/FIX_0000704
   - name: sequencingMethods
     description: reference dataset defined by FAIR Genomes v1.1
-    tags: FIX:0000704, dcat:dataset
+    tags: http://purl.obolibrary.org/obo/FIX_0000704, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
         
-  # @name sequencingPlatform
-  # @references 
   - name: sequencingPlatform
     description: reference dataset defined by FAIR Genomes v1.1
-    tags: dcat:dataset
+    tags: http://purl.obolibrary.org/obo/GENEPIO_0000071, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
 
-  # @name studyStatus
-  # @references http://purl.obolibrary.org/obo/NCIT_C171103
   - name: studyStatus
     description: The status of a study or trial.
-    tags: NCIT:C171103, dcat:dataset
+    tags: http://purl.obolibrary.org/obo/NCIT_C171103, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
   
-  # @name subjectStatus
-  # @#references http://purl.obolibrary.org/obo/NCIT_C117655
   - name: subjectStatus
     description: A findings domain that contains general subject characteristics that are evaluated periodically to determine if they have changed.
-    tags: NCIT:C166244,dcat:dataset
+    tags: http://purl.obolibrary.org/obo/NCIT_C117655, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
