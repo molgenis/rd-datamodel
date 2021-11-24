@@ -10,6 +10,7 @@
 #'////////////////////////////////////////////////////////////////////////////
 
 # pip install yamlemxconvert
+from python.emx_build_tags import buildEmxTags
 import yamlemxconvert
 
 #//////////////////////////////////////
@@ -27,6 +28,14 @@ urdm = yamlemxconvert.Convert(
 )
 
 urdm.convert()
+
+# rebuild build tags
+builtTags = buildEmxTags(urdm.packages)
+builtTags.extend(buildEmxTags(urdm.entities))
+builtTags.extend(buildEmxTags(urdm.attributes))
+builtTags = list({d['identifier']: d for d in builtTags}.values())
+urdm.tags = sorted(urdm.tags, key = lambda d: d['identifier'])
+
 urdm.write('urdm', format = 'xlsx', outDir = 'emx/dist/')
 urdm.write_schema('emx/schemas/urdm_schema.md')
 
