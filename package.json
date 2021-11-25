@@ -10,6 +10,7 @@
     "m:config": "mcmd config set host https://david.gcc.rug.nl/",
     "m:predeploy": "mcmd delete -p urdm",
     "m:deploy": "sh emx/setup.sh",
-    "m:postdeploy" : "mcmd import -p data/demo/urdm_demo.xlsx --as urdm && mcmd make --role ANONYMOUS urdm_VIEWER && mcmd give anonymous view sys_md"
+    "m:postdeploy" : "mcmd import -p data/demo/urdm_demo.xlsx --as urdm && mcmd make --role ANONYMOUS urdm_VIEWER && mcmd give anonymous view sys_md",
+    "test": "python3 tests/tests_emx_check.py"
   }
 }
