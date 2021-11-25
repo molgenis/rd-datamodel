@@ -14,8 +14,8 @@ label: Lookups
 description: URDM Lookup tables
 parent: urdm
 tags: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
-version: 0.9.5
-date: 2021-11-14
+version: 0.9.6
+date: 2021-11-25
 
 # set attribute level defaults
 defaults:

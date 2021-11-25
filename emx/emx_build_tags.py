@@ -1,18 +1,17 @@
 #'////////////////////////////////////////////////////////////////////////////
-#' FILE: emx.py
+#' FILE: emx_build_tags.py
 #' AUTHOR: David Ruvolo
-#' CREATED: 2021-10-19
-#' MODIFIED: 2021-11-19
-#' PURPOSE: compile and build EMX files
-#' STATUS: working; ongoing
-#' PACKAGES: emxconvert
+#' CREATED: 2021-11-24
+#' MODIFIED: 2021-11-24
+#' PURPOSE: build or refresh EMX attributes tags
+#' STATUS: stable
+#' PACKAGES: os, re
 #' COMMENTS: NA
 #'////////////////////////////////////////////////////////////////////////////
 
-# pip install yamlemxconvert
-import yamlemxconvert
 from os import path
 import re
+
 
 def __emptyEmxTagTemplate__():
     """Empty Emx Tag Template
@@ -26,6 +25,7 @@ def __emptyEmxTagTemplate__():
         'relationLabel': 'isAssociatedWith',
         'relationIRI': 'http://molgenis.org#isAssociatedWith'
     }
+
 
 def buildEmxTags(attributes: list = []):
     """Build Emx Tags
@@ -118,53 +118,3 @@ def buildEmxTags(attributes: list = []):
                     d['codeSystem'] = name.split('_')[0]
                 data.append(d)
     return data
-
-#//////////////////////////////////////
-
-# ~ 1 ~
-# BUILD EMX1 MODEL
-# render model for EMX v1 Molgenis instances
-
-# build: main data model
-urdm = yamlemxconvert.Convert(
-    files = [
-        'emx/src/urdm_emx1.yaml',
-        'emx/src/urdm_lookups_emx1.yaml'
-    ]
-)
-
-urdm.convert()
-
-# rebuild build tags
-builtTags = urdm.tags
-builtTags.extend(buildEmxTags(urdm.packages))
-builtTags.extend(buildEmxTags(urdm.entities))
-builtTags.extend(buildEmxTags(urdm.attributes))
-builtTags = list({d['identifier']: d for d in builtTags}.values())
-urdm.tags = sorted(builtTags, key = lambda d: d['identifier'])
-
-urdm.write('urdm', format = 'xlsx', outDir = 'emx/dist/')
-urdm.write_schema('emx/schemas/urdm_schema.md')
-
-# urdm.packages
-# urdm.entities
-# urdm.attributes
-
-# ~ a ~
-# build: user management module
-# usersModule = yamlemxconvert.Convert(files = ['emx/src/module_approved_users.yaml'])
-# usersModule.convert()
-# usersModule.write('users', format = 'xlsx', outDir = 'emx/dist/')
-# usersModule.write_schema('emx/schemas/users_module_schema.md')
-
-# ~ b ~
-# build: jobs module
-# jobsModule = yamlemxconvert.Convert(
-#     files = [
-#         'emx/src/module_jobs.yaml',
-#         'emx/src/module_jobs_results.yaml'
-#     ]
-# )
-# jobsModule.convert()
-# jobsModule.write('jobs', format = 'xlsx', outDir = 'emx/dist')
-# jobsModule.write_schema('emx/schemas/jobs_module_schema.md')
