@@ -2,7 +2,7 @@
 # NAME: urdm_emx1.yaml
 # AUTHOR: david ruvolo
 # CREATED: 2021-11-09
-# MODIFIED: 2021-11-24
+# MODIFIED: 2021-11-26
 # PURPOSE: Unified Rare Disease Data Model lookups for EMX1
 # STATUS: maturing
 # COMMENTS: None
@@ -14,8 +14,8 @@ label: Lookups
 description: URDM Lookup tables
 parent: urdm
 tags: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
-version: 0.9.6
-date: 2021-11-25
+version: 0.9.7
+date: 2021-11-26
 
 # set attribute level defaults
 defaults:
@@ -122,6 +122,11 @@ entities:
   - name: dataUsePermissions
     description: Data Use Permissions (FAIR Genomes, v1.1)
     tags: http://purl.obolibrary.org/obo/DUO_0000001, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+    extends: urdm_lookups_attributeTemplateDefault
+    
+  - name: diagnosisConfirmationStatuses
+    description: The satisfactory closure of a data item query.
+    tags: http://purl.bioontology.org/ontology/SNOMEDCT/723506003, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: urdm_lookups_attributeTemplateDefault
     
   - name: diseases

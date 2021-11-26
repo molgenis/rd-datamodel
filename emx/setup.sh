@@ -1,7 +1,7 @@
 #//////////////////////////////////////////////////////////////////////////////
 # FILE: setup.sh
 # CREATED: 2021-11-10
-# MODIFIED: 2021-11-25
+# MODIFIED: 2021-11-26
 # STATUS: stable
 # PURPOSE: import URDM and assets into a new Molgenis instance
 # COMMENTS: start by cloning this repository
@@ -25,6 +25,7 @@ mcmd import -p emx/lookups/urdm_lookups_biospecimenType.csv
 mcmd import -p emx/lookups/urdm_lookups_country.csv
 mcmd import -p emx/lookups/urdm_lookups_dataUseModifiers.csv
 mcmd import -p emx/lookups/urdm_lookups_dataUsePermissions.csv
+mcmd import -p emx/lookups/urdm_lookups_diagnosisConfirmationStatuses.csv
 mcmd import -p emx/lookups/urdm_lookups_diseases.csv
 mcmd import -p emx/lookups/urdm_lookups_fileStatus.csv
 mcmd import -p emx/lookups/urdm_lookups_genomeAccessions.csv
