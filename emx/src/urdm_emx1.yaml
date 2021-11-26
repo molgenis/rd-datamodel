@@ -572,10 +572,9 @@ entities:
         description: The satisfactory closure of a data item query.
         tags: http://purl.bioontology.org/ontology/SNOMEDCT/723506003
 
-      # Maybe there is a better tag?
-      - name: dateResolved
+      - name: dateDiagnosisConfirmed
         dataType: date
-        description: The date (and time) when the adverse event ends or returns to baseline.
+        description: The particular day, month and year an event has happened or will happen.
         tags: http://purl.obolibrary.org/obo/NCIT_C25164
 
       - name: belongsToSample
