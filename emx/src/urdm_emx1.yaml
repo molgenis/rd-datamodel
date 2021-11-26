@@ -565,7 +565,6 @@ entities:
         description: Causal variant in HGVS notation with optional classification or free text explaining any other molecular mechanisms involved.
         tags: http://purl.obolibrary.org/obo/NCIT_C20826
 
-      # Maybe there is a better tag?
       - name: confirmationOfDiagnosis
         dataType: xref
         refEntity: urdm_lookups_diagnosisConfirmationStatuses
