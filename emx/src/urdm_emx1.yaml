@@ -565,11 +565,11 @@ entities:
         description: Causal variant in HGVS notation with optional classification or free text explaining any other molecular mechanisms involved.
         tags: http://purl.obolibrary.org/obo/NCIT_C20826
 
-      - name: confirmationOfDiagnosis
+      - name: statusOfDiagnosis
         dataType: xref
         refEntity: urdm_lookups_diagnosisConfirmationStatuses
-        description: The satisfactory closure of a data item query.
-        tags: http://purl.bioontology.org/ontology/SNOMEDCT/723506003
+        description: A condition or state at a particular time.
+        tags: http://purl.obolibrary.org/obo/NCIT_C25688
 
       - name: dateDiagnosisConfirmed
         dataType: date
