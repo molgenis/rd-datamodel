@@ -1,7 +1,7 @@
 value,description,codesystem,code,iri
 Cannot Be Assessed,"Aspects of the context prevent the evaluation needed to determine a value.",NCIT,C48657,http://purl.obolibrary.org/obo/NCIT_C48657
 Cannot Be Determined,"An indication that a reason or result cannot be established.",NCIT,C179711,http://purl.obolibrary.org/obo/NCIT_C179711
-Confirmed,"Having been established or verified.",NCIT,C25458,http://purl.obolibrary.org/obo/NCIT_C25458,
+Confirmed,"Having been established or verified.",NCIT,C25458,http://purl.obolibrary.org/obo/NCIT_C25458
 Incomplete,"Not whole; lacking some necessary part or detail; unfinished.",NCIT,C49160,http://purl.obolibrary.org/obo/NCIT_C49160
 Insufficient Information Available,"The information available relating to the reported event is not sufficient to identify either the manufacturer, the device, or other essential information.",NCIT,C139465,http://purl.obolibrary.org/obo/NCIT_C139465
 Insufficient Information to Classify Condition,"Not enough information available to classify the clinical signs, symptoms and conditions.",NCIT,C172137,http://purl.obolibrary.org/obo/NCIT_C172137,
