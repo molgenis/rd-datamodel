@@ -1201,6 +1201,11 @@ entities:
         description: A character or string that represents the full name of the laboratory assessment.
         tags: http://purl.obolibrary.org/obo/NCIT_C117142
       
+      - name: description
+        dataType: text
+        description: A written or verbal account, representation, statement, or explanation of something
+        tags: http://purl.obolibrary.org/obo/NCIT_C25365
+      
       - name: category
         description: A classification of the laboratory test.
         tags: http://purl.obolibrary.org/obo/NCIT_C83017
