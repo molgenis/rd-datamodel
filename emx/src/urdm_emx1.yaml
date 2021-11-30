@@ -647,6 +647,11 @@ entities:
       - name: belongsToRequest
         description: A sequence of letters, numbers, or other characters that specifically identifies a particular order.
         tags: http://purl.obolibrary.org/obo/NCIT_C164567
+        
+      - name: dateOfRequest
+        dataType: date
+        description: The date on which the activity or entity was ordered.
+        tags: http://purl.obolibrary.org/obo/NCIT_C164566
 
       - name: samplingReason
         dataType: mref

@@ -4,8 +4,8 @@
 
 | Name | Description | Parent |
 |:---- |:-----------|:------|
-| urdm | The Unified Rare Disease Model (URDM) for NGS data in research and healthcare (v0.9.6, 2021-11-25) | - |
-| urdm_lookups | URDM Lookup tables (v0.9.6, 2021-11-25) | urdm |
+| urdm | The Unified Rare Disease Model (URDM) for NGS data in research and healthcare (v0.9.7, 2021-11-26) | - |
+| urdm_lookups | URDM Lookup tables (v0.9.7, 2021-11-26) | urdm |
 
 ## Entities
 
@@ -32,6 +32,7 @@
 | country | Country (FAIR Genomes, v1.1) | urdm_lookups |
 | dataUseModifiers | A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used. | urdm_lookups |
 | dataUsePermissions | Data Use Permissions (FAIR Genomes, v1.1) | urdm_lookups |
+| diagnosisConfirmationStatuses | The satisfactory closure of a data item query. | urdm_lookups |
 | diseases | Diseases (FAIR Genomes, v1.1) | urdm_lookups |
 | fileStatus | The condition for an electronic file relative to the current data or file processing step. | urdm_lookups |
 | genomeAccessions | Genome Accessions (FAIR Genomes, v1.1) | urdm_lookups |
@@ -163,8 +164,8 @@ Findings and circumstances relating to the examination and treatment of a patien
 | clinicalDiagnosis | - | A diagnosis made from a study of the signs and symptoms of a disease. | mref |
 | molecularDiagnosis | - | Gene affected by pathogenic variation that is causal for disease of the patient. | mref |
 | molecularDiagnosisOther | - | Causal variant in HGVS notation with optional classification or free text explaining any other molecular mechanisms involved. | text |
-| resolved | - | The satisfactory closure of a data item query. | bool |
-| dateResolved | - | The date (and time) when the adverse event ends or returns to baseline. | date |
+| statusOfDiagnosis | - | A condition or state at a particular time. | xref |
+| dateDiagnosisConfirmed | - | The particular day, month and year an event has happened or will happen. | date |
 | belongsToSample | - | Name or other identifier of an entry from a biosample database. | mref |
 | belongsToDataRelease | - | The act of making data or other structured information accessible to the public or to the user group of a database. | mref |
 | recordMetadata | - | metadata is data that provides information about data. | compound |
@@ -183,6 +184,7 @@ A sample is a limited quantity of something (e.g. an individual or set of indivi
 | sampleID&#8251; | - | Name or other identifier of an entry from a biosample database. | string |
 | belongsToSubject | - | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
 | belongsToRequest | - | A sequence of letters, numbers, or other characters that specifically identifies a particular order. | string |
+| dateOfRequest | - | The date on which the activity or entity was ordered. | date |
 | samplingReason | - | The explanation for why a test, measurement, or assessment is executed. | mref |
 | samplingDate | - | The date that a sample was collected or obtained. | date |
 | samplingTimestamp | - | Date and time at which this material was collected. | datetime |
@@ -296,7 +298,6 @@ A group of individuals, identified by a common characteristic.
 | contactPerson | - | A person acting as a channel for communication between groups or on behalf of a group. | string |
 | contactEmail | - | An email address for the purpose of contacting the study contact person. | email |
 | sizeOfCohort | - | A subset of a larger population, selected for investigation to draw conclusions or make estimates about the larger population. | int |
-| belongsToStudy | - | Reference to the study or studies in which this person participates. | mref |
 | recordMetadata | - | metadata is data that provides information about data. | compound |
 | comments | - | A written explanation, observation or criticism added to textual material. | text |
 | dateRecordCreated | - | The date on which the activity or entity is created. | datetime |
@@ -312,6 +313,7 @@ Any procedure that involves testing or manipulating a sample of blood, urine, or
 |:---- |:-----|:-----------|:---------|
 | code&#8251; | - | A character or string that represents the short code name of the laboratory test. | string |
 | test | - | A character or string that represents the full name of the laboratory assessment. | string |
+| description | - | A written or verbal account, representation, statement, or explanation of something | text |
 | category | - | A classification of the laboratory test. | string |
 | subcategory | - | A sub-division of the laboratory test classification. | string |
 | geneList | - | A data set of the names or identifiers of genes that are the outcome of an analysis or have been put together for the purpose of an analysis. | text |
