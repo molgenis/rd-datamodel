@@ -185,7 +185,7 @@ A sample is a limited quantity of something (e.g. an individual or set of indivi
 | belongsToSubject | - | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
 | belongsToRequest | - | A sequence of letters, numbers, or other characters that specifically identifies a particular order. | string |
 | dateOfRequest | - | The date on which the activity or entity was ordered. | date |
-| samplingReason | - | The explanation for why a test, measurement, or assessment is executed. | mref |
+| reasonForSampling | - | The explanation for why a test, measurement, or assessment is executed. | mref |
 | samplingDate | - | The date that a sample was collected or obtained. | date |
 | samplingTimestamp | - | Date and time at which this material was collected. | datetime |
 | samplingProtocol | - | The procedure whereby this material was sampled for an analysis. | mref |
@@ -220,6 +220,7 @@ A sample preparation for a nucleic acids sequencing assay.
 | intendedInsertSize | - | In paired-end sequencing, the DNA between the adapter sequences is the insert. The length of this sequence is known as the insert size, not to be confused with the inner distance between reads. So, fragment length equals read adapter length (2x) plus insert size, and insert size equals read lenght (2x) plus inner distance. | int |
 | intendedReadLength | - | The number of nucleotides intended to be ordered from each side of a nucleic acid fragment obtained after the completion of a sequencing process. | int |
 | barcode | - | A machine-readable representation of information in a visual format on a surface. | string |
+| belongsToBatch | - | A quantity of people or things treated or regarded as a group, especially when subdivided from a larger group. | string |
 | belongsToDataRelease | - | The act of making data or other structured information accessible to the public or to the user group of a database. | mref |
 | recordMetadata | - | metadata is data that provides information about data. | compound |
 | comments | - | A written explanation, observation or criticism added to textual material. | text |
