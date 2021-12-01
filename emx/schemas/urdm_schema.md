@@ -20,7 +20,7 @@
 | sequencing | The determination of complete (typically nucleotide) sequences, including those of genomes (full genome sequencing, de novo sequencing and resequencing), amplicons and transcriptomes. | urdm |
 | files | A set of related records (either written or electronic) kept together. | urdm |
 | cohorts | A group of individuals, identified by a common characteristic. | urdm |
-| laboratoryProcedures | Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting. | urdm |
+| labProcedures | Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting. | urdm |
 | organizations | Organization information standardized to the Research Organization Registry (ROR) | urdm |
 | releases | The act of making data or other structured information accessible to the public or to the user group of a database. | urdm |
 | samplingProtocols | Describes the procedure whereby biological samples for an experiment are sourced. | urdm |
@@ -236,7 +236,7 @@ The determination of complete (typically nucleotide) sequences, including those 
 | Name | Label | Description | Data Type |
 |:---- |:-----|:-----------|:---------|
 | sequencingID&#8251; | - | A unique proper name or character sequence that identifies this particular nucleic acid sequencing assay. | string |
-| belongsTolabProcedure | - | Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting. | xref |
+| belongsToLabProcedure | - | Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting. | xref |
 | belongsToSamplePreparation | - | A unique proper name or character sequence that identifies this particular sample preparation. | xref |
 | sequencingDate | - | Date on which this sequencing assay was performed. | date |
 | sequencingFacilityOrganization | - | An organization that provides sequence determination service | xref |
@@ -306,7 +306,7 @@ A group of individuals, identified by a common characteristic.
 | dateRecordUpdated | - | The date (and time) on which report was updated after it had been submitted. | datetime |
 | wasUpdatedBy | - | An entity which is updated by another entity or an agent. | string |
 
-### Entity: urdm_laboratoryProcedures
+### Entity: urdm_labProcedures
 
 Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting.
 

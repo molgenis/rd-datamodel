@@ -875,9 +875,9 @@ entities:
         description: A unique proper name or character sequence that identifies this particular nucleic acid sequencing assay.
         tags: http://purl.obolibrary.org/obo/NCIT_C171337
         
-      - name: belongsTolabProcedure
+      - name: belongsToLabProcedure
         dataType: xref
-        refEntity: urdm_laboratoryProcedures
+        refEntity: urdm_labProcedures
         description: Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting.
         tags: http://purl.obolibrary.org/obo/NCIT_C25294
 
@@ -1192,8 +1192,8 @@ entities:
   
   #////////////////////////////////////////////////////////////////////////////
   
-  # @name urdm_laboratoryProcedures
-  - name: laboratoryProcedures
+  # @name urdm_labProcedures
+  - name: labProcedures
     label: Laboratory Procedures
     description: Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting.
     tags: http://purl.obolibrary.org/obo/NCIT_C25294, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
