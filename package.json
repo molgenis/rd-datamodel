@@ -11,7 +11,8 @@
     "m:config": "dotenv cross-var mcmd config set host %MOLGENIS_HOST%",
     "m:predeploy": "mcmd delete -p urdm",
     "m:deploy": "sh emx/setup.sh",
-    "m:postdeploy": "mcmd import -p data/demo/urdm_demo.xlsx --as urdm && mcmd make --role ANONYMOUS urdm_VIEWER && mcmd give anonymous view sys_md",
+    "m:postdeploy": "mcmd make --role ANONYMOUS urdm_VIEWER && mcmd give anonymous view sys_md",
+    "m:demo": "mcmd import -p data/demo/urdm_demo.xlsx --as urdm",
     "test": "python3 tests/tests_emx_check.py"
   },
   "devDependencies": {
