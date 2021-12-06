@@ -2,7 +2,7 @@
 # NAME: urdm_emx1.yaml
 # AUTHOR: david ruvolo
 # CREATED: 2021-11-08
-# MODIFIED: 2021-12-01
+# MODIFIED: 2021-12-06
 # PURPOSE: Unified Rare Disease Data Model for EMX1
 # STATUS: maturing
 # COMMENTS:
@@ -36,7 +36,7 @@ name: urdm
 label: Unified Rare Disease Model
 description: The Unified Rare Disease Model (URDM) for NGS data in research and healthcare
 version: 0.9.7
-date: 2021-11-26
+date: 2021-12-06
 tags: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
 
 # define tags (the rest are added at build time)
@@ -886,6 +886,12 @@ entities:
         refEntity: urdm_samplePreparation
         description: A unique proper name or character sequence that identifies this particular sample preparation.
         tags: http://purl.obolibrary.org/obo/NCIT_C132299
+        
+      - name: reasonForSequencing
+        dataType: xref
+        refEntity: urdm_samplePreparation
+        description: A rationale for executing a plan of action.
+        tags: http://purl.obolibrary.org/obo/NCIT_C69216
 
       - name: sequencingDate
         dataType: date
