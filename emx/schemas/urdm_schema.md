@@ -4,7 +4,7 @@
 
 | Name | Description | Parent |
 |:---- |:-----------|:------|
-| urdm | The Unified Rare Disease Model (URDM) for NGS data in research and healthcare (v0.9.7, 2021-11-26) | - |
+| urdm | The Unified Rare Disease Model (URDM) for NGS data in research and healthcare (v0.9.7, 2021-12-06) | - |
 | urdm_lookups | URDM Lookup tables (v0.9.7, 2021-11-26) | urdm |
 
 ## Entities
@@ -238,6 +238,7 @@ The determination of complete (typically nucleotide) sequences, including those 
 | sequencingID&#8251; | - | A unique proper name or character sequence that identifies this particular nucleic acid sequencing assay. | string |
 | belongsToLabProcedure | - | Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting. | xref |
 | belongsToSamplePreparation | - | A unique proper name or character sequence that identifies this particular sample preparation. | xref |
+| reasonForSequencing | - | A rationale for executing a plan of action. | xref |
 | sequencingDate | - | Date on which this sequencing assay was performed. | date |
 | sequencingFacilityOrganization | - | An organization that provides sequence determination service | xref |
 | sequencingPlatform | - | The used sequencing platform (i.e. brand, name of a company that produces sequencer equipment). | xref |

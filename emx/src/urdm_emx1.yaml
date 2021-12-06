@@ -889,7 +889,7 @@ entities:
         
       - name: reasonForSequencing
         dataType: xref
-        refEntity: urdm_samplePreparation
+        refEntity: urdm_lookups_samplingReason
         description: A rationale for executing a plan of action.
         tags: http://purl.obolibrary.org/obo/NCIT_C69216
 
