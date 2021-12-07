@@ -2,9 +2,9 @@
 #' FILE: emx.py
 #' AUTHOR: David Ruvolo
 #' CREATED: 2021-10-19
-#' MODIFIED: 2021-11-19
+#' MODIFIED: 2021-12-07
 #' PURPOSE: compile and build EMX files
-#' STATUS: working; ongoing
+#' STATUS: stabe
 #' PACKAGES: emxconvert
 #' COMMENTS: NA
 #'////////////////////////////////////////////////////////////////////////////
@@ -29,13 +29,9 @@ def __emptyEmxTagTemplate__():
 
 def buildEmxTags(attributes: list = []):
     """Build Emx Tags
-    
     At the attribute level, collate all tags from the `tags` property and
     transform into EMX format.
-    
-    ATTRIBUTES:
-        attributes (list) : the post-converted emx object `attributes` 
-        
+    @param attributes (list) : the post-converted emx object `attributes` 
     """
     rawTags = []
     for attr in attributes:
@@ -126,29 +122,25 @@ def buildEmxTags(attributes: list = []):
 # render model for EMX v1 Molgenis instances
 
 # build: main data model
-urdm = yamlemxconvert.Convert(
+umdm = yamlemxconvert.Convert(
     files = [
-        'emx/src/urdm_emx1.yaml',
-        'emx/src/urdm_lookups_emx1.yaml'
+        'emx/src/umdm_emx1.yaml',
+        'emx/src/umdm_lookups_emx1.yaml'
     ]
 )
 
-urdm.convert()
+umdm.convert()
 
 # rebuild build tags
-builtTags = urdm.tags
-builtTags.extend(buildEmxTags(urdm.packages))
-builtTags.extend(buildEmxTags(urdm.entities))
-builtTags.extend(buildEmxTags(urdm.attributes))
+builtTags = umdm.tags
+builtTags.extend(buildEmxTags(umdm.packages))
+builtTags.extend(buildEmxTags(umdm.entities))
+builtTags.extend(buildEmxTags(umdm.attributes))
 builtTags = list({d['identifier']: d for d in builtTags}.values())
-urdm.tags = sorted(builtTags, key = lambda d: d['identifier'])
+umdm.tags = sorted(builtTags, key = lambda d: d['identifier'])
 
-urdm.write('urdm', format = 'xlsx', outDir = 'emx/dist/')
-urdm.write_schema('emx/schemas/urdm_schema.md')
-
-# urdm.packages
-# urdm.entities
-# urdm.attributes
+umdm.write('umdm', format = 'xlsx', outDir = 'emx/dist/')
+umdm.write_schema('emx/schemas/umdm_schema.md')
 
 # ~ a ~
 # build: user management module
