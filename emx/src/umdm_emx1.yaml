@@ -772,6 +772,16 @@ entities:
         refEntity: umdm_samples
         description: Name or other identifier of an entry from a biosample database.
         tags: http://purl.obolibrary.org/obo/NCIT_C93400
+      
+      - name: belongsToLabProcedure
+        dataType: xref
+        refEntity: umdm_labProcedures
+        description: Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting.
+        tags: http://purl.obolibrary.org/obo/NCIT_C25294
+      
+      - name: belongsToRequest
+        description: A sequence of letters, numbers, or other characters that specifically identifies a particular order.
+        tags: http://purl.obolibrary.org/obo/NCIT_C164567
 
       - name: inputAmount
         dataType: int

@@ -41,7 +41,7 @@ for node in nodeset:
     if node['type'] == 'CLASS':
         hpo.append({
             'value': node.get('lbl'),
-            'definition': node.get('meta', {}).get('definition',{}).get('val', None),
+            'description': node.get('meta', {}).get('definition',{}).get('val', None),
             'codesystem': re.sub(r'([0-9\_])', '', os.path.basename(node['id'])),
             'code': re.sub('_', ':', os.path.basename(node['id'])),
             'iri': node.get('id')

@@ -212,6 +212,8 @@ A sample preparation for a nucleic acids sequencing assay.
 |:---- |:-----|:-----------|:---------|
 | sampleID&#8251; | - | A unique proper name or character sequence that identifies this particular sample preparation. | string |
 | belongsToSample | - | Name or other identifier of an entry from a biosample database. | xref |
+| belongsToLabProcedure | - | Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting. | xref |
+| belongsToRequest | - | A sequence of letters, numbers, or other characters that specifically identifies a particular order. | string |
 | inputAmount | - | Amount of input material in nanogram (ng). | int |
 | libraryPreparationKit | - | Pre-filled, ready-to-use reagent cartridges intented to improve chemistry, cluster density and read length as well as improve quality (Q) scores for this sample. Reagent components are encoded to interact with the sequencing system to validate compatibility with user-defined applications. | xref |
 | pcrFree | - | Indicates whether a polymerase chain reaction (PCR) was used to prepare this sample. PCR is a method for amplifying a DNA base sequence using multiple rounds of heat denaturation of the DNA and annealing of oligonucleotide primers complementary to flanking regions in the presence of a heat-stable polymerase. | bool |
