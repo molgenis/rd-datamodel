@@ -2,7 +2,7 @@
 #' FILE: tests_emx_check.py
 #' AUTHOR: David Ruvolo
 #' CREATED: 2021-11-25
-#' MODIFIED: 2021-11-25
+#' MODIFIED: 2021-12-07
 #' PURPOSE: class for unit testing
 #' STATUS: stable
 #' PACKAGES: NA
@@ -134,4 +134,4 @@ def checkEmxStructure(file: str = None):
 #//////////////////////////////////////////////////////////////////////////////
 
 # Test Emx Structure
-checkEmxStructure(file = './emx/src/urdm_emx1.yaml')
+checkEmxStructure(file = './emx/src/umdm_emx1.yaml')

@@ -93,7 +93,7 @@ for file in repo:
 for f in files:
     print('Downloading file: {}'.format(f['name']))
     raw = pd.read_csv(f['download_url'], sep='\t', dtype=str, keep_default_na=False)
-    path = 'emx/lookups/urdm_lookups_{}.csv'.format(filesToDownload[f['name']])
+    path = 'emx/lookups/umdm_lookups_{}.csv'.format(filesToDownload[f['name']])
     # if f['name'] not in ['Countries.txt']:
     #     raw = raw.append(pd.DataFrame(data = nullFlavors))
     raw.to_csv(path, index=False)
