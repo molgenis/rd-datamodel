@@ -11,9 +11,11 @@
     "m:config": "dotenv cross-var mcmd config set host %MOLGENIS_HOST%",
     "m:predeploy": "mcmd delete -p umdm",
     "m:deploy": "sh emx/setup.sh",
-    "m:postdeploy": "mcmd make --role ANONYMOUS urdm_VIEWER && mcmd give anonymous view sys_md",
-    "m:demo": "mcmd import -p data/demo/umdm_demo.xlsx --as urdm",
-    "test": "python3 tests/tests_emx_check.py"
+    "m:postdeploy": "mcmd make --role ANONYMOUS umdm_VIEWER && mcmd give anonymous view sys_md",
+    "m:demo": "mcmd import -p data/demo/umdm_demo.xlsx --as umdm",
+    "test": "python3 tests/tests_emx_check.py",
+    "zip": "zip -r -j _exclude/umdm.zip emx/dist/umdm.xlsx emx/lookups/*",
+    "zip:mv": "dotenv cross-var mv _exclude/umdm.zip %ZIP_LOCATION%"
   },
   "devDependencies": {
     "cross-var": "^1.1.0",
