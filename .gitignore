@@ -141,3 +141,6 @@ dmypy.json
 cython_debug/
 
 _exclude
+.env
+
+node_modules

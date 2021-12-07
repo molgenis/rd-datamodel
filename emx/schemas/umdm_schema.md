@@ -4,55 +4,55 @@
 
 | Name | Description | Parent |
 |:---- |:-----------|:------|
-| urdm | The Unified Rare Disease Model (URDM) for NGS data in research and healthcare (v0.9.7, 2021-12-06) | - |
-| urdm_lookups | URDM Lookup tables (v0.9.7, 2021-11-26) | urdm |
+| umdm | The Unified Molgenis Data Model (UMDM) for NGS data in research and healthcare (v1.0.0, 2021-12-07) | - |
+| umdm_lookups | Lookup tables for the Unified Molgenis Data Model (UMDM) (v1.0.0, 2021-12-07) | umdm |
 
 ## Entities
 
 | Name | Description | Package |
 |:---- |:-----------|:-------|
-| subjects | Persons who are observed, analyzed, examined, investigated, experimented upon, or/and treated in the course of a particular study | urdm |
-| studies | A detailed examination, analysis, or critical inspection of one or multiple subjects designed to discover facts. | urdm |
-| consent | Consent given by a patient to a surgical or medical procedure or participation in a study, examination or analysis after achieving an understanding of the relevant medical facts and the risks involved. | urdm |
-| clinical | Findings and circumstances relating to the examination and treatment of a patient. | urdm |
-| samples | A sample is a limited quantity of something (e.g. an individual or set of individuals from a population, or a portion of a material) to be used for testing, analysis, inspection, investigation, demonstration, or trial use. | urdm |
-| samplePreparation | A sample preparation for a nucleic acids sequencing assay. | urdm |
-| sequencing | The determination of complete (typically nucleotide) sequences, including those of genomes (full genome sequencing, de novo sequencing and resequencing), amplicons and transcriptomes. | urdm |
-| files | A set of related records (either written or electronic) kept together. | urdm |
-| cohorts | A group of individuals, identified by a common characteristic. | urdm |
-| labProcedures | Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting. | urdm |
-| organizations | Organization information standardized to the Research Organization Registry (ROR) | urdm |
-| releases | The act of making data or other structured information accessible to the public or to the user group of a database. | urdm |
-| samplingProtocols | Describes the procedure whereby biological samples for an experiment are sourced. | urdm |
-| attributeTemplateDefault | attribute template where value is the primary key | urdm_lookups |
-| attributeTemplateCode | attribute template where code is the primary key | urdm_lookups |
-| anatomicalSource | Anatomical Source (FAIR Genomes, v1.1) | urdm_lookups |
-| ancestry | Ancestry (FAIR Genomes, v1.1) | urdm_lookups |
-| biospecimenType | Biospecimen Type (FAIR Genomes, v1.1) | urdm_lookups |
-| country | Country (FAIR Genomes, v1.1) | urdm_lookups |
-| dataUseModifiers | A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used. | urdm_lookups |
-| dataUsePermissions | Data Use Permissions (FAIR Genomes, v1.1) | urdm_lookups |
-| diagnosisConfirmationStatuses | The satisfactory closure of a data item query. | urdm_lookups |
-| diseases | Diseases (FAIR Genomes, v1.1) | urdm_lookups |
-| fileStatus | The condition for an electronic file relative to the current data or file processing step. | urdm_lookups |
-| genomeAccessions | Genome Accessions (FAIR Genomes, v1.1) | urdm_lookups |
-| genotypicSex | Genotypic Sex (FAIR Genomes, v1.1) | urdm_lookups |
-| inclusionCriteria | Inclusion Criteria (FAIR Genomes, v1.1) | urdm_lookups |
-| molecularDiagnosis | Molecular Diagnosis (FAIR Genomes, v1.1) | urdm_lookups |
-| ngsKits | NGS Kits (FAIR Genomes, v1.1) | urdm_lookups |
-| pathologicalState | pathological state (FAIR Genomes, v1.1) | urdm_lookups |
-| phenotype | Human Phenotype Ontology (HPO, v2021-08-02) | urdm_lookups |
-| phenotypicSex | phenotypic sex (FAIR Genomes, v1.1) | urdm_lookups |
-| samplingReason | The explanation for why a test, measurement, or assessment is executed. | urdm_lookups |
-| sequencingInstrumentModels | Sequencing instrument models (FAIR Genomes, v1.1) | urdm_lookups |
-| sequencingMethods | Sequencing methods (FAIR Genomes, v1.1) | urdm_lookups |
-| sequencingPlatform | Sequencing platforms (FAIR Genomes, v1.1) | urdm_lookups |
-| studyStatus | The status of a study or trial. | urdm_lookups |
-| subjectStatus | A findings domain that contains general subject characteristics that are evaluated periodically to determine if they have changed. | urdm_lookups |
+| subjects | Persons who are observed, analyzed, examined, investigated, experimented upon, or/and treated in the course of a particular study | umdm |
+| studies | A detailed examination, analysis, or critical inspection of one or multiple subjects designed to discover facts. | umdm |
+| consent | Consent given by a patient to a surgical or medical procedure or participation in a study, examination or analysis after achieving an understanding of the relevant medical facts and the risks involved. | umdm |
+| clinical | Findings and circumstances relating to the examination and treatment of a patient. | umdm |
+| samples | A sample is a limited quantity of something (e.g. an individual or set of individuals from a population, or a portion of a material) to be used for testing, analysis, inspection, investigation, demonstration, or trial use. | umdm |
+| samplePreparation | A sample preparation for a nucleic acids sequencing assay. | umdm |
+| sequencing | The determination of complete (typically nucleotide) sequences, including those of genomes (full genome sequencing, de novo sequencing and resequencing), amplicons and transcriptomes. | umdm |
+| files | A set of related records (either written or electronic) kept together. | umdm |
+| cohorts | A group of individuals, identified by a common characteristic. | umdm |
+| labProcedures | Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting. | umdm |
+| organizations | Organization information standardized to the Research Organization Registry (ROR) | umdm |
+| releases | The act of making data or other structured information accessible to the public or to the user group of a database. | umdm |
+| samplingProtocols | Describes the procedure whereby biological samples for an experiment are sourced. | umdm |
+| attributeTemplateDefault | attribute template where value is the primary key | umdm_lookups |
+| attributeTemplateCode | attribute template where code is the primary key | umdm_lookups |
+| anatomicalSource | Anatomical Source (FAIR Genomes, v1.1) | umdm_lookups |
+| ancestry | Ancestry (FAIR Genomes, v1.1) | umdm_lookups |
+| biospecimenType | Biospecimen Type (FAIR Genomes, v1.1) | umdm_lookups |
+| country | Country (FAIR Genomes, v1.1) | umdm_lookups |
+| dataUseModifiers | A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used. | umdm_lookups |
+| dataUsePermissions | Data Use Permissions (FAIR Genomes, v1.1) | umdm_lookups |
+| diagnosisConfirmationStatuses | The satisfactory closure of a data item query. | umdm_lookups |
+| diseases | Diseases (FAIR Genomes, v1.1) | umdm_lookups |
+| fileStatus | The condition for an electronic file relative to the current data or file processing step. | umdm_lookups |
+| genomeAccessions | Genome Accessions (FAIR Genomes, v1.1) | umdm_lookups |
+| genotypicSex | Genotypic Sex (FAIR Genomes, v1.1) | umdm_lookups |
+| inclusionCriteria | Inclusion Criteria (FAIR Genomes, v1.1) | umdm_lookups |
+| molecularDiagnosis | Molecular Diagnosis (FAIR Genomes, v1.1) | umdm_lookups |
+| ngsKits | NGS Kits (FAIR Genomes, v1.1) | umdm_lookups |
+| pathologicalState | pathological state (FAIR Genomes, v1.1) | umdm_lookups |
+| phenotype | Human Phenotype Ontology (HPO, v2021-08-02) | umdm_lookups |
+| phenotypicSex | phenotypic sex (FAIR Genomes, v1.1) | umdm_lookups |
+| samplingReason | The explanation for why a test, measurement, or assessment is executed. | umdm_lookups |
+| sequencingInstrumentModels | Sequencing instrument models (FAIR Genomes, v1.1) | umdm_lookups |
+| sequencingMethods | Sequencing methods (FAIR Genomes, v1.1) | umdm_lookups |
+| sequencingPlatform | Sequencing platforms (FAIR Genomes, v1.1) | umdm_lookups |
+| studyStatus | The status of a study or trial. | umdm_lookups |
+| subjectStatus | A findings domain that contains general subject characteristics that are evaluated periodically to determine if they have changed. | umdm_lookups |
 
 ## Attributes
 
-### Entity: urdm_subjects
+### Entity: umdm_subjects
 
 Persons who are observed, analyzed, examined, investigated, experimented upon, or/and treated in the course of a particular study
 
@@ -93,7 +93,7 @@ Persons who are observed, analyzed, examined, investigated, experimented upon, o
 | dateRecordUpdated | - | The date (and time) on which report was updated after it had been submitted. | datetime |
 | wasUpdatedBy | - | An entity which is updated by another entity or an agent. | string |
 
-### Entity: urdm_studies
+### Entity: umdm_studies
 
 A detailed examination, analysis, or critical inspection of one or multiple subjects designed to discover facts.
 
@@ -120,7 +120,7 @@ A detailed examination, analysis, or critical inspection of one or multiple subj
 | dateRecordUpdated | - | The date (and time) on which report was updated after it had been submitted. | datetime |
 | wasUpdatedBy | - | An entity which is updated by another entity or an agent. | string |
 
-### Entity: urdm_consent
+### Entity: umdm_consent
 
 Consent given by a patient to a surgical or medical procedure or participation in a study, examination or analysis after achieving an understanding of the relevant medical facts and the risks involved.
 
@@ -146,7 +146,7 @@ Consent given by a patient to a surgical or medical procedure or participation i
 | dateRecordUpdated | - | The date (and time) on which report was updated after it had been submitted. | datetime |
 | wasUpdatedBy | - | An entity which is updated by another entity or an agent. | string |
 
-### Entity: urdm_clinical
+### Entity: umdm_clinical
 
 Findings and circumstances relating to the examination and treatment of a patient.
 
@@ -175,7 +175,7 @@ Findings and circumstances relating to the examination and treatment of a patien
 | dateRecordUpdated | - | The date (and time) on which report was updated after it had been submitted. | datetime |
 | wasUpdatedBy | - | An entity which is updated by another entity or an agent. | string |
 
-### Entity: urdm_samples
+### Entity: umdm_samples
 
 A sample is a limited quantity of something (e.g. an individual or set of individuals from a population, or a portion of a material) to be used for testing, analysis, inspection, investigation, demonstration, or trial use.
 
@@ -204,7 +204,7 @@ A sample is a limited quantity of something (e.g. an individual or set of indivi
 | dateRecordUpdated | - | The date (and time) on which report was updated after it had been submitted. | datetime |
 | wasUpdatedBy | - | An entity which is updated by another entity or an agent. | string |
 
-### Entity: urdm_samplePreparation
+### Entity: umdm_samplePreparation
 
 A sample preparation for a nucleic acids sequencing assay.
 
@@ -229,7 +229,7 @@ A sample preparation for a nucleic acids sequencing assay.
 | dateRecordUpdated | - | The date (and time) on which report was updated after it had been submitted. | datetime |
 | wasUpdatedBy | - | An entity which is updated by another entity or an agent. | string |
 
-### Entity: urdm_sequencing
+### Entity: umdm_sequencing
 
 The determination of complete (typically nucleotide) sequences, including those of genomes (full genome sequencing, de novo sequencing and resequencing), amplicons and transcriptomes.
 
@@ -259,7 +259,7 @@ The determination of complete (typically nucleotide) sequences, including those 
 | dateRecordUpdated | - | The date (and time) on which report was updated after it had been submitted. | datetime |
 | wasUpdatedBy | - | An entity which is updated by another entity or an agent. | string |
 
-### Entity: urdm_files
+### Entity: umdm_files
 
 A set of related records (either written or electronic) kept together.
 
@@ -286,7 +286,7 @@ A set of related records (either written or electronic) kept together.
 | dateRecordUpdated | - | The date (and time) on which report was updated after it had been submitted. | datetime |
 | wasUpdatedBy | - | An entity which is updated by another entity or an agent. | string |
 
-### Entity: urdm_cohorts
+### Entity: umdm_cohorts
 
 A group of individuals, identified by a common characteristic.
 
@@ -307,7 +307,7 @@ A group of individuals, identified by a common characteristic.
 | dateRecordUpdated | - | The date (and time) on which report was updated after it had been submitted. | datetime |
 | wasUpdatedBy | - | An entity which is updated by another entity or an agent. | string |
 
-### Entity: urdm_labProcedures
+### Entity: umdm_labProcedures
 
 Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting.
 
@@ -320,7 +320,7 @@ Any procedure that involves testing or manipulating a sample of blood, urine, or
 | subcategory | - | A sub-division of the laboratory test classification. | string |
 | geneList | - | A data set of the names or identifiers of genes that are the outcome of an analysis or have been put together for the purpose of an analysis. | text |
 
-### Entity: urdm_organizations
+### Entity: umdm_organizations
 
 Organization information standardized to the Research Organization Registry (ROR)
 
@@ -332,7 +332,7 @@ Organization information standardized to the Research Organization Registry (ROR
 | code | - | A symbol or combination of symbols which is assigned to the members of a collection. | string |
 | iri | - | A unique symbol that establishes identity of the resource. | hyperlink |
 
-### Entity: urdm_releases
+### Entity: umdm_releases
 
 The act of making data or other structured information accessible to the public or to the user group of a database.
 
@@ -347,7 +347,7 @@ The act of making data or other structured information accessible to the public 
 | dataSource | - | The person or authoritative body who provided the information. | string |
 | releaseComments | - | A notation regarding the decisions, and/or clarification of any information pertaining to data management. | text |
 
-### Entity: urdm_samplingProtocols
+### Entity: umdm_samplingProtocols
 
 Describes the procedure whereby biological samples for an experiment are sourced.
 
@@ -359,7 +359,7 @@ Describes the procedure whereby biological samples for an experiment are sourced
 | version | - | A form or variant of a type or original; one of a sequence of copies of a program, each incorporating new modifications. | string |
 | iri | - | A unique symbol that establishes identity of the resource. | hyperlink |
 
-### Entity: urdm_lookups_attributeTemplateDefault
+### Entity: umdm_lookups_attributeTemplateDefault
 
 attribute template where value is the primary key
 
@@ -371,7 +371,7 @@ attribute template where value is the primary key
 | code | - | A symbol or combination of symbols which is assigned to the members of a collection. | string |
 | iri | - | A unique symbol that establishes identity of the resource. | hyperlink |
 
-### Entity: urdm_lookups_attributeTemplateCode
+### Entity: umdm_lookups_attributeTemplateCode
 
 attribute template where code is the primary key
 

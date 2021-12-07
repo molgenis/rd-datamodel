@@ -1,7 +1,8 @@
 #//////////////////////////////////////////////////////////////////////////////
 # FILE: setup.sh
 # CREATED: 2021-11-10
-# MODIFIED: 2021-11-19
+# MODIFIED: 2021-12-07
+# STATUS: stable
 # PURPOSE: import URDM and assets into a new Molgenis instance
 # COMMENTS: start by cloning this repository
 #//////////////////////////////////////////////////////////////////////////////
@@ -17,33 +18,36 @@
 
 # ~ 2 ~
 # Import URDM and assets
-mcmd import -p emx/dist/urdm.xlsx
-mcmd import -p emx/lookups/urdm_lookups_anatomicalSource.csv
-mcmd import -p emx/lookups/urdm_lookups_ancestry.csv
-mcmd import -p emx/lookups/urdm_lookups_biospecimenType.csv
-mcmd import -p emx/lookups/urdm_lookups_country.csv
-mcmd import -p emx/lookups/urdm_lookups_dataUsePermissions.csv
-mcmd import -p emx/lookups/urdm_lookups_diseases.csv
-mcmd import -p emx/lookups/urdm_lookups_genomeAccessions.csv
-mcmd import -p emx/lookups/urdm_lookups_genotypicSex.csv
-mcmd import -p emx/lookups/urdm_lookups_inclusionCriteria.csv
-mcmd import -p emx/lookups/urdm_lookups_inclusionStatus.csv
-mcmd import -p emx/lookups/urdm_lookups_labIndication.csv
-mcmd import -p emx/lookups/urdm_lookups_ngsKits.csv
-mcmd import -p emx/lookups/urdm_lookups_pathologicalState.csv
-mcmd import -p emx/lookups/urdm_lookups_phenotype.csv
-mcmd import -p emx/lookups/urdm_lookups_phenotypicSex.csv
-mcmd import -p emx/lookups/urdm_lookups_sequencingInstrumentModels.csv
-mcmd import -p emx/lookups/urdm_lookups_sequencingMethods.csv
-mcmd import -p emx/lookups/urdm_lookups_sequencingPlatform.csv
-mcmd import -p emx/lookups/urdm_lookups_studyStatus.csv
+mcmd import -p emx/dist/umdm.xlsx
+mcmd import -p emx/lookups/umdm_lookups_anatomicalSource.csv
+mcmd import -p emx/lookups/umdm_lookups_ancestry.csv
+mcmd import -p emx/lookups/umdm_lookups_biospecimenType.csv
+mcmd import -p emx/lookups/umdm_lookups_country.csv
+mcmd import -p emx/lookups/umdm_lookups_dataUseModifiers.csv
+mcmd import -p emx/lookups/umdm_lookups_dataUsePermissions.csv
+mcmd import -p emx/lookups/umdm_lookups_diagnosisConfirmationStatuses.csv
+mcmd import -p emx/lookups/umdm_lookups_diseases.csv
+mcmd import -p emx/lookups/umdm_lookups_fileStatus.csv
+mcmd import -p emx/lookups/umdm_lookups_genomeAccessions.csv
+mcmd import -p emx/lookups/umdm_lookups_genotypicSex.csv
+mcmd import -p emx/lookups/umdm_lookups_inclusionCriteria.csv
+mcmd import -p emx/lookups/umdm_lookups_ngsKits.csv
+mcmd import -p emx/lookups/umdm_lookups_pathologicalState.csv
+mcmd import -p emx/lookups/umdm_lookups_phenotype.csv
+mcmd import -p emx/lookups/umdm_lookups_phenotypicSex.csv
+mcmd import -p emx/lookups/umdm_lookups_samplingReason.csv
+mcmd import -p emx/lookups/umdm_lookups_sequencingInstrumentModels.csv
+mcmd import -p emx/lookups/umdm_lookups_sequencingMethods.csv
+mcmd import -p emx/lookups/umdm_lookups_sequencingPlatform.csv
+mcmd import -p emx/lookups/umdm_lookups_studyStatus.csv
+mcmd import -p emx/lookups/umdm_lookups_subjectStatus.csv
 
 # Optional: create demo
-# mcmd import -p data/demo/urdm_demo.xlsx --as urdm
-# mcmd make --role ANONYMOUS urdm_VIEWER
+# mcmd import -p data/demo/umdm_demo.xlsx --as umdm
+# mcmd make --role ANONYMOUS umdm_VIEWER
 # mcmd give anonymous view sys_md
 
-# mcmd delete -p urdm # completing remove package
+# mcmd delete -p umdm # completing remove package
 
 # Optional: URDM modules
 # mcmd import -p emx/dist/jobs.xlsx   # module for tracking jobs
