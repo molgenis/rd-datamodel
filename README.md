@@ -2,7 +2,7 @@
 
 Welcome! The Unified Molgenis Data Model &mdash;or UMDM&mdash; is a *plug and play* [Molgenis EMX](https://molgenis.gitbook.io/molgenis/data-management/guide-emx) model for collating metadata on patients and samples, analyses that were performed on the samples, and files that were generated. The model comprises several modules built on the [FAIR data principles](https://www.go-fair.org/fair-principles/) and the [FAIR Genomes Semantic Model](https://github.com/fairgenomes/fairgenomes-semantic-model). The module system enables the model to be adapted for research or care contexts.
 
-Download the [latest version of the model](https://github.com/molgenis/rd-datamodel/blob/main/emx/dist/umdm.xlsx) or [view the model schema](https://github.com/molgenis/rd-datamodel/blob/main/emx/schemas/urdm_schema.md) to see what's in the model.
+Download the [latest version of the model](https://github.com/molgenis/rd-datamodel/blob/main/emx/dist/umdm.xlsx) or [view the model schema](https://github.com/molgenis/rd-datamodel/blob/main/emx/schemas/umdm_schema.md) to see what's in the model.
 
 ## Features
 
