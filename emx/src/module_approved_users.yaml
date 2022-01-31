@@ -2,7 +2,7 @@
 # NAME: module_approved_users.yaml
 # AUTHOR: @dcruvolo
 # CREATED: 2021-10-21
-# MODIFIED: 2021-10-21
+# MODIFIED: 2022-01-31
 # PURPOSE: EMX for user management module in Molgenis databases
 # COMMENTS: The purpose of this model is to create a reusable EMX package for
 # managing approved users for a Molgenis database. This may be useful for
@@ -16,10 +16,11 @@
 
 # Define Package Structure
 name: users
-label: User Management
+label: System Users
 description: List of approved users
-date: 2021-10-21
-version: 1.0.0
+tags: http://purl.obolibrary.org/obo/NCIT_C42745
+date: 2022-01-31
+version: 1.1.0
 
 
 # Set attribute level defaults
@@ -34,122 +35,135 @@ defaults:
 # Define Entities in the package Users
 entities:
 
-  # @title Approved Users
+  # @title System Users
   # @description Metadata about active and deactivated users
   - name: users
-    label: Users
-    description: Metadata about the user including access levels
+    label: System Users
+    description: An individual who uses a computer, program, network, or related service for work or entertainment.
+    tags: http://purl.obolibrary.org/obo/NCIT_C42745
     attributes:
       - name: email
         label: Email
-        description: email address that was used to activate the user account
+        description: A valid email address of an end-user.
+        tags: http://edamontology.org/data_1691
         idAttribute: true
         dataType: email
         lookupAttribute: true
         labelAttribute: true
         nillable: false
+        
+      - name: username
+        label: User Name
+        description: A person's identification on an individual computer system.
+        tags: http://purl.obolibrary.org/obo/GSSO_007226
+
       - name: firstname
         label: First Name
+        description: A word or group of words indicating a person's first (personal or given) name; the name that precedes the surname.
+        tags: http://purl.obolibrary.org/obo/NCIT_C40974
         nillable: false
+
       - name: lastname
         label: Last Name
+        description: A word or group of words indicating a person's last (family) name.
+        tags: http://purl.obolibrary.org/obo/NCIT_C40975
         nillable: false
+
       - name: affiliation
-        label: Affiliation
-        description: Organization that the user is associated with
+        label: Organizational Affiliation Name
+        description: The name of the organization or entity that the person or group has an established relationship with.
+        tags: http://purl.obolibrary.org/obo/NCIT_C154704
         nillable: false
+
       - name: function
         label: Function
         description: Describe the function that user has in relation to the database
+
       - name: accountStatus
         label: Account Status
         description: If True, the account is active
         dataType: xref
         refEntity: users_statuses
         nillable: false
+
       - name: accountStartDate
-        label: Date Account Activated
-        description: Enter the date the account was activated
+        label: Account Start Date
+        description: The calendar date on which something is to start or did start.
+        tags: http://purl.obolibrary.org/obo/NCIT_C68616
         dataType: date
+
       - name: accountEndDate
-        label: Date Account Deactived
-        description: Enter the date the account deactivated
+        label: Account End Date
+        description: The calendar date on which something is to terminate or did terminate.
+        tags: http://purl.obolibrary.org/obo/NCIT_C68617
         dataType: date
-        visible: "{accountStatus}='Deactivated'" # supports molgenis v9+ only
-      - name: hasSubmittedDocuments
-        label: Submitted Documents
-        description: An indication if the user has submitted the required documents in order to gain access to the database
-        dataType: bool
+
       - name: hasAuthorization
-        label: Authorization
-        description: User has submitted all required documentation and authorization has been granted
-        dataType: bool
-      - name: roles
-        label: Roles
-        description: Select the roles that the user has been assigned
+        label: Has Authorization
+        description: Decision of the competent authorities in form of a letter, document, or verbal or electronic form, that confirms that somebody has permission to do something or be somewhere, e.g. to realize a given project.
+        tags: http://purl.obolibrary.org/obo/NCIT_C41192
+        dataType: enum
+        enumOptions: Y,N
+        
+      - name: belongsToUserGroup
+        label: Belongs To User Group
+        description: A set of people who have similar interests, goals, or concerns.
+        tags: http://purl.obolibrary.org/obo/NCIT_C42684
+        dataType: categorical
+        refEntity: users_groups
+
+      - name: userPrivilege
+        label: User Privilege
+        description: The operations and access levels which are allowed to a user (e.g Create, Read, Update, Delete).
+        tags: http://purl.obolibrary.org/obo/NCIT_C42722
         dataType: mref
-        refEntity: users_roles
+        refEntity: users_userPrivileges
+
       - name: packages
         label: Packages
         description: Select the packages that the user has access to
         dataType: mref
         refEntity: users_packages
         
+      - name: userAccountIsActive
+        label: User Account is Active
+        description: Specifies whether the entity is active
+        tags: http://purl.obolibrary.org/obo/NCIT_C93496
+        dataType: enum
+        enumOptions: Y,N
+        
   #////////////////////////////////////
   # Reference Entities
+  
+  - name: lookupAttributeTemplate
+    attributes:
+      - name: id
+        description: One or more characters used to identify, name, or characterize the nature, properties, or contents of a thing.
+        tags: http://purl.obolibrary.org/obo/NCIT_C25364
+        idAttribute: true
+        nillable: false
+        dataType: string
+
+      - name: label
+        description: A brief description given for purposes of identification; an identifying or descriptive marker that is attached to an object.
+        tags: http://purl.obolibrary.org/obo/NCIT_C45561
+        lookupAttribute: true
+        labelAttribute: true
+
+      - name: description
+        description: A written or verbal account, representation, statement, or explanation of something.
+        tags: http://purl.obolibrary.org/obo/NCIT_C25365
 
   # @title Packages
   # @description list of packages (applicable to the current project)
   - name: packages
     label: Packages
     description: All packages and entities associated with the current project
-    attributes:
-      - name: id
-        idAttribute: true
-        nillable: false
-        dataType: string
-      - name: label
-        lookupAttribute: true
-        labelAttribute: true
-      - name: description
+    extends: users_lookupAttributeTemplate
         
   # @title Roles
   # @description list of roles by package
-  - name: roles
-    label: Roles
+  - name: userPrivileges
+    label: User Privileges
     description: All roles by package
-    attributes:
-      - name: id
-        idAttribute: true
-        nillable: false
-        dataType: string
-      - name: label
-        lookupAttribute: true
-        labelAttribute: true
-      - name: description
-      
-  # @title Account Staus
-  # @description account statuses and descriptions
-  - name: statuses
-    label: Account Statuses
-    description: available account status options and descriptions
-    attributes:
-      - name: id
-        idAttribute: true
-        nillable: false
-        dataType: string
-      - name: label
-        lookupAttribute: true
-        labelAttribute: true
-      - name: description
-    data:
-      - id: activated
-        label: Activated
-        description: User account is active and permissions to access resources has been granted
-      - id: deactivated
-        label: Deactivated
-        description: User account has been deactivated for a number of reasons (e.g., withdrawn, revoked, account terminated, etc.)
-      - id: pending
-        label: Pending
-        description: User account is not yet active
-  
+    extends: users_lookupAttributeTemplate
