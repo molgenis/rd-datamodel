@@ -6,15 +6,15 @@
   "author": "dcruvolo",
   "license": "MIT",
   "scripts": {
-    "build:lookups": "python3 python/data_fairgenomes.py",
-    "build": "python3 emx/emx.py",
+    "build:lookups": "python3 src/data/data_fairgenomes.py",
+    "build": "python3 src/index.py",
     "m:config": "dotenv cross-var mcmd config set host %MOLGENIS_HOST%",
     "m:predeploy": "mcmd delete -p umdm",
-    "m:deploy": "sh emx/setup.sh",
+    "m:deploy": "sh dist/setup.sh",
     "m:postdeploy": "mcmd make --role ANONYMOUS umdm_VIEWER && mcmd give anonymous view sys_md",
     "m:demo": "mcmd import -p data/demo/umdm_demo.xlsx --as umdm",
     "test": "python3 tests/tests_emx_check.py",
-    "zip": "zip -r -j _exclude/umdm.zip emx/dist/umdm.xlsx emx/lookups/*",
+    "zip": "zip -r -j _exclude/umdm.zip dist/umdm.xlsx dist/umdm_lookups_*.csv",
     "zip:mv": "dotenv cross-var mv _exclude/umdm.zip %ZIP_LOCATION%"
   },
   "devDependencies": {

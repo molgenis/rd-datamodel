@@ -1,11 +1,11 @@
 #'////////////////////////////////////////////////////////////////////////////
-#' FILE: emx.py
+#' FILE: index.py
 #' AUTHOR: David Ruvolo
 #' CREATED: 2021-10-19
-#' MODIFIED: 2021-12-07
+#' MODIFIED: 2022-02-02
 #' PURPOSE: compile and build EMX files
 #' STATUS: stabe
-#' PACKAGES: emxconvert
+#' PACKAGES: yamlemxconvert
 #' COMMENTS: NA
 #'////////////////////////////////////////////////////////////////////////////
 
@@ -124,8 +124,8 @@ def buildEmxTags(attributes: list = []):
 # build: main data model
 umdm = yamlemxconvert.Convert(
     files = [
-        'emx/src/umdm_emx1.yaml',
-        'emx/src/umdm_lookups_emx1.yaml'
+        'src/emx-umdm/umdm_emx1.yaml',
+        'src/emx-umdm/umdm_lookups_emx1.yaml'
     ]
 )
 
@@ -139,8 +139,8 @@ builtTags.extend(buildEmxTags(umdm.attributes))
 builtTags = list({d['identifier']: d for d in builtTags}.values())
 umdm.tags = sorted(builtTags, key = lambda d: d['identifier'])
 
-umdm.write('umdm', format = 'xlsx', outDir = 'emx/dist/')
-umdm.write_schema('emx/schemas/umdm_schema.md')
+umdm.write('umdm', format = 'xlsx', outDir = 'dist/')
+umdm.write_schema('dist/umdm_schema.md')
 
 # ~ a ~
 # build: user management module
