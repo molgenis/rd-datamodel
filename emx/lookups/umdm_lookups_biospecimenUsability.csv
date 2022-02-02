@@ -1,0 +1,5 @@
+value,description,codesystem,code,iri
+Laboratory Test Results Biospecimen Usability,"A qualitative or quantitative measure that describes a biospecimen's suitability for laboratory testing purposes.",NCIT,C119852,http://purl.obolibrary.org/obo/NCIT_C119852
+Macroscopic Findings Biospecimen Usability,"A qualitative or quantitative measure that describes a biospecimen's suitability for macroscopic testing purposes.",NCIT,C119870,http://purl.obolibrary.org/obo/NCIT_C119870
+Microscopic Findings Biospecimen Usability,"A qualitative or quantitative measure that describes a biospecimen's suitability for microscopic testing purposes.",NCIT,C119881,http://purl.obolibrary.org/obo/NCIT_C119881
+Organ Measurements Biospecimen Usability,"A qualitative or quantitative measure that describes a biospecimen's suitability for organ measurement purposes.",NCIT,C119894,http://purl.obolibrary.org/obo/NCIT_C119894
