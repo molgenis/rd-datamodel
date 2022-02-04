@@ -140,6 +140,11 @@ entities:
     description: The condition for an electronic file relative to the current data or file processing step.
     tags: http://purl.obolibrary.org/obo/NCIT_C171193, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: umdm_lookups_attributeTemplateDefault
+    
+  - name: gender
+    description: Characteristics of people that are socially constructed, including norms, behaviors, and roles based on sex. As a social construct, gender varies from society to society and can change over time. (Adapted from WHO.) 
+    tags: http://purl.obolibrary.org/obo/NCIT_C17357
+    extends: umdm_lookups_attributeTemplateDefault
   
   - name: genomeAccessions
     description: Genome Accessions (FAIR Genomes, v1.1)

@@ -2,7 +2,7 @@
 # NAME: umdm_emx1.yaml
 # AUTHOR: david ruvolo
 # CREATED: 2021-11-08
-# MODIFIED: 2021-12-07
+# MODIFIED: 2022-02-04
 # PURPOSE: Unified Molgenis Data Model
 # STATUS: maturing
 # COMMENTS:
@@ -35,8 +35,8 @@
 name: umdm
 label: Unified Molgenis Data Model
 description: The Unified Molgenis Data Model (UMDM) for NGS data in research and healthcare
-version: 1.0.0
-date: 2021-12-07
+version: 1.1.0
+date: 2022-02-04
 tags: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
 
 # define tags (the rest are added at build time)
@@ -135,11 +135,18 @@ entities:
         description: The age at which death occurred.
         tags: http://purl.obolibrary.org/obo/NCIT_C135383
 
-      - name: phenotypicSex
+      # To Do: remove phenotypicSex or recode?
+      # - name: phenotypicSex
+      #   dataType: xref
+      #   refEntity: umdm_lookups_phenotypicSex
+      #   description: An organismal quality inhering in a bearer by virtue of the bearer's physical expression of sexual characteristics.
+      #   tags: http://purl.obolibrary.org/obo/PATO_0001894
+        
+      - name: gender
         dataType: xref
-        refEntity: umdm_lookups_phenotypicSex
-        description: An organismal quality inhering in a bearer by virtue of the bearer's physical expression of sexual characteristics.
-        tags: http://purl.obolibrary.org/obo/PATO_0001894
+        refEntity: umdm_lookups_gender
+        description: Characteristics of people that are socially constructed, including norms, behaviors, and roles based on sex. As a social construct, gender varies from society to society and can change over time. (Adapted from WHO.)
+        tags: http://purl.obolibrary.org/obo/NCIT_C17357
 
       - name: genotypicSex
         dataType: xref
