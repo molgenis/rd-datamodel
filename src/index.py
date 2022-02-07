@@ -2,7 +2,7 @@
 #' FILE: index.py
 #' AUTHOR: David Ruvolo
 #' CREATED: 2021-10-19
-#' MODIFIED: 2022-02-02
+#' MODIFIED: 2022-02-07
 #' PURPOSE: compile and build EMX files
 #' STATUS: stabe
 #' PACKAGES: yamlemxconvert
@@ -64,7 +64,7 @@ def buildEmxTags(attributes: list = []):
             name = path.basename(tag)
             
             # codes that are split with a forward slash rather than a hyphen
-            knownIriVariations = re.search(r'(/(HL7|SNOMEDCT)/)', tag)
+            knownIriVariations = re.search(r'(/(HL7|SNOMEDCT|MESH)/)', tag)
             if knownIriVariations:
                 d['identifier'] = tag
                 d['label'] = f"{knownIriVariations.group().replace('/','')}:{name}"
