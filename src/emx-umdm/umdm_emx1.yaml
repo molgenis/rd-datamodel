@@ -36,7 +36,7 @@ name: umdm
 label: Unified Molgenis Data Model
 description: The Unified Molgenis Data Model (UMDM) for NGS data in research and healthcare
 version: 1.1.0
-date: 2022-02-04
+date: 2022-02-07
 tags: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
 
 # define tags (the rest are added at build time)
@@ -134,19 +134,18 @@ entities:
         dataType: decimal
         description: The age at which death occurred.
         tags: http://purl.obolibrary.org/obo/NCIT_C135383
-
-      # To Do: remove phenotypicSex or recode?
-      # - name: phenotypicSex
-      #   dataType: xref
-      #   refEntity: umdm_lookups_phenotypicSex
-      #   description: An organismal quality inhering in a bearer by virtue of the bearer's physical expression of sexual characteristics.
-      #   tags: http://purl.obolibrary.org/obo/PATO_0001894
         
-      - name: gender
+      - name: genderIdentity
         dataType: xref
-        refEntity: umdm_lookups_gender
-        description: Characteristics of people that are socially constructed, including norms, behaviors, and roles based on sex. As a social construct, gender varies from society to society and can change over time. (Adapted from WHO.)
-        tags: http://purl.obolibrary.org/obo/NCIT_C17357
+        refEntity: umdm_lookups_genderIdentity
+        description: A person's concept of self as being male and masculine or female and feminine, or ambivalent, based in part on physical characteristics, parental responses, and psychological and social pressures. It is the internal experience of gender role. A person's sense of self as a member of a particular gender.
+        tags: http://purl.bioontology.org/ontology/MESH/D005783
+
+      - name: genderAtBirth
+        description: Assigned gender is one's gender which was assigned at birth, typically by a medical and/or legal organization, and then later registered with other organizations. Such a designation is typically based off of the superficial appearance of external genitalia present at birth.
+        dataType: xref
+        reference: umdm_lookups_genderAtBirth
+        tags: http://purl.obolibrary.org/obo/GSSO_009418
 
       - name: genotypicSex
         dataType: xref

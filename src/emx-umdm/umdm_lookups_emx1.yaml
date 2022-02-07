@@ -14,8 +14,8 @@ label: Lookups
 description: Lookup tables for the Unified Molgenis Data Model (UMDM)
 parent: umdm
 tags: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
-version: 1.0.0
-date: 2021-12-07
+version: 1.1.0
+date: 2022-02-07
 
 # set attribute level defaults
 defaults:
@@ -140,15 +140,20 @@ entities:
     description: The condition for an electronic file relative to the current data or file processing step.
     tags: http://purl.obolibrary.org/obo/NCIT_C171193, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: umdm_lookups_attributeTemplateDefault
-    
-  - name: gender
-    description: Characteristics of people that are socially constructed, including norms, behaviors, and roles based on sex. As a social construct, gender varies from society to society and can change over time. (Adapted from WHO.) 
-    tags: http://purl.obolibrary.org/obo/NCIT_C17357
-    extends: umdm_lookups_attributeTemplateDefault
   
   - name: genomeAccessions
     description: Genome Accessions (FAIR Genomes, v1.1)
     tags: http://edamontology.org/data_2340, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+    extends: umdm_lookups_attributeTemplateDefault
+    
+  - name: genderIdentity
+    description: A person's concept of self as being male and masculine or female and feminine, or ambivalent, based in part on physical characteristics, parental responses, and psychological and social pressures. It is the internal experience of gender role. A person's sense of self as a member of a particular gender.
+    tags: http://purl.bioontology.org/ontology/MESH/D005783
+    extends: umdm_lookups_attributeTemplateDefault
+  
+  - name: genderAtBirth
+    description: Assigned gender is one's gender which was assigned at birth, typically by a medical and/or legal organization, and then later registered with other organizations. Such a designation is typically based off of the superficial appearance of external genitalia present at birth. 
+    tags: http://purl.obolibrary.org/obo/GSSO_009418
     extends: umdm_lookups_attributeTemplateDefault
   
   - name: genotypicSex
@@ -180,11 +185,6 @@ entities:
     description: Human Phenotype Ontology (HPO, v2021-08-02)
     tags: http://purl.obolibrary.org/obo/NCIT_C16977, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: umdm_lookups_attributeTemplateCode
-  
-  - name: phenotypicSex
-    description: phenotypic sex (FAIR Genomes, v1.1)
-    tags: http://purl.obolibrary.org/obo/PATO_0001894, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
-    extends: umdm_lookups_attributeTemplateDefault
   
   - name: samplingReason
     description: The explanation for why a test, measurement, or assessment is executed.  
