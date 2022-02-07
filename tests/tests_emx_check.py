@@ -2,10 +2,10 @@
 #' FILE: tests_emx_check.py
 #' AUTHOR: David Ruvolo
 #' CREATED: 2021-11-25
-#' MODIFIED: 2021-12-07
+#' MODIFIED: 2022-02-07
 #' PURPOSE: class for unit testing
 #' STATUS: stable
-#' PACKAGES: NA
+#' PACKAGES: yaml
 #' COMMENTS: NA
 #'////////////////////////////////////////////////////////////////////////////
 
@@ -35,6 +35,8 @@ def __keyCheck__(keysToCheck: list, knownKeys: list, emxObject: str, emxObjectNa
         msg = f'all properties are valid'
         if emxObjectName: msg = f'{emxObjectName}: {msg}'
         print(f'\033[92m ✓ \033[0m {msg}')
+        
+    return errorCount
 
 
 def __checkEmxPackages__(emx: list = None):
@@ -49,11 +51,13 @@ def __checkEmxPackages__(emx: list = None):
         'version', 'date', 'defaults', 'tagDefinitions', 'entities'  # yamlemxconvert options
     ]
     
-    __keyCheck__(
+    errors = __keyCheck__(
         keysToCheck = keys,
         knownKeys = knownEmxPackageAttribs,
         emxObject = 'packages'
     )
+    
+    return errors
 
 
 def __checkEmxEntities__(emx: list = None):
@@ -68,14 +72,17 @@ def __checkEmxEntities__(emx: list = None):
     if not 'entities' in emx:
         print(f'\033[93m ! \033[0m No entities were defined in the YAML')
 
+    entityErrors = 0
     if 'entities' in emx:
         for entity in emx['entities']:
-            __keyCheck__(
+            errors = __keyCheck__(
                 keysToCheck = entity.keys(),
                 knownKeys = knownEmxEntityProps,
                 emxObject = 'entities',
                 emxObjectName = entity['name']
             )
+            entityErrors = entityErrors + errors
+    return entityErrors
                 
 
 def __checkEmxAttributes__(emx):
@@ -93,11 +100,12 @@ def __checkEmxAttributes__(emx):
         'one_to_many', 'string', 'text', 'xref'
     ]
     
+    attrErrors = 0
     if 'entities' in emx:
         for entity in emx['entities']:
             if 'attributes' in entity:
                 for attr in entity['attributes']:
-                    __keyCheck__(
+                    errors = __keyCheck__(
                         keysToCheck = attr.keys(),
                         knownKeys = knownEmxAttribProps,
                         emxObject = 'attributes',
@@ -108,7 +116,8 @@ def __checkEmxAttributes__(emx):
                         if not (attr['dataType'] in knownEmxDataTypes):
                             msg = f"{entity['name']}_{attr['name']}: dataType \'{attr['dataType']}\' invalid"
                             print(f'\033[91m x {msg} \033[0m')
-
+                    attrErrors = attrErrors + errors
+    return attrErrors
     
 def checkEmxStructure(file: str = None):
     """Check Emx Structure
@@ -122,16 +131,29 @@ def checkEmxStructure(file: str = None):
         stream.close()
     
     print(f'\033[95m -- Checking EMX Package structure ----------- \033[0m')
-    __checkEmxPackages__(emx = emx)
+    pkgErrors = __checkEmxPackages__(emx = emx)
     
     print(f'\n\033[95m -- Checking EMX Entities Structure ----------- \033[0m')
-    __checkEmxEntities__(emx = emx)
+    entityErrors = __checkEmxEntities__(emx = emx)
     
     print(f'\n\033[95m -- Checking EMX Attributes structure ----------- \033[0m')
-    __checkEmxAttributes__(emx = emx)
+    attrErrors = __checkEmxAttributes__(emx = emx)
+    
+    print('')
+    print(f'\033[95m -- Errors Summary ----------- \033[0m')
+    if (attrErrors + entityErrors + pkgErrors) > 0:
+        print(f'\033[91m Errors detected in model. \033[0m')
+        print('')
+        print(f'\033[94m   Package: \033[0m {pkgErrors}')
+        print(f'\033[94m    Entity: \033[0m {entityErrors}')
+        print(f'\033[94m Attribute: \033[0m {attrErrors}')
+    else:
+        print('\033[92m No errors detected \033[0m')
+    
+    
 
 
 #//////////////////////////////////////////////////////////////////////////////
 
 # Test Emx Structure
-checkEmxStructure(file = './emx/src/umdm_emx1.yaml')
+checkEmxStructure(file = './src/emx-umdm/umdm_emx1.yaml')
