@@ -22,3 +22,83 @@ This repository includes scripts for building the model and collating lookup dat
 1. **Install Molgenis**: you will need a server running the latest version of Molgenis. See the [Molgenis Documentation](https://molgenis.gitbook.io/molgenis/) for more information about setting up Molgenis. Alternatively, you can use the [latest Molgenis Docker container](https://github.com/molgenis/docker) to create an instance on your local machine.
 2. **Install the Molgenis Commander**: Install the latest version of [Molgenis commander](https://github.com/molgenis/molgenis-tools-commander)
 3. **Run the setup script**: Run the [UMDM Setup script](https://github.com/molgenis/rd-datamodel/blob/main/emx/dist/umdm_setup.sh). This will import the model and all datasets into your Molgenis instance.
+
+### Updating, building and deploying the UMDM
+
+To update the UMDM, follow the steps below.
+
+#### 1 Make changes to the model
+
+Make all of the changes that are requested. For new entities (i.e., tables), open the YAML file and scroll to the `entities` section and enter the following information.
+
+```yaml
+entities:
+    ...
+    - name: myNewTable
+      label: My New Table
+      description: some description about my new table will go here
+      tags: https://url.to.some/ontology/code/that/describes/my_table
+      attributes:
+        ...
+```
+
+If you are adding a new lookup, use one of the predefined attribute templates.
+
+- `attributeTemplateDefault`: the recommended attribute template where the column `value` is the primary key. The value, which is a label, will be displayed when referenced in another table
+- `attributeTemplateCode`: an alternative template where the column `code` is the primary key. This is useful for lookups where the code should be displayed instead of the label
+
+To add new attributes, locate the appropriate table in the yaml script and create a new block under `attributes`.
+
+```yaml
+entities:
+    ...
+    - name: myTableThatIWantToEdit
+      label: My table that I want to edit
+      description: The table that I want to edit
+      tags: https://url.to.some/ontology/code/that/describes/my_table
+      attributes:
+        ...
+        
+        - name: myNewAttribute
+          description: a description about my new attribute
+          dataType: ...
+        # refEntity: ... # if type is a ref
+          tags: https://url.to.some/ontology/code/that/describes/my_attribute
+```
+
+#### 2 Building
+
+Test the model once all changes have been made.
+
+```shell
+yarn test
+```
+
+This test runs some basic error checking to make sure the model contains valid EMX markup. At the end of test, a print summary of the errors will be provided (if errors were detected). Scroll through the report to see find the errors.
+
+When all of the changes have been made, build the model. Make sure the python library [yamlemxconvert](https://pypi.org/project/yamlemxconvert/) is installed and run the following yarn script.
+
+```shell
+yarn build
+```
+
+Make sure all tag errors have been resolved (`Unable to process tag: None`).
+
+#### 3 Deploying
+
+When built, deploy to the server. **NOTE**: make sure you export all data before importing the new model.
+
+```shell
+yarn m:config
+yarn m:predeploy
+yarn m:deploy
+yarn m:postdeploy
+
+yarn m:demo # if setting up a demo database
+```
+
+If you have added a new lookup table, you will need to update the `setup.sh` script.
+
+```shell
+yarn m:refresh-setup
+```
