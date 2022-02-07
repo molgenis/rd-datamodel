@@ -4,8 +4,8 @@
 
 | Name | Description | Parent |
 |:---- |:-----------|:------|
-| umdm | The Unified Molgenis Data Model (UMDM) for NGS data in research and healthcare (v1.0.0, 2021-12-07) | - |
-| umdm_lookups | Lookup tables for the Unified Molgenis Data Model (UMDM) (v1.0.0, 2021-12-07) | umdm |
+| umdm | The Unified Molgenis Data Model (UMDM) for NGS data in research and healthcare (v1.1.0, 2022-02-07) | - |
+| umdm_lookups | Lookup tables for the Unified Molgenis Data Model (UMDM) (v1.1.0, 2022-02-07) | umdm |
 
 ## Entities
 
@@ -36,13 +36,14 @@
 | diseases | Diseases (FAIR Genomes, v1.1) | umdm_lookups |
 | fileStatus | The condition for an electronic file relative to the current data or file processing step. | umdm_lookups |
 | genomeAccessions | Genome Accessions (FAIR Genomes, v1.1) | umdm_lookups |
+| genderIdentity | A person's concept of self as being male and masculine or female and feminine, or ambivalent, based in part on physical characteristics, parental responses, and psychological and social pressures. It is the internal experience of gender role. A person's sense of self as a member of a particular gender. | umdm_lookups |
+| genderAtBirth | Assigned gender is one's gender which was assigned at birth, typically by a medical and/or legal organization, and then later registered with other organizations. Such a designation is typically based off of the superficial appearance of external genitalia present at birth. | umdm_lookups |
 | genotypicSex | Genotypic Sex (FAIR Genomes, v1.1) | umdm_lookups |
 | inclusionCriteria | Inclusion Criteria (FAIR Genomes, v1.1) | umdm_lookups |
 | molecularDiagnosis | Molecular Diagnosis (FAIR Genomes, v1.1) | umdm_lookups |
 | ngsKits | NGS Kits (FAIR Genomes, v1.1) | umdm_lookups |
 | pathologicalState | pathological state (FAIR Genomes, v1.1) | umdm_lookups |
 | phenotype | Human Phenotype Ontology (HPO, v2021-08-02) | umdm_lookups |
-| phenotypicSex | phenotypic sex (FAIR Genomes, v1.1) | umdm_lookups |
 | samplingReason | The explanation for why a test, measurement, or assessment is executed. | umdm_lookups |
 | sequencingInstrumentModels | Sequencing instrument models (FAIR Genomes, v1.1) | umdm_lookups |
 | sequencingMethods | Sequencing methods (FAIR Genomes, v1.1) | umdm_lookups |
@@ -69,7 +70,8 @@ Persons who are observed, analyzed, examined, investigated, experimented upon, o
 | dateOfDeath | - | The calendar date of subject's death. | date |
 | yearOfDeath | - | The year in which an individual derived. | int |
 | ageAtDeath | - | The age at which death occurred. | decimal |
-| phenotypicSex | - | An organismal quality inhering in a bearer by virtue of the bearer's physical expression of sexual characteristics. | xref |
+| genderIdentity | - | A person's concept of self as being male and masculine or female and feminine, or ambivalent, based in part on physical characteristics, parental responses, and psychological and social pressures. It is the internal experience of gender role. A person's sense of self as a member of a particular gender. | xref |
+| genderAtBirth | - | Assigned gender is one's gender which was assigned at birth, typically by a medical and/or legal organization, and then later registered with other organizations. Such a designation is typically based off of the superficial appearance of external genitalia present at birth. | xref |
 | genotypicSex | - | A biological sex quality inhering in an individual based upon genotypic composition of sex chromosomes. | xref |
 | countryOfBirth | - | The country that this person was born in. | xref |
 | countryOfResidence | - | Country of residence at enrollment. | xref |
@@ -191,7 +193,7 @@ A sample is a limited quantity of something (e.g. an individual or set of indivi
 | samplingProtocol | - | The procedure whereby this material was sampled for an analysis. | mref |
 | samplingProtocolDeviation | - | A variation from processes or procedures defined in the sampling protocol. Deviations usually do not preclude the overall evaluability of subject data for either efficacy or safety, and are often acknowledged and accepted in advance by the sponsor. | text |
 | reasonForSamplingProtocolDeviation | - | The rationale for why a deviation from the sampling protocol has occurred. | text |
-| biospecimenType | - | The type of material taken from a biological entity for testing, diagnostic, propagation, treatment or research purposes. | xref |
+| biospecimenType | - | The type of material taken from a biological entity for testing, diagnostic, propagation, treatment or research purposes. | bool |
 | anatomicalSource | - | Biological entity that constitutes the structural organization of an individual member of a biological species from which this material was taken. | xref |
 | pathologicalState | - | The pathological state of the tissue from which this material was derived. | xref |
 | biospecimenUsability | - | An indication as to whether a biospecimen is suitable for testing purposes. | bool |

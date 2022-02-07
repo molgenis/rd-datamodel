@@ -148,12 +148,12 @@ entities:
     
   - name: genderIdentity
     description: A person's concept of self as being male and masculine or female and feminine, or ambivalent, based in part on physical characteristics, parental responses, and psychological and social pressures. It is the internal experience of gender role. A person's sense of self as a member of a particular gender.
-    tags: http://purl.bioontology.org/ontology/MESH/D005783
+    tags: http://purl.bioontology.org/ontology/MESH/D005783, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: umdm_lookups_attributeTemplateDefault
   
   - name: genderAtBirth
     description: Assigned gender is one's gender which was assigned at birth, typically by a medical and/or legal organization, and then later registered with other organizations. Such a designation is typically based off of the superficial appearance of external genitalia present at birth. 
-    tags: http://purl.obolibrary.org/obo/GSSO_009418
+    tags: http://purl.obolibrary.org/obo/GSSO_009418, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
     extends: umdm_lookups_attributeTemplateDefault
   
   - name: genotypicSex

@@ -2,7 +2,7 @@
 # NAME: umdm_emx1.yaml
 # AUTHOR: david ruvolo
 # CREATED: 2021-11-08
-# MODIFIED: 2022-02-04
+# MODIFIED: 2022-02-07
 # PURPOSE: Unified Molgenis Data Model
 # STATUS: maturing
 # COMMENTS:
@@ -144,7 +144,7 @@ entities:
       - name: genderAtBirth
         description: Assigned gender is one's gender which was assigned at birth, typically by a medical and/or legal organization, and then later registered with other organizations. Such a designation is typically based off of the superficial appearance of external genitalia present at birth.
         dataType: xref
-        reference: umdm_lookups_genderAtBirth
+        refEntity: umdm_lookups_genderAtBirth
         tags: http://purl.obolibrary.org/obo/GSSO_009418
 
       - name: genotypicSex
