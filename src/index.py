@@ -160,3 +160,41 @@ umdm.write_schema('dist/umdm_schema.md')
 # jobsModule.convert()
 # jobsModule.write('jobs', format = 'xlsx', outDir = 'emx/dist')
 # jobsModule.write_schema('emx/schemas/jobs_module_schema.md')
+
+
+#?/////////////////////////////////////////////////////////////////////////////
+
+# ~ 2 ~
+# Build EMX2 Version
+# 
+# Since the release of yamlemxconvert v1.0, the UMDM can be built for EMX2
+# databases. It is recommended to convert the model and apply transformations
+# using python (rather than editing the Excel file) until the EMX2 version of 
+# the model becomes permanent. For now, this method is reproducible.
+#
+# For the implementation of the UMDM into real databases, I have decided to
+# serparate the lookups into a new EMX2 schema so that it can act as a shared
+# schema for other schemas.
+
+# import the convert2 and convert
+from yamlemxconvert import Convert2
+
+umdm2 = Convert2(file = 'src/emx-umdm/umdm_emx1.yaml')
+umdm2.convert()
+
+# convert lookups as an EMX2 schema
+umdmRefs2 = Convert2(file = 'src/emx-umdm/umdm_lookups_emx1.yaml')
+umdmRefs2.convert()
+
+
+# In the UMDM model, set the refSchema for all lookups that are defined in the
+# lookups EMX model
+tableNames = [x.get('tableName') for x in umdmRefs2.model.get('molgenis')]
+
+for m in umdm2.model.get('molgenis'):
+    if m.get('refTable') in tableNames:
+        m['refSchema'] = 'umdmRefs'
+        
+# write models
+umdm2.write(name = 'umdm2', format = 'xlsx', outDir = 'dist/')
+umdmRefs2.write(name = 'umdm2_refs', format = 'xlsx', outDir = 'dist/')

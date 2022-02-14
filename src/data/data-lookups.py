@@ -2,7 +2,7 @@
 #' FILE: data-lookups.py
 #' AUTHOR: David Ruvolo
 #' CREATED: 2022-02-04
-#' MODIFIED: 2022-02-07
+#' MODIFIED: 2022-02-14
 #' PURPOSE: script for collating data for reference tables
 #' STATUS: stable
 #' PACKAGES: datatable, requests
@@ -45,7 +45,8 @@ def getTermRecord(data: dict = {}):
         'value': data.get('label'),
         'description': ' '.join(data.get('description')),
         'codesystem': data.get('ontology_name').upper(),
-        'code': path.basename(data.get('iri')).split('_')[-1]
+        'code': path.basename(data.get('iri')).split('_')[-1],
+        'iri': data.get('iri')
     }
     
 def getChildEndpoint(data):
@@ -61,7 +62,7 @@ def getChildEndpoint(data):
 # ~ 1 ~
 # Get metadata for ontology term
 #
-url = 'https://www.ebi.ac.uk/ols/api/ontologies/gsso/terms?iri=http://purl.obolibrary.org/obo/GSSO_009418'
+url='https://www.ebi.ac.uk/ols/api/ontologies/edam/terms?iri=http://edamontology.org/operation_2409'
 
 
 # ~ 2 ~
@@ -92,4 +93,5 @@ if parentMeta.get('has_children'):
        
 # ~ 4 ~         
 # write to csv
-dt.Frame(data).to_csv('dist/umdm_lookups_genderAtBirth.csv')
+path = '~/Desktop/datahandling.csv'
+dt.Frame(data).to_csv('')
