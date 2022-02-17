@@ -79,7 +79,7 @@ This test runs some basic error checking to make sure the model contains valid E
 When all of the changes have been made, build the model. Make sure the python library [yamlemxconvert](https://pypi.org/project/yamlemxconvert/) is installed and run the following yarn script.
 
 ```shell
-yarn build
+yarn emx:build
 ```
 
 Make sure all tag errors have been resolved (`Unable to process tag: None`).

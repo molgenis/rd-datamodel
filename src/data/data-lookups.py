@@ -94,4 +94,4 @@ if parentMeta.get('has_children'):
 # ~ 4 ~         
 # write to csv
 path = '~/Desktop/datahandling.csv'
-dt.Frame(data).to_csv('')
+dt.Frame(data).to_csv(path)

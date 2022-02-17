@@ -2,7 +2,7 @@
 # NAME: umdm_emx1.yaml
 # AUTHOR: david ruvolo
 # CREATED: 2021-11-08
-# MODIFIED: 2022-02-07
+# MODIFIED: 2022-02-17
 # PURPOSE: Unified Molgenis Data Model
 # STATUS: maturing
 # COMMENTS:
@@ -34,9 +34,9 @@
 # define package
 name: umdm
 label: Unified Molgenis Data Model
-description: The Unified Molgenis Data Model (UMDM) for NGS data in research and healthcare
-version: 1.1.0
-date: 2022-02-07
+description: The Unified Molgenis Data Model (UMDM)
+version: 1.1.1
+date: 2022-02-17
 tags: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
 
 # define tags (the rest are added at build time)

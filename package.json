@@ -6,8 +6,8 @@
   "author": "dcruvolo",
   "license": "MIT",
   "scripts": {
+    "emx:build": "python3 index.py",
     "build:lookups": "python3 src/data/data_fairgenomes.py",
-    "build": "python3 src/index.py",
     "m:config": "dotenv cross-var mcmd config set host %MOLGENIS_HOST%",
     "m:predeploy": "mcmd delete -p umdm",
     "m:deploy": "sh dist/setup.sh",

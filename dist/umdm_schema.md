@@ -4,7 +4,7 @@
 
 | Name | Description | Parent |
 |:---- |:-----------|:------|
-| umdm | The Unified Molgenis Data Model (UMDM) for NGS data in research and healthcare (v1.1.0, 2022-02-07) | - |
+| umdm | The Unified Molgenis Data Model (UMDM) (v1.1.1, 2022-02-17) | - |
 | umdm_lookups | Lookup tables for the Unified Molgenis Data Model (UMDM) (v1.1.0, 2022-02-07) | umdm |
 
 ## Entities

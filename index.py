@@ -2,7 +2,7 @@
 #' FILE: index.py
 #' AUTHOR: David Ruvolo
 #' CREATED: 2021-10-19
-#' MODIFIED: 2022-02-07
+#' MODIFIED: 2022-02-17
 #' PURPOSE: compile and build EMX files
 #' STATUS: stabe
 #' PACKAGES: yamlemxconvert
@@ -177,24 +177,24 @@ umdm.write_schema('dist/umdm_schema.md')
 # schema for other schemas.
 
 # import the convert2 and convert
-from yamlemxconvert import Convert2
+# from yamlemxconvert import Convert2
 
-umdm2 = Convert2(file = 'src/emx-umdm/umdm_emx1.yaml')
-umdm2.convert()
+# umdm2 = Convert2(file = 'src/emx-umdm/umdm_emx1.yaml')
+# umdm2.convert()
 
-# convert lookups as an EMX2 schema
-umdmRefs2 = Convert2(file = 'src/emx-umdm/umdm_lookups_emx1.yaml')
-umdmRefs2.convert()
+# # convert lookups as an EMX2 schema
+# umdmRefs2 = Convert2(file = 'src/emx-umdm/umdm_lookups_emx1.yaml')
+# umdmRefs2.convert()
 
 
-# In the UMDM model, set the refSchema for all lookups that are defined in the
-# lookups EMX model
-tableNames = [x.get('tableName') for x in umdmRefs2.model.get('molgenis')]
+# # In the UMDM model, set the refSchema for all lookups that are defined in the
+# # lookups EMX model
+# tableNames = [x.get('tableName') for x in umdmRefs2.model.get('molgenis')]
 
-for m in umdm2.model.get('molgenis'):
-    if m.get('refTable') in tableNames:
-        m['refSchema'] = 'umdmRefs'
+# for m in umdm2.model.get('molgenis'):
+#     if m.get('refTable') in tableNames:
+#         m['refSchema'] = 'umdmRefs'
         
-# write models
-umdm2.write(name = 'umdm2', format = 'xlsx', outDir = 'dist/')
-umdmRefs2.write(name = 'umdm2_refs', format = 'xlsx', outDir = 'dist/')
+# # write models
+# umdm2.write(name = 'umdm2', format = 'xlsx', outDir = 'dist/')
+# umdmRefs2.write(name = 'umdm2_refs', format = 'xlsx', outDir = 'dist/')
