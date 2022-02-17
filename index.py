@@ -139,7 +139,7 @@ builtTags.extend(buildEmxTags(umdm.attributes))
 builtTags = list({d['identifier']: d for d in builtTags}.values())
 umdm.tags = sorted(builtTags, key = lambda d: d['identifier'])
 
-umdm.write('umdm', format = 'xlsx', outDir = 'dist/')
+umdm.write('umdm', format = 'xlsx', outDir = 'dist/umdm-emx1/')
 umdm.write_schema('dist/umdm_schema.md')
 
 # ~ a ~
