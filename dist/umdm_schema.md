@@ -193,7 +193,7 @@ A sample is a limited quantity of something (e.g. an individual or set of indivi
 | samplingProtocol | - | The procedure whereby this material was sampled for an analysis. | mref |
 | samplingProtocolDeviation | - | A variation from processes or procedures defined in the sampling protocol. Deviations usually do not preclude the overall evaluability of subject data for either efficacy or safety, and are often acknowledged and accepted in advance by the sponsor. | text |
 | reasonForSamplingProtocolDeviation | - | The rationale for why a deviation from the sampling protocol has occurred. | text |
-| biospecimenType | - | The type of material taken from a biological entity for testing, diagnostic, propagation, treatment or research purposes. | bool |
+| biospecimenType | - | The type of material taken from a biological entity for testing, diagnostic, propagation, treatment or research purposes. | xref |
 | anatomicalSource | - | Biological entity that constitutes the structural organization of an individual member of a biological species from which this material was taken. | xref |
 | pathologicalState | - | The pathological state of the tissue from which this material was derived. | xref |
 | biospecimenUsability | - | An indication as to whether a biospecimen is suitable for testing purposes. | bool |
