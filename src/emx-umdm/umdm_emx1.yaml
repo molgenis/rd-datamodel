@@ -35,8 +35,8 @@
 name: umdm
 label: Unified Molgenis Data Model
 description: The Unified Molgenis Data Model (UMDM)
-version: 1.1.1
-date: 2022-02-17
+version: 1.1.2
+date: 2022-03-02
 tags: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
 
 # define tags (the rest are added at build time)
@@ -99,8 +99,8 @@ entities:
         tags: http://purl.obolibrary.org/obo/NCIT_C94324
 
       - name: belongsWithFamilyMembers
-        dataType: mref
-        refEntity: umdm_subjects
+        # dataType: mref
+        # refEntity: umdm_subjects
         description: Any individual related biologically or legally to another individual.
         tags: http://purl.obolibrary.org/obo/NCIT_C21480
 

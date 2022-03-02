@@ -4,7 +4,7 @@
 
 | Name | Description | Parent |
 |:---- |:-----------|:------|
-| umdm | The Unified Molgenis Data Model (UMDM) (v1.1.1, 2022-02-17) | - |
+| umdm | The Unified Molgenis Data Model (UMDM) (v1.1.2, 2022-03-02) | - |
 | umdm_lookups | Lookup tables for the Unified Molgenis Data Model (UMDM) (v1.1.0, 2022-02-07) | umdm |
 
 ## Entities
@@ -63,7 +63,7 @@ Persons who are observed, analyzed, examined, investigated, experimented upon, o
 | belongsToFamily | - | A domestic group, or a number of domestic groups linked through descent (demonstrated or stipulated) from a common ancestor, marriage, or adoption. | string |
 | belongsToMother | - | A designation that has some relationship to motherhood. | xref |
 | belongsToFather | - | Having to do with the father, coming from the father, or related through the father. | xref |
-| belongsWithFamilyMembers | - | Any individual related biologically or legally to another individual. | mref |
+| belongsWithFamilyMembers | - | Any individual related biologically or legally to another individual. | string |
 | subjectStatus | - | A findings domain that contains general subject characteristics that are evaluated periodically to determine if they have changed. | xref |
 | dateOfBirth | - | The calendar date on which a person was born. | date |
 | yearOfBirth | - | The year in which a person was born. | int |
