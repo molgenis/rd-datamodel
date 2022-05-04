@@ -1,0 +1,46 @@
+#//////////////////////////////////////////////////////////////////////////////
+# FILE: model.yaml
+# AUTHOR: David Ruvolo
+# CREATED: 2022-03-29
+# UPDATED: 2022-05-04
+# PURPOSE: COSAS model build instructions
+# DEPENDENCES: **see index.py**
+# COMMENTS: The purpose of this script is to define how the COSAS model is
+# built and to define the output paths.
+#//////////////////////////////////////////////////////////////////////////////
+
+# set output paths for generated files
+outputPaths:
+  main: dist/
+  schemas: schemas/
+
+
+# define models to build
+# Each entity creates a new file using the given name. All EMX-YAML files
+# listed under the `files` property will be rendered into the same file.
+# 
+# @param name name of the emx model (e.g., package)
+# @param active If true, the model will be generated.
+# @param files an array of paths to EMX-yaml files that contain the model
+#   definitions, references, and data.
+#
+models:
+  - name: umdm
+    active: true
+    files: [
+      "model/umdm.yaml",
+      "model/umdm_lookups.yaml"
+    ]
+    
+  - name: jobs
+    active: false
+    files: [
+      "model/module_jobs.yaml",
+      "model/module_jobs_results.yaml"
+    ]
+  
+  - name: users
+    active: false
+    files: [
+      "model/module_users.yaml"
+    ]
