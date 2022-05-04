@@ -73,8 +73,8 @@ tableNames = [x.get('tableName') for x in umdmRefs2.model.get('molgenis')]
 
 for m in umdm2.model.get('molgenis'):
     if m.get('refTable') in tableNames:
-        m['refSchema'] = 'umdmRefs'
+        m['refSchema'] = 'unifiedmodel_lookups'
         
 # # write models
-umdm2.write(name = 'umdm_emx2', format = 'xlsx', outDir = 'dist/')
-umdmRefs2.write(name = 'umdm_emx2_refs', format = 'xlsx', outDir = 'dist/')
+umdm2.write(name = 'unifiedmodel_emx2', format = 'xlsx', outDir = 'dist/')
+umdmRefs2.write(name = 'unifiedmodel_lookups_emx2', format = 'xlsx', outDir = 'dist/')
