@@ -17,26 +17,32 @@ from datetime import datetime
 import tarfile
 
 
-class ghReleaseDownloader:
-    """GitHub Release Downloader"""
+class github:
+    """GitHub API Client
+    View and download files from a repo
+    """
 
     def __init__(self, owner: str = None, repo: str = None):
-        """GitHub Release Downloader
+        """GitHub API Client
         Download the latest release from a GitHub repository
         
         @param owner username of the repository
         @param repo name of the repository that contains the release
         """
-        self.session = requests.Session()
-        self.releases = []
-        self.gh_host = 'https://api.github.com'
-        self.gh_owner = owner
-        self.gh_repo = repo
-        self.gh_endpoint_release = f'{self.gh_host}/repos/{owner}/{repo}/releases'
-        self.gh_default_header = {'Accept': 'application/vnd.github.v3+json'}
+        self.session=requests.Session()
+        self.gh_owner=owner
+        self.gh_repo=repo
+        self.gh_host='https://api.github.com'
+        self.gh_endpoint_base=f'{self.gh_host}/repost/{owner}/{repo}'
+        self.gh_endpoint_release=f'{self.gh_endpoint_base}/releases'
+        self.gh_endpoint_contents=f'{self.gh_endpoint_base}/contents'
+        self.gh_default_header={
+            'Accept': 'application/vnd.github.v3+json'
+        }
+        self.releases=[]
 
 
-    def _print(self):
+    def _printReleases(self):
         """Print Releases"""
         print(self.releases[:, ['id', 'name', 'tag_name', 'published_at']])
         
@@ -55,7 +61,18 @@ class ghReleaseDownloader:
         response=self.session.get(url, **kwargs)
         response.raise_for_status()
         return response.json()
-
+        
+    def listContents(self, path):
+        """List Contents
+        List available files and directories in a GitHub repository
+        
+        @param path location to list files
+        
+        @return list of all files
+        """
+        url=f'{self.gh_endpoint_contents}/{path}'
+        data=self.GET(url=url,headers=self.gh_default_header)
+        return data
 
     def listReleases(self, per_page: int = 30, page: int = 1):
         """List Releases
@@ -67,8 +84,7 @@ class ghReleaseDownloader:
             \url{https://docs.github.com/en/rest/reference/repos#releases}
         @return json
         """
-        
-        headers = self.gh_default_header
+        headers=self.gh_default_header
         if per_page: headers['per_page'] = str(per_page)
         if page: headers['page'] = str(page)
 
@@ -87,7 +103,7 @@ class ghReleaseDownloader:
         print('Found {} releases'.format(len([d['id'] for d in data])))
         
         self.releases = dt.Frame(releases)
-        self._print()
+        self._printReleases()
 
 
     def downloadRelease(self, outDir: str = '.', tag_name: str = "latest"):

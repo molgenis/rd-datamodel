@@ -2,54 +2,20 @@
 #' FILE: data_fairgenomes.py
 #' AUTHOR: David Ruvolo
 #' CREATED: 2021-10-19
-#' MODIFIED: 2021-11-24
+#' MODIFIED: 2022-05-04
 #' PURPOSE: fetch fairgenomes lookups for use in URDM
-#' STATUS: working
+#' STATUS: stable
 #' PACKAGES: pandas; requests
-#' COMMENTS: NA
+#' COMMENTS: Download files from fairgenomes/fairgenomes-semantic-model
+#' https://github.com/fairgenomes/fairgenomes-semantic-model/tree/main/lookups
 #'////////////////////////////////////////////////////////////////////////////
 
+from rd_datamodel.api.github import github
 import pandas as pd
-import requests
 
-# define class for listing metadata for public github repos
-class github:
-    def __init__(self):
-        self.host = 'https://api.github.com/'
-        self.headers = {
-            'Accept': 'application/vnd.github.v3+json'
-        }
-        
-    def _get(self, url, headers):
-        try:
-            r = requests.get(url, headers = headers)
-            if not r.status_code // 100 == 2:
-                return f'Error: unable to import data({r.status_code}): {r.content}'
-                
-            r.raise_for_status()
-            return r.json()
-        except requests.exceptions.HTTPError as error:
-            raise SystemError('Unable to get contents:\n{}'.format(error))
-        
-    def contents(self, owner: str, repo: str, path: str):
-        """List contents at Github Repo Path
-        
-        Attributes:
-            owner (str) : username who owns repository
-            repo  (str) : name of the repository
-            path  (str) : location of the files within the repository
-            
-        """
-        url = f'{self.host}repos/{owner}/{repo}/contents/{path}'
-        raw = self._get(url, self.headers)
-        return raw
 
-#//////////////////////////////////////////////////////////////////////////////
-
-# List files from FAIR Genomes Github repo:
-# https://github.com/fairgenomes/fairgenomes-semantic-model/tree/main/lookups
 gh = github()
-repo = gh.contents(
+repositoryFiles=gh.listContents(
     owner = 'fairgenomes',
     repo = 'fairgenomes-semantic-model',
     path = 'lookups'
@@ -78,7 +44,7 @@ filesToDownload = {
 
 # pull download URLs for files of interest
 files = []
-for file in repo:
+for file in repositoryFiles:
     if file['name'] in filesToDownload:
         files.append({
             'name': file['name'],
@@ -97,4 +63,3 @@ for f in files:
     # if f['name'] not in ['Countries.txt']:
     #     raw = raw.append(pd.DataFrame(data = nullFlavors))
     raw.to_csv(path, index=False)
-
