@@ -4,7 +4,7 @@
 
 | Name | Description | Parent |
 |:---- |:-----------|:------|
-| umdm | The Unified Molgenis Data Model (UMDM) (v1.1.3, 2022-03-02) | - |
+| umdm | The Unified Molgenis Data Model (UMDM) (v1.2.0, 2022-06-07) | - |
 | umdm_lookups | Lookup tables for the Unified Molgenis Data Model (UMDM) (v1.2.0, 2022-06-07) | umdm |
 
 ## Entities

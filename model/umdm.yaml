@@ -35,8 +35,8 @@
 name: umdm
 label: Unified Molgenis Data Model
 description: The Unified Molgenis Data Model (UMDM)
-version: 1.1.3
-date: 2022-03-02
+version: 1.2.0
+date: 2022-06-07
 tags: dcat:catalog https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
 
 # define tags (the rest are added at build time)
