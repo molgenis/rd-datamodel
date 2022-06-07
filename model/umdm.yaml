@@ -37,23 +37,23 @@ label: Unified Molgenis Data Model
 description: The Unified Molgenis Data Model (UMDM)
 version: 1.1.3
 date: 2022-03-02
-tags: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
+tags: dcat:catalog https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
 
 # define tags (the rest are added at build time)
 tagDefinitions:
-  - identifier: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
+  - identifier: dcat:catalog
     label: dcat:catalog
     objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
     codeSystem: dcat
     relationLabel: isAssociatedWith
     relationIRI: http://molgenis.org#isAssociatedWith
 
-  - identifier: https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
-    label: dcat:dataset
-    objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
-    codeSystem: dcat
-    relationLabel: isAssociatedWith
-    relationIRI: http://molgenis.org#isAssociatedWith
+#   - identifier: dcat:dataset
+#     label: dcat:dataset
+#     objectIRI: https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+#     codeSystem: dcat
+#     relationLabel: isAssociatedWith
+#     relationIRI: http://molgenis.org#isAssociatedWith
 
 # set attribute level defaults
 defaults:
@@ -71,7 +71,7 @@ entities:
   - name: subjects
     label: Subjects
     description: Persons who are observed, analyzed, examined, investigated, experimented upon, or/and treated in the course of a particular study
-    tags: http://purl.obolibrary.org/obo/ExO_0000127, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+    tags: ExO_0000127 http://purl.obolibrary.org/obo/ExO_0000127
     attributes:
       - name: subjectID
         dataType: string
@@ -80,197 +80,197 @@ entities:
         lookupAttribute: true
         labelAttribute: true
         description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
-        tags: http://purl.obolibrary.org/obo/NCIT_C142495
+        tags: NCIT_C142495 http://purl.obolibrary.org/obo/NCIT_C142495
 
       - name: belongsToFamily
         description: A domestic group, or a number of domestic groups linked through descent (demonstrated or stipulated) from a common ancestor, marriage, or adoption.
-        tags: http://purl.obolibrary.org/obo/NCIT_C25173
+        tags: NCIT_C25173 http://purl.obolibrary.org/obo/NCIT_C25173     
 
       - name: belongsToMother
         dataType: xref
         refEntity: umdm_subjects
         description: A designation that has some relationship to motherhood.
-        tags: http://purl.obolibrary.org/obo/NCIT_C89336
+        tags: NCIT_C89336 http://purl.obolibrary.org/obo/NCIT_C89336
 
       - name: belongsToFather
         dataType: xref
         refEntity: umdm_subjects
         description: Having to do with the father, coming from the father, or related through the father.
-        tags: http://purl.obolibrary.org/obo/NCIT_C94324
+        tags: NCIT_C94324 http://purl.obolibrary.org/obo/NCIT_C94324
 
       - name: belongsWithFamilyMembers
         dataType: text
         # dataType: mref
         # refEntity: umdm_subjects
         description: Any individual related biologically or legally to another individual.
-        tags: http://purl.obolibrary.org/obo/NCIT_C21480
+        tags: NCIT_C21480 http://purl.obolibrary.org/obo/NCIT_C21480
 
       - name: subjectStatus
         dataType: xref
         refEntity: umdm_lookups_subjectStatus
         description: A findings domain that contains general subject characteristics that are evaluated periodically to determine if they have changed.
-        tags: http://purl.obolibrary.org/obo/NCIT_C117655
+        tags: NCIT_C117655 http://purl.obolibrary.org/obo/NCIT_C117655
 
       - name: dateOfBirth
         dataType: date
         description: The calendar date on which a person was born.
-        tags: http://purl.obolibrary.org/obo/NCIT_C68615
+        tags: NCIT_C68615 http://purl.obolibrary.org/obo/NCIT_C68615
 
       - name: yearOfBirth
         dataType: int
         description: The year in which a person was born.
-        tags: http://purl.obolibrary.org/obo/NCIT_C83164
+        tags: NCIT_C83164 http://purl.obolibrary.org/obo/NCIT_C83164
 
       - name: dateOfDeath
         dataType: date
         description: The calendar date of subject's death.
-        tags: http://purl.obolibrary.org/obo/NCIT_C70810
+        tags: NCIT_C70810 http://purl.obolibrary.org/obo/NCIT_C70810
         
       - name: yearOfDeath
         dataType: int
         description: The year in which an individual derived.
-        tags: http://purl.obolibrary.org/obo/NCIT_C156426
+        tags: NCIT_C156426 http://purl.obolibrary.org/obo/NCIT_C156426
 
       - name: ageAtDeath
         dataType: decimal
         description: The age at which death occurred.
-        tags: http://purl.obolibrary.org/obo/NCIT_C135383
+        tags: NCIT_C135383 http://purl.obolibrary.org/obo/NCIT_C135383
         
       - name: genderIdentity
         dataType: xref
         refEntity: umdm_lookups_genderIdentity
         description: A person's concept of self as being male and masculine or female and feminine, or ambivalent, based in part on physical characteristics, parental responses, and psychological and social pressures. It is the internal experience of gender role. A person's sense of self as a member of a particular gender.
-        tags: http://purl.bioontology.org/ontology/MESH/D005783
+        tags: MESH_D005783 http://purl.bioontology.org/ontology/MESH/D005783
 
       - name: genderAtBirth
         description: Assigned gender is one's gender which was assigned at birth, typically by a medical and/or legal organization, and then later registered with other organizations. Such a designation is typically based off of the superficial appearance of external genitalia present at birth.
         dataType: xref
         refEntity: umdm_lookups_genderAtBirth
-        tags: http://purl.obolibrary.org/obo/GSSO_009418
+        tags: GSSO_009418 http://purl.obolibrary.org/obo/GSSO_009418
 
       - name: genotypicSex
         dataType: xref
         refEntity: umdm_lookups_genotypicSex
         description: A biological sex quality inhering in an individual based upon genotypic composition of sex chromosomes.
-        tags: http://purl.obolibrary.org/obo/PATO_0020000
+        tags: PATO_0020000 http://purl.obolibrary.org/obo/PATO_0020000
 
       - name: countryOfBirth
         description: The country that this person was born in.
         dataType: xref
         refEntity: umdm_lookups_country
-        tags: http://purl.obolibrary.org/obo/GENEPIO_0001094
+        tags: GENEPIO_0001094 http://purl.obolibrary.org/obo/GENEPIO_0001094
 
       - name: countryOfResidence
         description: Country of residence at enrollment.
         dataType: xref
         refEntity: umdm_lookups_country
-        tags: http://purl.obolibrary.org/obo/NCIT_C171105
+        tags: NCIT_C171105 http://purl.obolibrary.org/obo/NCIT_C171105
 
       - name: ancestry
         dataType: xref
         refEntity: umdm_lookups_ancestry
         description: Population category defined using ancestry informative markers (AIMs) based on genetic/genomic data.
-        tags: http://purl.obolibrary.org/obo/NCIT_C176763
+        tags: NCIT_C176763 http://purl.obolibrary.org/obo/NCIT_C176763
 
       - name: affiliation
         description: A formal association between entities.
         dataType: compound
-        tags: http://purl.obolibrary.org/obo/NCIT_C25412
+        tags: NCIT_C25412 http://purl.obolibrary.org/obo/NCIT_C25412
 
       - name: primaryOrganization
         dataType: xref
         refEntity: umdm_organizations
         description: The most significant institute for medical consultation and/or study inclusion in context of the genetic disease of this person.
         partOfAttribute: affiliation
-        tags: http://purl.obolibrary.org/obo/NCIT_C25412
+        tags: NCIT_C25412 http://purl.obolibrary.org/obo/NCIT_C25412
 
       - name: contactPerson
         description: A person acting as a channel for communication between groups or on behalf of a group.
         partOfAttribute: affiliation
-        tags: http://purl.obolibrary.org/obo/NCIT_C25461
+        tags: NCIT_C25461 http://purl.obolibrary.org/obo/NCIT_C25461
 
       - name: contactEmail
         dataType: email
         description: Email address of the contact person or organization
         partOfAttribute: affiliation
-        tags: http://purl.obolibrary.org/obo/MS_1000589
+        tags: MS_1000589 http://purl.obolibrary.org/obo/MS_1000589
 
       - name: alternativeIdentifiers
         description: A backup sequence of characters used to identify an entity.
-        tags: http://purl.obolibrary.org/obo/NCIT_C90353
+        tags: NCIT_C90353 http://purl.obolibrary.org/obo/NCIT_C90353
 
       - name: firstVisitDate
         dataType: date
         description: The date for the first patient visit.
-        tags: http://purl.obolibrary.org/obo/NCIT_C164021
+        tags: NCIT_C164021 http://purl.obolibrary.org/obo/NCIT_C164021
 
       - name: belongsWithTwin
         dataType: bool
         description: Either of two offspring born from the same pregnancy.
-        tags: http://purl.obolibrary.org/obo/NCIT_C73427
+        tags: NCIT_C73427 http://purl.obolibrary.org/obo/NCIT_C73427
 
       - name: fetalStatus
         dataType: bool
         description: Any tissue from a fetus.
-        tags: http://purl.obolibrary.org/obo/NCIT_C17730
+        tags: NCIT_C17730 http://purl.obolibrary.org/obo/NCIT_C17730
 
       - name: consanguinity
         dataType: bool
         description: Genetic relatedness between individuals who are descendants of at least one common ancestor.
-        tags: http://purl.obolibrary.org/obo/NCIT_C71384
+        tags: NCIT_C71384 http://purl.obolibrary.org/obo/NCIT_C71384
 
       - name: belongsToStudy
         dataType: mref
         refEntity: umdm_studies
         description: Reference to the study or studies in which this person participates.
-        tags: http://purl.obolibrary.org/obo/RO_0000056
+        tags: RO_0000056 http://purl.obolibrary.org/obo/RO_0000056
       
       - name: belongsToCohort
         dataType: mref
         refEntity: umdm_cohorts
         description: A group of individuals, identified by a common characteristic.
-        tags: http://purl.obolibrary.org/obo/NCIT_C61512
+        tags: NCIT_C61512 http://purl.obolibrary.org/obo/NCIT_C61512
 
       - name: belongsToDataRelease
         dataType: mref
         refEntity: umdm_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
-        tags: http://purl.obolibrary.org/obo/NCIT_C172217
+        tags: NCIT_C172217 http://purl.obolibrary.org/obo/NCIT_C172217
 
       - name: recordMetadata
         dataType: compound
         description: metadata is data that provides information about data.
-        tags: http://semanticscience.org/resource/SIO_001330
+        tags: SIO_001330 http://semanticscience.org/resource/SIO_001330
 
       - name: comments
         dataType: text
         description: A written explanation, observation or criticism added to textual material.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C25393
+        tags: NCIT_C25393 http://purl.obolibrary.org/obo/NCIT_C25393
       
       - name: dateRecordCreated
         nillable: false
         dataType: datetime
         description: The date on which the activity or entity is created.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C164483
+        tags: NCIT_C164483 http://purl.obolibrary.org/obo/NCIT_C164483
 
       - name: recordCreatedBy
         nillable: false
         description: Indicates the person or authoritative body who brought the item into existence.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C42628
+        tags: NCIT_C42628 http://purl.obolibrary.org/obo/NCIT_C42628
 
       - name: dateRecordUpdated
         dataType: datetime
         description: The date (and time) on which report was updated after it had been submitted.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C93629
+        tags: NCIT_C93629 http://purl.obolibrary.org/obo/NCIT_C93629
 
       - name: wasUpdatedBy
         description: An entity which is updated by another entity or an agent.
         partOfAttribute: recordMetadata
-        tags: https://w3id.org/reproduceme#wasUpdatedBy
+        tags: reproduceme_wasUpdatedBy https://w3id.org/reproduceme#wasUpdatedBy
         
   #////////////////////////////////////////////////////////////////////////////
   
@@ -278,7 +278,7 @@ entities:
   - name: studies
     label: Studies
     description: A detailed examination, analysis, or critical inspection of one or multiple subjects designed to discover facts.
-    tags: http://purl.obolibrary.org/obo/NCIT_C63536, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+    tags: NCIT_C63536 http://purl.obolibrary.org/obo/NCIT_C63536
     attributes:
       - name: studyID
         nillable: false
@@ -287,60 +287,60 @@ entities:
         labelAttribute: true
         lookupAttribute: true
         description: A unique proper name or character sequence that identifies this particular study.
-        tags: http://purl.obolibrary.org/obo/OMIABIS_0000006
+        tags: OMIABIS_0000006 http://purl.obolibrary.org/obo/OMIABIS_0000006
         
       - name: studyAcronym
         description: The non-unique initials or abbreviated name used for identification.
-        tags: http://purl.obolibrary.org/obo/NCIT_C93495
+        tags: NCIT_C93495 http://purl.obolibrary.org/obo/NCIT_C93495
 
       - name: studyName
         description: A name that designates this study.
-        tags: http://purl.obolibrary.org/obo/OMIABIS_0000037
+        tags: OMIABIS_0000037 http://purl.obolibrary.org/obo/OMIABIS_0000037
 
       - name: inclusionCriteria
         dataType: mref
         refEntity: umdm_lookups_inclusionCriteria
         description: The conditions which, if met, make an person eligible for participation in this study.
-        tags: http://purl.obolibrary.org/obo/OBI_0500027
+        tags: OBI_0500027 http://purl.obolibrary.org/obo/OBI_0500027
 
       - name: principleInvestigator
         description: An investigator who is responsible for all aspects of the conduct of a study.
-        tags: http://purl.obolibrary.org/obo/NCIT_C19924
+        tags: NCIT_C19924 http://purl.obolibrary.org/obo/NCIT_C19924
       
       - name: contactPerson
         description: Name of study contact.
-        tags: http://purl.obolibrary.org/obo/NCIT_C176373
+        tags: NCIT_C176373 http://purl.obolibrary.org/obo/NCIT_C176373
 
       - name: contactEmail
         dataType: email
         description: A text string identifier for a location to which e-mail for the study contact can be delivered.
-        tags: http://purl.obolibrary.org/obo/NCIT_C176375
+        tags: NCIT_C176375 http://purl.obolibrary.org/obo/NCIT_C176375
 
       - name: studyDescription
         dataType: text
         description: A plan specification comprised of protocols (which may specify how and what kinds of data will be gathered) that are executed as part of this study.
-        tags: http://purl.obolibrary.org/obo/NCIT_C142704
+        tags: NCIT_C142704 http://purl.obolibrary.org/obo/NCIT_C142704
 
       - name: studyStartDate
         dataType: date
         description: The date on which this study began.
-        tags: http://purl.obolibrary.org/obo/NCIT_C69208
+        tags: NCIT_C69208 http://purl.obolibrary.org/obo/NCIT_C69208
 
       - name: studyCompletionDate
         dataType: date
         description: The date on which the concluding information for this study is completed. Usually, this is when the last subject has a final visit, or the main analysis has finished, or any other protocol-defined completion date.
-        tags: http://purl.obolibrary.org/obo/NCIT_C142702
+        tags: NCIT_C142702 http://purl.obolibrary.org/obo/NCIT_C142702
 
       - name: currentStudyStatus
         dataType: mref
         refEntity: umdm_lookups_studyStatus
         description: The status of a study or trial.
-        tags: http://purl.obolibrary.org/obo/NCIT_C171103
+        tags: NCIT_C171103 http://purl.obolibrary.org/obo/NCIT_C171103
 
       - name: numberOfSubjectsEnrolled
         dataType: int
         description: An integer specifying the quantity of study subjects enrolled in the study at the current time.
-        tags: http://purl.obolibrary.org/obo/NCIT_C153145
+        tags: NCIT_C153145 http://purl.obolibrary.org/obo/NCIT_C153145
 
       - name: samplesCollected
         dataType: int
@@ -350,42 +350,42 @@ entities:
         dataType: mref
         refEntity: umdm_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
-        tags: http://purl.obolibrary.org/obo/NCIT_C172217
+        tags: NCIT_C172217 http://purl.obolibrary.org/obo/NCIT_C172217
 
       - name: recordMetadata
         dataType: compound
         description: metadata is data that provides information about data.
-        tags: http://semanticscience.org/resource/SIO_001330
+        tags: SIO_001330 http://semanticscience.org/resource/SIO_001330
 
       - name: comments
         dataType: text
         description: A written explanation, observation or criticism added to textual material.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C25393
+        tags: NCIT_C25393 http://purl.obolibrary.org/obo/NCIT_C25393
       
       - name: dateRecordCreated
         nillable: false
         dataType: datetime
         description: The date on which the activity or entity is created.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C164483
+        tags: NCIT_C164483 http://purl.obolibrary.org/obo/NCIT_C164483
 
       - name: recordCreatedBy
         nillable: false
         description: Indicates the person or authoritative body who brought the item into existence.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C42628
+        tags: NCIT_C42628 http://purl.obolibrary.org/obo/NCIT_C42628
 
       - name: dateRecordUpdated
         dataType: datetime
         description: The date (and time) on which report was updated after it had been submitted.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C93629
+        tags: NCIT_C93629 http://purl.obolibrary.org/obo/NCIT_C93629
 
       - name: wasUpdatedBy
         description: An entity which is updated by another entity or an agent.
         partOfAttribute: recordMetadata
-        tags: https://w3id.org/reproduceme#wasUpdatedBy
+        tags: reproduceme_wasUpdatedBy https://w3id.org/reproduceme#wasUpdatedBy
 
   #////////////////////////////////////////////////////////////////////////////
   
@@ -393,148 +393,110 @@ entities:
   - name: consent
     label: Consent
     description: Consent given by a patient to a surgical or medical procedure or participation in a study, examination or analysis after achieving an understanding of the relevant medical facts and the risks involved.
-    tags: http://purl.obolibrary.org/obo/NCIT_C16735, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+    tags: NCIT_C16735 http://purl.obolibrary.org/obo/NCIT_C16735
     attributes:
       - name: consentID
         idAttribute: true
         nillable: false
         description: A unique proper name or character sequence that identifies this particular signed individual consent.
-        tags: http://purl.obolibrary.org/obo/ICO_0000044
-        label: consentID
-        visible: true
+        tags: ICO_0000044 http://purl.obolibrary.org/obo/ICO_0000044
 
       - name: belongsToSubject
         dataType: xref
         refEntity: umdm_subjects
         description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
-        tags: http://purl.obolibrary.org/obo/NCIT_C142495
-        label: MSN_UMCGnr
-        visible: true
+        tags: NCIT_C142495 http://purl.obolibrary.org/obo/NCIT_C142495
 
       - name: collectedBy
         description: Indicates the person, group, or institution who performed the collection act.
-        tags: http://purl.obolibrary.org/obo/NCIT_C45262
-        label: collectedBy
-        visible: true
+        tags: NCIT_C45262 http://purl.obolibrary.org/obo/NCIT_C45262
 
       - name: signingDate
         dataType: date
         description: A date specification that designates when this individual consent form was signed.
-        tags: http://purl.obolibrary.org/obo/ICO_0000036
-        label: signingDate
-        visible: true
+        tags: ICO_0000036 http://purl.obolibrary.org/obo/ICO_0000036        
 
       - name: validUntil
         dataType: date
         description: End date of the validity of this individual consent.
-        tags: http://purl.org/dc/terms/valid
-        label: validUntil
-        visible: true
+        tags: DCMI_valid http://purl.org/dc/terms/valid
 
       - name: consentWithdrawn
         dataType: bool
         description: An indication that the consent to participate in the study or one or more segments of the study has been revoked.
-        tags: http://purl.obolibrary.org/obo/NCIT_C176342
-        label: consentWithdrawn
-        visible: true
+        tags: NCIT_C176342 http://purl.obolibrary.org/obo/NCIT_C176342
 
       - name: dataUsePermission
         dataType: mref
         refEntity: umdm_lookups_dataUsePermissions
         description: A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used.
-        tags: http://purl.obolibrary.org/obo/DUO_0000001
-        label: dataUsePermission
-        visible: true
+        tags: DUO_0000001 http://purl.obolibrary.org/obo/DUO_0000001
 
       - name: dataUseModifiers
         dataType: mref
         refEntity: umdm_lookups_dataUseModifiers
         description: Data use modifiers indicate additional conditions for use. For instance, a dataset is restricted to investigations into specific diseases or performed at specific geographical locations.
-        tags: http://purl.obolibrary.org/obo/DUO_0000017
-        label: dataUseModifiers
-        visible: true
+        tags: DUO_0000017 http://purl.obolibrary.org/obo/DUO_0000017
 
       - name: dataUseSpecification
         dataType: text
         description: Further specification of applied data use permissions and modifiers. For example, a list of countries in case of geographic restrictions or a list of diseases when restricted to disease-specific research.
-        tags: http://semanticscience.org/resource/SIO_000090
-        label: dataUseSpecification
-        visible: true
+        tags: SIO_000090 http://semanticscience.org/resource/SIO_000090
 
       - name: allowIncidentalFindingRecontact
         dataType: bool
         description: A planned process for a subject agrees not to be informed about any incidental finding.
-        tags: http://purl.obolibrary.org/obo/ICO_0000178
-        label: allowIncidentalFindingRecontact
-        visible: true
+        tags: ICO_0000178 http://purl.obolibrary.org/obo/ICO_0000178
 
       - name: allowMatchmaker
         dataType: bool
         description: Permission is given for MatchMaking
-        label: allowMatchmaker
-        visible: true
 
       - name: allowRecontacting
         dataType: bool
         description: The procedure of recontacting the patient for specified reasons. This means the patient agrees to be re-identifiable under those circumstances.
-        tags: http://purl.obolibrary.org/obo/NCIT_C25737
-        label: allowRecontacting
-        visible: true
+        tags: NCIT_C25737 http://purl.obolibrary.org/obo/NCIT_C25737
 
       - name: belongsToDataRelease
         dataType: mref
         refEntity: umdm_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
-        tags: http://purl.obolibrary.org/obo/NCIT_C172217
-        label: belongsToDataRelease
-        visible: false
+        tags: NCIT_C172217 http://purl.obolibrary.org/obo/NCIT_C172217
 
       - name: recordMetadata
         dataType: compound
         description: metadata is data that provides information about data.
-        tags: http://semanticscience.org/resource/SIO_001330
-        label: recordMetadata
-        visible: false
+        tags: SIO_001330 http://semanticscience.org/resource/SIO_001330
 
       - name: comments
         dataType: text
         description: A written explanation, observation or criticism added to textual material.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C25393
-        label: comments
-        visible: false
+        tags: NCIT_C25393 http://purl.obolibrary.org/obo/NCIT_C25393
       
       - name: dateRecordCreated
         nillable: false
         dataType: datetime
         description: The date on which the activity or entity is created.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C164483
-        label: dateRecordCreated
-        visible: false
+        tags: NCIT_C164483 http://purl.obolibrary.org/obo/NCIT_C164483
 
       - name: recordCreatedBy
         nillable: false
         description: Indicates the person or authoritative body who brought the item into existence.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C42628
-        label: recordCreatedBy
-        visible: false
+        tags: NCIT_C42628 http://purl.obolibrary.org/obo/NCIT_C42628
 
       - name: dateRecordUpdated
         dataType: datetime
         description: The date (and time) on which report was updated after it had been submitted.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C93629
-        label: dateRecordUpdated
-        visible: false
+        tags: NCIT_C93629 http://purl.obolibrary.org/obo/NCIT_C93629
 
       - name: wasUpdatedBy
         description: An entity which is updated by another entity or an agent.
         partOfAttribute: recordMetadata
-        tags: https://w3id.org/reproduceme#wasUpdatedBy
-        label: wasUpdatedBy
-        visible: false
+        tags: reproduceme_wasUpdatedBy https://w3id.org/reproduceme#wasUpdatedBy
 
   #////////////////////////////////////////////////////////////////////////////
   
@@ -542,131 +504,131 @@ entities:
   - name: clinical
     label: Clinical
     description: Findings and circumstances relating to the examination and treatment of a patient.
-    tags: http://purl.obolibrary.org/obo/NCIT_C25398, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+    tags: NCIT_C25398 http://purl.obolibrary.org/obo/NCIT_C25398
     attributes:
       - name: clinicalID
         idAttribute: true
         description: A unique proper name or character sequence that identifies this particular clinical examination.
-        tags: http://purl.obolibrary.org/obo/NCIT_C87853
+        tags: NCIT_C87853 http://purl.obolibrary.org/obo/NCIT_C87853
 
       - name: belongsToSubject
         dataType: xref
         refEntity: umdm_subjects
         description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
-        tags: http://purl.obolibrary.org/obo/NCIT_C142495
+        tags: NCIT_C142495 http://purl.obolibrary.org/obo/NCIT_C142495
 
       - name: affectedStatus
         dataType: bool
         description: Individuals in a pedigree who exhibit the specific phenotype under study.
-        tags: http://purl.obolibrary.org/obo/NCIT_C64917
+        tags: NCIT_C64917 http://purl.obolibrary.org/obo/NCIT_C64917
 
       - name: dateOfDiagnosis
         dataType: date
         description: The date on which a diagnosis of disease was made.
-        tags: http://purl.obolibrary.org/obo/NCIT_C164339
+        tags: NCIT_C164339 http://purl.obolibrary.org/obo/NCIT_C164339
 
       - name: ageAtDiagnosis
         dataType: decimal
         description: The age (in years), measured from some defined time point (e.g. birth) at which a patient is diagnosed with a disease.
-        tags: http://purl.bioontology.org/ontology/SNOMEDCT/423493009
+        tags: SNOMEDCT_423493009 http://purl.bioontology.org/ontology/SNOMEDCT/423493009
 
       - name: ageOfOnset
         dataType: decimal
         description: Age (in years) of onset of clinical manifestations related to the disease of the patient.
-        tags: http://www.orpha.net/ORDO/Orphanet_C023
+        tags: Orphanet_C023 http://www.orpha.net/ORDO/Orphanet_C023
 
       - name: observedPhenotype
         dataType: mref
         refEntity: umdm_lookups_phenotype
         description: The outward appearance of the individual. In medical context, these are often the symptoms caused by a disease.
-        tags: http://purl.obolibrary.org/obo/NCIT_C16977
+        tags: NCIT_C16977 http://purl.obolibrary.org/obo/NCIT_C16977
 
       - name: unobservedPhenotype
         dataType: mref
         refEntity: umdm_lookups_phenotype
         description: Phenotypes or symptoms that were looked for but not observed, which may help in differential diagnosis or establish incomplete penetrance.
-        tags: http://purl.bioontology.org/ontology/HL7/C0442737
+        tags: HL7_C0442737 http://purl.bioontology.org/ontology/HL7/C0442737
 
       - name: provisionalPhenotype
         dataType: mref
         refEntity: umdm_lookups_phenotype
         description: The test or procedure was successfully performed, but the results are borderline and can neither be declared positive / negative nor detected / not detected according to the current established criteria.
-        tags: http://purl.bioontology.org/ontology/HL7/C0332241
+        tags: HL7_C0332241 http://purl.bioontology.org/ontology/HL7/C0332241
 
       - name: clinicalDiagnosis
         dataType: mref
         refEntity: umdm_lookups_diseases
         description: A diagnosis made from a study of the signs and symptoms of a disease.
-        tags: http://purl.obolibrary.org/obo/NCIT_C15607
+        tags: NCIT_C15607 http://purl.obolibrary.org/obo/NCIT_C15607
 
       - name: molecularDiagnosis
         dataType: mref
         refEntity: umdm_lookups_molecularDiagnosis
         description: Gene affected by pathogenic variation that is causal for disease of the patient.
-        tags: http://purl.obolibrary.org/obo/NCIT_C20826
+        tags: NCIT_C20826 http://purl.obolibrary.org/obo/NCIT_C20826
     
       - name: molecularDiagnosisOther
         dataType: text
         description: Causal variant in HGVS notation with optional classification or free text explaining any other molecular mechanisms involved.
-        tags: http://purl.obolibrary.org/obo/NCIT_C20826
+        tags: NCIT_C20826 http://purl.obolibrary.org/obo/NCIT_C20826
 
       - name: statusOfDiagnosis
         dataType: xref
         refEntity: umdm_lookups_diagnosisConfirmationStatuses
         description: A condition or state at a particular time.
-        tags: http://purl.obolibrary.org/obo/NCIT_C25688
+        tags: NCIT_C25688 http://purl.obolibrary.org/obo/NCIT_C25688
 
       - name: dateDiagnosisConfirmed
         dataType: date
         description: The particular day, month and year an event has happened or will happen.
-        tags: http://purl.obolibrary.org/obo/NCIT_C25164
+        tags: NCIT_C25164 http://purl.obolibrary.org/obo/NCIT_C25164
 
       - name: belongsToSample
         dataType: mref
         refEntity: umdm_samples
         description: Name or other identifier of an entry from a biosample database.
-        tags: http://edamontology.org/data_3273
+        tags: EDAM_3273 http://edamontology.org/data_3273
 
       - name: belongsToDataRelease
         dataType: mref
         refEntity: umdm_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
-        tags: http://purl.obolibrary.org/obo/NCIT_C172217
+        tags: NCIT_C172217 http://purl.obolibrary.org/obo/NCIT_C172217
 
       - name: recordMetadata
         dataType: compound
         description: metadata is data that provides information about data.
-        tags: http://semanticscience.org/resource/SIO_001330
+        tags: SIO_001330 http://semanticscience.org/resource/SIO_001330
 
       - name: comments
         dataType: text
         description: A written explanation, observation or criticism added to textual material.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C25393
+        tags: NCIT_C25393 http://purl.obolibrary.org/obo/NCIT_C25393
       
       - name: dateRecordCreated
         nillable: false
         dataType: datetime
         description: The date on which the activity or entity is created.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C164483
+        tags: NCIT_C164483 http://purl.obolibrary.org/obo/NCIT_C164483
 
       - name: recordCreatedBy
         nillable: false
         description: Indicates the person or authoritative body who brought the item into existence.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C42628
+        tags: NCIT_C42628 http://purl.obolibrary.org/obo/NCIT_C42628
 
       - name: dateRecordUpdated
         dataType: datetime
         description: The date (and time) on which report was updated after it had been submitted.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C93629
+        tags: NCIT_C93629 http://purl.obolibrary.org/obo/NCIT_C93629
 
       - name: wasUpdatedBy
         description: An entity which is updated by another entity or an agent.
         partOfAttribute: recordMetadata
-        tags: https://w3id.org/reproduceme#wasUpdatedBy
+        tags: reproduceme_wasUpdatedBy https://w3id.org/reproduceme#wasUpdatedBy
 
   #////////////////////////////////////////////////////////////////////////////
   
@@ -675,128 +637,128 @@ entities:
   - name: samples
     label: Samples
     description: A sample is a limited quantity of something (e.g. an individual or set of individuals from a population, or a portion of a material) to be used for testing, analysis, inspection, investigation, demonstration, or trial use.
-    tags: http://purl.obolibrary.org/obo/SCDO_0002829, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+    tags: SCDO_0002829 http://purl.obolibrary.org/obo/SCDO_0002829
     attributes:
       - name: sampleID
         idAttribute: true
         nillable: false
         description: Name or other identifier of an entry from a biosample database.
-        tags: http://edamontology.org/data_3273
+        tags: EDAM_3273 http://edamontology.org/data_3273
 
       - name: belongsToSubject
         dataType: xref
         refEntity: umdm_subjects
         description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
-        tags: http://purl.obolibrary.org/obo/NCIT_C142495
+        tags: NCIT_C142495 http://purl.obolibrary.org/obo/NCIT_C142495
 
       - name: belongsToRequest
         description: A sequence of letters, numbers, or other characters that specifically identifies a particular order.
-        tags: http://purl.obolibrary.org/obo/NCIT_C164567
+        tags: NCIT_C164567 http://purl.obolibrary.org/obo/NCIT_C164567
         
       - name: dateOfRequest
         dataType: date
         description: The date on which the activity or entity was ordered.
-        tags: http://purl.obolibrary.org/obo/NCIT_C164566
+        tags: NCIT_C164566 http://purl.obolibrary.org/obo/NCIT_C164566
 
       - name: reasonForSampling
         dataType: mref
         refEntity: umdm_lookups_samplingReason
         description: The explanation for why a test, measurement, or assessment is executed.
-        tags: http://purl.obolibrary.org/obo/NCIT_C171003
+        tags: NCIT_C171003 http://purl.obolibrary.org/obo/NCIT_C171003
 
       - name: samplingDate
         dataType: date
         description: The date that a sample was collected or obtained.
-        tags: http://purl.obolibrary.org/obo/NCIT_C164024
+        tags: NCIT_C164024 http://purl.obolibrary.org/obo/NCIT_C164024
 
       - name: samplingTimestamp
         dataType: datetime
         description: Date and time at which this material was collected.
-        tags: http://www.ebi.ac.uk/efo/EFO_0000689
+        tags: EFO_0000689 http://www.ebi.ac.uk/efo/EFO_0000689
 
       - name: samplingProtocol
         dataType: mref
         refEntity: umdm_samplingProtocols
         description: The procedure whereby this material was sampled for an analysis.
-        tags: http://www.ebi.ac.uk/efo/EFO_0005518
+        tags: EFO_0005518 http://www.ebi.ac.uk/efo/EFO_0005518
 
       - name: samplingProtocolDeviation
         dataType: text
         description: A variation from processes or procedures defined in the sampling protocol. Deviations usually do not preclude the overall evaluability of subject data for either efficacy or safety, and are often acknowledged and accepted in advance by the sponsor.
-        tags: http://purl.obolibrary.org/obo/NCIT_C50996
+        tags: NCIT_C50996 http://purl.obolibrary.org/obo/NCIT_C50996
 
       - name: reasonForSamplingProtocolDeviation
         dataType: text
         description: The rationale for why a deviation from the sampling protocol has occurred.
-        tags: http://purl.obolibrary.org/obo/NCIT_C93529
+        tags: NCIT_C93529 http://purl.obolibrary.org/obo/NCIT_C93529
 
       - name: biospecimenType
         dataType: xref
         refEntity: umdm_lookups_biospecimenType
         description: The type of material taken from a biological entity for testing, diagnostic, propagation, treatment or research purposes.
-        tags: http://purl.obolibrary.org/obo/NCIT_C70713
+        tags: NCIT_C70713 http://purl.obolibrary.org/obo/NCIT_C70713
 
       - name: anatomicalSource
         dataType: xref
         refEntity: umdm_lookups_anatomicalSource
         description: Biological entity that constitutes the structural organization of an individual member of a biological species from which this material was taken.
-        tags: http://purl.obolibrary.org/obo/NCIT_C103264
+        tags: NCIT_C103264 http://purl.obolibrary.org/obo/NCIT_C103264
 
       - name: pathologicalState
         dataType: xref
         refEntity: umdm_lookups_pathologicalState
         description: The pathological state of the tissue from which this material was derived.
-        tags: http://purl.obolibrary.org/obo/GO_0001894
+        tags: GO_0001894 http://purl.obolibrary.org/obo/GO_0001894
 
       - name: biospecimenUsability
         dataType: bool
         description: An indication as to whether a biospecimen is suitable for testing purposes.
-        tags: http://purl.obolibrary.org/obo/NCIT_C171004
+        tags: NCIT_C171004 http://purl.obolibrary.org/obo/NCIT_C171004
 
       - name: alternativeIdentifiers
         description: A backup sequence of characters used to identify an entity.
-        tags: http://purl.obolibrary.org/obo/NCIT_C90353
+        tags: NCIT_C90353 http://purl.obolibrary.org/obo/NCIT_C90353
 
       - name: belongsToDataRelease
         dataType: mref
         refEntity: umdm_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
-        tags: http://purl.obolibrary.org/obo/NCIT_C172217
+        tags: NCIT_C172217 http://purl.obolibrary.org/obo/NCIT_C172217
 
       - name: recordMetadata
         dataType: compound
         description: metadata is data that provides information about data.
-        tags: http://semanticscience.org/resource/SIO_001330
-      
+        tags: SIO_001330 http://semanticscience.org/resource/SIO_001330
+
       - name: comments
         dataType: text
         description: A written explanation, observation or criticism added to textual material.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C25393
+        tags: NCIT_C25393 http://purl.obolibrary.org/obo/NCIT_C25393
       
       - name: dateRecordCreated
         nillable: false
         dataType: datetime
         description: The date on which the activity or entity is created.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C164483
+        tags: NCIT_C164483 http://purl.obolibrary.org/obo/NCIT_C164483
 
       - name: recordCreatedBy
         nillable: false
         description: Indicates the person or authoritative body who brought the item into existence.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C42628
+        tags: NCIT_C42628 http://purl.obolibrary.org/obo/NCIT_C42628
 
       - name: dateRecordUpdated
         dataType: datetime
         description: The date (and time) on which report was updated after it had been submitted.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C93629
+        tags: NCIT_C93629 http://purl.obolibrary.org/obo/NCIT_C93629
 
       - name: wasUpdatedBy
         description: An entity which is updated by another entity or an agent.
         partOfAttribute: recordMetadata
-        tags: https://w3id.org/reproduceme#wasUpdatedBy
+        tags: reproduceme_wasUpdatedBy https://w3id.org/reproduceme#wasUpdatedBy
 
   #////////////////////////////////////////////////////////////////////////////
   
@@ -804,115 +766,115 @@ entities:
   - name: samplePreparation
     label: Sample Preparation
     description: A sample preparation for a nucleic acids sequencing assay.
-    tags: http://purl.obolibrary.org/obo/OBI_0001902, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+    tags: OBI_0001902 http://purl.obolibrary.org/obo/OBI_0001902
     attributes:
-      - name: sampleID
+      - name: samplePreparationID
         idAttribute: true
         nillable: false
         description: A unique proper name or character sequence that identifies this particular sample preparation.
-        tags: http://purl.obolibrary.org/obo/NCIT_C132299
+        tags: NCIT_C132299 http://purl.obolibrary.org/obo/NCIT_C132299
 
       - name: belongsToSample
         dataType: xref
         refEntity: umdm_samples
         description: Name or other identifier of an entry from a biosample database.
-        tags: http://purl.obolibrary.org/obo/NCIT_C93400
+        tags: NCIT_C93400 http://purl.obolibrary.org/obo/NCIT_C93400
       
       - name: belongsToLabProcedure
         dataType: xref
         refEntity: umdm_labProcedures
         description: Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting.
-        tags: http://purl.obolibrary.org/obo/NCIT_C25294
+        tags: NCIT_C25294 http://purl.obolibrary.org/obo/NCIT_C25294
       
       - name: belongsToRequest
         description: A sequence of letters, numbers, or other characters that specifically identifies a particular order.
-        tags: http://purl.obolibrary.org/obo/NCIT_C164567
+        tags: NCIT_C164567 http://purl.obolibrary.org/obo/NCIT_C164567
 
       - name: inputAmount
         dataType: int
         description: Amount of input material in nanogram (ng).
-        tags: http://purl.allotrope.org/ontologies/role#AFRL_0000010
+        tags: AFO_0000010 http://purl.allotrope.org/ontologies/role#AFRL_0000010
 
       - name: libraryPreparationKit
         dataType: xref
         refEntity: umdm_lookups_ngsKits
         description: Pre-filled, ready-to-use reagent cartridges intented to improve chemistry, cluster density and read length as well as improve quality (Q) scores for this sample. Reagent components are encoded to interact with the sequencing system to validate compatibility with user-defined applications.
-        tags: http://purl.obolibrary.org/obo/GENEPIO_0000085
+        tags: GENEPIO_0000085 http://purl.obolibrary.org/obo/GENEPIO_0000085
 
       - name: pcrFree
         dataType: bool
         description: Indicates whether a polymerase chain reaction (PCR) was used to prepare this sample. PCR is a method for amplifying a DNA base sequence using multiple rounds of heat denaturation of the DNA and annealing of oligonucleotide primers complementary to flanking regions in the presence of a heat-stable polymerase.
-        tags: http://purl.obolibrary.org/obo/NCIT_C17003
+        tags: NCIT_C17003 http://purl.obolibrary.org/obo/NCIT_C17003
 
       - name: targetEnrichmentKit
         dataType: xref
         refEntity: umdm_lookups_ngsKits
         description: Indicates which target enrichment kit was used to prepare this sample. Target enrichment is a pre-sequencing DNA preparation step where DNA sequences are either directly amplified (amplicon or multiplex PCR-based) or captured (hybrid capture-based) in order to only focus on specific regions of a genome or DNA sample.
-        tags: http://purl.obolibrary.org/obo/NCIT_C154307
+        tags: NCIT_C154307 http://purl.obolibrary.org/obo/NCIT_C154307
 
       - name: umisPresent
         dataType: bool
         description: Indicates whether any unique molecular identifiers (UMIs) are present. An UMI barcode is a short nucleotide sequence that is used to identify reads originating from an individual mRNA molecule.
-        tags: http://www.ebi.ac.uk/efo/EFO_0010199
+        tags: EFO_0010199 http://www.ebi.ac.uk/efo/EFO_0010199
 
       - name: intendedInsertSize
         dataType: int
         description: In paired-end sequencing, the DNA between the adapter sequences is the insert. The length of this sequence is known as the insert size, not to be confused with the inner distance between reads. So, fragment length equals read adapter length (2x) plus insert size, and insert size equals read lenght (2x) plus inner distance.
-        tags: https://w3id.org/fair-genomes/resource/FG_0000001
+        tags: FG_0000001 https://w3id.org/fair-genomes/resource/FG_0000001
 
       - name: intendedReadLength
         dataType: int
         description: The number of nucleotides intended to be ordered from each side of a nucleic acid fragment obtained after the completion of a sequencing process.
-        tags: http://purl.obolibrary.org/obo/NCIT_C153362
+        tags: NCIT_C153362 http://purl.obolibrary.org/obo/NCIT_C153362
 
       - name: barcode
         description: A machine-readable representation of information in a visual format on a surface.
-        tags: http://purl.obolibrary.org/obo/NCIT_C43361
+        tags: NCIT_C43361 http://purl.obolibrary.org/obo/NCIT_C43361
         
       - name: belongsToBatch
         description: A quantity of people or things treated or regarded as a group, especially when subdivided from a larger group.
-        tags: http://purl.obolibrary.org/obo/NCIT_C67073
+        tags: NCIT_C67073 http://purl.obolibrary.org/obo/NCIT_C67073
 
       - name: belongsToDataRelease
         dataType: mref
         refEntity: umdm_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
-        tags: http://purl.obolibrary.org/obo/NCIT_C172217
+        tags: NCIT_C172217 http://purl.obolibrary.org/obo/NCIT_C172217
 
       - name: recordMetadata
         dataType: compound
         description: metadata is data that provides information about data.
-        tags: http://semanticscience.org/resource/SIO_001330
+        tags: SIO_001330 http://semanticscience.org/resource/SIO_001330
 
       - name: comments
         dataType: text
         description: A written explanation, observation or criticism added to textual material.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C25393
+        tags: NCIT_C25393 http://purl.obolibrary.org/obo/NCIT_C25393
       
       - name: dateRecordCreated
         nillable: false
         dataType: datetime
         description: The date on which the activity or entity is created.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C164483
+        tags: NCIT_C164483 http://purl.obolibrary.org/obo/NCIT_C164483
 
       - name: recordCreatedBy
         nillable: false
         description: Indicates the person or authoritative body who brought the item into existence.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C42628
+        tags: NCIT_C42628 http://purl.obolibrary.org/obo/NCIT_C42628
 
       - name: dateRecordUpdated
         dataType: datetime
         description: The date (and time) on which report was updated after it had been submitted.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C93629
+        tags: NCIT_C93629 http://purl.obolibrary.org/obo/NCIT_C93629
 
       - name: wasUpdatedBy
         description: An entity which is updated by another entity or an agent.
         partOfAttribute: recordMetadata
-        tags: https://w3id.org/reproduceme#wasUpdatedBy
+        tags: reproduceme_wasUpdatedBy https://w3id.org/reproduceme#wasUpdatedBy
 
   #////////////////////////////////////////////////////////////////////////////
   
@@ -920,7 +882,7 @@ entities:
   - name: sequencing
     label: Sequencing
     description: The determination of complete (typically nucleotide) sequences, including those of genomes (full genome sequencing, de novo sequencing and resequencing), amplicons and transcriptomes.
-    tags: http://edamontology.org/topic_3168, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+    tags: EDAM_3168 http://edamontology.org/topic_3168
     attributes:
       - name: sequencingID
         idAttribute: true
@@ -928,131 +890,131 @@ entities:
         lookupAttribute: true
         labelAttribute: true
         description: A unique proper name or character sequence that identifies this particular nucleic acid sequencing assay.
-        tags: http://purl.obolibrary.org/obo/NCIT_C171337
+        tags: NCIT_C171337 http://purl.obolibrary.org/obo/NCIT_C171337
         
       - name: belongsToLabProcedure
         dataType: xref
         refEntity: umdm_labProcedures
         description: Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting.
-        tags: http://purl.obolibrary.org/obo/NCIT_C25294
+        tags: NCIT_C25294 http://purl.obolibrary.org/obo/NCIT_C25294
 
       - name: belongsToSamplePreparation
         dataType: xref
         refEntity: umdm_samplePreparation
         description: A unique proper name or character sequence that identifies this particular sample preparation.
-        tags: http://purl.obolibrary.org/obo/NCIT_C132299
+        tags: NCIT_C132299 http://purl.obolibrary.org/obo/NCIT_C132299
         
       - name: reasonForSequencing
         dataType: xref
         refEntity: umdm_lookups_samplingReason
         description: A rationale for executing a plan of action.
-        tags: http://purl.obolibrary.org/obo/NCIT_C69216
+        tags: NCIT_C69216 http://purl.obolibrary.org/obo/NCIT_C69216
 
       - name: sequencingDate
         dataType: date
         description: Date on which this sequencing assay was performed.
-        tags: http://purl.obolibrary.org/obo/GENEPIO_0000069
+        tags: GENEPIO_0000069 http://purl.obolibrary.org/obo/GENEPIO_0000069
 
       - name: sequencingFacilityOrganization
         dataType: xref
         refEntity: umdm_organizations
         description: An organization that provides sequence determination service
-        tags: http://purl.obolibrary.org/obo/OBI_0001891
+        tags: OBI_0001891 http://purl.obolibrary.org/obo/OBI_0001891
 
       - name: sequencingPlatform
         dataType: xref
         refEntity: umdm_lookups_sequencingPlatform
         description: The used sequencing platform (i.e. brand, name of a company that produces sequencer equipment).
-        tags: http://purl.obolibrary.org/obo/GENEPIO_0000071
+        tags: GENEPIO_0000071 http://purl.obolibrary.org/obo/GENEPIO_0000071
 
       - name: sequencingInstrumentModel
         dataType: xref
         refEntity: umdm_lookups_sequencingInstrumentModels
         description: The used product name and model number of a manufacturer's genomic (dna) sequencer.
-        tags: http://purl.obolibrary.org/obo/GENEPIO_0001921
+        tags: GENEPIO_0001921 http://purl.obolibrary.org/obo/GENEPIO_0001921
 
       - name: sequencingMethod
         dataType: xref
         refEntity: umdm_lookups_sequencingMethods
         description: Method used to determine the order of bases in a nucleic acid sequence.
-        tags: http://purl.obolibrary.org/obo/FIX_0000704
+        tags: FIX_0000704 http://purl.obolibrary.org/obo/FIX_0000704
 
       - name: averageReadDepth
         dataType: int
         description: The average number of times a particular locus (site, nucleotide, amplicon, region) was sequenced.
-        tags: http://purl.obolibrary.org/obo/NCIT_C155320
+        tags: NCIT_C155320 http://purl.obolibrary.org/obo/NCIT_C155320
 
       - name: observedReadLength
         dataType: int
         description: The number of nucleotides successfully ordered from each side of a nucleic acid fragment obtained after the completion of a sequencing process.
-        tags: http://purl.obolibrary.org/obo/NCIT_C153362
+        tags: NCIT_C153362 http://purl.obolibrary.org/obo/NCIT_C153362
 
       - name: observedInsertSize
         dataType: int
         description: In paired-end sequencing, the DNA between the adapter sequences is the insert. The length of this sequence is known as the insert size, not to be confused with the inner distance between reads. So, fragment length equals read adapter length (2x) plus insert size, and insert size equals read lenght (2x) plus inner distance.
-        tags: https://w3id.org/fair-genomes/resource/FG_0000002
+        tags: FG_0000002 https://w3id.org/fair-genomes/resource/FG_0000002
 
       - name: percentageQ30
         dataType: decimal
         description: Percentage of reads with a Phred quality score over 30, which indicates less than a 1/1000 chance that the base was called incorrectly.
-        tags: http://purl.obolibrary.org/obo/GENEPIO_0000089
+        tags: GENEPIO_0000089 http://purl.obolibrary.org/obo/GENEPIO_0000089
 
       - name: percentageTR20
         dataType: decimal
         description: Percentage of the target sequence on which 20 or more unique reads were successfully mapped.
-        tags: https://w3id.org/fair-genomes/resource/FG_0000003
+        tags: FG_0000003 https://w3id.org/fair-genomes/resource/FG_0000003
 
       - name: otherQualityMetrics
         dataType: text
         description: Other NGS quality control metrics, including but not limited to (i) sequencer metrics such as yield, error rate, density (K/mm2), cluster PF (%) and phas/prephas (%), (ii) alignment metrics such as QM insert size, GC content, QM duplicated reads (%), QM error rate, uniformity/evenness of coverage and maternal cell contamination, and (iii) variant call metrics such as number of SNVs/CNVs/SVs called, number of missense/nonsense variants, common variants (%), unique variants (%), gender match and trio inheritance check.
-        tags: http://edamontology.org/data_3914
+        tags: EDAM_3914 http://edamontology.org/data_3914
         
       - name: referenceGenomeUsed
         dataType: xref
         refEntity: umdm_lookups_genomeAccessions
         description: The specific build of the human genome used as reference for sequence alignment and variant calling.
-        tags: http://edamontology.org/data_2340
+        tags: EDAM_2340 http://edamontology.org/data_2340
 
       - name: belongsToDataRelease
         dataType: mref
         refEntity: umdm_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
-        tags: http://purl.obolibrary.org/obo/NCIT_C172217
+        tags: NCIT_C172217 http://purl.obolibrary.org/obo/NCIT_C172217
 
       - name: recordMetadata
         dataType: compound
         description: metadata is data that provides information about data.
-        tags: http://semanticscience.org/resource/SIO_001330
+        tags: SIO_001330 http://semanticscience.org/resource/SIO_001330
 
       - name: comments
         dataType: text
         description: A written explanation, observation or criticism added to textual material.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C25393
+        tags: NCIT_C25393 http://purl.obolibrary.org/obo/NCIT_C25393
       
       - name: dateRecordCreated
         nillable: false
         dataType: datetime
         description: The date on which the activity or entity is created.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C164483
+        tags: NCIT_C164483 http://purl.obolibrary.org/obo/NCIT_C164483
 
       - name: recordCreatedBy
         nillable: false
         description: Indicates the person or authoritative body who brought the item into existence.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C42628
+        tags: NCIT_C42628 http://purl.obolibrary.org/obo/NCIT_C42628
 
       - name: dateRecordUpdated
         dataType: datetime
         description: The date (and time) on which report was updated after it had been submitted.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C93629
+        tags: NCIT_C93629 http://purl.obolibrary.org/obo/NCIT_C93629
 
       - name: wasUpdatedBy
         description: An entity which is updated by another entity or an agent.
         partOfAttribute: recordMetadata
-        tags: https://w3id.org/reproduceme#wasUpdatedBy
+        tags: reproduceme_wasUpdatedBy https://w3id.org/reproduceme#wasUpdatedBy
 
   #////////////////////////////////////////////////////////////////////////////
   
@@ -1060,114 +1022,114 @@ entities:
   - name: files
     label: Files
     description: A set of related records (either written or electronic) kept together.
-    tags: http://purl.obolibrary.org/obo/NCIT_C42883, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+    tags: NCIT_C42883 http://purl.obolibrary.org/obo/NCIT_C42883
     attributes:
       - name: filename
         idAttribute: true
         nillable: false
         description: The literal identifier for an electronic file.
-        tags: http://purl.obolibrary.org/obo/NCIT_C171191
+        tags: NCIT_C171191 http://purl.obolibrary.org/obo/NCIT_C171191
 
       - name: producedBySequencing
         dataType: mref
         refEntity: umdm_sequencing
         description: A unique proper name or character sequence that identifies this particular nucleic acid sequencing assay.
-        tags: http://purl.obolibrary.org/obo/NCIT_C171337
+        tags: NCIT_C171337 http://purl.obolibrary.org/obo/NCIT_C171337
 
       - name: belongsToSubject
         dataType: xref
         refEntity: umdm_subjects
         description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
-        tags: http://purl.obolibrary.org/obo/NCIT_C142495
+        tags: NCIT_C142495 http://purl.obolibrary.org/obo/NCIT_C142495
         
       - name: belongsToStudy
         dataType: mref
         refEntity: umdm_studies
         description: Reference to the study or studies in which this person participates.
-        tags: http://purl.obolibrary.org/obo/RO_0000056
+        tags: RO_0000056 http://purl.obolibrary.org/obo/RO_0000056
 
       - name: belongsToCohort
         dataType: mref
         refEntity: umdm_cohorts
         description: A group of individuals, identified by a common characteristic.
-        tags: http://purl.obolibrary.org/obo/NCIT_C61512
+        tags: NCIT_C61512 http://purl.obolibrary.org/obo/NCIT_C61512
 
       - name: server
         description: A computer which provides some service for other computers connected to it via a network.
-        tags: http://purl.obolibrary.org/obo/NCIT_C48297
+        tags: NCIT_C48297 http://purl.obolibrary.org/obo/NCIT_C48297
 
       - name: filePath
         description: The specification of a node (file or directory) in a hierarchical file system, usually specified by listing the nodes top-down.
-        tags: http://purl.obolibrary.org/obo/NCIT_C47922
+        tags: NCIT_C47922 http://purl.obolibrary.org/obo/NCIT_C47922
 
       - name: fileFormat
         description: The format of an electronic file.
-        tags: http://purl.obolibrary.org/obo/NCIT_C171252
+        tags: NCIT_C171252 http://purl.obolibrary.org/obo/NCIT_C171252
 
       - name: fileSize
         dataType: int
         description: The size of an electronic file in bytes.
-        tags: http://purl.obolibrary.org/obo/NCIT_C171192
+        tags: NCIT_C171192 http://purl.obolibrary.org/obo/NCIT_C171192
       
       - name: md5Checksum
         description: A 32-character hexadecimal number that is computed on a file.
-        tags: http://purl.obolibrary.org/obo/NCIT_C171276
+        tags: NCIT_C171276 http://purl.obolibrary.org/obo/NCIT_C171276
         
       - name: fileStatus
         dataType: xref
         refEntity: umdm_lookups_fileStatus
         description: The condition for an electronic file relative to the current data or file processing step.
-        tags: http://purl.obolibrary.org/obo/NCIT_C171193
+        tags: NCIT_C171193 http://purl.obolibrary.org/obo/NCIT_C171193
 
       - name: dateFileCreated
         dataType: date
         description: The date a digital resource was created.
-        tags: http://purl.obolibrary.org/obo/NCIT_C69199
+        tags: NCIT_C69199 http://purl.obolibrary.org/obo/NCIT_C69199
 
       - name: alternativeFileIdentifiers
         description: A backup sequence of characters used to identify an entity.
-        tags: http://purl.obolibrary.org/obo/NCIT_C90353
+        tags: NCIT_C90353 http://purl.obolibrary.org/obo/NCIT_C90353
 
       - name: belongsToDataRelease
         dataType: mref
         refEntity: umdm_releases
         description: The act of making data or other structured information accessible to the public or to the user group of a database.
-        tags: http://purl.obolibrary.org/obo/NCIT_C172217
+        tags: NCIT_C172217 http://purl.obolibrary.org/obo/NCIT_C172217
 
       - name: recordMetadata
         dataType: compound
         description: metadata is data that provides information about data.
-        tags: http://semanticscience.org/resource/SIO_001330
+        tags: SIO_001330 http://semanticscience.org/resource/SIO_001330
 
       - name: comments
         dataType: text
         description: A written explanation, observation or criticism added to textual material.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C25393
+        tags: NCIT_C25393 http://purl.obolibrary.org/obo/NCIT_C25393
       
       - name: dateRecordCreated
         nillable: false
         dataType: datetime
         description: The date on which the activity or entity is created.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C164483
+        tags: NCIT_C164483 http://purl.obolibrary.org/obo/NCIT_C164483
 
       - name: recordCreatedBy
         nillable: false
         description: Indicates the person or authoritative body who brought the item into existence.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C42628
+        tags: NCIT_C42628 http://purl.obolibrary.org/obo/NCIT_C42628
 
       - name: dateRecordUpdated
         dataType: datetime
         description: The date (and time) on which report was updated after it had been submitted.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C93629
+        tags: NCIT_C93629 http://purl.obolibrary.org/obo/NCIT_C93629
 
       - name: wasUpdatedBy
         description: An entity which is updated by another entity or an agent.
         partOfAttribute: recordMetadata
-        tags: https://w3id.org/reproduceme#wasUpdatedBy
+        tags: reproduceme_wasUpdatedBy https://w3id.org/reproduceme#wasUpdatedBy
 
   #////////////////////////////////////////////////////////////////////////////
   
@@ -1175,109 +1137,81 @@ entities:
   - name: cohorts
     label: Cohorts
     description: A group of individuals, identified by a common characteristic.
-    tags: http://purl.obolibrary.org/obo/NCIT_C61512, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+    tags: NCIT_C61512 http://purl.obolibrary.org/obo/NCIT_C61512
     attributes:
       - name: cohortID
         idAttribute: true
         nillable: false
         description: One or more characters used to identify, name, or characterize the nature, properties, or contents of a thing.
-        tags: http://purl.obolibrary.org/obo/NCIT_C25364
-        label: cohortID
-        visible: true
+        tags: NCIT_C25364 http://purl.obolibrary.org/obo/NCIT_C25364
         
       - name: acronym
         description: The non-unique initials or abbreviated name used for identification.
-        tags: http://purl.obolibrary.org/obo/NCIT_C93495
-        label: acronym
-        visible: true
+        tags: NCIT_C93495 http://purl.obolibrary.org/obo/NCIT_C93495
       
       - name: name
         lookupAttribute: true
         labelAttribute: true
         description: The words or language units by which a thing is known.
-        tags: http://purl.obolibrary.org/obo/NCIT_C42614
-        label: name
-        visible: true
+        tags: NCIT_C42614 http://purl.obolibrary.org/obo/NCIT_C42614
       
       - name: description
         dataType: text
         description: The description of the characteristics that define a cohort.
-        tags: http://purl.obolibrary.org/obo/NCIT_C166209
-        label: description
-        visible: true
+        tags: NCIT_C166209 http://purl.obolibrary.org/obo/NCIT_C166209 
       
       - name: principleInvestigator
         description: The principle investigator or responsible person for this study.
-        tags: http://purl.obolibrary.org/obo/OMIABIS_0000100
-        label: principleInvestigator
-        visible:  true
+        tags: OMIABIS_0000100 http://purl.obolibrary.org/obo/OMIABIS_0000100
         
       - name: contactPerson
         description: A person acting as a channel for communication between groups or on behalf of a group.
-        tags: http://purl.obolibrary.org/obo/NCIT_C25461
-        label: contactPerson
-        visible: true
+        tags: NCIT_C25461 http://purl.obolibrary.org/obo/NCIT_C25461
 
       - name: contactEmail
         dataType: email
         description: An email address for the purpose of contacting the study contact person.
-        tags: http://purl.obolibrary.org/obo/OMIABIS_0000035
-        label: contactEmail
-        visible: true
+        tags: OMIABIS_0000035 http://purl.obolibrary.org/obo/OMIABIS_0000035
         
       - name: sizeOfCohort
         dataType: int
         description: A subset of a larger population, selected for investigation to draw conclusions or make estimates about the larger population.
-        tags: http://purl.obolibrary.org/obo/NCIT_C53190
-        label: sizeOfCohort
-        visible: true
+        tags: NCIT_C53190 http://purl.obolibrary.org/obo/NCIT_C53190
       
       - name: recordMetadata
         dataType: compound
         description: metadata is data that provides information about data.
-        tags: http://semanticscience.org/resource/SIO_001330
-        label: recordMetadata
-        visible: false
+        tags: SIO_001330 http://semanticscience.org/resource/SIO_001330
 
       - name: comments
         dataType: text
         description: A written explanation, observation or criticism added to textual material.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C25393
-        label: comments
-        visible: false
+        tags: NCIT_C25393 http://purl.obolibrary.org/obo/NCIT_C25393
       
       - name: dateRecordCreated
         nillable: false
         dataType: datetime
         description: The date on which the activity or entity is created.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C164483
-        label: dateRecordCreated
-        visible: false
+        tags: NCIT_C164483 http://purl.obolibrary.org/obo/NCIT_C164483
 
       - name: recordCreatedBy
         nillable: false
         description: Indicates the person or authoritative body who brought the item into existence.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C42628
-        label: recordCreatedBy
-        visible: false
+        tags: NCIT_C42628 http://purl.obolibrary.org/obo/NCIT_C42628
 
       - name: dateRecordUpdated
         dataType: datetime
         description: The date (and time) on which report was updated after it had been submitted.
         partOfAttribute: recordMetadata
-        tags: http://purl.obolibrary.org/obo/NCIT_C93629
-        label: dateRecordUpdated
-        visible: false
+        tags: NCIT_C93629 http://purl.obolibrary.org/obo/NCIT_C93629
 
       - name: wasUpdatedBy
         description: An entity which is updated by another entity or an agent.
         partOfAttribute: recordMetadata
-        tags: https://w3id.org/reproduceme#wasUpdatedBy
-        label: wasUpdatedBy
-        visible: false
+        tags: reproduceme_wasUpdatedBy https://w3id.org/reproduceme#wasUpdatedBy
   
   #////////////////////////////////////////////////////////////////////////////
   
@@ -1285,7 +1219,7 @@ entities:
   - name: labProcedures
     label: Laboratory Procedures
     description: Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting.
-    tags: http://purl.obolibrary.org/obo/NCIT_C25294, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+    tags: NCIT_C25294 http://purl.obolibrary.org/obo/NCIT_C25294
     attributes:
       - name: code
         idAttribute: true
@@ -1293,41 +1227,29 @@ entities:
         lookupAttribute: true
         labelAttribute: true
         description: A character or string that represents the short code name of the laboratory test.
-        tags: http://purl.obolibrary.org/obo/NCIT_C83322
-        label: Test_code
-        visible: true
+        tags: NCIT_C83322 http://purl.obolibrary.org/obo/NCIT_C83322
       
       - name: test
         description: A character or string that represents the full name of the laboratory assessment.
-        tags: http://purl.obolibrary.org/obo/NCIT_C117142
-        label: Test
-        visible: true
+        tags: NCIT_C117142 http://purl.obolibrary.org/obo/NCIT_C117142
       
       - name: description
         dataType: text
         description: A written or verbal account, representation, statement, or explanation of something
-        tags: http://purl.obolibrary.org/obo/NCIT_C25365
-        label: description
-        visible: true
+        tags: NCIT_C25365 http://purl.obolibrary.org/obo/NCIT_C25365
       
       - name: category
         description: A classification of the laboratory test.
-        tags: http://purl.obolibrary.org/obo/NCIT_C83017
-        label: category
-        visible: true
+        tags: NCIT_C83017 http://purl.obolibrary.org/obo/NCIT_C83017
       
       - name: subcategory
         description: A sub-division of the laboratory test classification.
-        tags: http://purl.obolibrary.org/obo/NCIT_C83142
-        label: subcategory
-        visible: true
+        tags: NCIT_C83142 http://purl.obolibrary.org/obo/NCIT_C83142
 
       - name: geneList
         dataType: text
         description: A data set of the names or identifiers of genes that are the outcome of an analysis or have been put together for the purpose of an analysis.
-        tags: http://purl.obolibrary.org/obo/OBI_0000118
-        label: geneList
-        visible: true
+        tags: OBI_0000118 http://purl.obolibrary.org/obo/OBI_0000118
   
   #////////////////////////////////////////////////////////////////////////////
   
@@ -1335,7 +1257,7 @@ entities:
   - name: organizations
     label: Organizations
     description: Organization information standardized to the Research Organization Registry (ROR)
-    tags: http://purl.obolibrary.org/obo/NCIT_C25412, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+    tags: NCIT_C25412 http://purl.obolibrary.org/obo/NCIT_C25412
     attributes:
       - name: value
         idAttribute: true
@@ -1343,33 +1265,25 @@ entities:
         lookupAttribute: true
         labelAttribute: true
         description: The information contained in a data field. It may represent a numeric quantity, a textual characterization, a date or time measurement, or some other state, depending on the nature of the attribute.
-        tags: http://purl.obolibrary.org/obo/NCIT_C49100
-        label: value
-        visible: true
+        tags: NCIT_C49100 http://purl.obolibrary.org/obo/NCIT_C49100
 
       - name: description
         dataType: text
         description: A written or verbal account, representation, statement, or explanation of something
-        tags: http://purl.obolibrary.org/obo/NCIT_C25365
-        label: description
-        visible: true
+        tags: NCIT_C25365 http://purl.obolibrary.org/obo/NCIT_C25365
       
       - name: codesystem
         description: A systematized collection of concepts that define corresponding codes.
-        tags: http://purl.obolibrary.org/obo/NCIT_C70895
-        label: codesystem
-        visible: true
+        tags: NCIT_C70895 http://purl.obolibrary.org/obo/NCIT_C70895
       
       - name: code
         description: A symbol or combination of symbols which is assigned to the members of a collection.
-        tags: http://purl.obolibrary.org/obo/NCIT_C25162
-        visible: true
+        tags: NCIT_C25162 http://purl.obolibrary.org/obo/NCIT_C25162
       
       - name: iri
         dataType: hyperlink
         description: A unique symbol that establishes identity of the resource.
-        tags: http://purl.obolibrary.org/obo/NCIT_C165071
-        visible: true
+        tags: NCIT_C165071 http://purl.obolibrary.org/obo/NCIT_C165071
   
   #////////////////////////////////////////////////////////////////////////////
   
@@ -1377,55 +1291,47 @@ entities:
   - name: releases
     label: Data Releases
     description: The act of making data or other structured information accessible to the public or to the user group of a database.
-    tags: http://purl.obolibrary.org/obo/NCIT_C172217, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+    tags: NCIT_C172217 http://purl.obolibrary.org/obo/NCIT_C172217
     attributes:
       - name: id
         idAttribute: true
         nillable: false
         description: One or more characters used to identify, name, or characterize the nature, properties, or contents of a thing.
-        tags: http://purl.obolibrary.org/obo/NCIT_C25364
-        visible: true
+        tags: NCIT_C25364 http://purl.obolibrary.org/obo/NCIT_C25364
       
       - name: name
         lookupAttribute: true
         labelAttribute: true
         description: The words or language units by which a thing is known.
-        tags: http://purl.obolibrary.org/obo/NCIT_C42614
-        visible: true
+        tags: NCIT_C42614 http://purl.obolibrary.org/obo/NCIT_C42614
       
       - name: description
         dataType: text
         description: A written or verbal account, representation, statement, or explanation of something.
-        tags: http://purl.obolibrary.org/obo/NCIT_C25365
-        visible: true
+        tags: NCIT_C25365 http://purl.obolibrary.org/obo/NCIT_C25365
       
       - name: date
         dataType: date
         description: A date of database submission refers to the moment in time in which some information was submitted/received to a database system.
-        tags: http://semanticscience.org/resource/SIO_001083
-        visible: true
+        tags: SIO_001083 http://semanticscience.org/resource/SIO_001083
       
       - name: createdBy
         description: Indicates the person or authoritative body who brought the item into existence.
-        tags: http://purl.obolibrary.org/obo/NCIT_C42628
-        visible: true
+        tags: NCIT_C42628 http://purl.obolibrary.org/obo/NCIT_C42628
       
       - name: numberOfEntriesAdded
         dataType: int
         description: Combined or joined to increase in size or quantity or scope.
-        tags: http://purl.obolibrary.org/obo/NCIT_C45330
-        visible: true
+        tags: NCIT_C45330 http://purl.obolibrary.org/obo/NCIT_C45330
       
       - name: dataSource
         description: The person or authoritative body who provided the information.
-        tags: http://purl.obolibrary.org/obo/NCIT_C16493
-        visible: true
+        tags: NCIT_C16493 http://purl.obolibrary.org/obo/NCIT_C16493
       
       - name: releaseComments
         dataType: text
         description: A notation regarding the decisions, and/or clarification of any information pertaining to data management.
-        tags: http://purl.obolibrary.org/obo/NCIT_C115505
-        visible: true
+        tags: NCIT_C115505 http://purl.obolibrary.org/obo/NCIT_C115505
   
   #////////////////////////////////////////////////////////////////////////////
   
@@ -1433,35 +1339,30 @@ entities:
   - name: samplingProtocols
     label: Sampling Protocols
     description: Describes the procedure whereby biological samples for an experiment are sourced.
-    tags: http://www.ebi.ac.uk/efo/EFO_0005518, https://www.w3.org/TR/vocab-dcat-3/#Property:catalog_dataset
+    tags: EFO_0005518 http://www.ebi.ac.uk/efo/EFO_0005518
     attributes:
       - name: id
         idAttribute: true
         nillable: false
         description: One or more characters used to identify, name, or characterize the nature, properties, or contents of a thing.
-        tags: http://purl.obolibrary.org/obo/NCIT_C25364
-        visible: true
+        tags: NCIT_C25364 http://purl.obolibrary.org/obo/NCIT_C25364
       
       - name: name
         lookupAttribute: true
         labelAttribute: true
         description: The words or language units by which a thing is known.
-        tags: http://purl.obolibrary.org/obo/NCIT_C42614
-        visible: true
+        tags: NCIT_C42614 http://purl.obolibrary.org/obo/NCIT_C42614
       
       - name: description
         dataType: text
         description: A written or verbal account, representation, statement, or explanation of something.
-        tags: http://purl.obolibrary.org/obo/NCIT_C25365
-        visible: true
+        tags: NCIT_C25365 http://purl.obolibrary.org/obo/NCIT_C25365
       
       - name: version
         description: A form or variant of a type or original; one of a sequence of copies of a program, each incorporating new modifications.
-        tags: http://purl.obolibrary.org/obo/NCIT_C25714
-        visible: true
+        tags: NCIT_C25714 http://purl.obolibrary.org/obo/NCIT_C25714
         
       - name: iri
         dataType: hyperlink
         description: A unique symbol that establishes identity of the resource.
-        tags: http://purl.obolibrary.org/obo/NCIT_C165071
-        visible: true
+        tags: NCIT_C165071 http://purl.obolibrary.org/obo/NCIT_C165071
