@@ -2,79 +2,119 @@
 #' FILE: index.py
 #' AUTHOR: David Ruvolo
 #' CREATED: 2021-10-19
-#' MODIFIED: 2022-05-04
+#' MODIFIED: 2022-06-07
 #' PURPOSE: compile and build EMX files
 #' STATUS: stabe
 #' PACKAGES: yamlemxconvert
 #' COMMENTS: NA
 #'////////////////////////////////////////////////////////////////////////////
 
-from rd_datamodel.utils.emxtools import buildEmxTags
+from clize import run
+from rd_datamodel.utils.emxtools import (
+    buildEmxTags,
+    extractTagId,
+    recodePackageVersionDateString
+)
 import yamlemxconvert
 import yaml
+import re
 
-# load emx config
-with open('model.yaml', 'r') as stream:
-    config=yaml.safe_load(stream)
-    stream.close()
+# pathToProfile='profiles/cosas.yaml'
 
-# for all models listed in the configuration file, build EMX1 and EMX2
-# versions of the model
-for model in config['models']:
-    if model['active']:
-        print('Building EMX Model:',model['name'])
-        m = yamlemxconvert.Convert(files=model['files'])
-        m.convert()
+def buildModel(pathToProfile):
+    """Build Emx Model
+    Build an EMX data model based on a yaml-profile.
+    
+    :profile pathToProfile: location of the yaml-profile file
+    """
+    with open(pathToProfile, 'r') as file:
+        profile=yaml.safe_load(file)
+        file.close()
+        del file
         
-        tags=m.tags
-        tags.extend(buildEmxTags(m.packages))
-        tags.extend(buildEmxTags(m.entities))
-        tags.extend(buildEmxTags(m.attributes))
-        tags=list({ tag['identifier']: tag for tag in tags }.values() )
-        m.tags=sorted(tags, key=lambda d:d['identifier'])
+    if 'buildOptions' not in profile:
+        raise KeyError('No build options defined')
         
-        m.write(model['name'], format='xlsx',outDir=config['outputPaths']['main'])
-        m.write_schema(path=f"{config['outputPaths']['schemas']}/{model['name']}_schema.md")
+    # build emx1 version with options
+    emx1options=profile['buildOptions']['emx1']
+    if emx1options['active']:
+        emx1 = yamlemxconvert.Convert(files=profile['modelFilePath'])
+        emx1.convert()
         
-        if model['name'] != 'umdm':
-            for file in model['files']:
-                print('Generating EMX2 Version')
-                m2=yamlemxconvert.Convert2(file=file)
-                m2.convert()
-                m2.write(
-                    name=f"{model['name']}_emx2",
-                    outDir=config['outputPaths']['main']
-                )
-
-
-# ~ 2 ~
-# Build EMX2 Version
-# 
-# Since the release of yamlemxconvert v1.0, the UMDM can be built for EMX2
-# databases. It is recommended to convert the model and apply transformations
-# using python (rather than editing the Excel file) until the EMX2 version of 
-# the model becomes permanent. For now, this method is reproducible.
-#
-# For the implementation of the UMDM into real databases, I have decided to
-# serparate the lookups into a new EMX2 schema so that it can act as a shared
-# schema for other schemas.
-
-umdm2 = yamlemxconvert.Convert2(file='model/umdm.yaml')
-umdm2.convert()
-
-# convert lookups as an EMX2 schema
-umdmRefs2 = yamlemxconvert.Convert2(file='model/umdm_lookups.yaml')
-umdmRefs2.convert()
-
-
-# In the UMDM model, set the refSchema for all lookups that are defined in the
-# lookups EMX model
-tableNames = [x.get('tableName') for x in umdmRefs2.model.get('molgenis')]
-
-for m in umdm2.model.get('molgenis'):
-    if m.get('refTable') in tableNames:
-        m['refSchema'] = 'unifiedmodel_lookups'
+        tags=emx1.tags
+        tags.extend(buildEmxTags(emx1.packages))
+        tags.extend(buildEmxTags(emx1.entities))
+        tags.extend(buildEmxTags(emx1.attributes))
+        emx1.tags=tags
         
-# # write models
-umdm2.write(name = 'unifiedmodel_emx2', format = 'xlsx', outDir = 'dist/')
-umdmRefs2.write(name = 'unifiedmodel_lookups_emx2', format = 'xlsx', outDir = 'dist/')
+        extractTagId(emx1.packages)
+        extractTagId(emx1.entities)
+        extractTagId(emx1.attributes)
+        
+        # override package-level labels
+        if profile.get('setEmxLabels'):
+            newPackageLabels=profile['setEmxLabels']
+            if newPackageLabels.get('setUmdmLabel'):
+                emx1.packages[0]['label']=newPackageLabels['setUmdmLabel']
+            if newPackageLabels.get('setLookupsLabel'):
+                emx1.packages[1]['label']=newPackageLabels['setLookupsLabel']
+        
+        # override labels
+        if emx1options.get('overrideLabels'):
+            # override entity labels
+            for table in profile['overrideEmxAttributes']:
+                tableOverrides=profile['overrideEmxAttributes'][table]
+                
+                # rename entity label
+                if tableOverrides.get('overrideTableLabelWith'):
+                    for row in emx1.entities:
+                        if row['name']== table:
+                            row['label']=tableOverrides['overrideTableLabelWith']
+                            
+                # rename attribute labels
+                if tableOverrides.get('attributeLabelsToOverride'):
+                    newLabels=tableOverrides.get('attributeLabelsToOverride')
+                    for row in emx1.attributes:
+                        for label in newLabels.keys():
+                            if (row['entity']==f"umdm_{table}") and (row['name']==label):
+                                row['label']=newLabels[label]    
+        
+        
+        # override visibility: hide attributes if defined
+        if emx1options.get('overrideVisibility'): 
+            globalHiddenAttribs=profile['overrideEmxAttributes'].get('_all',{}).get('attributesToHide')
+            for row in emx1.attributes:
+                # hide if in global definitions
+                if row['name'] in globalHiddenAttribs:
+                    row['visible']=False
+                    
+                # hide in table definitions
+                tableName=row['entity'].split('_')[1]
+                if tableName in profile['overrideEmxAttributes']:
+                    tableOverrides=profile['overrideEmxAttributes'][tableName]
+                    if 'attributesToHide' in tableOverrides:
+                        tableAttribsToHide=tableOverrides['attributesToHide']
+                        if row['name'] in tableAttribsToHide:
+                            row['visible']=False
+    
+        emx1.write(name=profile['name'], outDir=emx1options['outputDir'])
+        emx1.write_schema(path=f"{emx1options['schemasDir']}/{profile['name']}_schema.md")
+        
+    # build emx2 version with options
+    emx2options=profile['buildOptions']['emx2']
+    if emx2options['active']:
+        emx2=yamlemxconvert.Convert2(file=profile['modelFilePath'])
+        emx2.convert()
+        
+        # rename refSchema
+        if emx2options.get('splitLookups'):
+            schemaOptions=profile['overrideEmxAttributes']['_all']['renameRefEntityToSchema']
+            for row in emx2.model['molgenis']:
+                if row.get('refTable'):
+                    if schemaOptions['currentName'] in row['refTable']:
+                        row['refTable']=schemaOptions['newName']
+     
+
+
+if __name__ == '__main__':
+    run(buildModel)

@@ -8,6 +8,9 @@
 # COMMENTS: None
 #//////////////////////////////////////////////////////////////////////////////
 
+name: COSAS
+modelFilePath: [model/umdm.yaml, model/umdm_lookups.yaml]
+
 # Set Build options
 # Customize the building of the model for EMX1 and EMX2 environments. Inidicate
 # which environment you would like to run the database in and other options.
@@ -19,16 +22,21 @@
 # @param schemasDir directory to write markdown schemas
 #
 buildOptions: 
-  - emx1: true
+  emx1:
+    active: true
     generateSchema: true
-    outputDir: dist/
-    schemasDir: schemas/
+    outputDir: dist
+    schemasDir: schemas
+    overrideLabels: true
+    overrideVisibility: true
 
-  - emx2: true
+  emx2:
+    active: false
     splitLookups: true
     generateSchema: true
-    outputDir: dist/
-    schemasDir: schemas/
+    outputDir: dist
+    schemasDir: schemas
+    overrideLabels: false
 
 
 
@@ -44,7 +52,13 @@ setEmxLabels:
 overrideEmxAttributes:
 
   # set global overrides
-  - table: _all
+  _all:
+    
+    # rename refEntity to refSchema
+    renameRefEntityToSchema:
+      currentName: umdm_lookups
+      newName: unifiedmodel_lookups
+
     attributesToHide: [
       belongsToDataRelease,
       recordMetadata,
@@ -55,7 +69,7 @@ overrideEmxAttributes:
     ]
 
   # overrides for table: subjects
-  - table: subjects
+  subjects:
     overrideTableLabelWith: Patients
     attributesToHide: [
       countryOfBirth,
@@ -102,7 +116,7 @@ overrideEmxAttributes:
   #////////////////////////////////////
   
   # overrides for table: studies
-  - table: studies
+  studies:
     overrideTableLabelWith: 
     attributesToHide: []
     attributeLabelsToOverride: {
@@ -121,11 +135,11 @@ overrideEmxAttributes:
       # samplesCollected: '',
       # belongsToDataRelease: ''
     }
-      
+
   #////////////////////////////////////
   
   # overrides for the consent table
-  - table: consent
+  consent:
     overrideTableLabelWith:
     attributesToHide: []
     attributeLabelsToOverride: {
@@ -142,12 +156,11 @@ overrideEmxAttributes:
       # allowMatchmaker: '',
       # allowRecontacting: '',
     }
-    
-    
+
   #////////////////////////////////////
   
   # overrides for table: clinical
-  - table: clinical
+  clinical:
     overrideTableLabelWith:
     attributesToHide: [
       dateOfDiagnosis,
@@ -179,7 +192,7 @@ overrideEmxAttributes:
   #////////////////////////////////////
   
   # overrides for table: samples
-  - table: samples
+  samples:
     overrideTableLabelWith: 
     attributesToHide: [
       dateOfRequest,
@@ -213,7 +226,7 @@ overrideEmxAttributes:
   #////////////////////////////////////
   
   # overrides for table: samplePreparation
-  - table: samplePreparation
+  samplePreparation:
     overrideTableLabelWith:
     attributesToHide: []
     attributeLabelsToOverride: {
@@ -235,7 +248,7 @@ overrideEmxAttributes:
   #////////////////////////////////////
   
   # overrides for table: sequencing
-  - table: sequencing
+  sequencing:
     overrideTableLabelWith:
     attributesToHide: []
     attributeLabelsToOverride: {
@@ -260,7 +273,7 @@ overrideEmxAttributes:
   #////////////////////////////////////
   
   # overrides for table: files
-  - table: files
+  files:
     overrideTableLabelWith:
     attributesToHide: []
     attributeLabelsToOverride: {
@@ -274,7 +287,7 @@ overrideEmxAttributes:
       # fileFormat: '',
       # fileSize: '',
       # md5Checksum: '',
-      fileStatus: '',
-      dateFileCreated: '',
-      alternativeFileIdentifiers: '',
+      # fileStatus: '',
+      # dateFileCreated: '',
+      # alternativeFileIdentifiers: '',
     }
