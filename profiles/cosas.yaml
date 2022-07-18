@@ -2,7 +2,7 @@
 # NAME: cosas.yaml
 # AUTHOR: David Ruvolo
 # CREATED: 2022-06-02
-# MODIFIED: 2022-06-02
+# MODIFIED: 2022-07-18
 # PURPOSE: UMDM profile for the COSAS database
 # DEPENDENCIES: NA
 # COMMENTS: None
@@ -82,7 +82,7 @@ overrideEmxAttributes:
     ]
     
     attributeLabelsToOverride: {
-      subjectID: MSN_UMCGnr,
+      subjectID: MDN_UMCGnr,
       belongsToFamily: Familienr,
       belongsToMother: Moeder,
       belongsToFather: Vader,
@@ -144,7 +144,7 @@ overrideEmxAttributes:
     attributesToHide: []
     attributeLabelsToOverride: {
       # consentID: '',
-      belongsToSubject: MSN_UMCGnr,
+      belongsToSubject: MDN_UMCGnr,
       # collectedBy: '',
       # signingDate: '',
       # validUntil: '',
@@ -173,7 +173,7 @@ overrideEmxAttributes:
     ]
     attributeLabelsToOverride: {
       # clinicalID: '',
-      belongsToSubject: MSN_UMCGnr,
+      belongsToSubject: MDN_UMCGnr,
       # affectedStatus: '',
       # dateOfDiagnosis: '',
       # ageAtDiagnosis: '',
@@ -207,7 +207,7 @@ overrideEmxAttributes:
     ]
     attributeLabelsToOverride: {
       sampleID: DNAnr,
-      belongsToSubject: MSN_UMCGnr,
+      belongsToSubject: MDN_UMCGnr,
       belongsToRequest: Adviesvraag,
       # dateOfRequest: '',
       reasonForSampling: Indicatie,
@@ -231,7 +231,7 @@ overrideEmxAttributes:
     attributesToHide: []
     attributeLabelsToOverride: {
       sampleID: samplePreparationID,
-      belongsToSample: MSN_UMCGnr,
+      belongsToSample: MDN_UMCGnr,
       belongsToLabProcedure: Test_Code,
       belongsToRequest: Adviesvraag,
       # inputAmount: '',
@@ -279,7 +279,7 @@ overrideEmxAttributes:
     attributeLabelsToOverride: {
       # filename: '',
       producedBySequencing: sequencingID,
-      belongsToSubject: MSN_UMCGnr,
+      belongsToSubject: MDN_UMCGnr,
       belongsToStudy: Study,
       belongsToCohort: Cohort,
       # server: '',

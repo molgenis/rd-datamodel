@@ -59,7 +59,7 @@ Persons who are observed, analyzed, examined, investigated, experimented upon, o
 
 | Name | Label | Description | Data Type |
 |:---- |:-----|:-----------|:---------|
-| subjectID&#8251; | MSN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | string |
+| subjectID&#8251; | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | string |
 | belongsToFamily | Familienr | A domestic group, or a number of domestic groups linked through descent (demonstrated or stipulated) from a common ancestor, marriage, or adoption. | string |
 | belongsToMother | Moeder | A designation that has some relationship to motherhood. | xref |
 | belongsToFather | Vader | Having to do with the father, coming from the father, or related through the father. | xref |
@@ -129,7 +129,7 @@ Consent given by a patient to a surgical or medical procedure or participation i
 | Name | Label | Description | Data Type |
 |:---- |:-----|:-----------|:---------|
 | consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
-| belongsToSubject | MSN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
+| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
 | collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
 | signingDate | - | A date specification that designates when this individual consent form was signed. | date |
 | validUntil | - | End date of the validity of this individual consent. | date |
@@ -155,7 +155,7 @@ Findings and circumstances relating to the examination and treatment of a patien
 | Name | Label | Description | Data Type |
 |:---- |:-----|:-----------|:---------|
 | clinicalID&#8251; | - | A unique proper name or character sequence that identifies this particular clinical examination. | string |
-| belongsToSubject | MSN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
+| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
 | affectedStatus | - | Individuals in a pedigree who exhibit the specific phenotype under study. | bool |
 | dateOfDiagnosis | - | The date on which a diagnosis of disease was made. | date |
 | ageAtDiagnosis | - | The age (in years), measured from some defined time point (e.g. birth) at which a patient is diagnosed with a disease. | decimal |
@@ -184,7 +184,7 @@ A sample is a limited quantity of something (e.g. an individual or set of indivi
 | Name | Label | Description | Data Type |
 |:---- |:-----|:-----------|:---------|
 | sampleID&#8251; | DNAnr | Name or other identifier of an entry from a biosample database. | string |
-| belongsToSubject | MSN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
+| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
 | belongsToRequest | Adviesvraag | A sequence of letters, numbers, or other characters that specifically identifies a particular order. | string |
 | dateOfRequest | - | The date on which the activity or entity was ordered. | date |
 | reasonForSampling | Indicatie | The explanation for why a test, measurement, or assessment is executed. | mref |
@@ -213,7 +213,7 @@ A sample preparation for a nucleic acids sequencing assay.
 | Name | Label | Description | Data Type |
 |:---- |:-----|:-----------|:---------|
 | samplePreparationID&#8251; | - | A unique proper name or character sequence that identifies this particular sample preparation. | string |
-| belongsToSample | MSN_UMCGnr | Name or other identifier of an entry from a biosample database. | xref |
+| belongsToSample | MDN_UMCGnr | Name or other identifier of an entry from a biosample database. | xref |
 | belongsToLabProcedure | Test_Code | Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting. | xref |
 | belongsToRequest | Adviesvraag | A sequence of letters, numbers, or other characters that specifically identifies a particular order. | string |
 | inputAmount | - | Amount of input material in nanogram (ng). | int |
@@ -271,7 +271,7 @@ A set of related records (either written or electronic) kept together.
 |:---- |:-----|:-----------|:---------|
 | filename&#8251; | - | The literal identifier for an electronic file. | string |
 | producedBySequencing | sequencingID | A unique proper name or character sequence that identifies this particular nucleic acid sequencing assay. | mref |
-| belongsToSubject | MSN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
+| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
 | belongsToStudy | Study | Reference to the study or studies in which this person participates. | mref |
 | belongsToCohort | Cohort | A group of individuals, identified by a common characteristic. | mref |
 | server | - | A computer which provides some service for other computers connected to it via a network. | string |
