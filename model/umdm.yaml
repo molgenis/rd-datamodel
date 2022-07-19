@@ -2,7 +2,7 @@
 # NAME: umdm_emx1.yaml
 # AUTHOR: david ruvolo
 # CREATED: 2021-11-08
-# MODIFIED: 2022-02-17
+# MODIFIED: 2022-07-19
 # PURPOSE: Unified Molgenis Data Model
 # STATUS: maturing
 # COMMENTS:
@@ -35,8 +35,8 @@
 name: umdm
 label: Unified Molgenis Data Model
 description: The Unified Molgenis Data Model (UMDM)
-version: 1.2.0
-date: 2022-06-07
+version: 1.2.1
+date: 2022-07-19
 tags: dcat:catalog https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
 
 # define tags (the rest are added at build time)
@@ -1041,6 +1041,12 @@ entities:
         refEntity: umdm_subjects
         description: An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored.
         tags: NCIT_C142495 http://purl.obolibrary.org/obo/NCIT_C142495
+      
+      - name: belongsToSample
+        dataType: mref
+        refEntity: umdm_samples
+        description: Name or other identifier of an entry from a biosample database.
+        tags: EDAM_3273 http://edamontology.org/data_3273
         
       - name: belongsToStudy
         dataType: mref
