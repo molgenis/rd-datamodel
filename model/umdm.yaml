@@ -35,7 +35,7 @@
 name: umdm
 label: Unified Molgenis Data Model
 description: The Unified Molgenis Data Model (UMDM)
-version: 1.2.1
+version: 1.2.2
 date: 2022-07-19
 tags: dcat:catalog https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
 
@@ -1065,6 +1065,7 @@ entities:
         tags: NCIT_C48297 http://purl.obolibrary.org/obo/NCIT_C48297
 
       - name: filePath
+        dataType: text
         description: The specification of a node (file or directory) in a hierarchical file system, usually specified by listing the nodes top-down.
         tags: NCIT_C47922 http://purl.obolibrary.org/obo/NCIT_C47922
 

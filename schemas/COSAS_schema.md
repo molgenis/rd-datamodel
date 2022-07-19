@@ -276,7 +276,7 @@ A set of related records (either written or electronic) kept together.
 | belongsToStudy | Study | Reference to the study or studies in which this person participates. | mref |
 | belongsToCohort | Cohort | A group of individuals, identified by a common characteristic. | mref |
 | server | - | A computer which provides some service for other computers connected to it via a network. | string |
-| filePath | - | The specification of a node (file or directory) in a hierarchical file system, usually specified by listing the nodes top-down. | string |
+| filePath | - | The specification of a node (file or directory) in a hierarchical file system, usually specified by listing the nodes top-down. | text |
 | fileFormat | - | The format of an electronic file. | string |
 | fileSize | - | The size of an electronic file in bytes. | int |
 | md5Checksum | - | A 32-character hexadecimal number that is computed on a file. | string |
