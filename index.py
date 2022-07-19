@@ -2,7 +2,7 @@
 #' FILE: index.py
 #' AUTHOR: David Ruvolo
 #' CREATED: 2021-10-19
-#' MODIFIED: 2022-06-07
+#' MODIFIED: 2022-07-19
 #' PURPOSE: compile and build EMX files
 #' STATUS: stabe
 #' PACKAGES: yamlemxconvert
@@ -10,11 +10,7 @@
 #'////////////////////////////////////////////////////////////////////////////
 
 from clize import run
-from rd_datamodel.utils.emxtools import (
-    buildEmxTags,
-    extractTagId,
-    recodePackageVersionDateString
-)
+from rd_datamodel.utils.emxtools import buildEmxTags, extractTagId
 import yamlemxconvert
 import yaml
 import re
@@ -51,11 +47,30 @@ def buildModel(pathToProfile):
         extractTagId(emx1.entities)
         extractTagId(emx1.attributes)
         
+        pkgMetaDescription = {
+            '<version>': f"(v{emx1.version})" if emx1.version else None,
+            '<date>': f"({emx1.date})" if emx1.date else None,
+            '<version:date>': f"(v{emx1.version}, {emx1.date})" if emx1.version and emx1.date else None,
+            '<date:version>': f"({emx1.date}, v{emx1.version})" if emx1.version and emx1.date else None
+        }
+        
         # override package-level labels
         if profile.get('setEmxLabels'):
             newPackageLabels=profile['setEmxLabels']
             if newPackageLabels.get('setUmdmLabel'):
                 emx1.packages[0]['label']=newPackageLabels['setUmdmLabel']
+                
+            # rebuild description and replace <version:date> variations
+            if newPackageLabels.get('setUmdmDescription'):
+                newDescription=newPackageLabels['setUmdmDescription']
+                pkgMetaPatterns = '|'.join(pkgMetaDescription.keys())
+                hasModelMetadata = re.search(re.compile(pkgMetaPatterns), newDescription)
+                if hasModelMetadata:
+                    emx1.packages[0]['description']=re.sub(
+                        pattern=hasModelMetadata.group(),
+                        repl=pkgMetaDescription[hasModelMetadata.group()],
+                        string=newDescription
+                    )
             if newPackageLabels.get('setLookupsLabel'):
                 emx1.packages[1]['label']=newPackageLabels['setLookupsLabel']
         
