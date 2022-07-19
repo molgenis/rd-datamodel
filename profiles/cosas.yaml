@@ -2,7 +2,7 @@
 # NAME: cosas.yaml
 # AUTHOR: David Ruvolo
 # CREATED: 2022-06-02
-# MODIFIED: 2022-07-18
+# MODIFIED: 2022-07-19
 # PURPOSE: UMDM profile for the COSAS database
 # DEPENDENCIES: NA
 # COMMENTS: None
@@ -43,7 +43,7 @@ buildOptions:
 # override general labels and description for packages
 setEmxLabels:
   setUmdmLabel: COSAS
-  setUmdmDescription: "The Catalog of Sequences, Arrays, and Samples <version:date>"
+  setUmdmDescription: "The Catalog of Sequencing and Array Samples <version:date>"
   setLookupsLabel: Reference Tables
   setLookupsDescription: "Standardized reference lists used in COSAS <version:date>"
 
@@ -231,7 +231,7 @@ overrideEmxAttributes:
     attributesToHide: []
     attributeLabelsToOverride: {
       sampleID: samplePreparationID,
-      belongsToSample: MDN_UMCGnr,
+      belongsToSample: DNAnr,
       belongsToLabProcedure: Test_Code,
       belongsToRequest: Adviesvraag,
       # inputAmount: '',
@@ -281,6 +281,7 @@ overrideEmxAttributes:
       producedBySequencing: sequencingID,
       belongsToSubject: MDN_UMCGnr,
       belongsToStudy: Study,
+      belongsToSample: DNAnr,
       belongsToCohort: Cohort,
       # server: '',
       # filePath: ''

@@ -4,7 +4,7 @@
 
 | Name | Description | Parent |
 |:---- |:-----------|:------|
-| umdm | The Unified Molgenis Data Model (UMDM) (v1.2.0, 2022-06-07) | - |
+| umdm | The Catalog of Sequencing and Array Samples (v1.2.0, 2022-06-07) | - |
 | umdm_lookups | Lookup tables for the Unified Molgenis Data Model (UMDM) (v1.2.0, 2022-06-07) | umdm |
 
 ## Entities
@@ -213,7 +213,7 @@ A sample preparation for a nucleic acids sequencing assay.
 | Name | Label | Description | Data Type |
 |:---- |:-----|:-----------|:---------|
 | samplePreparationID&#8251; | - | A unique proper name or character sequence that identifies this particular sample preparation. | string |
-| belongsToSample | MDN_UMCGnr | Name or other identifier of an entry from a biosample database. | xref |
+| belongsToSample | DNAnr | Name or other identifier of an entry from a biosample database. | xref |
 | belongsToLabProcedure | Test_Code | Any procedure that involves testing or manipulating a sample of blood, urine, or other body substance in a laboratory setting. | xref |
 | belongsToRequest | Adviesvraag | A sequence of letters, numbers, or other characters that specifically identifies a particular order. | string |
 | inputAmount | - | Amount of input material in nanogram (ng). | int |
@@ -272,6 +272,7 @@ A set of related records (either written or electronic) kept together.
 | filename&#8251; | - | The literal identifier for an electronic file. | string |
 | producedBySequencing | sequencingID | A unique proper name or character sequence that identifies this particular nucleic acid sequencing assay. | mref |
 | belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
+| belongsToSample | DNAnr | Name or other identifier of an entry from a biosample database. | mref |
 | belongsToStudy | Study | Reference to the study or studies in which this person participates. | mref |
 | belongsToCohort | Cohort | A group of individuals, identified by a common characteristic. | mref |
 | server | - | A computer which provides some service for other computers connected to it via a network. | string |
