@@ -35,8 +35,8 @@
 name: umdm
 label: Unified Molgenis Data Model
 description: The Unified Molgenis Data Model (UMDM)
-version: 1.2.2
-date: 2022-07-19
+version: 1.2.3
+date: 2022-07-20
 tags: dcat:catalog https://www.w3.org/TR/vocab-dcat-3/#Class:Catalog
 
 # define tags (the rest are added at build time)
@@ -1024,7 +1024,7 @@ entities:
     description: A set of related records (either written or electronic) kept together.
     tags: NCIT_C42883 http://purl.obolibrary.org/obo/NCIT_C42883
     attributes:
-      - name: filename
+      - name: fileID
         idAttribute: true
         nillable: false
         description: The literal identifier for an electronic file.
@@ -1060,14 +1060,15 @@ entities:
         description: A group of individuals, identified by a common characteristic.
         tags: NCIT_C61512 http://purl.obolibrary.org/obo/NCIT_C61512
 
-      - name: server
-        description: A computer which provides some service for other computers connected to it via a network.
-        tags: NCIT_C48297 http://purl.obolibrary.org/obo/NCIT_C48297
+      - name: fileName
+        dataType: text
+        description: The literal identifier for an electronic file.
+        tags: NCIT_C171191 http://purl.obolibrary.org/obo/NCIT_C171191
 
       - name: filePath
         dataType: text
         description: The specification of a node (file or directory) in a hierarchical file system, usually specified by listing the nodes top-down.
-        tags: NCIT_C47922 http://purl.obolibrary.org/obo/NCIT_C47922
+        tags: NCIT_C47922 http://purl.obolibrary.org/obo/NCIT_C47922      
 
       - name: fileFormat
         description: The format of an electronic file.
@@ -1077,6 +1078,10 @@ entities:
         dataType: int
         description: The size of an electronic file in bytes.
         tags: NCIT_C171192 http://purl.obolibrary.org/obo/NCIT_C171192
+      
+      - name: server
+        description: A computer which provides some service for other computers connected to it via a network.
+        tags: NCIT_C48297 http://purl.obolibrary.org/obo/NCIT_C48297
       
       - name: md5Checksum
         description: A 32-character hexadecimal number that is computed on a file.

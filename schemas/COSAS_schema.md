@@ -269,16 +269,17 @@ A set of related records (either written or electronic) kept together.
 
 | Name | Label | Description | Data Type |
 |:---- |:-----|:-----------|:---------|
-| filename&#8251; | - | The literal identifier for an electronic file. | string |
+| fileID&#8251; | - | The literal identifier for an electronic file. | string |
 | producedBySequencing | sequencingID | A unique proper name or character sequence that identifies this particular nucleic acid sequencing assay. | mref |
 | belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
 | belongsToSample | DNAnr | Name or other identifier of an entry from a biosample database. | mref |
 | belongsToStudy | Study | Reference to the study or studies in which this person participates. | mref |
 | belongsToCohort | Cohort | A group of individuals, identified by a common characteristic. | mref |
-| server | - | A computer which provides some service for other computers connected to it via a network. | string |
+| fileName | - | The literal identifier for an electronic file. | text |
 | filePath | - | The specification of a node (file or directory) in a hierarchical file system, usually specified by listing the nodes top-down. | text |
 | fileFormat | - | The format of an electronic file. | string |
 | fileSize | - | The size of an electronic file in bytes. | int |
+| server | - | A computer which provides some service for other computers connected to it via a network. | string |
 | md5Checksum | - | A 32-character hexadecimal number that is computed on a file. | string |
 | fileStatus | - | The condition for an electronic file relative to the current data or file processing step. | xref |
 | dateFileCreated | - | The date a digital resource was created. | date |
