@@ -2,7 +2,7 @@
 # NAME: module_approved_users.yaml
 # AUTHOR: @dcruvolo
 # CREATED: 2021-10-21
-# MODIFIED: 2022-01-31
+# MODIFIED: 2022-08-08
 # PURPOSE: EMX for user management module in Molgenis databases
 # COMMENTS: The purpose of this model is to create a reusable EMX package for
 # managing approved users for a Molgenis database. This may be useful for
@@ -18,9 +18,9 @@
 name: users
 label: System Users
 description: List of approved users
-tags: http://purl.obolibrary.org/obo/NCIT_C42745
-date: 2022-01-31
-version: 1.1.0
+tags: NCIT_C42745 http://purl.obolibrary.org/obo/NCIT_C42745
+date: 2022-08-08
+version: 1.2.0
 
 
 # Set attribute level defaults
@@ -40,12 +40,12 @@ entities:
   - name: users
     label: System Users
     description: An individual who uses a computer, program, network, or related service for work or entertainment.
-    tags: http://purl.obolibrary.org/obo/NCIT_C42745
+    tags: NCIT_C42745 http://purl.obolibrary.org/obo/NCIT_C42745
     attributes:
       - name: email
         label: Email
         description: A valid email address of an end-user.
-        tags: http://edamontology.org/data_1691
+        tags: data_1691 http://edamontology.org/data_1691
         idAttribute: true
         dataType: email
         lookupAttribute: true
@@ -55,67 +55,65 @@ entities:
       - name: username
         label: User Name
         description: A person's identification on an individual computer system.
-        tags: http://purl.obolibrary.org/obo/GSSO_007226
+        tags: GSSO_007226 http://purl.obolibrary.org/obo/GSSO_007226
 
       - name: firstname
         label: First Name
         description: A word or group of words indicating a person's first (personal or given) name; the name that precedes the surname.
-        tags: http://purl.obolibrary.org/obo/NCIT_C40974
-        nillable: false
+        tags: NCIT_C40974 http://purl.obolibrary.org/obo/NCIT_C40974
 
       - name: lastname
         label: Last Name
         description: A word or group of words indicating a person's last (family) name.
-        tags: http://purl.obolibrary.org/obo/NCIT_C40975
-        nillable: false
+        tags: NCIT_C40975 http://purl.obolibrary.org/obo/NCIT_C40975
 
       - name: affiliation
         label: Organizational Affiliation Name
         description: The name of the organization or entity that the person or group has an established relationship with.
-        tags: http://purl.obolibrary.org/obo/NCIT_C154704
+        tags: NCIT_C154704 http://purl.obolibrary.org/obo/NCIT_C154704
         nillable: false
 
       - name: function
         label: Function
         description: Describe the function that user has in relation to the database
-
-      - name: accountStatus
-        label: Account Status
-        description: If True, the account is active
-        dataType: xref
-        refEntity: users_statuses
-        nillable: false
+      
+      - name: userAccountIsActive
+        label: User Account is Active
+        description: Specifies whether the entity is active
+        tags: NCIT_C93496 http://purl.obolibrary.org/obo/NCIT_C93496
+        dataType: enum
+        enumOptions: Y,N
 
       - name: accountStartDate
         label: Account Start Date
         description: The calendar date on which something is to start or did start.
-        tags: http://purl.obolibrary.org/obo/NCIT_C68616
+        tags: NCIT_C68616 http://purl.obolibrary.org/obo/NCIT_C68616
         dataType: date
 
       - name: accountEndDate
         label: Account End Date
         description: The calendar date on which something is to terminate or did terminate.
-        tags: http://purl.obolibrary.org/obo/NCIT_C68617
+        tags: NCIT_C68617 http://purl.obolibrary.org/obo/NCIT_C68617
         dataType: date
 
       - name: hasAuthorization
         label: Has Authorization
         description: Decision of the competent authorities in form of a letter, document, or verbal or electronic form, that confirms that somebody has permission to do something or be somewhere, e.g. to realize a given project.
-        tags: http://purl.obolibrary.org/obo/NCIT_C41192
+        tags: NCIT_C41192 http://purl.obolibrary.org/obo/NCIT_C41192
         dataType: enum
         enumOptions: Y,N
         
       - name: belongsToUserGroup
         label: Belongs To User Group
         description: A set of people who have similar interests, goals, or concerns.
-        tags: http://purl.obolibrary.org/obo/NCIT_C42684
+        tags: NCIT_C42684 http://purl.obolibrary.org/obo/NCIT_C42684
         dataType: categorical
-        refEntity: users_groups
+        refEntity: users_userGroups
 
       - name: userPrivilege
         label: User Privilege
         description: The operations and access levels which are allowed to a user (e.g Create, Read, Update, Delete).
-        tags: http://purl.obolibrary.org/obo/NCIT_C42722
+        tags: NCIT_C42722 http://purl.obolibrary.org/obo/NCIT_C42722
         dataType: mref
         refEntity: users_userPrivileges
 
@@ -125,45 +123,47 @@ entities:
         dataType: mref
         refEntity: users_packages
         
-      - name: userAccountIsActive
-        label: User Account is Active
-        description: Specifies whether the entity is active
-        tags: http://purl.obolibrary.org/obo/NCIT_C93496
-        dataType: enum
-        enumOptions: Y,N
-        
   #////////////////////////////////////
   # Reference Entities
   
-  - name: lookupAttributeTemplate
+  - name: template
+    abstract: true
     attributes:
       - name: id
         description: One or more characters used to identify, name, or characterize the nature, properties, or contents of a thing.
-        tags: http://purl.obolibrary.org/obo/NCIT_C25364
+        tags: NCIT_C25364 http://purl.obolibrary.org/obo/NCIT_C25364
         idAttribute: true
         nillable: false
         dataType: string
 
       - name: label
         description: A brief description given for purposes of identification; an identifying or descriptive marker that is attached to an object.
-        tags: http://purl.obolibrary.org/obo/NCIT_C45561
+        tags: NCIT_C45561 http://purl.obolibrary.org/obo/NCIT_C45561
         lookupAttribute: true
         labelAttribute: true
 
       - name: description
         description: A written or verbal account, representation, statement, or explanation of something.
-        tags: http://purl.obolibrary.org/obo/NCIT_C25365
+        tags: NCIT_C25365 http://purl.obolibrary.org/obo/NCIT_C25365
 
   # @title Packages
   # @description list of packages (applicable to the current project)
   - name: packages
     label: Packages
     description: All packages and entities associated with the current project
-    extends: users_lookupAttributeTemplate
+    extends: users_template
         
   # @title Roles
   # @description list of roles by package
   - name: userPrivileges
     label: User Privileges
     description: All roles by package
-    extends: users_lookupAttributeTemplate
+    extends: users_template
+    
+  # @title Groups
+  # @description user groups
+  - name: userGroups
+    label: User Groups
+    description: A set of people who have similar interests, goals, or concerns.
+    tags: NCIT_C42684 http://purl.obolibrary.org/obo/NCIT_C42684
+    extends: users_template
