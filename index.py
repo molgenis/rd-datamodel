@@ -2,7 +2,7 @@
 #' FILE: index.py
 #' AUTHOR: David Ruvolo
 #' CREATED: 2021-10-19
-#' MODIFIED: 2022-07-19
+#' MODIFIED: 2022-09-05
 #' PURPOSE: compile and build EMX files
 #' STATUS: stabe
 #' PACKAGES: yamlemxconvert
@@ -118,17 +118,20 @@ def buildModel(pathToProfile):
   # build emx2 version with options
   emx2options=profile['buildOptions']['emx2']
   if emx2options['active']:
-    emx2=yamlemxconvert.Convert2(file=profile['modelFilePath'])
-    emx2.convert()
+    for model in profile['modelFilePath']:
+      emx2=yamlemxconvert.Convert2(file=model)
+      emx2.convert()
       
-    # rename refSchema
-    if emx2options.get('splitLookups'):
-      schemaOptions=profile['overrideEmxAttributes']['_all']['renameRefEntityToSchema']
-      for row in emx2.model['molgenis']:
-        if row.get('refTable'):
-          if schemaOptions['currentName'] in row['refTable']:
-            row['refTable']=schemaOptions['newName']
-    
-
+      # rename refSchema
+      if emx2options.get('splitLookups'):
+        schemaOptions=profile['overrideEmxAttributes']['_all']['renameRefEntityToSchema']
+        for row in emx2.model['molgenis']:
+          if row.get('refTable'):
+            if schemaOptions['currentName'] in row['refTable']:
+              row['refTable']=schemaOptions['newName']
+              
+      emx2_model_name=emx2.filename.replace('.yaml','_emx2')
+      emx2.write(name=emx2_model_name, outDir='dist/')
+      
 if __name__ == '__main__':
   run(buildModel)

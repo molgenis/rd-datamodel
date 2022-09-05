@@ -23,7 +23,7 @@ modelFilePath: [model/umdm.yaml, model/umdm_lookups.yaml]
 #
 buildOptions: 
   emx1:
-    active: true
+    active: false
     generateSchema: true
     outputDir: dist
     schemasDir: schemas
@@ -31,7 +31,7 @@ buildOptions:
     overrideVisibility: true
 
   emx2:
-    active: false
+    active: true
     splitLookups: true
     generateSchema: true
     outputDir: dist
