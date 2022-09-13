@@ -23,7 +23,7 @@ modelFilePath: [model/umdm.yaml, model/umdm_lookups.yaml]
 #
 buildOptions: 
   emx1:
-    active: false
+    active: true
     generateSchema: true
     outputDir: dist
     schemasDir: schemas
@@ -57,7 +57,7 @@ overrideEmxAttributes:
     # rename refEntity to refSchema
     renameRefEntityToSchema:
       currentName: umdm_lookups
-      newName: unifiedmodel_lookups
+      newName: umdmLookups
 
     attributesToHide: [
       belongsToDataRelease,

@@ -1,21 +1,26 @@
-#'////////////////////////////////////////////////////////////////////////////
-#' FILE: index.py
-#' AUTHOR: David Ruvolo
-#' CREATED: 2021-10-19
-#' MODIFIED: 2022-09-05
-#' PURPOSE: compile and build EMX files
-#' STATUS: stabe
-#' PACKAGES: yamlemxconvert
-#' COMMENTS: NA
-#'////////////////////////////////////////////////////////////////////////////
+#//////////////////////////////////////////////////////////////////////////////
+# FILE: index.py
+# AUTHOR: David Ruvolo
+# CREATED: 2021-10-19
+# MODIFIED: 2022-09-05
+# PURPOSE: compile and build EMX files
+# STATUS: stabe
+# PACKAGES: yamlemxconvert
+# COMMENTS: NA
+#//////////////////////////////////////////////////////////////////////////////
 
 from clize import run
-from rd_datamodel.utils.emxtools import buildEmxTags, extractTagId
-import yamlemxconvert
+# from rd_datamodel.utils.emxtools import buildEmxTags, extractTagId
+from yamlemxconvert.convert import Convert
+from yamlemxconvert.convert2 import Convert2
 import yaml
 import re
 
 # pathToProfile='profiles/cosas.yaml'
+
+# emx2 = yamlemxconvert.Convert2(file='model/umdm.yaml')
+# emx2.convert(flattenNestedPkgs=False)
+
 
 def buildModel(pathToProfile):
   """Build Emx Model
@@ -34,18 +39,19 @@ def buildModel(pathToProfile):
   # build emx1 version with options
   emx1options=profile['buildOptions']['emx1']
   if emx1options['active']:
-    emx1 = yamlemxconvert.Convert(files=profile['modelFilePath'])
+    emx1 = Convert(files=profile['modelFilePath'])
     emx1.convert()
-      
-    tags=emx1.tags
-    tags.extend(buildEmxTags(emx1.packages))
-    tags.extend(buildEmxTags(emx1.entities))
-    tags.extend(buildEmxTags(emx1.attributes))
-    emx1.tags=tags
+    
+    emx1.compileSemanticTags()
+    # tags=emx1.tags
+    # tags.extend(buildEmxTags(emx1.packages))
+    # tags.extend(buildEmxTags(emx1.entities))
+    # tags.extend(buildEmxTags(emx1.attributes))
+    # emx1.tags=tags
         
-    extractTagId(emx1.packages)
-    extractTagId(emx1.entities)
-    extractTagId(emx1.attributes)
+    # extractTagId(emx1.packages)
+    # extractTagId(emx1.entities)
+    # extractTagId(emx1.attributes)
         
     pkgMetaDescription = {
       '<version>': f"(v{emx1.version})" if emx1.version else None,
@@ -119,16 +125,18 @@ def buildModel(pathToProfile):
   emx2options=profile['buildOptions']['emx2']
   if emx2options['active']:
     for model in profile['modelFilePath']:
-      emx2=yamlemxconvert.Convert2(file=model)
-      emx2.convert()
+      emx2=Convert2(file=model)
+      emx2.convert(keepModelPackage=True)
       
       # rename refSchema
       if emx2options.get('splitLookups'):
         schemaOptions=profile['overrideEmxAttributes']['_all']['renameRefEntityToSchema']
         for row in emx2.model['molgenis']:
-          if row.get('refTable'):
-            if schemaOptions['currentName'] in row['refTable']:
-              row['refTable']=schemaOptions['newName']
+          if row.get('refSchema'):
+            if schemaOptions['currentName'] == row['refSchema']:
+              row['refSchema']=schemaOptions['newName']
+            if row['refSchema'] == emx2.name:
+              row['refSchema'] = None
               
       emx2_model_name=emx2.filename.replace('.yaml','_emx2')
       emx2.write(name=emx2_model_name, outDir='dist/')
