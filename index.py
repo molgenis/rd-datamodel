@@ -132,12 +132,40 @@ def buildModel(pathToProfile):
       if emx2options.get('splitLookups'):
         schemaOptions=profile['overrideEmxAttributes']['_all']['renameRefEntityToSchema']
         for row in emx2.model['molgenis']:
+          
+          # change refScheme for splitting nested EMX1 packages
           if row.get('refSchema'):
             if schemaOptions['currentName'] == row['refSchema']:
               row['refSchema']=schemaOptions['newName']
             if row['refSchema'] == emx2.name:
               row['refSchema'] = None
-              
+          
+          # format semantic tags
+          if row.get('semantics'):
+            tag = row.get('semantics')
+            search = re.search(r'^([0-9a-zA-Z]{1,}([:_])[0-9a-zA-Z]{1,}\s+([a-zA-Z0-9.]{1,}))', tag)
+            if search:
+              newtag = re.split(r'\s+', tag)[1]
+              row['semantics'] = newtag
+      
+      # bind extra emx2 definitions
+      if profile.get('additionalRecordsForEmx2'):
+        emxExtensions = profile.get('additionalRecordsForEmx2')
+        
+        # bring over extension key names to model
+        for row in emx2.model['molgenis']:
+          if 'refBack' not in row:
+            row['refBack'] = None
+        
+        # bring over model key names to emx extensions
+        for row in emxExtensions:
+          for key in emx2.model['molgenis'][0].keys():
+            if key not in row:
+              row[key] = None
+        
+        # append extensions to model
+        emx2.model['molgenis'].extend(emxExtensions)
+
       emx2_model_name=emx2.filename.replace('.yaml','_emx2')
       emx2.write(name=emx2_model_name, outDir='dist/')
       

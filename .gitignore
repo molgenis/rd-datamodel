@@ -144,3 +144,7 @@ _exclude
 .env
 
 node_modules
+
+# ignore open ms files
+~$*
+~$

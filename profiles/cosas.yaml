@@ -23,7 +23,7 @@ modelFilePath: [model/umdm.yaml, model/umdm_lookups.yaml]
 #
 buildOptions: 
   emx1:
-    active: true
+    active: false
     generateSchema: true
     outputDir: dist
     schemasDir: schemas
@@ -292,3 +292,63 @@ overrideEmxAttributes:
       # dateFileCreated: '',
       # alternativeFileIdentifiers: '',
     }
+
+
+# bind emx2 extras
+additionalRecordsForEmx2: [
+  {
+    'tableName': 'subjects',
+    'columnName': 'linkedClinicalRecords',
+    'columnType': 'refBack',
+    'refTable': 'clinical',
+    'refBack': 'belongsToSubject',
+    'semantics': 'http://purl.obolibrary.org/obo/NCIT_C87853',
+    'description': 'A unique proper name or character sequence that identifies this particular clinical examination.'
+  },
+  {
+    'tableName': 'subjects',
+    'columnName': 'linkedSamples',
+    'columnType': 'refBack',
+    'refTable': 'samples',
+    'refBack': 'belongsToSubject',
+    'semantics': 'http://edamontology.org/data_3273',
+    'description': 'Name or other identifier of an entry from a biosample database.'
+  },
+  {
+    'tableName': 'subjects',
+    'columnName': 'linkedFiles',
+    'columnType': 'refBack',
+    'refTable': 'files',
+    'refBack': 'belongsToSubject',
+    'semantics': 'http://purl.obolibrary.org/obo/NCIT_C171191',
+    'description': 'The literal identifier for an electronic file.'
+  },
+  {
+    'tableName': 'samples',
+    'columnName': 'linkedSamplePreparations',
+    'columnType': 'refBack',
+    'refTable': 'samplePreparation',
+    'refBack': 'belongsToSample',
+    'semantics': 'http://edamontology.org/data_3273',
+    'description': 'Name or other identifier of an entry from a biosample database.'
+  },
+  {
+    'tableName': 'samplePreparation',
+    'columnName': 'linkedSequences',
+    'columnType': 'refBack',
+    'refTable': 'sequencing',
+    'refBack': 'belongsToSamplePreparation',
+    'semantics': 'http://purl.obolibrary.org/obo/NCIT_C132299',
+    'description': 'A unique proper name or character sequence that identifies this particular sample preparation.'
+  },
+  {
+    'tableName': 'sequencing',
+    'columnName': 'linkedFiles',
+    'columnType': 'refBack',
+    'refTable': 'files',
+    'refBack': 'producedBySequencing',
+    'semantics': 'http://purl.obolibrary.org/obo/NCIT_C171191',
+    'description': 'The literal identifier for an electronic file.'
+  }
+
+]
