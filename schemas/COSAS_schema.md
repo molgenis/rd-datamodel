@@ -5,7 +5,7 @@
 | Name | Description | Parent |
 |:---- |:-----------|:------|
 | umdm | The Catalog of Sequencing and Array Samples (v1.2.0, 2022-06-07) | - |
-| umdm_lookups | Lookup tables for the Unified Molgenis Data Model (UMDM)(v1.2.0, 2022-06-07) | umdm |
+| umdm_lookups | Lookup tables for the Unified Molgenis Data Model (UMDM) (v1.2.0, 2022-06-07) | umdm |
 
 ## Entities
 
@@ -13,7 +13,8 @@
 |:---- |:-----------|:-------|
 | subjects | Persons who are observed, analyzed, examined, investigated, experimented upon, or/and treated in the course of a particular study | umdm |
 | studies | A detailed examination, analysis, or critical inspection of one or multiple subjects designed to discover facts. | umdm |
-| consent | Consent given by a patient to a surgical or medical procedure or participation in a study, examination or analysis after achieving an understanding of the relevant medical facts and the risks involved. | umdm |
+| consent | A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used. | umdm |
+| signedconsents | Consent given by a patient to a surgical or medical procedure or participation in a study, examination or analysis after achieving an understanding of the relevant medical facts and the risks involved. | umdm |
 | clinical | Findings and circumstances relating to the examination and treatment of a patient. | umdm |
 | samples | A sample is a limited quantity of something (e.g. an individual or set of individuals from a population, or a portion of a material) to be used for testing, analysis, inspection, investigation, demonstration, or trial use. | umdm |
 | samplePreparation | A sample preparation for a nucleic acids sequencing assay. | umdm |
@@ -1015,6 +1016,53 @@ A detailed examination, analysis, or critical inspection of one or multiple subj
 
 ### Entity: umdm_consent
 
+A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used.
+
+| Name | Label | Description | Data Type |
+|:---- |:-----|:-----------|:---------|
+| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
+| Name | Label | Description | Data Type |
+|:---- |:-----|:-----------|:---------|
+| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
+| belongsToSubject | MDN_UMCGnr | Reference to the subject to whom this individual consent applies. | xref |
+| Name | Label | Description | Data Type |
+|:---- |:-----|:-----------|:---------|
+| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
+| belongsToSubject | MDN_UMCGnr | Reference to the subject to whom this individual consent applies. | xref |
+| signedForms | - | Consent given by a patient to a surgical or medical procedure or participation in a study, examination or analysis after achieving an understanding of the relevant medical facts and the risks involved. | mref |
+| Name | Label | Description | Data Type |
+|:---- |:-----|:-----------|:---------|
+| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
+| belongsToSubject | MDN_UMCGnr | Reference to the subject to whom this individual consent applies. | xref |
+| signedForms | - | Consent given by a patient to a surgical or medical procedure or participation in a study, examination or analysis after achieving an understanding of the relevant medical facts and the risks involved. | mref |
+| allowUseOfMaterial | - | This data use limitation indicates that use includes methods development research(e.g., development of software or algorithms). Anonymous use of materials for the development of or for improvement of new techniques. | bool |
+| Name | Label | Description | Data Type |
+|:---- |:-----|:-----------|:---------|
+| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
+| belongsToSubject | MDN_UMCGnr | Reference to the subject to whom this individual consent applies. | xref |
+| signedForms | - | Consent given by a patient to a surgical or medical procedure or participation in a study, examination or analysis after achieving an understanding of the relevant medical facts and the risks involved. | mref |
+| allowUseOfMaterial | - | This data use limitation indicates that use includes methods development research(e.g., development of software or algorithms). Anonymous use of materials for the development of or for improvement of new techniques. | bool |
+| allowRecontacting | - | The procedure of recontacting the patient for specified reasons. This means the patient agrees to be re-identifiable under those circumstances. | bool |
+| Name | Label | Description | Data Type |
+|:---- |:-----|:-----------|:---------|
+| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
+| belongsToSubject | MDN_UMCGnr | Reference to the subject to whom this individual consent applies. | xref |
+| signedForms | - | Consent given by a patient to a surgical or medical procedure or participation in a study, examination or analysis after achieving an understanding of the relevant medical facts and the risks involved. | mref |
+| allowUseOfMaterial | - | This data use limitation indicates that use includes methods development research(e.g., development of software or algorithms). Anonymous use of materials for the development of or for improvement of new techniques. | bool |
+| allowRecontacting | - | The procedure of recontacting the patient for specified reasons. This means the patient agrees to be re-identifiable under those circumstances. | bool |
+| allowGeneralResearchUse | - | This data use limitation indicates that use is allowed for general research use for any research purpose. | bool |
+| Name | Label | Description | Data Type |
+|:---- |:-----|:-----------|:---------|
+| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
+| belongsToSubject | MDN_UMCGnr | Reference to the subject to whom this individual consent applies. | xref |
+| signedForms | - | Consent given by a patient to a surgical or medical procedure or participation in a study, examination or analysis after achieving an understanding of the relevant medical facts and the risks involved. | mref |
+| allowUseOfMaterial | - | This data use limitation indicates that use includes methods development research(e.g., development of software or algorithms). Anonymous use of materials for the development of or for improvement of new techniques. | bool |
+| allowRecontacting | - | The procedure of recontacting the patient for specified reasons. This means the patient agrees to be re-identifiable under those circumstances. | bool |
+| allowGeneralResearchUse | - | This data use limitation indicates that use is allowed for general research use for any research purpose. | bool |
+| allowRecontactingForIncidentalFindings | - | Willingness to be recontacted when new knowledge regarding incidental findings becomes available to benefit the patient. | bool |
+
+### Entity: umdm_signedconsents
+
 Consent given by a patient to a surgical or medical procedure or participation in a study, examination or analysis after achieving an understanding of the relevant medical facts and the risks involved.
 
 | Name | Label | Description | Data Type |
@@ -1023,228 +1071,42 @@ Consent given by a patient to a surgical or medical procedure or participation i
 | Name | Label | Description | Data Type |
 |:---- |:-----|:-----------|:---------|
 | consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
-| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
+| belongsToSubject | MDN_UMCGnr | Reference to the subject to whom this individual consent applies. | xref |
 | Name | Label | Description | Data Type |
 |:---- |:-----|:-----------|:---------|
 | consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
-| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
+| belongsToSubject | MDN_UMCGnr | Reference to the subject to whom this individual consent applies. | xref |
+| consentFormUsed | - | Reference to the informed consent form that was signed. Points to a particular instance of leaflet and consent form that usually exists as a record (i.e. a row) within the same database as this individual consent. | string |
+| Name | Label | Description | Data Type |
+|:---- |:-----|:-----------|:---------|
+| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
+| belongsToSubject | MDN_UMCGnr | Reference to the subject to whom this individual consent applies. | xref |
+| consentFormUsed | - | Reference to the informed consent form that was signed. Points to a particular instance of leaflet and consent form that usually exists as a record (i.e. a row) within the same database as this individual consent. | string |
 | collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
 | Name | Label | Description | Data Type |
 |:---- |:-----|:-----------|:---------|
 | consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
-| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
+| belongsToSubject | MDN_UMCGnr | Reference to the subject to whom this individual consent applies. | xref |
+| consentFormUsed | - | Reference to the informed consent form that was signed. Points to a particular instance of leaflet and consent form that usually exists as a record (i.e. a row) within the same database as this individual consent. | string |
 | collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
-| signingDate | - | A date specification that designates when this individual consent form was signed. | date |
+| dateFormedSigned | - | A date specification that designates when this individual consent form was signed. | date |
 | Name | Label | Description | Data Type |
 |:---- |:-----|:-----------|:---------|
 | consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
-| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
+| belongsToSubject | MDN_UMCGnr | Reference to the subject to whom this individual consent applies. | xref |
+| consentFormUsed | - | Reference to the informed consent form that was signed. Points to a particular instance of leaflet and consent form that usually exists as a record (i.e. a row) within the same database as this individual consent. | string |
 | collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
-| signingDate | - | A date specification that designates when this individual consent form was signed. | date |
-| validUntil | - | End date of the validity of this individual consent. | date |
-| Name | Label | Description | Data Type |
-|:---- |:-----|:-----------|:---------|
-| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
-| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
-| collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
-| signingDate | - | A date specification that designates when this individual consent form was signed. | date |
-| validUntil | - | End date of the validity of this individual consent. | date |
+| dateFormedSigned | - | A date specification that designates when this individual consent form was signed. | date |
 | consentWithdrawn | - | An indication that the consent to participate in the study or one or more segments of the study has been revoked. | bool |
 | Name | Label | Description | Data Type |
 |:---- |:-----|:-----------|:---------|
 | consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
-| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
+| belongsToSubject | MDN_UMCGnr | Reference to the subject to whom this individual consent applies. | xref |
+| consentFormUsed | - | Reference to the informed consent form that was signed. Points to a particular instance of leaflet and consent form that usually exists as a record (i.e. a row) within the same database as this individual consent. | string |
 | collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
-| signingDate | - | A date specification that designates when this individual consent form was signed. | date |
-| validUntil | - | End date of the validity of this individual consent. | date |
+| dateFormedSigned | - | A date specification that designates when this individual consent form was signed. | date |
 | consentWithdrawn | - | An indication that the consent to participate in the study or one or more segments of the study has been revoked. | bool |
-| dataUsePermission | - | A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used. | mref |
-| Name | Label | Description | Data Type |
-|:---- |:-----|:-----------|:---------|
-| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
-| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
-| collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
-| signingDate | - | A date specification that designates when this individual consent form was signed. | date |
-| validUntil | - | End date of the validity of this individual consent. | date |
-| consentWithdrawn | - | An indication that the consent to participate in the study or one or more segments of the study has been revoked. | bool |
-| dataUsePermission | - | A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used. | mref |
-| dataUseModifiers | - | Data use modifiers indicate additional conditions for use. For instance, a dataset is restricted to investigations into specific diseases or performed at specific geographical locations. | mref |
-| Name | Label | Description | Data Type |
-|:---- |:-----|:-----------|:---------|
-| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
-| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
-| collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
-| signingDate | - | A date specification that designates when this individual consent form was signed. | date |
-| validUntil | - | End date of the validity of this individual consent. | date |
-| consentWithdrawn | - | An indication that the consent to participate in the study or one or more segments of the study has been revoked. | bool |
-| dataUsePermission | - | A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used. | mref |
-| dataUseModifiers | - | Data use modifiers indicate additional conditions for use. For instance, a dataset is restricted to investigations into specific diseases or performed at specific geographical locations. | mref |
-| dataUseSpecification | - | Further specification of applied data use permissions and modifiers. For example, a list of countries in case of geographic restrictions or a list of diseases when restricted to disease-specific research. | text |
-| Name | Label | Description | Data Type |
-|:---- |:-----|:-----------|:---------|
-| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
-| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
-| collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
-| signingDate | - | A date specification that designates when this individual consent form was signed. | date |
-| validUntil | - | End date of the validity of this individual consent. | date |
-| consentWithdrawn | - | An indication that the consent to participate in the study or one or more segments of the study has been revoked. | bool |
-| dataUsePermission | - | A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used. | mref |
-| dataUseModifiers | - | Data use modifiers indicate additional conditions for use. For instance, a dataset is restricted to investigations into specific diseases or performed at specific geographical locations. | mref |
-| dataUseSpecification | - | Further specification of applied data use permissions and modifiers. For example, a list of countries in case of geographic restrictions or a list of diseases when restricted to disease-specific research. | text |
-| allowIncidentalFindingRecontact | - | A planned process for a subject agrees not to be informed about any incidental finding. | bool |
-| Name | Label | Description | Data Type |
-|:---- |:-----|:-----------|:---------|
-| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
-| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
-| collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
-| signingDate | - | A date specification that designates when this individual consent form was signed. | date |
-| validUntil | - | End date of the validity of this individual consent. | date |
-| consentWithdrawn | - | An indication that the consent to participate in the study or one or more segments of the study has been revoked. | bool |
-| dataUsePermission | - | A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used. | mref |
-| dataUseModifiers | - | Data use modifiers indicate additional conditions for use. For instance, a dataset is restricted to investigations into specific diseases or performed at specific geographical locations. | mref |
-| dataUseSpecification | - | Further specification of applied data use permissions and modifiers. For example, a list of countries in case of geographic restrictions or a list of diseases when restricted to disease-specific research. | text |
-| allowIncidentalFindingRecontact | - | A planned process for a subject agrees not to be informed about any incidental finding. | bool |
-| allowMatchmaker | - | Permission is given for MatchMaking | bool |
-| Name | Label | Description | Data Type |
-|:---- |:-----|:-----------|:---------|
-| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
-| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
-| collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
-| signingDate | - | A date specification that designates when this individual consent form was signed. | date |
-| validUntil | - | End date of the validity of this individual consent. | date |
-| consentWithdrawn | - | An indication that the consent to participate in the study or one or more segments of the study has been revoked. | bool |
-| dataUsePermission | - | A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used. | mref |
-| dataUseModifiers | - | Data use modifiers indicate additional conditions for use. For instance, a dataset is restricted to investigations into specific diseases or performed at specific geographical locations. | mref |
-| dataUseSpecification | - | Further specification of applied data use permissions and modifiers. For example, a list of countries in case of geographic restrictions or a list of diseases when restricted to disease-specific research. | text |
-| allowIncidentalFindingRecontact | - | A planned process for a subject agrees not to be informed about any incidental finding. | bool |
-| allowMatchmaker | - | Permission is given for MatchMaking | bool |
-| allowRecontacting | - | The procedure of recontacting the patient for specified reasons. This means the patient agrees to be re-identifiable under those circumstances. | bool |
-| Name | Label | Description | Data Type |
-|:---- |:-----|:-----------|:---------|
-| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
-| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
-| collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
-| signingDate | - | A date specification that designates when this individual consent form was signed. | date |
-| validUntil | - | End date of the validity of this individual consent. | date |
-| consentWithdrawn | - | An indication that the consent to participate in the study or one or more segments of the study has been revoked. | bool |
-| dataUsePermission | - | A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used. | mref |
-| dataUseModifiers | - | Data use modifiers indicate additional conditions for use. For instance, a dataset is restricted to investigations into specific diseases or performed at specific geographical locations. | mref |
-| dataUseSpecification | - | Further specification of applied data use permissions and modifiers. For example, a list of countries in case of geographic restrictions or a list of diseases when restricted to disease-specific research. | text |
-| allowIncidentalFindingRecontact | - | A planned process for a subject agrees not to be informed about any incidental finding. | bool |
-| allowMatchmaker | - | Permission is given for MatchMaking | bool |
-| allowRecontacting | - | The procedure of recontacting the patient for specified reasons. This means the patient agrees to be re-identifiable under those circumstances. | bool |
-| belongsToDataRelease | - | The act of making data or other structured information accessible to the public or to the user group of a database. | mref |
-| Name | Label | Description | Data Type |
-|:---- |:-----|:-----------|:---------|
-| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
-| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
-| collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
-| signingDate | - | A date specification that designates when this individual consent form was signed. | date |
-| validUntil | - | End date of the validity of this individual consent. | date |
-| consentWithdrawn | - | An indication that the consent to participate in the study or one or more segments of the study has been revoked. | bool |
-| dataUsePermission | - | A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used. | mref |
-| dataUseModifiers | - | Data use modifiers indicate additional conditions for use. For instance, a dataset is restricted to investigations into specific diseases or performed at specific geographical locations. | mref |
-| dataUseSpecification | - | Further specification of applied data use permissions and modifiers. For example, a list of countries in case of geographic restrictions or a list of diseases when restricted to disease-specific research. | text |
-| allowIncidentalFindingRecontact | - | A planned process for a subject agrees not to be informed about any incidental finding. | bool |
-| allowMatchmaker | - | Permission is given for MatchMaking | bool |
-| allowRecontacting | - | The procedure of recontacting the patient for specified reasons. This means the patient agrees to be re-identifiable under those circumstances. | bool |
-| belongsToDataRelease | - | The act of making data or other structured information accessible to the public or to the user group of a database. | mref |
-| recordMetadata | - | metadata is data that provides information about data. | compound |
-| Name | Label | Description | Data Type |
-|:---- |:-----|:-----------|:---------|
-| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
-| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
-| collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
-| signingDate | - | A date specification that designates when this individual consent form was signed. | date |
-| validUntil | - | End date of the validity of this individual consent. | date |
-| consentWithdrawn | - | An indication that the consent to participate in the study or one or more segments of the study has been revoked. | bool |
-| dataUsePermission | - | A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used. | mref |
-| dataUseModifiers | - | Data use modifiers indicate additional conditions for use. For instance, a dataset is restricted to investigations into specific diseases or performed at specific geographical locations. | mref |
-| dataUseSpecification | - | Further specification of applied data use permissions and modifiers. For example, a list of countries in case of geographic restrictions or a list of diseases when restricted to disease-specific research. | text |
-| allowIncidentalFindingRecontact | - | A planned process for a subject agrees not to be informed about any incidental finding. | bool |
-| allowMatchmaker | - | Permission is given for MatchMaking | bool |
-| allowRecontacting | - | The procedure of recontacting the patient for specified reasons. This means the patient agrees to be re-identifiable under those circumstances. | bool |
-| belongsToDataRelease | - | The act of making data or other structured information accessible to the public or to the user group of a database. | mref |
-| recordMetadata | - | metadata is data that provides information about data. | compound |
-| comments | - | A written explanation, observation or criticism added to textual material. | text |
-| Name | Label | Description | Data Type |
-|:---- |:-----|:-----------|:---------|
-| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
-| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
-| collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
-| signingDate | - | A date specification that designates when this individual consent form was signed. | date |
-| validUntil | - | End date of the validity of this individual consent. | date |
-| consentWithdrawn | - | An indication that the consent to participate in the study or one or more segments of the study has been revoked. | bool |
-| dataUsePermission | - | A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used. | mref |
-| dataUseModifiers | - | Data use modifiers indicate additional conditions for use. For instance, a dataset is restricted to investigations into specific diseases or performed at specific geographical locations. | mref |
-| dataUseSpecification | - | Further specification of applied data use permissions and modifiers. For example, a list of countries in case of geographic restrictions or a list of diseases when restricted to disease-specific research. | text |
-| allowIncidentalFindingRecontact | - | A planned process for a subject agrees not to be informed about any incidental finding. | bool |
-| allowMatchmaker | - | Permission is given for MatchMaking | bool |
-| allowRecontacting | - | The procedure of recontacting the patient for specified reasons. This means the patient agrees to be re-identifiable under those circumstances. | bool |
-| belongsToDataRelease | - | The act of making data or other structured information accessible to the public or to the user group of a database. | mref |
-| recordMetadata | - | metadata is data that provides information about data. | compound |
-| comments | - | A written explanation, observation or criticism added to textual material. | text |
-| dateRecordCreated | - | The date on which the activity or entity is created. | datetime |
-| Name | Label | Description | Data Type |
-|:---- |:-----|:-----------|:---------|
-| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
-| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
-| collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
-| signingDate | - | A date specification that designates when this individual consent form was signed. | date |
-| validUntil | - | End date of the validity of this individual consent. | date |
-| consentWithdrawn | - | An indication that the consent to participate in the study or one or more segments of the study has been revoked. | bool |
-| dataUsePermission | - | A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used. | mref |
-| dataUseModifiers | - | Data use modifiers indicate additional conditions for use. For instance, a dataset is restricted to investigations into specific diseases or performed at specific geographical locations. | mref |
-| dataUseSpecification | - | Further specification of applied data use permissions and modifiers. For example, a list of countries in case of geographic restrictions or a list of diseases when restricted to disease-specific research. | text |
-| allowIncidentalFindingRecontact | - | A planned process for a subject agrees not to be informed about any incidental finding. | bool |
-| allowMatchmaker | - | Permission is given for MatchMaking | bool |
-| allowRecontacting | - | The procedure of recontacting the patient for specified reasons. This means the patient agrees to be re-identifiable under those circumstances. | bool |
-| belongsToDataRelease | - | The act of making data or other structured information accessible to the public or to the user group of a database. | mref |
-| recordMetadata | - | metadata is data that provides information about data. | compound |
-| comments | - | A written explanation, observation or criticism added to textual material. | text |
-| dateRecordCreated | - | The date on which the activity or entity is created. | datetime |
-| recordCreatedBy | - | Indicates the person or authoritative body who brought the item into existence. | string |
-| Name | Label | Description | Data Type |
-|:---- |:-----|:-----------|:---------|
-| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
-| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
-| collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
-| signingDate | - | A date specification that designates when this individual consent form was signed. | date |
-| validUntil | - | End date of the validity of this individual consent. | date |
-| consentWithdrawn | - | An indication that the consent to participate in the study or one or more segments of the study has been revoked. | bool |
-| dataUsePermission | - | A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used. | mref |
-| dataUseModifiers | - | Data use modifiers indicate additional conditions for use. For instance, a dataset is restricted to investigations into specific diseases or performed at specific geographical locations. | mref |
-| dataUseSpecification | - | Further specification of applied data use permissions and modifiers. For example, a list of countries in case of geographic restrictions or a list of diseases when restricted to disease-specific research. | text |
-| allowIncidentalFindingRecontact | - | A planned process for a subject agrees not to be informed about any incidental finding. | bool |
-| allowMatchmaker | - | Permission is given for MatchMaking | bool |
-| allowRecontacting | - | The procedure of recontacting the patient for specified reasons. This means the patient agrees to be re-identifiable under those circumstances. | bool |
-| belongsToDataRelease | - | The act of making data or other structured information accessible to the public or to the user group of a database. | mref |
-| recordMetadata | - | metadata is data that provides information about data. | compound |
-| comments | - | A written explanation, observation or criticism added to textual material. | text |
-| dateRecordCreated | - | The date on which the activity or entity is created. | datetime |
-| recordCreatedBy | - | Indicates the person or authoritative body who brought the item into existence. | string |
-| dateRecordUpdated | - | The date (and time) on which report was updated after it had been submitted. | datetime |
-| Name | Label | Description | Data Type |
-|:---- |:-----|:-----------|:---------|
-| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
-| belongsToSubject | MDN_UMCGnr | An individual who is the subject of personal data, persons to whom data refers, and from whom data are collected, processed, and stored. | xref |
-| collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
-| signingDate | - | A date specification that designates when this individual consent form was signed. | date |
-| validUntil | - | End date of the validity of this individual consent. | date |
-| consentWithdrawn | - | An indication that the consent to participate in the study or one or more segments of the study has been revoked. | bool |
-| dataUsePermission | - | A data item that is used to indicate consent permissions for datasets and/or materials, and relates to the purposes for which datasets and/or material might be used. | mref |
-| dataUseModifiers | - | Data use modifiers indicate additional conditions for use. For instance, a dataset is restricted to investigations into specific diseases or performed at specific geographical locations. | mref |
-| dataUseSpecification | - | Further specification of applied data use permissions and modifiers. For example, a list of countries in case of geographic restrictions or a list of diseases when restricted to disease-specific research. | text |
-| allowIncidentalFindingRecontact | - | A planned process for a subject agrees not to be informed about any incidental finding. | bool |
-| allowMatchmaker | - | Permission is given for MatchMaking | bool |
-| allowRecontacting | - | The procedure of recontacting the patient for specified reasons. This means the patient agrees to be re-identifiable under those circumstances. | bool |
-| belongsToDataRelease | - | The act of making data or other structured information accessible to the public or to the user group of a database. | mref |
-| recordMetadata | - | metadata is data that provides information about data. | compound |
-| comments | - | A written explanation, observation or criticism added to textual material. | text |
-| dateRecordCreated | - | The date on which the activity or entity is created. | datetime |
-| recordCreatedBy | - | Indicates the person or authoritative body who brought the item into existence. | string |
-| dateRecordUpdated | - | The date (and time) on which report was updated after it had been submitted. | datetime |
-| wasUpdatedBy | - | An entity which is updated by another entity or an agent. | string |
+| system | - | - | string |
 
 ### Entity: umdm_clinical
 

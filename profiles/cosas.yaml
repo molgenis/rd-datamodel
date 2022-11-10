@@ -2,7 +2,7 @@
 # NAME: cosas.yaml
 # AUTHOR: David Ruvolo
 # CREATED: 2022-06-02
-# MODIFIED: 2022-07-19
+# MODIFIED: 2022-11-09
 # PURPOSE: UMDM profile for the COSAS database
 # DEPENDENCIES: NA
 # COMMENTS: None
@@ -23,7 +23,7 @@ modelFilePath: [model/umdm.yaml, model/umdm_lookups.yaml]
 #
 buildOptions: 
   emx1:
-    active: false
+    active: true
     generateSchema: true
     outputDir: dist
     schemasDir: schemas
@@ -144,7 +144,7 @@ overrideEmxAttributes:
     attributesToHide: []
     attributeLabelsToOverride: {
       # consentID: '',
-      belongsToSubject: MDN_UMCGnr,
+      # belongsToSubject: MDN_UMCGnr,
       # collectedBy: '',
       # signingDate: '',
       # validUntil: '',
@@ -155,6 +155,28 @@ overrideEmxAttributes:
       # allowIncidentalFindingRecontact: '',
       # allowMatchmaker: '',
       # allowRecontacting: '',
+      
+      # NEW MAPPINGS
+      # consentID: '',
+      belongsToSubject: MDN_UMCGnr,
+      # signedForms: '',
+      # allowUseOfMaterial: '',
+      # allowRecontacting: '',
+      # allowGeneralResearchUse: '',
+      # allowRecontactingForIncidentalFindings: ''
+    }
+    
+  signedconsents:
+    overrideTableLabelWith:
+    attributesToHide: []
+    attributeLabelsToOverride: {
+      # consentID: '',
+      belongsToSubject: MDN_UMCGnr,
+      # consentFormUsed: '',
+      # collectedBy: '',
+      # dateFormedSigned: '',
+      # consentWithdrawn: ''
+      # system: ''
     }
 
   #////////////////////////////////////
