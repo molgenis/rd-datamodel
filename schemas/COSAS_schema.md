@@ -1076,35 +1076,45 @@ Consent given by a patient to a surgical or medical procedure or participation i
 |:---- |:-----|:-----------|:---------|
 | consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
 | belongsToSubject | MDN_UMCGnr | Reference to the subject to whom this individual consent applies. | xref |
+| consentFormType | - | A document that either prescribes actions or prescribes the permissions, obligations, restrictions, or protections relating to public or legal policy. | string |
+| Name | Label | Description | Data Type |
+|:---- |:-----|:-----------|:---------|
+| consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
+| belongsToSubject | MDN_UMCGnr | Reference to the subject to whom this individual consent applies. | xref |
+| consentFormType | - | A document that either prescribes actions or prescribes the permissions, obligations, restrictions, or protections relating to public or legal policy. | string |
 | consentFormUsed | - | Reference to the informed consent form that was signed. Points to a particular instance of leaflet and consent form that usually exists as a record (i.e. a row) within the same database as this individual consent. | string |
 | Name | Label | Description | Data Type |
 |:---- |:-----|:-----------|:---------|
 | consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
 | belongsToSubject | MDN_UMCGnr | Reference to the subject to whom this individual consent applies. | xref |
+| consentFormType | - | A document that either prescribes actions or prescribes the permissions, obligations, restrictions, or protections relating to public or legal policy. | string |
 | consentFormUsed | - | Reference to the informed consent form that was signed. Points to a particular instance of leaflet and consent form that usually exists as a record (i.e. a row) within the same database as this individual consent. | string |
 | collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
 | Name | Label | Description | Data Type |
 |:---- |:-----|:-----------|:---------|
 | consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
 | belongsToSubject | MDN_UMCGnr | Reference to the subject to whom this individual consent applies. | xref |
+| consentFormType | - | A document that either prescribes actions or prescribes the permissions, obligations, restrictions, or protections relating to public or legal policy. | string |
 | consentFormUsed | - | Reference to the informed consent form that was signed. Points to a particular instance of leaflet and consent form that usually exists as a record (i.e. a row) within the same database as this individual consent. | string |
 | collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
-| dateFormedSigned | - | A date specification that designates when this individual consent form was signed. | date |
+| dateFormSigned | - | A date specification that designates when this individual consent form was signed. | date |
 | Name | Label | Description | Data Type |
 |:---- |:-----|:-----------|:---------|
 | consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
 | belongsToSubject | MDN_UMCGnr | Reference to the subject to whom this individual consent applies. | xref |
+| consentFormType | - | A document that either prescribes actions or prescribes the permissions, obligations, restrictions, or protections relating to public or legal policy. | string |
 | consentFormUsed | - | Reference to the informed consent form that was signed. Points to a particular instance of leaflet and consent form that usually exists as a record (i.e. a row) within the same database as this individual consent. | string |
 | collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
-| dateFormedSigned | - | A date specification that designates when this individual consent form was signed. | date |
+| dateFormSigned | - | A date specification that designates when this individual consent form was signed. | date |
 | consentWithdrawn | - | An indication that the consent to participate in the study or one or more segments of the study has been revoked. | bool |
 | Name | Label | Description | Data Type |
 |:---- |:-----|:-----------|:---------|
 | consentID&#8251; | - | A unique proper name or character sequence that identifies this particular signed individual consent. | string |
 | belongsToSubject | MDN_UMCGnr | Reference to the subject to whom this individual consent applies. | xref |
+| consentFormType | - | A document that either prescribes actions or prescribes the permissions, obligations, restrictions, or protections relating to public or legal policy. | string |
 | consentFormUsed | - | Reference to the informed consent form that was signed. Points to a particular instance of leaflet and consent form that usually exists as a record (i.e. a row) within the same database as this individual consent. | string |
 | collectedBy | - | Indicates the person, group, or institution who performed the collection act. | string |
-| dateFormedSigned | - | A date specification that designates when this individual consent form was signed. | date |
+| dateFormSigned | - | A date specification that designates when this individual consent form was signed. | date |
 | consentWithdrawn | - | An indication that the consent to participate in the study or one or more segments of the study has been revoked. | bool |
 | system | - | - | string |
 
